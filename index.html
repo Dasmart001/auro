@@ -727,7 +727,7 @@ function waitForFirebase() {
           if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
           db = firebase.firestore();
           // Enable offline persistence for better reliability
-          db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+          
           resolve();
         } catch(e) { reject(e); }
       } else if (attempts > 50) {
@@ -741,7 +741,7 @@ function waitForFirebase() {
 }
 
 // Wrap every Firestore call with a 15s timeout
-function withTimeout(promise, ms = 15000) {
+function withTimeout(promise, ms = 30000) {
   return Promise.race([
     promise,
     new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
@@ -890,7 +890,7 @@ async function doLogin() {
   } catch(e) {
     console.error('Login error:', e);
     if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
-    else err.textContent = 'Could not sign in. Check your internet connection.';
+    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
   } finally {
     showLoader(false);
     setAuthBtn('li-btn', true);
@@ -941,7 +941,7 @@ async function doSignup() {
   } catch(e) {
     console.error('Signup error:', e);
     if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
-    else err.textContent = 'Could not create account. Check your internet connection.';
+    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
   } finally {
     showLoader(false);
     setAuthBtn('su-btn', true);
