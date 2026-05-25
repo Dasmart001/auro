@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>AURO · Private Wealth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Firebase compat v9 — most stable for HTML-only apps -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020205;--s1:#0F0F18;--s2:#141420;
+  --b1:rgba(255,255,255,0.055);--b2:rgba(255,255,255,0.1);
+  --gold:#C9A87C;--gold2:#E5C99A;--gd:rgba(201,168,124,0.08);--gb:rgba(201,168,124,0.22);
+  --plat:#EDEDF2;--sil:#7A7A8C;--dim:#474758;
+  --ok:#5CC88A;--okd:rgba(92,200,138,0.1);--okb:rgba(92,200,138,0.22);
+  --err:#D97070;--errd:rgba(217,112,112,0.1);--errb:rgba(217,112,112,0.22);
+  --r:13px;--rl:18px;--rx:24px;
+  --d:'Cormorant Garamond',serif;--b:'Outfit',sans-serif;
+  --ez:cubic-bezier(0.22,1,0.36,1)
+}
+html,body{min-height:100vh;background:var(--void);color:var(--plat);font-family:var(--b);font-size:15px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");background-size:300px}
+.root{max-width:430px;margin:0 auto;min-height:100vh;background:var(--void);position:relative;overflow:hidden}
+::-webkit-scrollbar{width:0}
+
+/* ── SPLASH ── */
+#splash{position:fixed;inset:0;z-index:5000;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:430px;margin:0 auto}
+.sp-logo{font-family:var(--d);font-size:54px;font-weight:600;letter-spacing:0.3em;color:var(--gold);opacity:0;animation:spIn .9s .3s var(--ez) forwards}
+.sp-tag{font-size:11px;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--sil);margin-top:10px;opacity:0;animation:spIn .9s .7s var(--ez) forwards}
+.sp-line{width:1px;height:0;background:linear-gradient(180deg,transparent,var(--gold),transparent);margin:28px auto;animation:spLine 1s 1.1s var(--ez) forwards}
+.sp-dots{display:flex;gap:8px;opacity:0;animation:spIn .5s 1.5s ease forwards}
+.sp-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:dotP 1s ease-in-out infinite}
+.sp-dot:nth-child(2){animation-delay:.15s}.sp-dot:nth-child(3){animation-delay:.3s}
+@keyframes spIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spLine{to{height:60px}}
+@keyframes dotP{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+#splash.hide{display:none}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:4000;background:rgba(2,2,5,.82);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;max-width:430px;margin:0 auto}
+#loader.show{display:flex}
+.spin{width:36px;height:36px;border:2px solid var(--gb);border-top-color:var(--gold);border-radius:50%;animation:spinning .7s linear infinite}
+@keyframes spinning{to{transform:rotate(360deg)}}
+.loader-txt{font-size:12px;color:var(--sil);letter-spacing:.06em}
+
+/* ── AUTH ── */
+#auth{display:none;flex-direction:column;min-height:100vh;justify-content:center;padding:0 28px 40px;position:relative;overflow:hidden}
+.ag{position:absolute;border-radius:50%;pointer-events:none}
+.ag1{top:50px;right:-70px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,168,124,.06) 0%,transparent 70%)}
+.ag2{bottom:60px;left:-90px;width:260px;height:260px;background:radial-gradient(circle,rgba(201,168,124,.04) 0%,transparent 70%)}
+.a-logo{font-family:var(--d);font-size:34px;font-weight:600;letter-spacing:.22em;color:var(--gold);text-align:center;margin-bottom:5px}
+.a-tag{font-size:10px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--sil);text-align:center;margin-bottom:32px}
+.a-tabs{display:flex;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:4px;gap:4px;margin-bottom:22px}
+.a-tab{flex:1;padding:10px;border-radius:7px;font-size:12px;font-weight:600;letter-spacing:.05em;text-align:center;cursor:pointer;color:var(--sil);transition:all .22s;border:none;background:none;font-family:var(--b)}
+.a-tab.active{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
+.a-form{display:flex;flex-direction:column;gap:12px}
+.a-grp{display:flex;flex-direction:column;gap:6px}
+.a-lbl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sil)}
+.a-inp{background:var(--s1);border:1.5px solid var(--b1);border-radius:11px;padding:13px 16px;font-family:var(--b);font-size:15px;color:var(--plat);outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+.a-inp:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(201,168,124,.09)}
+.a-inp::placeholder{color:var(--dim)}
+.a-btn{margin-top:4px;padding:15px;border:none;border-radius:11px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s}
+.a-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.a-err{font-size:11px;color:var(--err);text-align:center;min-height:16px;padding:2px 0}
+.a-hint{font-size:10px;color:var(--sil);padding:0 2px}
+.a-pin-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2px}
+.a-pin-f{width:100%;height:52px;border-radius:10px;background:rgba(0,0,0,.3);border:1.5px solid var(--b2);font-family:var(--d);font-size:24px;font-weight:600;color:var(--gold);text-align:center;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s;display:block;padding:0}
+.a-pin-f:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,124,.15)}
+
+/* ── MAIN APP ── */
+#main-app{display:none}
+.app{max-width:430px;margin:0 auto}
+.page{display:none;flex-direction:column;min-height:calc(100vh - 90px);padding-bottom:110px;animation:pgIn .38s var(--ez) both}
+.page.active{display:flex}
+@keyframes pgIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOPBAR */
+.tb{display:flex;align-items:center;justify-content:space-between;padding:52px 22px 16px}
+.logo{font-family:var(--d);font-size:20px;font-weight:600;letter-spacing:.22em;color:var(--gold);cursor:pointer}
+.logo sup{font-size:8px;color:var(--sil);font-family:var(--b);font-weight:300}
+.tb-r{display:flex;gap:9px;align-items:center}
+.ib{width:37px;height:37px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil);transition:all .2s;flex-shrink:0}
+.ib:hover{background:var(--s2);color:var(--plat);border-color:var(--b2)}
+.ib svg{width:15px;height:15px}
+.av{width:37px;height:37px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#8B5E28);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:13px;font-weight:600;color:var(--void);border:1.5px solid var(--gb);cursor:pointer;flex-shrink:0}
+
+/* PAGE HEADER */
+.ph{padding:0 22px 18px}
+.ph-t{font-family:var(--d);font-size:30px;font-weight:500;letter-spacing:-.03em;line-height:1.1;margin-bottom:3px}
+.ph-s{font-size:12px;font-weight:300;color:var(--sil)}
+
+/* BALANCE CARD */
+.bc{margin:0 16px 18px;background:linear-gradient(145deg,#0D0D18,#09090F);border:1px solid var(--gb);border-radius:var(--rx);padding:22px;position:relative;overflow:hidden}
+.bc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--gold2) 60%,transparent)}
+.bc::after{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,124,.09) 0%,transparent 65%);pointer-events:none}
+.bc-sp{position:absolute;bottom:0;left:0;right:0;height:46px;opacity:.15}
+.bc-eye{display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:10px}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pls 2.2s ease infinite}
+@keyframes pls{0%{box-shadow:0 0 0 0 rgba(92,200,138,.5)}70%{box-shadow:0 0 0 6px rgba(92,200,138,0)}100%{box-shadow:0 0 0 0 rgba(92,200,138,0)}}
+.bc-num{font-family:var(--d);font-size:44px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--plat);margin-bottom:7px;position:relative;z-index:1}
+.bc-num .cu{font-size:18px;font-weight:300;color:var(--sil);vertical-align:super;margin-right:2px;letter-spacing:0}
+.bc-sub{font-size:11px;color:var(--sil);margin-bottom:17px}
+.bc-sub span{color:var(--ok);font-weight:500}
+.bc-acts{display:flex;gap:7px}
+.ba{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 4px;border-radius:10px;border:none;font-family:var(--b);font-size:11px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:all .2s}
+.ba svg{width:13px;height:13px}
+.ba-g{background:var(--gold);color:var(--void)}.ba-g:hover{background:var(--gold2)}
+.ba-g2{background:rgba(201,168,124,.11);color:var(--gold);border:1px solid var(--gb)}.ba-g2:hover{background:rgba(201,168,124,.18)}
+.ba-o{background:rgba(255,255,255,.05);color:var(--plat);border:1px solid var(--b2)}.ba-o:hover{background:rgba(255,255,255,.09)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 16px 20px}
+.stile{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:14px;position:relative;overflow:hidden}
+.stile::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--sl,var(--gb))}
+.st-ico{width:26px;height:26px;border-radius:6px;background:var(--si,var(--gd));display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.st-ico svg{width:12px;height:12px;color:var(--sc,var(--gold))}
+.st-val{font-family:var(--d);font-size:16px;font-weight:600;letter-spacing:-.02em;color:var(--svc,var(--plat));margin-bottom:1px}
+.st-lbl{font-size:10px;color:var(--sil)}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;justify-content:space-between;padding:0 22px;margin-bottom:10px}
+.sh h2{font-family:var(--d);font-size:16px;font-weight:500;color:var(--plat)}
+.sh-a{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+
+/* POSITIONS */
+.positions{padding:0 16px 20px}
+.pos-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:13px;margin-bottom:9px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:all .2s}
+.pos-item:hover{border-color:var(--gb);transform:translateX(2px)}
+.pos-mark{width:38px;height:38px;border-radius:8px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:12px;color:var(--gold);font-style:italic;flex-shrink:0}
+.pos-body{flex:1;min-width:0}
+.pos-name{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pos-sub{font-size:10px;color:var(--sil);margin-bottom:6px}
+.pos-bar{height:1.5px;background:var(--b1);border-radius:1px;overflow:hidden}
+.pos-bar-f{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.pos-r{text-align:right;flex-shrink:0}
+.pos-ret{font-family:var(--d);font-size:14px;font-weight:600;color:var(--gold)}
+.pos-inv{font-size:9px;color:var(--sil);margin-top:1px}
+
+/* PLAN CARDS */
+.plan-wrap{padding:0 16px 16px}
+.plan-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;margin-bottom:9px;position:relative;overflow:hidden;cursor:pointer;transition:all .25s}
+.plan-item:hover{border-color:var(--pi-l,var(--gb));transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.plan-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--pi-l,var(--gb)),transparent)}
+.pi-atm{position:absolute;top:-50px;right:-50px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,var(--pi-glow,rgba(201,168,124,.07)) 0%,transparent 70%);pointer-events:none}
+.pi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:11px}
+.pi-tier{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:2px}
+.pi-name{font-family:var(--d);font-size:17px;font-weight:500;color:var(--plat)}
+.pi-badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.pi-figs{display:flex;align-items:center;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.04);border-radius:9px;padding:13px;margin-bottom:10px}
+.pi-invest,.pi-return{flex:1}
+.pi-lbl{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
+.pi-val{font-family:var(--d);font-size:22px;font-weight:600;letter-spacing:-.03em;color:var(--plat)}
+.pi-arr{padding:0 12px;display:flex;align-items:center}
+.pi-arr svg{width:13px;height:13px;color:var(--dim)}
+.pi-return{text-align:right}
+.pi-ret-v{font-family:var(--d);font-size:22px;font-weight:600;letter-spacing:-.03em}
+.pi-meta{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.pi-chip{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--sil)}
+.pi-chip svg{width:10px;height:10px}
+.pi-chip strong{color:var(--plat);font-weight:500}
+.pi-daily{font-size:10px;font-weight:500;background:rgba(0,0,0,.2);border:1px solid var(--b1);border-radius:6px;padding:4px 9px;color:var(--sil);margin-bottom:12px}
+.pi-daily strong{color:var(--gold)}
+.pi-cta{width:100%;padding:10px;border-radius:8px;font-family:var(--b);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.pi-cta:hover{opacity:.8}
+
+/* CLAIM */
+.claim-banner{margin:0 16px 16px;background:rgba(201,168,124,.05);border:1px solid var(--gb);border-radius:var(--r);padding:12px 14px;display:flex;gap:10px}
+.claim-banner svg{width:15px;height:15px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.cb-t{font-size:11px;font-weight:300;color:var(--sil);line-height:1.65}
+.cb-t strong{color:var(--gold);font-weight:600}
+.demo-ctrl{margin:0 16px 16px;background:rgba(0,0,0,.22);border:1px dashed var(--b2);border-radius:var(--r);padding:11px 14px;display:flex;align-items:center;justify-content:space-between}
+.dc-l{font-size:10px;color:var(--dim)}.dc-l strong{color:var(--sil)}
+.dc-b{font-size:10px;font-weight:600;color:var(--sil);background:var(--s1);border:1px solid var(--b1);border-radius:6px;padding:5px 11px;cursor:pointer;transition:all .2s}
+.dc-b:hover{color:var(--gold);border-color:var(--gb)}
+.claim-cards{padding:0 16px}
+.cc{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:17px;margin-bottom:11px;position:relative;overflow:hidden}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cc-l,var(--gb)),transparent)}
+.cc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.cc-name{font-size:13px;font-weight:600;color:var(--plat);margin-bottom:2px}
+.cc-inv{font-size:10px;color:var(--sil)}
+.cc-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.cc-daily-lbl{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
+.cc-daily-val{font-family:var(--d);font-size:26px;font-weight:600;letter-spacing:-.03em;margin-bottom:12px}
+.cc-btn{width:100%;padding:13px;border:none;border-radius:10px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px}
+.cc-btn svg{width:14px;height:14px}
+.cc-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.cc-claimed{width:100%;padding:12px;border-radius:10px;background:var(--okd);border:1px solid rgba(92,200,138,.18);display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;color:var(--ok);margin-bottom:12px}
+.cc-claimed svg{width:13px;height:13px}
+.cc-wait{width:100%;padding:12px;border-radius:10px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;color:var(--sil);margin-bottom:12px}
+.cc-pbar{height:2px;background:var(--b1);border-radius:1px;overflow:hidden;margin-bottom:6px}
+.cc-pbar-f{height:100%;border-radius:1px}
+.cc-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--sil)}
+.cc-meta .miss{color:var(--err)}.cc-meta .ok{color:var(--ok)}
+
+/* DEPOSIT */
+.dep-sec{padding:0 16px}
+.dep-card{background:linear-gradient(135deg,#0D0D18,#090910);border:1px solid var(--gb);border-radius:var(--rl);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.dep-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.dep-title{font-family:var(--d);font-size:14px;font-weight:500;color:var(--gold);letter-spacing:.05em;margin-bottom:14px}
+.dep-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b1)}
+.dep-row:last-child{border-bottom:none}
+.dep-lbl{font-size:11px;color:var(--sil)}
+.dep-val{font-size:12px;font-weight:600;color:var(--plat)}
+.dep-val.big{font-family:var(--d);font-size:20px;color:var(--gold);letter-spacing:.04em}
+.dep-copy{font-size:9px;color:var(--gold);cursor:pointer;background:var(--gd);border:1px solid var(--gb);padding:3px 8px;border-radius:5px;margin-left:8px;font-family:var(--b);font-weight:600}
+.dep-warn{display:flex;gap:8px;background:rgba(201,168,124,.05);border:1px solid var(--gb);border-radius:var(--r);padding:11px 13px;margin-bottom:16px}
+.dep-warn svg{width:13px;height:13px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.dep-warn-t{font-size:11px;font-weight:300;color:var(--sil);line-height:1.6}
+.dep-warn-t strong{color:var(--gold);font-weight:600}
+
+/* FORMS */
+.fl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);display:block;margin-bottom:7px}
+.f-wrap{position:relative;margin-bottom:11px}
+.f-pre{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--d);font-size:20px;color:var(--sil);pointer-events:none}
+.f-inp{width:100%;background:var(--s1);border:1.5px solid var(--b1);border-radius:11px;padding:15px 16px 15px 38px;font-family:var(--d);font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--plat);outline:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s}
+.f-inp:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(201,168,124,.09)}
+.f-inp::placeholder{color:rgba(237,237,242,.1)}
+.f-plain{width:100%;background:var(--s1);border:1.5px solid var(--b1);border-radius:11px;padding:13px 16px;font-family:var(--b);font-size:14px;font-weight:500;color:var(--plat);outline:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s;margin-bottom:11px}
+.f-plain:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(201,168,124,.09)}
+.f-plain::placeholder{color:var(--dim)}
+.f-select{width:100%;background:var(--s1);border:1.5px solid var(--b1);border-radius:11px;padding:13px 40px 13px 16px;font-family:var(--b);font-size:14px;font-weight:500;color:var(--plat);outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s;margin-bottom:11px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A7A8C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.f-select:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(201,168,124,.09)}
+.f-select option{background:#141420;color:var(--plat)}
+.qrow{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.qb{padding:8px 6px;border-radius:7px;background:var(--s1);border:1px solid var(--b1);font-family:var(--b);font-size:10px;font-weight:600;color:var(--sil);cursor:pointer;transition:all .2s;min-width:52px;text-align:center}
+.qb:hover{border-color:var(--gb);color:var(--gold);background:var(--gd)}
+
+/* WITHDRAW */
+.avail{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:16px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.avail::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent)}
+.av-lbl{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
+.av-val{font-family:var(--d);font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--gold)}
+.av-tag{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:var(--ok);background:var(--okd);border:1px solid var(--okb);padding:4px 10px;border-radius:30px}
+.av-tag svg{width:10px;height:10px}
+
+/* SUMMARY BOX */
+.sbox{background:rgba(0,0,0,.2);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:18px}
+.sr{display:flex;justify-content:space-between;font-size:11px;color:var(--sil);padding:3px 0}
+.sr strong{color:var(--plat);font-weight:500}
+.sdiv{height:1px;background:var(--b1);margin:8px 0}
+.stotal{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--plat)}
+.stv{font-family:var(--d);font-size:16px;font-weight:600;color:var(--gold);letter-spacing:-.02em}
+
+/* PORTFOLIO */
+.port-chart{margin:0 16px 18px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;position:relative;overflow:hidden}
+.port-chart::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent)}
+.pch-svg{width:100%;height:60px;margin-bottom:14px}
+.pch-figs{display:flex;justify-content:space-between}
+.pch-lbl{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--sil);margin-bottom:2px}
+.pch-val{font-family:var(--d);font-size:16px;font-weight:600;letter-spacing:-.02em}
+.pch-val.g{color:var(--gold)}.pch-val.ok{color:var(--ok)}
+.pcards{padding:0 16px}
+.pcard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;margin-bottom:11px}
+.pc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.pc-left{display:flex;align-items:center;gap:10px}
+.pc-mark{width:38px;height:38px;border-radius:8px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:13px;color:var(--gold);font-style:italic;flex-shrink:0}
+.pc-name{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:1px}
+.pc-date{font-size:9px;color:var(--sil)}
+.pc-stat{font-size:9px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.s-act{background:var(--okd);color:var(--ok);border:1px solid rgba(92,200,138,.2)}
+.s-done{background:var(--s2);color:var(--sil);border:1px solid var(--b1)}
+.pc-amts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.pc-al{font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.pc-av{font-family:var(--d);font-size:13px;font-weight:600;letter-spacing:-.02em}
+.pc-av.g{color:var(--gold)}.pc-av.ok{color:var(--ok)}
+.pc-bar{height:1.5px;background:var(--b1);border-radius:1px;overflow:hidden;margin-bottom:4px}
+.pc-bar-f{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:1px}
+.pc-bm{display:flex;justify-content:space-between;font-size:9px;color:var(--sil)}
+
+/* HISTORY */
+.hist-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.hi-amt{font-family:var(--d);font-size:16px;font-weight:600;color:var(--gold)}
+.hi-sub{font-size:10px;color:var(--sil);margin-top:1px}
+.hi-badge{font-size:10px;font-weight:600;letter-spacing:.07em;padding:4px 11px;border-radius:20px}
+.hi-p{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
+.hi-a{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
+.hi-r{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
+
+/* NOTIFICATIONS */
+.notifs{padding:0 16px}
+.notif{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--b1)}
+.notif:last-child{border-bottom:none}
+.notif-ico{width:36px;height:36px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-ico svg{width:14px;height:14px;color:var(--gold)}
+.ntit{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
+.ndesc{font-size:11px;font-weight:300;color:var(--sil);margin-bottom:3px;line-height:1.55}
+.ntime{font-size:9px;color:var(--dim)}
+
+/* EMPTY */
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 32px;text-align:center}
+.empty-ico{width:50px;height:50px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.empty-ico svg{width:20px;height:20px;color:var(--sil)}
+.empty-t{font-family:var(--d);font-size:17px;font-weight:500;color:var(--plat);margin-bottom:6px}
+.empty-d{font-size:11px;font-weight:300;color:var(--sil);line-height:1.65;margin-bottom:16px}
+.empty-btn{padding:10px 22px;border-radius:8px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:11px;font-weight:600;border:none;cursor:pointer}
+.empty-btn:hover{background:var(--gold2)}
+
+/* BIG BTN */
+.bb{width:100%;padding:15px;border:none;border-radius:11px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:7px}
+.bb svg{width:15px;height:15px}
+.bb:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 9px 28px rgba(201,168,124,.25)}
+.bb:active{transform:scale(.99)}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(8,8,14,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--b1);display:flex;padding:8px 2px 26px;z-index:100}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;cursor:pointer;border-radius:9px;transition:background .2s;position:relative}
+.ni:hover{background:rgba(255,255,255,.03)}
+.ni-ico{width:20px;height:20px;display:flex;align-items:center;justify-content:center;position:relative}
+.ni-ico svg{width:19px;height:19px;color:var(--sil);transition:color .2s}
+.ni.active .ni-ico svg{color:var(--gold)}
+.ni-lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sil);transition:color .2s}
+.ni.active .ni-lbl{color:var(--gold)}
+.ni-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;margin-top:1px;transition:opacity .2s}
+.ni.active .ni-dot{opacity:1}
+.cbadge{position:absolute;top:-2px;right:-4px;width:7px;height:7px;border-radius:50%;background:var(--err);display:none;border:1.5px solid var(--void)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:500;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex;animation:fi .22s ease both}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.msheet{background:var(--s1);border:1px solid var(--gb);border-bottom:none;border-radius:22px 22px 0 0;padding:0 22px 52px;width:100%;max-width:430px;animation:shu .35s var(--ez) both;position:relative;overflow:hidden;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.msheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1}
+@keyframes shu{from{transform:translateY(46px);opacity:0}to{transform:translateY(0);opacity:1}}
+.m-handle{width:32px;height:3px;border-radius:2px;background:var(--b2);margin:13px auto 20px}
+.m-title{font-family:var(--d);font-size:22px;font-weight:500;letter-spacing:-.02em;color:var(--plat);margin-bottom:3px}
+.m-sub{font-size:11px;font-weight:300;color:var(--sil);margin-bottom:17px}
+.m-prev{background:rgba(0,0,0,.28);border:1px solid var(--b1);border-radius:11px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mp-lbl{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
+.mp-val{font-family:var(--d);font-size:20px;font-weight:600;letter-spacing:-.03em}
+.mp-arr svg{width:15px;height:15px;color:var(--sil)}
+.md-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--b1);font-size:11px;color:var(--sil)}
+.md-row:last-child{border-bottom:none}
+.md-row strong{color:var(--plat);font-weight:500}
+.md-row strong.g{color:var(--gold)}
+.md-row strong.w{color:var(--err)}
+.pin-sec{margin-top:18px}
+.pin-lbl{display:block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:10px}
+.pin-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.pin-f{width:100%;height:56px;border-radius:10px;background:rgba(0,0,0,.3);border:1.5px solid var(--b2);font-family:var(--d);font-size:26px;font-weight:600;color:var(--gold);text-align:center;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s;display:block;padding:0}
+.pin-f:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,124,.15)}
+.pin-f.err{border-color:var(--err) !important;animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* ADMIN */
+#admin-panel{display:none;position:fixed;inset:0;z-index:800;background:var(--void);max-width:430px;margin:0 auto;overflow-y:auto}
+.adm-tb{display:flex;align-items:center;justify-content:space-between;padding:52px 22px 16px;border-bottom:1px solid var(--b1)}
+.adm-title{font-family:var(--d);font-size:20px;font-weight:600;letter-spacing:.1em;color:var(--gold)}
+.adm-close{width:34px;height:34px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil)}
+.adm-close svg{width:14px;height:14px}
+.adm-sec{padding:20px 20px 0}
+.adm-sec-t{font-family:var(--d);font-size:15px;font-weight:500;color:var(--plat);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+.req-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:15px;margin-bottom:10px}
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.rc-user{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
+.rc-date{font-size:10px;color:var(--sil)}
+.rc-amt{font-family:var(--d);font-size:22px;font-weight:600;color:var(--gold)}
+.rc-bank{font-size:11px;color:var(--sil);margin-bottom:10px;line-height:1.7}
+.rc-bank strong{color:var(--plat)}
+.rc-acts{display:flex;gap:8px}
+.rc-ap{flex:1;padding:9px;border:none;border-radius:7px;background:var(--ok);color:var(--void);font-family:var(--b);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.rc-ap:hover{opacity:.85}
+.rc-rj{flex:1;padding:9px;border:1px solid var(--errb);border-radius:7px;background:var(--errd);color:var(--err);font-family:var(--b);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.rc-rj:hover{opacity:.85}
+.adm-user-row{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px}
+.au-name{font-size:13px;font-weight:600;color:var(--plat);margin-bottom:3px}
+.au-info{font-size:10px;color:var(--sil);line-height:1.6}
+
+/* USER MENU */
+.user-menu{position:fixed;top:0;right:0;left:0;max-width:430px;margin:0 auto;z-index:400;display:none;align-items:flex-start;justify-content:flex-end;padding:88px 16px 0}
+.user-menu.open{display:flex}
+.um-bg{position:fixed;inset:0;z-index:-1}
+.um-card{background:var(--s1);border:1px solid var(--b2);border-radius:var(--rl);padding:16px;min-width:175px;box-shadow:0 20px 50px rgba(0,0,0,.6);animation:dropIn .25s var(--ez)}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.um-name{font-family:var(--d);font-size:16px;font-weight:500;color:var(--plat);margin-bottom:2px}
+.um-meta{font-size:10px;color:var(--sil);margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid var(--b1)}
+.um-item{display:flex;align-items:center;gap:9px;padding:7px 0;cursor:pointer;font-size:12px;font-weight:500;color:var(--sil);transition:color .2s}
+.um-item:hover{color:var(--plat)}.um-item svg{width:13px;height:13px}
+.um-item.danger:hover{color:var(--err)}
+
+/* TOAST */
+.toast{position:fixed;top:58px;left:50%;transform:translateX(-50%) translateY(-10px);background:var(--s2);border:1px solid var(--gb);color:var(--gold2);font-size:11px;font-weight:500;padding:9px 16px;border-radius:30px;z-index:9000;opacity:0;transition:all .3s var(--ez);display:flex;align-items:center;gap:6px;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:88vw;overflow:hidden}
+.toast svg{width:12px;height:12px;color:var(--gold);flex-shrink:0}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="root">
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-logo">AURO</div>
+  <div class="sp-tag">Private Wealth Platform</div>
+  <div class="sp-line"></div>
+  <div class="sp-dots"><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div></div>
+</div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="spin"></div>
+  <div class="loader-txt" id="loader-txt">Please wait…</div>
+</div>
+
+<!-- AUTH -->
+<div id="auth">
+  <div class="ag ag1"></div><div class="ag ag2"></div>
+  <div class="a-logo">AURO</div>
+  <div class="a-tag">Private Wealth Platform</div>
+  <div class="a-tabs">
+    <button class="a-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+    <button class="a-tab" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+  </div>
+  <!-- LOGIN -->
+  <div id="form-login" class="a-form">
+    <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="li-name" type="text" placeholder="Enter your full name" autocomplete="name" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="li-pw" type="password" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="a-err" id="li-err"></div>
+    <button class="a-btn" id="li-btn" onclick="doLogin()">Sign In</button>
+  </div>
+  <!-- SIGNUP -->
+  <div id="form-signup" class="a-form" style="display:none">
+    <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="su-name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+    <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="su-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/></div>
+    <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
+    <div class="a-grp">
+      <label class="a-lbl">Set Your 4-Digit Investment PIN</label>
+      <div class="a-pin-row">
+        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp1" autocomplete="off" oninput="pa(this,'sp2')"/>
+        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp2" autocomplete="off" oninput="pa(this,'sp3')"/>
+        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp3" autocomplete="off" oninput="pa(this,'sp4')"/>
+        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp4" autocomplete="off"/>
+      </div>
+      <div class="a-hint">You'll use this PIN to confirm every investment.</div>
+    </div>
+    <div class="a-err" id="su-err"></div>
+    <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app">
+<div class="app">
+
+  <!-- HOME -->
+  <div class="page active" id="p-home">
+    <div class="tb">
+      <div class="logo" id="logo-tap">AURO<sup>®</sup></div>
+      <div class="tb-r">
+        <div class="ib" onclick="go('p-notif','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+        <div class="av" id="home-av" onclick="openUserMenu()">DA</div>
+      </div>
+    </div>
+    <div style="padding:0 22px 20px">
+      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;margin-bottom:2px">Good morning</div>
+      <div style="font-family:var(--d);font-size:22px;font-weight:500;color:var(--plat)">Welcome, <em id="home-name" style="color:var(--gold)">—</em></div>
+    </div>
+    <div class="bc">
+      <svg class="bc-sp" viewBox="0 0 390 46" preserveAspectRatio="none" fill="none">
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A87C" stop-opacity=".28"/><stop offset="100%" stop-color="#C9A87C" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0,44 C50,40 80,30 120,22 C160,14 180,26 220,16 C260,6 290,18 330,10 C360,4 375,8 390,5 L390,46 L0,46Z" fill="url(#sg)"/>
+        <path d="M0,44 C50,40 80,30 120,22 C160,14 180,26 220,16 C260,6 290,18 330,10 C360,4 375,8 390,5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div class="bc-eye"><div class="pulse"></div>Total Portfolio Value</div>
+      <div class="bc-num"><span class="cu">₦</span><span id="h-bal">0</span></div>
+      <div class="bc-sub" id="h-sub">Deposit to start investing</div>
+      <div class="bc-acts">
+        <button class="ba ba-g" onclick="go('p-plans','n-plans')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Invest</button>
+        <button class="ba ba-g2" onclick="go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit</button>
+        <button class="ba ba-o" onclick="go('p-withdraw','n-withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stile" style="--sl:rgba(201,168,124,.25)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="st-val" id="h-invested">₦0</div><div class="st-lbl">Total Invested</div></div>
+      <div class="stile" style="--sl:rgba(92,200,138,.3);--si:var(--okd);--sc:var(--ok);--svc:var(--ok)"><div class="st-ico" style="background:var(--okd)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-earned">₦0</div><div class="st-lbl">Claimed Earnings</div></div>
+      <div class="stile" style="--sl:rgba(201,168,124,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="st-val" id="h-active">0</div><div class="st-lbl">Active Plans</div></div>
+      <div class="stile" style="--sl:rgba(201,168,124,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-claimable">₦0</div><div class="st-lbl">Claimable Today</div></div>
+    </div>
+    <div class="sh"><h2>Active Positions</h2><div class="sh-a" onclick="go('p-portfolio','n-none')">View all</div></div>
+    <div class="positions" id="h-pos"><div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go('p-plans','n-plans')">Browse plans →</span></div></div>
+  </div>
+
+  <!-- PLANS -->
+  <div class="page" id="p-plans">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
+    <div class="ph"><div class="ph-t">Investment Plans</div><div class="ph-s">24 plans · 500% ROI · Claim daily · PIN required</div></div>
+    <div class="plan-wrap" id="plans-c"></div>
+  </div>
+
+  <!-- CLAIM -->
+  <div class="page" id="p-claim">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
+    <div class="ph"><div class="ph-t">Daily Claims</div><div class="ph-s">Return every day. Miss a day — it's gone forever.</div></div>
+    <div class="claim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="cb-t"><strong>Warning:</strong> Each plan pays a fixed daily amount for 30 days. You must claim manually every day. Any missed day is permanently forfeited.</div></div>
+    <div style="padding:0 16px"><div class="demo-ctrl"><div class="dc-l">Simulate time &nbsp;·&nbsp; <strong id="dc-day">Real time</strong></div><button class="dc-b" onclick="advDay()">+ Next Day</button></div></div>
+    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Invest in a plan to start earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+  </div>
+
+  <!-- DEPOSIT -->
+  <div class="page" id="p-deposit">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Fund your wallet to start investing.</div></div>
+    <div class="dep-sec">
+      <div class="dep-card">
+        <div class="dep-title">Transfer to this account</div>
+        <div class="dep-row"><span class="dep-lbl">Bank</span><span class="dep-val">Momo Payment Service Bank</span></div>
+        <div class="dep-row"><span class="dep-lbl">Account Number</span><div style="display:flex;align-items:center"><span class="dep-val big">8140395634</span><span class="dep-copy" onclick="cpy('8140395634')">Copy</span></div></div>
+        <div class="dep-row"><span class="dep-lbl">Account Name</span><span class="dep-val">Auro Wealth Ltd</span></div>
+      </div>
+      <div class="dep-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="dep-warn-t"><strong>After transferring:</strong> Enter the exact amount below and submit. Your balance will be credited once the admin verifies — usually within minutes.</div></div>
+      <label class="fl">Amount You Transferred</label>
+      <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
+      <div class="qrow">
+        <button class="qb" onclick="setDep(5000)">₦5k</button>
+        <button class="qb" onclick="setDep(10000)">₦10k</button>
+        <button class="qb" onclick="setDep(20000)">₦20k</button>
+        <button class="qb" onclick="setDep(50000)">₦50k</button>
+        <button class="qb" onclick="setDep(100000)">₦100k</button>
+      </div>
+      <div class="sbox">
+        <div class="sr"><span>Amount submitted</span><strong id="dep-sa">₦0.00</strong></div>
+        <div class="sr"><span>Status</span><strong style="color:var(--gold)">Pending admin approval</strong></div>
+        <div class="sdiv"></div>
+        <div class="stotal"><span>Will be credited</span><span class="stv" id="dep-sc">₦0.00</span></div>
+      </div>
+      <button class="bb" onclick="doDeposit()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/></svg>Submit Deposit Request</button>
+      <div style="margin-top:22px">
+        <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
+        <div id="dep-history"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WITHDRAW -->
+  <div class="page" id="p-withdraw">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Withdraw</div><div class="ph-s">Send your earnings to any Nigerian bank account.</div></div>
+    <div style="padding:0 16px">
+      <div class="avail"><div><div class="av-lbl">Available Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
+      <label class="fl">Withdrawal Amount</label>
+      <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
+      <div class="qrow">
+        <button class="qb" onclick="setWit(5000)">₦5k</button>
+        <button class="qb" onclick="setWit(10000)">₦10k</button>
+        <button class="qb" onclick="setWit(25000)">₦25k</button>
+        <button class="qb" onclick="setWit(50000)">₦50k</button>
+        <button class="qb" onclick="witMax()">Max</button>
+      </div>
+      <label class="fl" style="margin-bottom:7px">Select Your Bank</label>
+      <select class="f-select" id="w-bank" onchange="updWit()">
+        <option value="">— Choose your bank —</option>
+        <option>Access Bank</option><option>Citibank Nigeria</option><option>Ecobank Nigeria</option>
+        <option>Fidelity Bank</option><option>First Bank of Nigeria</option><option>First City Monument Bank (FCMB)</option>
+        <option>Globus Bank</option><option>Guaranty Trust Bank (GTBank)</option><option>Heritage Bank</option>
+        <option>Jaiz Bank</option><option>Keystone Bank</option><option>Kuda Bank</option>
+        <option>Moniepoint MFB</option><option>OPay</option><option>PalmPay</option>
+        <option>Polaris Bank</option><option>Providus Bank</option><option>Stanbic IBTC Bank</option>
+        <option>Standard Chartered Bank</option><option>Sterling Bank</option>
+        <option>Titan Trust Bank</option><option>Union Bank of Nigeria</option>
+        <option>United Bank for Africa (UBA)</option><option>Unity Bank</option>
+        <option>VFD Microfinance Bank</option><option>Wema Bank</option>
+        <option>Zenith Bank</option><option>Momo Payment Service Bank</option>
+      </select>
+      <label class="fl" style="margin-bottom:7px">Account Number</label>
+      <input class="f-plain" id="w-acct" type="tel" inputmode="numeric" placeholder="10-digit account number" maxlength="10" oninput="updWit()"/>
+      <label class="fl" style="margin-bottom:7px">Account Name</label>
+      <input class="f-plain" id="w-acct-name" type="text" placeholder="Name on the account" oninput="updWit()"/>
+      <div class="sbox">
+        <div class="sr"><span>Amount</span><strong id="w-sa">₦0.00</strong></div>
+        <div class="sr"><span>Bank</span><strong id="w-bk">—</strong></div>
+        <div class="sr"><span>Account Number</span><strong id="w-ac">—</strong></div>
+        <div class="sr"><span>Account Name</span><strong id="w-an">—</strong></div>
+        <div class="sr"><span>Fee</span><strong style="color:var(--ok)">Free</strong></div>
+        <div class="sdiv"></div>
+        <div class="stotal"><span>You receive</span><span class="stv" id="w-sr">₦0.00</span></div>
+      </div>
+      <button class="bb" onclick="doWithdraw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Submit Withdrawal</button>
+      <div style="margin-top:22px">
+        <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Withdrawal History</h2></div>
+        <div id="wit-history"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="page" id="p-portfolio">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Portfolio</div><div class="ph-s">All positions and performance.</div></div>
+    <div class="port-chart">
+      <svg class="pch-svg" viewBox="0 0 390 60" preserveAspectRatio="none" fill="none">
+        <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A87C" stop-opacity=".2"/><stop offset="100%" stop-color="#C9A87C" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="15" x2="390" y2="15" stroke="rgba(255,255,255,.04)"/><line x1="0" y1="30" x2="390" y2="30" stroke="rgba(255,255,255,.04)"/><line x1="0" y1="45" x2="390" y2="45" stroke="rgba(255,255,255,.04)"/>
+        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5 L390,60 L0,60Z" fill="url(#cg)"/>
+        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5" stroke="var(--gold)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="390" cy="5" r="3" fill="var(--gold)"/>
+      </svg>
+      <div class="pch-figs">
+        <div><div class="pch-lbl">Invested</div><div class="pch-val" id="pf-inv">₦0</div></div>
+        <div style="text-align:center"><div class="pch-lbl">Total Return</div><div class="pch-val g" id="pf-exp">₦0</div></div>
+        <div style="text-align:right"><div class="pch-lbl">Claimed</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
+      </div>
+    </div>
+    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No investments yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="page" id="p-notif">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Notifications</div></div>
+    <div class="notifs">
+      <div class="notif"><div class="notif-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start investing and earning daily returns.</div><div class="ntime">Just now</div></div></div>
+      <div class="notif"><div class="notif-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="ntit">Daily Claim Reminder</div><div class="ndesc">You must claim manually every day or you will forfeit that day's returns permanently.</div><div class="ntime">Today</div></div></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-plans" onclick="go('p-plans','n-plans')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="ni-lbl">Plans</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Claim</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-deposit" onclick="go('p-deposit','n-deposit')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg></div><div class="ni-lbl">Deposit</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-withdraw" onclick="go('p-withdraw','n-withdraw')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg></div><div class="ni-lbl">Withdraw</div><div class="ni-dot"></div></div>
+</nav>
+
+<!-- USER MENU -->
+<div class="user-menu" id="user-menu">
+  <div class="um-bg" onclick="closeUserMenu()"></div>
+  <div class="um-card">
+    <div class="um-name" id="um-name">—</div>
+    <div class="um-meta" id="um-meta">Member</div>
+    <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
+    <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
+    <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
+  </div>
+</div>
+
+</div><!-- /main-app -->
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="adm-tb">
+    <div class="adm-title">Admin Panel</div>
+    <div class="adm-close" onclick="closeAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+  </div>
+  <div class="adm-sec"><div class="adm-sec-t">Pending Deposits</div><div id="adm-deps"></div></div>
+  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
+  <div class="adm-sec" style="padding-bottom:50px"><div class="adm-sec-t" style="margin-top:8px">All Users</div><div id="adm-users"></div></div>
+</div>
+
+<!-- INVEST MODAL -->
+<div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title" id="m-t">Open Position</div>
+    <div class="m-sub" id="m-s">Review details before confirming.</div>
+    <div class="m-prev">
+      <div><div class="mp-lbl">Capital Deployed</div><div class="mp-val" id="m-inv">—</div></div>
+      <div class="mp-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div style="text-align:right"><div class="mp-lbl">Total Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
+    </div>
+    <div class="md-row"><span>Daily claim</span><strong class="g" id="m-daily">—</strong></div>
+    <div class="md-row"><span>Duration</span><strong>30 days · must claim daily</strong></div>
+    <div class="md-row"><span>ROI</span><strong class="g">500%</strong></div>
+    <div class="md-row"><span>Your balance</span><strong id="m-bal">—</strong></div>
+    <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
+    <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Miss a day = that day's earnings are permanently forfeited</div>
+    <div class="pin-sec">
+      <label class="pin-lbl">Enter your 4-digit Investment PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p1" autocomplete="off" oninput="pa(this,'p2')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p2" autocomplete="off" oninput="pa(this,'p3')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p3" autocomplete="off" oninput="pa(this,'p4')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p4" autocomplete="off"/>
+      </div>
+    </div>
+    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Confirm Investment</button>
+    <button onclick="closeM('inv-modal')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer">Cancel</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="overlay" id="adm-login" onclick="mClose(event,'adm-login')">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Admin Access</div>
+    <div class="m-sub">Enter the admin password.</div>
+    <div style="margin-bottom:16px">
+      <label class="fl" style="margin-bottom:7px">Password</label>
+      <input class="a-inp" type="password" id="adm-pw" placeholder="Admin password" style="background:rgba(0,0,0,.3);border-color:var(--b2)" onkeydown="if(event.key==='Enter')checkAdminPw()"/>
+    </div>
+    <div class="a-err" id="adm-err" style="margin-bottom:14px"></div>
+    <button class="bb" onclick="checkAdminPw()">Enter Admin Panel</button>
+    <button onclick="closeM('adm-login')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:4px">Cancel</button>
+  </div>
+</div>
+
+</div><!-- /root -->
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="toast-m"></span></div>
+
+<script>
+// ══════════════════════════════════
+// FIREBASE CONFIG & INIT
+// ══════════════════════════════════
+const FB_CONFIG = {
+  apiKey:"AIzaSyDYGeaDlKTsRUKeLoGVH9hGoQGTTo8XfN4",
+  authDomain:"auro-41c2c.firebaseapp.com",
+  projectId:"auro-41c2c",
+  storageBucket:"auro-41c2c.firebasestorage.app",
+  messagingSenderId:"335204740222",
+  appId:"1:335204740222:web:932d8c0cda1637f3b2fc2f"
+};
+
+let db = null;
+
+function waitForFirebase() {
+  return new Promise((resolve, reject) => {
+    let attempts = 0;
+    const check = () => {
+      attempts++;
+      if (typeof firebase !== 'undefined' && firebase.firestore) {
+        try {
+          if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
+          db = firebase.firestore();
+          // Enable offline persistence for better reliability
+          db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+          resolve();
+        } catch(e) { reject(e); }
+      } else if (attempts > 50) {
+        reject(new Error('Firebase scripts failed to load'));
+      } else {
+        setTimeout(check, 100);
+      }
+    };
+    check();
+  });
+}
+
+// Wrap every Firestore call with a 15s timeout
+function withTimeout(promise, ms = 15000) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
+  ]);
+}
+
+// ══════════════════════════════════
+// CONSTANTS & PLANS
+// ══════════════════════════════════
+const ADMIN_PW = 'dasmartauro';
+const SK = 'auro_uid';
+
+const TC = {
+  Starter:{l:'rgba(201,168,124,.28)',r:'var(--gold)',glow:'rgba(201,168,124,.07)',pb:'var(--gd)',pc:'var(--gold)',pbd:'var(--gb)',solid:true,bg:'var(--gold)',fc:'var(--void)'},
+  Builder:{l:'rgba(96,165,250,.28)',r:'#7BB8FA',glow:'rgba(96,165,250,.06)',pb:'rgba(96,165,250,.07)',pc:'#7BB8FA',pbd:'rgba(96,165,250,.25)',solid:false},
+  Growth: {l:'rgba(92,200,138,.28)',r:'#5CC88A',glow:'rgba(92,200,138,.06)',pb:'rgba(92,200,138,.07)',pc:'#5CC88A',pbd:'rgba(92,200,138,.25)',solid:false},
+  Elite:  {l:'rgba(192,132,252,.28)',r:'#C084FC',glow:'rgba(192,132,252,.06)',pb:'rgba(192,132,252,.07)',pc:'#C084FC',pbd:'rgba(192,132,252,.25)',solid:false},
+  Premium:{l:'rgba(251,146,60,.28)',r:'#FB923C',glow:'rgba(251,146,60,.06)',pb:'rgba(251,146,60,.07)',pc:'#FB923C',pbd:'rgba(251,146,60,.25)',solid:false},
+  Sovereign:{l:'rgba(201,168,124,.5)',r:'var(--gold2)',glow:'rgba(201,168,124,.1)',pb:'rgba(201,168,124,.12)',pc:'var(--gold2)',pbd:'var(--gb)',solid:true,bg:'linear-gradient(135deg,var(--gold),var(--gold2))',fc:'var(--void)'}
+};
+
+const AMTS=[5000,10000,15000,20000,25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,150000,250000,500000,1000000];
+const TIERS=['Starter','Starter','Starter','Starter','Builder','Builder','Builder','Builder','Growth','Growth','Growth','Growth','Elite','Elite','Elite','Elite','Premium','Premium','Premium','Premium','Sovereign','Sovereign','Sovereign','Sovereign'];
+const BADGES=['Entry','Entry','Entry','Entry','Standard','Standard','Standard','Standard','Popular','Popular','Popular','Popular','High Yield','High Yield','High Yield','High Yield','Premium','Premium','Premium','Premium','Private','Private','Exclusive','Exclusive'];
+const PLANS = AMTS.map((amt,i) => ({
+  id:'plan_'+i, invest:amt, total:amt*6,
+  daily: parseFloat((amt*6/30).toFixed(2)),
+  tier:TIERS[i], badge:BADGES[i]
+}));
+
+// ══════════════════════════════════
+// HELPERS
+// ══════════════════════════════════
+const fmt = n => '₦' + Math.round(n).toLocaleString('en-NG');
+const fmt2 = n => '₦' + Number(n).toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
+const inits = name => name.trim().split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'??';
+const nowISO = () => new Date().toISOString();
+const dateStr = iso => new Date(iso).toLocaleDateString('en-NG',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+function simToday(u) {
+  const d = new Date();
+  if (u && u.simDayOff) d.setDate(d.getDate() + (u.simDayOff|0));
+  return d.toISOString().slice(0,10);
+}
+
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let _user = null;
+let _unsubUser = null, _unsubDep = null, _unsubWit = null;
+let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null;
+
+// ══════════════════════════════════
+// UI HELPERS
+// ══════════════════════════════════
+function showLoader(on, txt) {
+  document.getElementById('loader').classList.toggle('show', on);
+  if (txt) document.getElementById('loader-txt').textContent = txt;
+}
+function setAuthBtn(id, on) {
+  const el = document.getElementById(id);
+  if (el) { el.disabled = !on; el.style.opacity = on ? '1' : '0.6'; }
+}
+function go(pid, nid) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
+  if (nid && nid !== 'n-none') { const n = document.getElementById(nid); if (n) n.classList.add('active'); }
+  window.scrollTo(0,0); rAll();
+}
+function openUserMenu() { document.getElementById('user-menu').classList.add('open'); }
+function closeUserMenu() { document.getElementById('user-menu').classList.remove('open'); }
+
+let _tt;
+function toast(msg) {
+  clearTimeout(_tt);
+  document.getElementById('toast-m').textContent = msg;
+  document.getElementById('toast').classList.add('show');
+  _tt = setTimeout(() => document.getElementById('toast').classList.remove('show'), 3500);
+}
+function cpy(txt) { navigator.clipboard.writeText(txt).catch(()=>{}); toast('Copied: '+txt); }
+function pa(el, nid) { if (el.value.length >= 1) { const n = document.getElementById(nid); if (n) n.focus(); } }
+
+function animCount(el, target, dur) {
+  if (!el) return;
+  const start = performance.now();
+  const from = parseFloat(el.textContent.replace(/[^0-9.]/g,'')) || 0;
+  (function tick(now) {
+    const p = Math.min((now-start)/dur, 1);
+    const e = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(from + (target-from)*e).toLocaleString('en-NG');
+    if (p < 1) requestAnimationFrame(tick);
+  })(start);
+}
+
+function emptyHTML(icon, title, desc, btnLabel, btnAction) {
+  return `<div class="empty"><div class="empty-ico">${icon}</div><div class="empty-t">${title}</div><div class="empty-d">${desc}</div><button class="empty-btn" onclick="${btnAction}">${btnLabel}</button></div>`;
+}
+
+// ══════════════════════════════════
+// SCREENS
+// ══════════════════════════════════
+function showAuth() {
+  document.getElementById('auth').style.display = 'flex';
+  document.getElementById('main-app').style.display = 'none';
+}
+function showApp() {
+  document.getElementById('auth').style.display = 'none';
+  document.getElementById('main-app').style.display = 'block';
+  go('p-home','n-home');
+}
+
+// ══════════════════════════════════
+// AUTH — TAB SWITCH
+// ══════════════════════════════════
+function switchTab(t) {
+  ['login','signup'].forEach(x => {
+    document.getElementById('tab-'+x).classList.toggle('active', x===t);
+    document.getElementById('form-'+x).style.display = x===t ? 'flex' : 'none';
+  });
+  document.getElementById('li-err').textContent = '';
+  document.getElementById('su-err').textContent = '';
+}
+
+// ══════════════════════════════════
+// AUTH — LOGIN
+// ══════════════════════════════════
+async function doLogin() {
+  const name = (document.getElementById('li-name').value||'').trim();
+  const pw   = document.getElementById('li-pw').value||'';
+  const err  = document.getElementById('li-err');
+  err.textContent = '';
+  if (!name || !pw) { err.textContent = 'Please fill in all fields.'; return; }
+
+  setAuthBtn('li-btn', false);
+  showLoader(true, 'Signing in…');
+  try {
+    const snap = await withTimeout(
+      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
+    );
+    if (snap.empty) { err.textContent = 'Name not found. Did you mean to sign up?'; return; }
+    const doc = snap.docs[0];
+    if (doc.data().password !== pw) { err.textContent = 'Incorrect password. Try again.'; return; }
+    localStorage.setItem(SK, doc.id);
+    startListening(doc.id);
+    showApp();
+  } catch(e) {
+    console.error('Login error:', e);
+    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
+    else err.textContent = 'Could not sign in. Check your internet connection.';
+  } finally {
+    showLoader(false);
+    setAuthBtn('li-btn', true);
+  }
+}
+
+// ══════════════════════════════════
+// AUTH — SIGNUP
+// ══════════════════════════════════
+async function doSignup() {
+  const name = (document.getElementById('su-name').value||'').trim();
+  const pw   = document.getElementById('su-pw').value||'';
+  const pw2  = document.getElementById('su-pw2').value||'';
+  const pins = ['sp1','sp2','sp3','sp4'].map(id => (document.getElementById(id)||{}).value||'');
+  const err  = document.getElementById('su-err');
+  err.textContent = '';
+
+  // Validate all fields before touching Firebase
+  if (!name)            { err.textContent = 'Enter your full name.'; return; }
+  if (pw.length < 6)   { err.textContent = 'Password must be at least 6 characters.'; return; }
+  if (pw !== pw2)      { err.textContent = 'Passwords do not match.'; return; }
+  if (pins.some(v=>v==='')||pins.some(v=>!/^\d$/.test(v))) {
+    err.textContent = 'Set all 4 digits of your investment PIN.'; return;
+  }
+  const pin = pins.join('');
+
+  setAuthBtn('su-btn', false);
+  showLoader(true, 'Creating your account…');
+  try {
+    // Check name not taken
+    const snap = await withTimeout(
+      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
+    );
+    if (!snap.empty) { err.textContent = 'That name is already taken. Try a different name or sign in.'; return; }
+
+    // Create user doc
+    const ref = db.collection('users').doc();
+    await withTimeout(ref.set({
+      name, nameLower: name.toLowerCase(),
+      password: pw, pin,
+      balance: 0, totalEarned: 0, simDayOff: 0,
+      investments: [], createdAt: nowISO()
+    }));
+
+    localStorage.setItem(SK, ref.id);
+    startListening(ref.id);
+    showApp();
+  } catch(e) {
+    console.error('Signup error:', e);
+    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
+    else err.textContent = 'Could not create account. Check your internet connection.';
+  } finally {
+    showLoader(false);
+    setAuthBtn('su-btn', true);
+  }
+}
+
+// ══════════════════════════════════
+// AUTH — LOGOUT
+// ══════════════════════════════════
+function doLogout() {
+  closeUserMenu();
+  [_unsubUser, _unsubDep, _unsubWit].forEach(fn => { if(fn) fn(); });
+  _unsubUser = _unsubDep = _unsubWit = null;
+  _user = null;
+  localStorage.removeItem(SK);
+  showAuth();
+}
+
+// ══════════════════════════════════
+// REAL-TIME LISTENERS
+// ══════════════════════════════════
+function startListening(uid) {
+  // User document
+  if (_unsubUser) _unsubUser();
+  _unsubUser = db.collection('users').doc(uid).onSnapshot(snap => {
+    if (!snap.exists) return;
+    _user = {id: snap.id, ...snap.data()};
+    updateUserUI(); rAll(); updDot();
+  }, e => console.error('User listener error:', e));
+
+  // Deposits (no orderBy = no index needed)
+  if (_unsubDep) _unsubDep();
+  _unsubDep = db.collection('deposits').where('userId','==', uid)
+    .onSnapshot(snap => {
+      const deps = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.date.localeCompare(a.date));
+      renderDepHistory(deps);
+    }, e => console.error('Dep listener error:', e));
+
+  // Withdrawals
+  if (_unsubWit) _unsubWit();
+  _unsubWit = db.collection('withdrawals').where('userId','==', uid)
+    .onSnapshot(snap => {
+      const wits = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.date.localeCompare(a.date));
+      renderWitHistory(wits);
+    }, e => console.error('Wit listener error:', e));
+}
+
+function updateUserUI() {
+  if (!_user) return;
+  const av = inits(_user.name);
+  const el = id => document.getElementById(id);
+  if (el('home-av')) el('home-av').textContent = av;
+  if (el('home-name')) el('home-name').textContent = _user.name;
+  if (el('um-name')) el('um-name').textContent = _user.name;
+  if (el('um-meta')) el('um-meta').textContent = 'Member since ' + new Date(_user.createdAt).toLocaleDateString('en-NG',{month:'short',year:'numeric'});
+  if (el('w-avail')) el('w-avail').textContent = fmt(_user.balance);
+}
+
+// ══════════════════════════════════
+// CLAIM LOGIC
+// ══════════════════════════════════
+function dayElapsed(inv) {
+  const s = new Date(inv.startDate), t = new Date(simToday(_user));
+  return Math.min(Math.max(Math.floor((t-s)/86400000)+1, 1), 30);
+}
+function todayKey(inv) { return simToday(_user)+'_d'+dayElapsed(inv); }
+function canClaim(inv) { return inv.status==='active' && dayElapsed(inv)<=30 && !(inv.claimed||[]).includes(todayKey(inv)); }
+function hasClaimed(inv) { return (inv.claimed||[]).includes(todayKey(inv)); }
+function missedDays(inv) { return Math.max(0, (dayElapsed(inv)-1) - (inv.claimed||[]).length); }
+
+function updDot() {
+  const has = _user && (_user.investments||[]).some(i => i.status==='active' && canClaim(i));
+  document.getElementById('claim-dot').style.display = has ? 'block' : 'none';
+}
+
+async function doClaim(invId) {
+  if (!_user) return;
+  const inv = (_user.investments||[]).find(i => i.id===invId);
+  if (!inv || !canClaim(inv)) return;
+  const key = todayKey(inv);
+  const updInvs = (_user.investments||[]).map(i => {
+    if (i.id !== invId) return i;
+    const nc = [...(i.claimed||[]), key];
+    return {...i, claimed:nc, totalClaimed:(i.totalClaimed||0)+i.daily, status:nc.length>=30?'completed':i.status};
+  });
+  showLoader(true, 'Claiming…');
+  try {
+    await withTimeout(db.collection('users').doc(_user.id).update({
+      balance: firebase.firestore.FieldValue.increment(inv.daily),
+      totalEarned: firebase.firestore.FieldValue.increment(inv.daily),
+      investments: updInvs
+    }));
+    toast(fmt(inv.daily)+' claimed and added to your balance');
+  } catch(e) { console.error(e); toast('Could not claim. Check your connection.'); }
+  finally { showLoader(false); }
+}
+
+async function advDay() {
+  if (!_user) return;
+  const n = (_user.simDayOff||0) + 1;
+  try {
+    await withTimeout(db.collection('users').doc(_user.id).update({simDayOff:n}));
+    document.getElementById('dc-day').textContent = 'Day +'+n+' (simulated)';
+    toast('Advanced +1 day');
+  } catch(e) { toast('Error advancing day.'); }
+}
+
+// ══════════════════════════════════
+// INVEST
+// ══════════════════════════════════
+let _planId = null;
+function openInvModal(planId) {
+  if (!_user) { toast('Please sign in first'); return; }
+  const plan = PLANS.find(p => p.id===planId); if (!plan) return;
+  _planId = planId;
+  const g = id => document.getElementById(id);
+  g('m-t').textContent = plan.tier+' Plan';
+  g('m-s').textContent = 'Invest '+fmt(plan.invest)+' · Earn '+fmt(plan.total)+' over 30 days';
+  g('m-inv').textContent = fmt(plan.invest);
+  g('m-ret').textContent = fmt(plan.total);
+  g('m-daily').textContent = fmt(plan.daily)+' / day';
+  g('m-bal').textContent = fmt(_user.balance);
+  const after = _user.balance - plan.invest;
+  g('m-after').textContent = after >= 0 ? fmt(after) : 'Insufficient balance';
+  g('m-after').className = after >= 0 ? 'g' : 'w';
+  ['p1','p2','p3','p4'].forEach(id => { const e=g(id); if(e){e.value='';e.classList.remove('err');} });
+  document.getElementById('inv-modal').classList.add('open');
+  setTimeout(() => { const p=g('p1'); if(p) p.focus(); }, 400);
+}
+
+async function confirmInv() {
+  if (!_user || !_planId) return;
+  const plan = PLANS.find(p => p.id===_planId); if (!plan) return;
+  const pins = ['p1','p2','p3','p4'].map(id => (document.getElementById(id)||{}).value||'');
+  if (pins.some(v=>v==='')||pins.some(v=>!/^\d$/.test(v))) { toast('Enter all 4 digits of your PIN'); return; }
+  const entered = pins.join('');
+  // Validate PIN
+  if (entered !== (_user.pin||'')) {
+    document.querySelectorAll('.pin-f').forEach(f => {
+      f.classList.add('err');
+      setTimeout(() => f.classList.remove('err'), 600);
+      f.value = '';
+    });
+    setTimeout(() => document.getElementById('p1').focus(), 100);
+    toast('Incorrect PIN. Try again.');
+    return;
+  }
+  if (_user.balance < plan.invest) { toast('Insufficient balance · Please deposit first'); return; }
+  const newInv = {
+    id: 'inv_'+Date.now(), planId: plan.id,
+    name: plan.tier+' Plan · '+fmt(plan.invest),
+    invest: plan.invest, total: plan.total, daily: plan.daily,
+    tier: plan.tier, startDate: simToday(_user),
+    claimed: [], totalClaimed: 0, status: 'active'
+  };
+  showLoader(true, 'Opening position…');
+  try {
+    await withTimeout(db.collection('users').doc(_user.id).update({
+      balance: firebase.firestore.FieldValue.increment(-plan.invest),
+      investments: firebase.firestore.FieldValue.arrayUnion(newInv)
+    }));
+    closeM('inv-modal');
+    toast('Position opened · '+fmt(plan.invest)+' invested');
+  } catch(e) { console.error(e); toast('Error opening position. Check your connection.'); }
+  finally { showLoader(false); }
+}
+
+// ══════════════════════════════════
+// DEPOSIT
+// ══════════════════════════════════
+function setDep(v) { document.getElementById('dep-a').value = v; updDep(); }
+function updDep() {
+  const v = parseFloat(document.getElementById('dep-a').value)||0;
+  document.getElementById('dep-sa').textContent = fmt2(v);
+  document.getElementById('dep-sc').textContent = fmt2(v);
+}
+
+async function doDeposit() {
+  if (!_user) return;
+  const v = parseFloat(document.getElementById('dep-a').value)||0;
+  if (v < 100) { toast('Minimum deposit is ₦100'); return; }
+  showLoader(true, 'Submitting request…');
+  try {
+    await withTimeout(db.collection('deposits').add({
+      userId:_user.id, userName:_user.name,
+      amount:v, date:nowISO(), status:'pending'
+    }));
+    document.getElementById('dep-a').value = ''; updDep();
+    toast('Request submitted · Awaiting admin approval');
+  } catch(e) { console.error(e); toast('Could not submit. Check your connection.'); }
+  finally { showLoader(false); }
+}
+
+function renderDepHistory(deps) {
+  const c = document.getElementById('dep-history');
+  if (!deps || !deps.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No deposit requests yet</div>'; return; }
+  c.innerHTML = deps.map(d => {
+    const cls = d.status==='approved'?'hi-a':d.status==='rejected'?'hi-r':'hi-p';
+    const lbl = d.status==='approved'?'Approved':d.status==='rejected'?'Rejected':'Pending';
+    return `<div class="hist-item"><div><div class="hi-amt">${fmt(d.amount)}</div><div class="hi-sub">${dateStr(d.date)}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// WITHDRAW
+// ══════════════════════════════════
+function setWit(v) { document.getElementById('w-a').value = v; updWit(); }
+function witMax() { document.getElementById('w-a').value = _user ? _user.balance : 0; updWit(); }
+function updWit() {
+  const v    = parseFloat(document.getElementById('w-a').value)||0;
+  const bank = document.getElementById('w-bank').value||'—';
+  const acct = document.getElementById('w-acct').value||'—';
+  const actn = document.getElementById('w-acct-name').value||'—';
+  document.getElementById('w-sa').textContent = fmt2(v);
+  document.getElementById('w-sr').textContent = fmt2(v);
+  document.getElementById('w-bk').textContent = bank;
+  document.getElementById('w-ac').textContent = acct;
+  document.getElementById('w-an').textContent = actn;
+}
+
+async function doWithdraw() {
+  if (!_user) return;
+  const v    = parseFloat(document.getElementById('w-a').value)||0;
+  const bank = document.getElementById('w-bank').value;
+  const acct = document.getElementById('w-acct').value.trim();
+  const actn = document.getElementById('w-acct-name').value.trim();
+  if (v <= 0) { toast('Enter an amount to withdraw'); return; }
+  if (v > _user.balance) { toast('Amount exceeds your available balance'); return; }
+  if (!bank) { toast('Please select your bank'); return; }
+  if (!acct || acct.length < 10) { toast('Enter a valid 10-digit account number'); return; }
+  if (!actn) { toast('Enter the account name'); return; }
+
+  showLoader(true, 'Submitting withdrawal…');
+  try {
+    await withTimeout(Promise.all([
+      db.collection('users').doc(_user.id).update({
+        balance: firebase.firestore.FieldValue.increment(-v)
+      }),
+      db.collection('withdrawals').add({
+        userId:_user.id, userName:_user.name,
+        amount:v, bank, accountNumber:acct, accountName:actn,
+        date:nowISO(), status:'pending'
+      })
+    ]));
+    document.getElementById('w-a').value='';
+    document.getElementById('w-acct').value='';
+    document.getElementById('w-acct-name').value='';
+    document.getElementById('w-bank').value='';
+    updWit();
+    toast('Withdrawal submitted · Admin will process shortly');
+  } catch(e) { console.error(e); toast('Could not submit. Check your connection.'); }
+  finally { showLoader(false); }
+}
+
+function renderWitHistory(wits) {
+  const c = document.getElementById('wit-history');
+  if (!wits || !wits.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No withdrawal requests yet</div>'; return; }
+  c.innerHTML = wits.map(w => {
+    const cls = w.status==='approved'?'hi-a':w.status==='rejected'?'hi-r':'hi-p';
+    const lbl = w.status==='approved'?'Sent':w.status==='rejected'?'Rejected':'Processing';
+    return `<div class="hist-item"><div><div class="hi-amt">${fmt(w.amount)}</div><div class="hi-sub">${dateStr(w.date)} · ${w.bank}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// RENDER — PLANS
+// ══════════════════════════════════
+function renderPlans() {
+  document.getElementById('plans-c').innerHTML = PLANS.map(p => {
+    const t = TC[p.tier];
+    const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${t.r};border-color:${t.pbd}`;
+    return `<div class="plan-item" style="--pi-l:${t.l};--pi-glow:${t.glow}" onclick="openInvModal('${p.id}')">
+      <div class="pi-atm"></div>
+      <div class="pi-top">
+        <div><div class="pi-tier">${p.tier} Tier</div><div class="pi-name">${fmt(p.invest)}</div></div>
+        <div class="pi-badge" style="background:${t.pb};color:${t.pc};border-color:${t.pbd}">${p.badge}</div>
+      </div>
+      <div class="pi-figs">
+        <div class="pi-invest"><div class="pi-lbl">You Invest</div><div class="pi-val">${fmt(p.invest)}</div></div>
+        <div class="pi-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="pi-return"><div class="pi-lbl">You Get</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
+      </div>
+      <div class="pi-meta">
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">30 days</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">500% ROI</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Secured</strong></div>
+      </div>
+      <div class="pi-daily">Daily: <strong>${fmt(p.daily)}</strong> for 30 days</div>
+      <button class="pi-cta" style="${bs}">Invest ${fmt(p.invest)}</button>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// RENDER — CLAIMS
+// ══════════════════════════════════
+function renderClaims() {
+  const c = document.getElementById('claim-c');
+  if (!_user) { c.innerHTML = ''; return; }
+  const active = (_user.investments||[]).filter(i => i.status==='active');
+  if (!active.length) {
+    c.innerHTML = emptyHTML(
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+      'No Active Investments','Invest in a plan to start earning daily claimable returns.',
+      'Browse Plans',"go('p-plans','n-plans')"
+    ); return;
+  }
+  const dco = _user.simDayOff||0;
+  if (dco > 0) document.getElementById('dc-day').textContent = 'Day +'+dco+' (simulated)';
+
+  c.innerHTML = active.map(inv => {
+    const t = TC[inv.tier]||TC.Starter;
+    const day = dayElapsed(inv);
+    const cl = inv.claimed||[];
+    const pct = Math.round((cl.length/30)*100);
+    const miss = missedDays(inv);
+    const claimed = hasClaimed(inv);
+    const canC = canClaim(inv);
+    let btn = '';
+    if (claimed) btn = `<div class="cc-claimed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Come back tomorrow</div>`;
+    else if (canC) btn = `<button class="cc-btn" onclick="doClaim('${inv.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claim ${fmt(inv.daily)} Now</button>`;
+    else btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,30)}</div>`;
+    return `<div class="cc" style="--cc-l:${t.l}">
+      <div class="cc-top">
+        <div><div class="cc-name">${inv.name}</div><div class="cc-inv">Invested: ${fmt(inv.invest)}</div></div>
+        <div class="cc-tag" style="background:${claimed?'var(--okd)':canC?t.pb:'var(--s2)'};color:${claimed?'var(--ok)':canC?t.pc:'var(--sil)'};border:1px solid ${claimed?'rgba(92,200,138,.2)':canC?t.pbd:'var(--b1)'}">Day ${day}/30</div>
+      </div>
+      <div class="cc-daily-lbl">Today's Claimable Amount</div>
+      <div class="cc-daily-val" style="color:${t.r}">${fmt(inv.daily)}</div>
+      ${btn}
+      <div class="cc-pbar"><div class="cc-pbar-f" style="width:${pct}%;background:${t.r}"></div></div>
+      <div class="cc-meta"><span class="${miss>0?'miss':'ok'}">${miss>0?miss+' day'+(miss>1?'s':'')+' missed':'No days missed'}</span><span>${cl.length}/30 · ${fmt(inv.totalClaimed||0)} earned</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// RENDER — HOME
+// ══════════════════════════════════
+function renderHome() {
+  if (!_user) return;
+  animCount(document.getElementById('h-bal'), _user.balance, 900);
+  const invs = _user.investments||[];
+  const tInv = invs.reduce((s,i)=>s+i.invest, 0);
+  const tCl  = invs.reduce((s,i)=>s+(i.totalClaimed||0), 0);
+  const actC = invs.filter(i=>i.status==='active').length;
+  const todC = invs.filter(i=>canClaim(i)).reduce((s,i)=>s+i.daily, 0);
+  document.getElementById('h-invested').textContent = fmt(tInv);
+  document.getElementById('h-earned').textContent   = fmt(tCl);
+  document.getElementById('h-active').textContent   = actC;
+  document.getElementById('h-claimable').textContent= fmt(todC);
+  const sub = document.getElementById('h-sub');
+  if (tCl>0)    sub.innerHTML = '<span>+'+fmt(tCl)+'</span> earned total';
+  else if (tInv>0) sub.innerHTML = '<span>'+fmt(tInv)+'</span> deployed · '+actC+' plan'+(actC!==1?'s':'');
+  else          sub.innerHTML = 'Deposit to start investing';
+
+  const posEl = document.getElementById('h-pos');
+  const active = invs.filter(i=>i.status==='active').slice(0,3);
+  if (!active.length) {
+    posEl.innerHTML = '<div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go(\'p-plans\',\'n-plans\')">Browse plans →</span></div>';
+    return;
+  }
+  posEl.innerHTML = active.map(inv => {
+    const t = TC[inv.tier]||TC.Starter;
+    const pct = Math.round(((inv.claimed||[]).length/30)*100);
+    return `<div class="pos-item" onclick="go('p-claim','n-claim')">
+      <div class="pos-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}">${inv.tier.slice(0,2).toUpperCase()}</div>
+      <div class="pos-body">
+        <div class="pos-name">${inv.name}</div>
+        <div class="pos-sub">Day ${dayElapsed(inv)}/30 · ${(inv.claimed||[]).length} claimed · ${missedDays(inv)} missed</div>
+        <div class="pos-bar"><div class="pos-bar-f" style="width:${pct}%;background:${t.r}"></div></div>
+      </div>
+      <div class="pos-r"><div class="pos-ret" style="color:${t.r}">${fmt(inv.total)}</div><div class="pos-inv">from ${fmt(inv.invest)}</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// RENDER — PORTFOLIO
+// ══════════════════════════════════
+function renderPortfolio() {
+  if (!_user) return;
+  const invs = _user.investments||[];
+  document.getElementById('pf-inv').textContent = fmt(invs.reduce((s,i)=>s+i.invest, 0));
+  document.getElementById('pf-exp').textContent = fmt(invs.reduce((s,i)=>s+i.total, 0));
+  document.getElementById('pf-cl').textContent  = fmt(invs.reduce((s,i)=>s+(i.totalClaimed||0), 0));
+  const c = document.getElementById('port-c');
+  if (!invs.length) {
+    c.innerHTML = emptyHTML(
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+      'Portfolio Empty','No investments yet.','Browse Plans',"go('p-plans','n-plans')"
+    ); return;
+  }
+  c.innerHTML = [...invs].reverse().map(inv => {
+    const t = TC[inv.tier]||TC.Starter;
+    const pct = Math.round(((inv.claimed||[]).length/30)*100);
+    const day = dayElapsed(inv);
+    const done = inv.status==='completed';
+    return `<div class="pcard">
+      <div class="pc-top">
+        <div class="pc-left">
+          <div class="pc-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}">${inv.tier.slice(0,2).toUpperCase()}</div>
+          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}</div></div>
+        </div>
+        <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
+      </div>
+      <div class="pc-amts">
+        <div><div class="pc-al">Invested</div><div class="pc-av">${fmt(inv.invest)}</div></div>
+        <div><div class="pc-al">Total Return</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
+        <div><div class="pc-al">Claimed</div><div class="pc-av ok">${fmt(inv.totalClaimed||0)}</div></div>
+      </div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Daily: ${fmt(inv.daily)} · ${(inv.claimed||[]).length}/30 · ${missedDays(inv)} missed</div>
+      <div class="pc-bar"><div class="pc-bar-f" style="width:${pct}%"></div></div>
+      <div class="pc-bm"><span>${pct}% complete</span><span>${Math.max(0,30-day)} days remaining</span></div>
+    </div>`;
+  }).join('');
+}
+
+function rAll() {
+  if (!_user) return;
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI();
+}
+
+// ══════════════════════════════════
+// ADMIN PANEL
+// ══════════════════════════════════
+let _logoTaps=0, _logoTimer;
+document.getElementById('logo-tap').addEventListener('click', () => {
+  _logoTaps++;
+  clearTimeout(_logoTimer);
+  if (_logoTaps >= 5) { _logoTaps=0; openAdmLogin(); }
+  else _logoTimer = setTimeout(() => _logoTaps=0, 1800);
+});
+
+function openAdmLogin() {
+  document.getElementById('adm-pw').value = '';
+  document.getElementById('adm-err').textContent = '';
+  document.getElementById('adm-login').classList.add('open');
+  setTimeout(() => document.getElementById('adm-pw').focus(), 350);
+}
+function checkAdminPw() {
+  if (document.getElementById('adm-pw').value === ADMIN_PW) {
+    closeM('adm-login'); openAdminPanel();
+  } else {
+    document.getElementById('adm-err').textContent = 'Incorrect password.';
+  }
+}
+function openAdminPanel() {
+  document.getElementById('admin-panel').style.display = 'block';
+  // Listen for pending deposits
+  if (_unsubAdmDep) _unsubAdmDep();
+  _unsubAdmDep = db.collection('deposits').where('status','==','pending')
+    .onSnapshot(snap => renderAdmDeps(snap.docs.map(d=>({id:d.id,...d.data()}))));
+  // Listen for pending withdrawals
+  if (_unsubAdmWit) _unsubAdmWit();
+  _unsubAdmWit = db.collection('withdrawals').where('status','==','pending')
+    .onSnapshot(snap => renderAdmWits(snap.docs.map(d=>({id:d.id,...d.data()}))));
+  // All users
+  if (_unsubAdmUsr) _unsubAdmUsr();
+  _unsubAdmUsr = db.collection('users')
+    .onSnapshot(snap => renderAdmUsers(snap.docs.map(d=>({id:d.id,...d.data()}))));
+}
+function closeAdmin() {
+  document.getElementById('admin-panel').style.display = 'none';
+  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr].forEach(fn=>{if(fn)fn();});
+  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=null;
+}
+
+function noItems(msg) { return `<div style="font-size:12px;color:var(--sil);text-align:center;padding:18px 0">${msg}</div>`; }
+
+function renderAdmDeps(deps) {
+  const c = document.getElementById('adm-deps');
+  if (!deps.length) { c.innerHTML=noItems('No pending deposits'); return; }
+  c.innerHTML = deps.map(d => `<div class="req-card">
+    <div class="rc-top"><div><div class="rc-user">${d.userName}</div><div class="rc-date">${dateStr(d.date)}</div></div><div class="rc-amt">${fmt(d.amount)}</div></div>
+    <div class="rc-acts">
+      <button class="rc-ap" onclick="admApproveDep('${d.id}','${d.userId}',${d.amount})">Approve & Credit</button>
+      <button class="rc-rj" onclick="admRejectDep('${d.id}')">Reject</button>
+    </div>
+  </div>`).join('');
+}
+function renderAdmWits(wits) {
+  const c = document.getElementById('adm-wits');
+  if (!wits.length) { c.innerHTML=noItems('No pending withdrawals'); return; }
+  c.innerHTML = wits.map(w => `<div class="req-card">
+    <div class="rc-top"><div><div class="rc-user">${w.userName}</div><div class="rc-date">${dateStr(w.date)}</div></div><div class="rc-amt">${fmt(w.amount)}</div></div>
+    <div class="rc-bank">Bank: <strong>${w.bank}</strong><br>Acct: <strong>${w.accountNumber}</strong><br>Name: <strong>${w.accountName}</strong></div>
+    <div class="rc-acts">
+      <button class="rc-ap" onclick="admApproveWit('${w.id}')">Mark Sent</button>
+      <button class="rc-rj" onclick="admRejectWit('${w.id}','${w.userId}',${w.amount})">Reject & Refund</button>
+    </div>
+  </div>`).join('');
+}
+function renderAdmUsers(users) {
+  const c = document.getElementById('adm-users');
+  if (!users.length) { c.innerHTML=noItems('No users yet'); return; }
+  c.innerHTML = users.map(u => {
+    const act = (u.investments||[]).filter(i=>i.status==='active').length;
+    const total = (u.investments||[]).reduce((s,i)=>s+i.invest,0);
+    return `<div class="adm-user-row">
+      <div class="au-name">${u.name}</div>
+      <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
+    </div>`;
+  }).join('');
+}
+
+async function admApproveDep(depId, userId, amount) {
+  showLoader(true,'Approving…');
+  try {
+    await withTimeout(Promise.all([
+      db.collection('deposits').doc(depId).update({status:'approved'}),
+      db.collection('users').doc(userId).update({balance:firebase.firestore.FieldValue.increment(amount)})
+    ]));
+    toast('₦'+Math.round(amount).toLocaleString()+' credited to user');
+  } catch(e) { toast('Error. Try again.'); console.error(e); }
+  finally { showLoader(false); }
+}
+async function admRejectDep(depId) {
+  try {
+    await withTimeout(db.collection('deposits').doc(depId).update({status:'rejected'}));
+    toast('Deposit rejected');
+  } catch(e) { toast('Error. Try again.'); }
+}
+async function admApproveWit(witId) {
+  try {
+    await withTimeout(db.collection('withdrawals').doc(witId).update({status:'approved'}));
+    toast('Withdrawal marked as sent');
+  } catch(e) { toast('Error. Try again.'); }
+}
+async function admRejectWit(witId, userId, amount) {
+  showLoader(true,'Refunding…');
+  try {
+    await withTimeout(Promise.all([
+      db.collection('withdrawals').doc(witId).update({status:'rejected'}),
+      db.collection('users').doc(userId).update({balance:firebase.firestore.FieldValue.increment(amount)})
+    ]));
+    toast('Withdrawal rejected · Balance refunded to user');
+  } catch(e) { toast('Error. Try again.'); console.error(e); }
+  finally { showLoader(false); }
+}
+
+// ══════════════════════════════════
+// MODAL UTILS
+// ══════════════════════════════════
+function mClose(e, id) { if (e.target===document.getElementById(id)) closeM(id); }
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+
+// ══════════════════════════════════
+// BOOT
+// ══════════════════════════════════
+async function boot() {
+  // Show splash while Firebase loads
+  try {
+    await waitForFirebase();
+  } catch(e) {
+    console.error('Firebase failed:', e);
+    document.getElementById('splash').classList.add('hide');
+    showAuth();
+    document.getElementById('li-err').textContent = 'Could not connect to database. Check your internet and refresh.';
+    return;
+  }
+
+  renderPlans();
+
+  // Hide splash
+  await new Promise(r => setTimeout(r, 2800));
+  document.getElementById('splash').classList.add('hide');
+
+  // Check saved session
+  const uid = localStorage.getItem(SK);
+  if (uid) {
+    showLoader(true, 'Loading your account…');
+    try {
+      const snap = await withTimeout(db.collection('users').doc(uid).get());
+      if (snap.exists) {
+        _user = {id: snap.id, ...snap.data()};
+        updateUserUI(); rAll();
+        startListening(uid);
+        showApp();
+      } else {
+        localStorage.removeItem(SK);
+        showAuth();
+      }
+    } catch(e) {
+      console.error('Session restore error:', e);
+      localStorage.removeItem(SK);
+      showAuth();
+      document.getElementById('li-err').textContent = 'Session expired. Please sign in again.';
+    } finally {
+      showLoader(false);
+    }
+  } else {
+    showAuth();
+  }
+}
+
+boot();
+</script>
+</body>
+</html>
