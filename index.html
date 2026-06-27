@@ -392,6 +392,57 @@ body::after{display:none}
 .toast{position:fixed;top:58px;left:50%;transform:translateX(-50%) translateY(-10px);background:var(--s2);border:1px solid var(--gb);color:var(--gold2);font-size:11px;font-weight:500;padding:9px 16px;border-radius:30px;z-index:9000;opacity:0;transition:all .3s var(--ez);display:flex;align-items:center;gap:6px;pointer-events:none;box-shadow:0 8px 24px rgba(17,20,43,.18);max-width:88vw;overflow:hidden}
 .toast svg{width:12px;height:12px;color:var(--gold);flex-shrink:0}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── REFERRAL CARD ── */
+.ref-card{margin:0 16px 18px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:15px;position:relative;overflow:hidden}
+.ref-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent)}
+.ref-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ref-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil)}
+.ref-bonus{font-size:10px;font-weight:600;color:var(--ok);background:var(--okd);border:1px solid var(--okb);padding:3px 9px;border-radius:20px}
+.ref-code-row{display:flex;align-items:center;gap:8px}
+.ref-code{font-family:var(--d);font-size:20px;font-weight:700;letter-spacing:.12em;color:var(--gold);flex:1}
+.ref-copy{font-size:9px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);padding:5px 12px;border-radius:7px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.ref-copy:hover{background:var(--gb)}
+.ref-hint{font-size:10px;color:var(--sil);font-weight:300;margin-top:7px;line-height:1.55}
+.ref-hint strong{color:var(--gold)}
+
+/* ── STREAK ── */
+.streak-bar{display:flex;align-items:center;gap:8px;background:rgba(15,174,107,.06);border:1px solid rgba(15,174,107,.18);border-radius:10px;padding:9px 13px;margin:0 16px 12px}
+.streak-ico{font-size:16px;line-height:1}
+.streak-txt{flex:1}
+.streak-label{font-size:10px;font-weight:600;color:var(--ok)}
+.streak-sub{font-size:9px;color:var(--sil);font-weight:300}
+.streak-num{font-family:var(--d);font-size:22px;font-weight:700;color:var(--ok)}
+
+/* ── TOS MODAL ── */
+#tos-modal{position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);display:none;align-items:flex-end;justify-content:center;max-width:430px;margin:0 auto}
+#tos-modal.open{display:flex}
+.tos-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 22px 44px;width:100%;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:shu .35s var(--ez) both;position:relative;transition:transform .25s var(--ez)}
+.tos-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tos-handle{width:32px;height:3px;background:var(--b2);border-radius:2px;margin:13px auto 18px}
+.tos-head{font-family:var(--d);font-size:20px;font-weight:600;color:var(--plat);margin-bottom:4px}
+.tos-date{font-size:10px;color:var(--sil);margin-bottom:18px}
+.tos-body{font-size:11px;color:var(--sil);line-height:1.75;font-weight:300}
+.tos-body h3{font-family:var(--d);font-size:13px;font-weight:600;color:var(--plat);margin:18px 0 7px;letter-spacing:.01em}
+.tos-body p{margin-bottom:10px}
+.tos-body ul{padding-left:16px;margin-bottom:10px}
+.tos-body ul li{margin-bottom:5px}
+.tos-agree{display:flex;align-items:flex-start;gap:10px;background:var(--gd);border:1px solid var(--gb);border-radius:11px;padding:13px;margin:20px 0 14px;cursor:pointer}
+.tos-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--gb);background:var(--s1);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s}
+.tos-check.checked{background:var(--gold);border-color:var(--gold)}
+.tos-check svg{width:10px;height:10px;color:#fff;opacity:0;transition:opacity .15s}
+.tos-check.checked svg{opacity:1}
+.tos-agree-txt{font-size:11px;color:var(--sil);font-weight:400;line-height:1.55}
+.tos-agree-txt strong{color:var(--plat)}
+.tos-btn{width:100%;padding:15px;border:none;border-radius:11px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s;opacity:.4;pointer-events:none}
+.tos-btn.ready{opacity:1;pointer-events:auto}
+.tos-btn.ready:hover{background:var(--gold2)}
+
+/* ── PIN CHANGE MODAL ── */
+#pin-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);z-index:500;align-items:flex-end;justify-content:center}
+#pin-modal.open{display:flex;animation:fi .22s ease both}
+.pin-modal-sheet{background:var(--s1);border:1px solid var(--gb);border-bottom:none;border-radius:22px 22px 0 0;padding:0 22px 52px;width:100%;max-width:430px;animation:shu .35s var(--ez) both;position:relative}
+.pin-modal-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 </style>
 </head>
 <body>
@@ -434,13 +485,15 @@ body::after{display:none}
     <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
     <div class="a-grp">
       <label class="a-lbl">Set Your 4-Digit Investment PIN</label>
-      <div class="a-pin-row">
-        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp1" autocomplete="off" oninput="pa(this,'sp2')"/>
-        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp2" autocomplete="off" oninput="pa(this,'sp3')"/>
-        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp3" autocomplete="off" oninput="pa(this,'sp4')"/>
-        <input class="a-pin-f" type="tel" inputmode="numeric" maxlength="1" id="sp4" autocomplete="off"/>
-      </div>
+      <input class="a-inp" id="su-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit PIN" autocomplete="new-password" style="-webkit-text-security:disc;letter-spacing:.3em;font-size:22px;font-family:var(--d)"/>
       <div class="a-hint">You'll use this PIN to confirm every investment.</div>
+    </div>
+    <div class="a-grp"><label class="a-lbl">Referral Code <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label><input class="a-inp" id="su-ref" type="text" placeholder="Enter a referral code" autocomplete="off" style="text-transform:uppercase"/></div>
+    <div style="display:flex;align-items:flex-start;gap:10px;background:var(--gd);border:1px solid var(--gb);border-radius:11px;padding:12px;cursor:pointer" onclick="toggleSignupTos()" id="su-tos-row">
+      <div id="su-tos-check" style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--gb);background:var(--s1);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s">
+        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0" id="su-tos-tick"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div style="font-size:11px;color:var(--sil);line-height:1.55">I have read and agree to the <strong style="color:var(--gold);cursor:pointer" onclick="event.stopPropagation();openTos()">Terms of Service</strong>. I understand the risks involved in investment activities.</div>
     </div>
     <div class="a-err" id="su-err"></div>
     <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
@@ -479,6 +532,14 @@ body::after{display:none}
         <button class="ba ba-o" onclick="go('p-withdraw','n-withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
       </div>
     </div>
+    <div class="ref-card" id="home-ref-card">
+      <div class="ref-top"><span class="ref-lbl">Your Referral Code</span><span class="ref-bonus">+₦2,000 per referral</span></div>
+      <div class="ref-code-row">
+        <span class="ref-code" id="home-ref-code">—</span>
+        <span class="ref-copy" onclick="copyRefCode()">Copy Code</span>
+      </div>
+      <div class="ref-hint">Share your code. When a friend signs up and makes their first deposit, <strong>you both earn ₦2,000</strong> bonus credited to your wallets.</div>
+    </div>
     <div class="stats">
       <div class="stile" style="--sl:rgba(67,56,236,.25)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="st-val" id="h-invested">₦0</div><div class="st-lbl">Total Invested</div></div>
       <div class="stile" style="--sl:rgba(15,174,107,.3);--si:var(--okd);--sc:var(--ok);--svc:var(--ok)"><div class="st-ico" style="background:var(--okd)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-earned">₦0</div><div class="st-lbl">Claimed Earnings</div></div>
@@ -501,6 +562,11 @@ body::after{display:none}
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
     <div class="ph"><div class="ph-t">Daily Claims</div><div class="ph-s">Return every day. Miss a day — it's gone forever.</div></div>
     <div class="claim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="cb-t"><strong>Warning:</strong> Each plan pays a fixed daily amount for 60 days. You must claim manually every day. Any missed day is permanently forfeited.</div></div>
+    <div class="streak-bar" id="streak-bar">
+      <div class="streak-ico">🔥</div>
+      <div class="streak-txt"><div class="streak-label" id="streak-label">0-Day Streak</div><div class="streak-sub" id="streak-sub">Claim today to start your streak</div></div>
+      <div class="streak-num" id="streak-num">0</div>
+    </div>
     <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Invest in a plan to start earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
@@ -654,6 +720,8 @@ body::after{display:none}
     <div class="um-meta" id="um-meta">Member</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
     <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
+    <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
+    <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
     <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
   </div>
 </div>
@@ -719,6 +787,112 @@ body::after{display:none}
 </div>
 
 </div><!-- /root -->
+
+<!-- TOS MODAL -->
+<div id="tos-modal">
+  <div class="tos-sheet">
+    <div class="tos-handle"></div>
+    <div class="tos-head">Terms of Service</div>
+    <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
+    <div class="tos-body">
+      <p>Please read these Terms of Service ("Terms") carefully before using the AURO investment platform ("Platform", "we", "us", or "our"). By creating an account or using any part of this Platform, you confirm that you have read, understood, and agree to be bound by these Terms in full.</p>
+
+      <h3>1. Eligibility</h3>
+      <p>You must be at least 18 years of age and a legal resident of the Federal Republic of Nigeria to use this Platform. By registering, you represent and warrant that all information you provide is accurate, current, and complete. AURO reserves the right to suspend or terminate any account found to be in violation of this clause without prior notice.</p>
+
+      <h3>2. Nature of the Platform</h3>
+      <p>AURO is a digital investment platform that pools capital from registered users and deploys it into real-sector business ventures including but not limited to solid mineral extraction, petroleum distribution, agricultural processing, commercial real estate, energy infrastructure, and sovereign-grade financial instruments. Returns are derived from the operating revenues of these underlying businesses.</p>
+      <p>AURO does not guarantee profits. While every plan is structured with defined return rates, actual business performance is subject to market conditions, regulatory developments, and operational factors beyond our control. Stated ROI figures represent projected returns based on historical and estimated business performance, not guaranteed outcomes.</p>
+
+      <h3>3. Investment Plans & Returns</h3>
+      <ul>
+        <li>Each investment plan has a fixed duration of 60 calendar days from the date of activation.</li>
+        <li>Returns are made available for daily manual claiming throughout the plan duration. You must actively claim each day's return through the app.</li>
+        <li>Any day's return not claimed on that calendar day is permanently forfeited and cannot be recovered, transferred, or compensated.</li>
+        <li>Once a plan is activated and capital is deployed, it cannot be reversed, cancelled, or withdrawn before the plan's completion date.</li>
+        <li>Completed plans automatically close. Any unclaimed returns at plan expiry are permanently forfeited.</li>
+      </ul>
+
+      <h3>4. Deposits & Withdrawals</h3>
+      <ul>
+        <li>Deposits are processed exclusively through Paystack, a licensed and regulated payment gateway. AURO does not store card details.</li>
+        <li>Minimum deposit is ₦100. A Paystack processing fee applies to all card transactions as displayed at checkout.</li>
+        <li>Withdrawals are processed manually by our team within 1–3 business days. Withdrawal requests are subject to available cleared balance and may be delayed during high-volume periods.</li>
+        <li>AURO reserves the right to request identity verification before processing any withdrawal above ₦500,000.</li>
+        <li>Fraudulent withdrawal attempts will result in immediate account suspension and may be reported to relevant authorities.</li>
+      </ul>
+
+      <h3>5. Referral Programme</h3>
+      <p>Users may earn a referral bonus of ₦2,000 when they refer a new user who successfully creates an account and makes their first deposit. The referred user also receives a ₦2,000 welcome bonus. Referral bonuses are credited to both parties' wallets within 24 hours of the qualifying deposit being confirmed. AURO reserves the right to modify, suspend, or discontinue the referral programme at any time. Abuse of the referral system — including self-referral, duplicate accounts, or coordinated fraud — will result in permanent account termination and forfeiture of all balances.</p>
+
+      <h3>6. Security & Account Responsibility</h3>
+      <ul>
+        <li>Your account password and 4-digit investment PIN are your sole responsibility. Do not share them with any third party.</li>
+        <li>AURO will never contact you to request your PIN, password, or payment details through any channel.</li>
+        <li>You are solely responsible for all activity conducted through your account. In the event of suspected unauthorized access, contact us immediately.</li>
+        <li>AURO employs industry-standard encryption and database security. However, no system is completely impenetrable. We are not liable for losses resulting from unauthorized account access caused by user negligence.</li>
+      </ul>
+
+      <h3>7. Risk Disclosure</h3>
+      <p>All investments carry risk. The value of returns is not guaranteed and may be affected by factors including but not limited to: commodity price fluctuations, regulatory changes, macroeconomic conditions, natural events, and operational disruptions. Past performance of any investment sector is not a reliable indicator of future results. You should only invest what you can afford to lose. AURO strongly recommends that users seek independent financial advice before committing significant capital.</p>
+
+      <h3>8. Prohibited Activities</h3>
+      <p>You may not use this Platform to: launder money or finance illegal activities; create multiple accounts for the purpose of exploiting referral bonuses; reverse-engineer or exploit any part of the Platform's code or infrastructure; impersonate AURO staff or misrepresent your identity; or use automated scripts or bots to interact with the Platform.</p>
+      <p>Violation of any prohibition above results in immediate permanent account termination and forfeiture of all funds, with no right of appeal.</p>
+
+      <h3>9. Limitation of Liability</h3>
+      <p>To the fullest extent permitted by applicable law, AURO and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, loss of data, or loss of goodwill — arising out of or in connection with your use of the Platform, even if AURO has been advised of the possibility of such damages. AURO's total aggregate liability to you for any claim shall not exceed the amount you deposited in the 30 days preceding the event giving rise to the claim.</p>
+
+      <h3>10. Amendments</h3>
+      <p>AURO reserves the right to modify these Terms at any time. Changes take effect upon posting to the Platform. Continued use of the Platform following any amendment constitutes acceptance of the revised Terms. We recommend reviewing these Terms periodically.</p>
+
+      <h3>11. Governing Law</h3>
+      <p>These Terms are governed by and construed in accordance with the laws of the Federal Republic of Nigeria. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Lagos State, Nigeria.</p>
+
+      <h3>12. Contact</h3>
+      <p>For support, disputes, or enquiries regarding these Terms, contact us through the in-app notification system or at <strong style="color:var(--gold)">support@auro.app</strong>.</p>
+    </div>
+    <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
+      <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the investment risks described above.</div>
+    </div>
+    <button class="tos-btn" id="tos-confirm-btn" onclick="confirmTos()">I Agree & Continue</button>
+  </div>
+</div>
+
+<!-- PIN CHANGE MODAL -->
+<div class="overlay" id="pin-modal" onclick="mClose(event,'pin-modal')">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Change Investment PIN</div>
+    <div class="m-sub">Enter your current PIN, then set a new one.</div>
+    <div style="margin-bottom:14px">
+      <label class="pin-lbl">Current PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp1" autocomplete="off" oninput="pa(this,'cp2')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp2" autocomplete="off" oninput="pa(this,'cp3')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp3" autocomplete="off" oninput="pa(this,'cp4')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp4" autocomplete="off"/>
+      </div>
+      <label class="pin-lbl" style="margin-top:14px">New PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1" autocomplete="off" oninput="pa(this,'np2')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2" autocomplete="off" oninput="pa(this,'np3')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np3" autocomplete="off" oninput="pa(this,'np4')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np4" autocomplete="off"/>
+      </div>
+      <label class="pin-lbl" style="margin-top:14px">Confirm New PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1b" autocomplete="off" oninput="pa(this,'np2b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2b" autocomplete="off" oninput="pa(this,'np3b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np3b" autocomplete="off" oninput="pa(this,'np4b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np4b" autocomplete="off"/>
+      </div>
+    </div>
+    <button class="bb" onclick="doChangePin()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Update PIN</button>
+    <button onclick="closeM('pin-modal')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer">Cancel</button>
+  </div>
+</div>
 
 <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="toast-m"></span></div>
 
@@ -929,7 +1103,7 @@ async function doSignup() {
   const name = (document.getElementById('su-name').value||'').trim();
   const pw   = document.getElementById('su-pw').value||'';
   const pw2  = document.getElementById('su-pw2').value||'';
-  const pins = ['sp1','sp2','sp3','sp4'].map(id => (document.getElementById(id)||{}).value||'');
+  const pin  = (document.getElementById('su-pin').value||'').trim();
   const err  = document.getElementById('su-err');
   err.textContent = '';
 
@@ -937,10 +1111,9 @@ async function doSignup() {
   if (!name)            { err.textContent = 'Enter your full name.'; return; }
   if (pw.length < 6)   { err.textContent = 'Password must be at least 6 characters.'; return; }
   if (pw !== pw2)      { err.textContent = 'Passwords do not match.'; return; }
-  if (pins.some(v=>v==='')||pins.some(v=>!/^\d$/.test(v))) {
-    err.textContent = 'Set all 4 digits of your investment PIN.'; return;
-  }
-  const pin = pins.join('');
+  if (!/^\d{4}$/.test(pin)) { err.textContent = 'PIN must be exactly 4 digits.'; return; }
+  if (!_signupTosChecked) { err.textContent = 'You must agree to the Terms of Service to continue.'; return; }
+  const refInput = (document.getElementById('su-ref').value||'').trim().toUpperCase();
 
   setAuthBtn('su-btn', false);
   showLoader(true, 'Creating your account…');
@@ -953,12 +1126,16 @@ async function doSignup() {
 
     // Create user doc
     const ref = db.collection('users').doc();
+    const newRefCode = genRefCode(name);
     await withTimeout(ref.set({
       name, nameLower: name.toLowerCase(),
       password: pw, pin,
-      balance: 0, totalEarned: 0, 
+      balance: 0, totalEarned: 0,
+      refCode: newRefCode,
       investments: [], createdAt: nowISO()
     }));
+    // Apply referral bonus if valid code entered
+    if (refInput) await applyReferral(refInput, ref.id, name);
 
     localStorage.setItem(SK, ref.id);
     startListening(ref.id);
@@ -1023,6 +1200,8 @@ function updateUserUI() {
   if (el('um-name')) el('um-name').textContent = _user.name;
   if (el('um-meta')) el('um-meta').textContent = 'Member since ' + new Date(_user.createdAt).toLocaleDateString('en-NG',{month:'short',year:'numeric'});
   if (el('w-avail')) el('w-avail').textContent = fmt(_user.balance);
+  // Referral code
+  if (el('home-ref-code')) el('home-ref-code').textContent = _user.refCode || '—';
 }
 
 // ══════════════════════════════════
@@ -1416,12 +1595,12 @@ function renderHome() {
   }
   posEl.innerHTML = active.map(inv => {
     const t = TC[inv.tier]||TC.Starter;
-    const pct = Math.round(((inv.claimed||[]).length/30)*100);
+    const pct = Math.round(((inv.claimed||[]).length/60)*100);
     return `<div class="pos-item" onclick="go('p-claim','n-claim')">
       <div class="pos-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
       <div class="pos-body">
         <div class="pos-name">${inv.name}</div>
-        <div class="pos-sub">Day ${dayElapsed(inv)}/30 · ${(inv.claimed||[]).length} claimed · ${missedDays(inv)} missed</div>
+        <div class="pos-sub">Day ${dayElapsed(inv)}/60 · ${(inv.claimed||[]).length} claimed · ${missedDays(inv)} missed</div>
         <div class="pos-bar"><div class="pos-bar-f" style="width:${pct}%;background:${t.r}"></div></div>
       </div>
       <div class="pos-r"><div class="pos-ret" style="color:${t.r}">${fmt(inv.total)}</div><div class="pos-inv">from ${fmt(inv.invest)}</div></div>
@@ -1447,7 +1626,7 @@ function renderPortfolio() {
   }
   c.innerHTML = [...invs].reverse().map(inv => {
     const t = TC[inv.tier]||TC.Starter;
-    const pct = Math.round(((inv.claimed||[]).length/30)*100);
+    const pct = Math.round(((inv.claimed||[]).length/60)*100);
     const day = dayElapsed(inv);
     const done = inv.status==='completed';
     return `<div class="pcard">
@@ -1463,16 +1642,16 @@ function renderPortfolio() {
         <div><div class="pc-al">Total Return</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
         <div><div class="pc-al">Claimed</div><div class="pc-av ok">${fmt(inv.totalClaimed||0)}</div></div>
       </div>
-      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Daily: ${fmt(inv.daily)} · ${(inv.claimed||[]).length}/30 · ${missedDays(inv)} missed</div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Daily: ${fmt(inv.daily)} · ${(inv.claimed||[]).length}/60 · ${missedDays(inv)} missed</div>
       <div class="pc-bar"><div class="pc-bar-f" style="width:${pct}%"></div></div>
-      <div class="pc-bm"><span>${pct}% complete</span><span>${Math.max(0,30-day)} days remaining</span></div>
+      <div class="pc-bm"><span>${pct}% complete · ROI progress: ${Math.round(((inv.totalClaimed||0)/inv.total)*100)}%</span><span>${Math.max(0,60-day)} days left</span></div>
     </div>`;
   }).join('');
 }
 
 function rAll() {
   if (!_user) return;
-  renderHome(); renderClaims(); renderPortfolio(); updateUserUI();
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak();
 }
 
 // ══════════════════════════════════
@@ -1646,6 +1825,208 @@ async function boot() {
   } else {
     showAuth();
   }
+}
+
+// ══════════════════════════════════
+// REFERRAL SYSTEM
+// ══════════════════════════════════
+function genRefCode(name) {
+  const base = name.trim().toUpperCase().replace(/[^A-Z]/g,'').slice(0,4).padEnd(4,'X');
+  const num = Math.floor(1000 + Math.random()*9000);
+  return 'AU-' + base + num;
+}
+
+function copyRefCode() {
+  const code = (_user && _user.refCode) || '';
+  if (!code) return;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(() => toast('Referral code copied: ' + code)).catch(() => fallbackCopy(code));
+    } else { fallbackCopy(code); }
+  } catch(e) { fallbackCopy(code); }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); toast('Referral code copied: ' + text); }
+  catch(e) { toast('Code: ' + text + ' (tap & hold to copy)'); }
+  document.body.removeChild(ta);
+}
+
+async function applyReferral(refCode, newUserId, newUserName) {
+  if (!refCode) return;
+  try {
+    const snap = await withTimeout(db.collection('users').where('refCode','==', refCode.toUpperCase()).limit(1).get());
+    if (snap.empty) return;
+    const referrerId = snap.docs[0].id;
+    if (referrerId === newUserId) return; // no self-referral
+    await withTimeout(Promise.all([
+      db.collection('users').doc(referrerId).update({ balance: firebase.firestore.FieldValue.increment(2000) }),
+      db.collection('users').doc(newUserId).update({ balance: firebase.firestore.FieldValue.increment(2000), referredBy: refCode.toUpperCase() })
+    ]));
+  } catch(e) { console.error('Referral error:', e); }
+}
+
+// ══════════════════════════════════
+// STREAK TRACKER
+// ══════════════════════════════════
+function calcStreak() {
+  if (!_user) return 0;
+  const invs = (_user.investments||[]).filter(i=>i.status==='active');
+  if (!invs.length) return 0;
+  const today = simToday(_user);
+  // Check if any active plan was claimed today
+  const claimedToday = invs.some(i => (i.claimed||[]).some(k => k.startsWith(today)));
+  if (!claimedToday) return 0;
+  // Walk back days to count streak
+  let streak = 0;
+  let d = new Date(today);
+  while (true) {
+    const dStr = d.toISOString().slice(0,10);
+    const anyClaimedThatDay = invs.some(i => (i.claimed||[]).some(k => k.startsWith(dStr)));
+    if (!anyClaimedThatDay) break;
+    streak++;
+    d.setDate(d.getDate()-1);
+  }
+  return streak;
+}
+
+function renderStreak() {
+  const streak = calcStreak();
+  const el = document.getElementById('streak-num');
+  const lbl = document.getElementById('streak-label');
+  const sub = document.getElementById('streak-sub');
+  if (!el) return;
+  el.textContent = streak;
+  if (streak === 0) {
+    lbl.textContent = 'No Active Streak';
+    sub.textContent = 'Claim today to start your streak';
+    document.getElementById('streak-bar').style.background = 'rgba(17,20,43,.04)';
+    document.getElementById('streak-bar').style.borderColor = 'var(--b1)';
+    lbl.style.color = 'var(--sil)';
+    el.style.color = 'var(--sil)';
+  } else if (streak >= 7) {
+    lbl.textContent = streak+'-Day Streak 🔥';
+    sub.textContent = streak >= 30 ? 'Legendary! Keep it going.' : 'You\'re on fire — don\'t break it!';
+  } else {
+    lbl.textContent = streak+'-Day Streak';
+    sub.textContent = 'Keep claiming daily to build your streak';
+  }
+}
+
+// ══════════════════════════════════
+// TERMS OF SERVICE
+// ══════════════════════════════════
+let _tosChecked = false;
+let _tosContext = 'view'; // 'signup' or 'view'
+
+function openTos(context) {
+  _tosContext = context || 'view';
+  _tosChecked = false;
+  const chk = document.getElementById('tos-check');
+  if (chk) { chk.classList.remove('checked'); }
+  const btn = document.getElementById('tos-confirm-btn');
+  if (btn) {
+    btn.classList.remove('ready');
+    btn.textContent = _tosContext === 'signup' ? 'I Agree & Continue' : 'Close';
+    if (_tosContext === 'view') { btn.classList.add('ready'); btn.textContent = 'Close'; }
+  }
+  document.getElementById('tos-modal').classList.add('open');
+}
+
+function toggleTosCheck() {
+  if (_tosContext === 'view') return;
+  _tosChecked = !_tosChecked;
+  const chk = document.getElementById('tos-check');
+  const btn = document.getElementById('tos-confirm-btn');
+  if (chk) chk.classList.toggle('checked', _tosChecked);
+  if (btn) btn.classList.toggle('ready', _tosChecked);
+}
+
+function confirmTos() {
+  document.getElementById('tos-modal').classList.remove('open');
+}
+
+// Swipe-down to close ToS
+(function() {
+  let startY = 0, isDragging = false;
+  const modal = document.getElementById('tos-modal');
+  const sheet = modal ? modal.querySelector('.tos-sheet') : null;
+  if (!sheet) return;
+
+  // Tap backdrop to close
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) confirmTos();
+  });
+
+  sheet.addEventListener('touchstart', function(e) {
+    if (sheet.scrollTop > 0) return; // only trigger when scrolled to top
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  }, { passive: true });
+
+  sheet.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy > 0 && sheet.scrollTop <= 0) {
+      sheet.style.transform = 'translateY(' + dy + 'px)';
+      sheet.style.transition = 'none';
+    }
+  }, { passive: true });
+
+  sheet.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    const dy = e.changedTouches[0].clientY - startY;
+    sheet.style.transition = '';
+    sheet.style.transform = '';
+    if (dy > 90) confirmTos();
+  }, { passive: true });
+})();
+
+// Signup ToS toggle (checkbox in form)
+let _signupTosChecked = false;
+function toggleSignupTos() {
+  _signupTosChecked = !_signupTosChecked;
+  const chk = document.getElementById('su-tos-check');
+  const tick = document.getElementById('su-tos-tick');
+  if (chk) { chk.style.background = _signupTosChecked ? 'var(--gold)' : 'var(--s1)'; chk.style.borderColor = _signupTosChecked ? 'var(--gold)' : 'var(--gb)'; }
+  if (tick) tick.style.opacity = _signupTosChecked ? '1' : '0';
+}
+
+// ══════════════════════════════════
+// CHANGE PIN
+// ══════════════════════════════════
+function openPinChange() {
+  ['cp1','cp2','cp3','cp4','np1','np2','np3','np4','np1b','np2b','np3b','np4b'].forEach(id => {
+    const e = document.getElementById(id); if(e){e.value='';e.classList.remove('err');}
+  });
+  document.getElementById('pin-modal').classList.add('open');
+  setTimeout(() => { const e=document.getElementById('cp1'); if(e)e.focus(); }, 400);
+}
+
+async function doChangePin() {
+  if (!_user) return;
+  const cur = ['cp1','cp2','cp3','cp4'].map(id=>(document.getElementById(id)||{}).value||'').join('');
+  const nw  = ['np1','np2','np3','np4'].map(id=>(document.getElementById(id)||{}).value||'').join('');
+  const nw2 = ['np1b','np2b','np3b','np4b'].map(id=>(document.getElementById(id)||{}).value||'').join('');
+  if (cur.length < 4) { toast('Enter your current PIN'); return; }
+  if (cur !== (_user.pin||'')) {
+    ['cp1','cp2','cp3','cp4'].forEach(id=>{ const e=document.getElementById(id); if(e){e.classList.add('err');setTimeout(()=>e.classList.remove('err'),600);e.value='';} });
+    setTimeout(()=>{const e=document.getElementById('cp1');if(e)e.focus();},100);
+    toast('Current PIN is incorrect'); return;
+  }
+  if (nw.length < 4) { toast('Enter a new 4-digit PIN'); return; }
+  if (nw !== nw2) { toast('New PINs do not match'); return; }
+  if (nw === cur) { toast('New PIN must be different from current PIN'); return; }
+  showLoader(true,'Updating PIN…');
+  try {
+    await withTimeout(db.collection('users').doc(_user.id).update({ pin: nw }));
+    closeM('pin-modal');
+    toast('PIN updated successfully');
+  } catch(e) { console.error(e); toast('Could not update PIN. Try again.'); }
+  finally { showLoader(false); }
 }
 
 boot();
