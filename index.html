@@ -492,7 +492,7 @@ body::after{display:none}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Investment Plans</div><div class="ph-s">24 plans · 500% ROI · Claim daily · PIN required</div></div>
+    <div class="ph"><div class="ph-t">Investment Plans</div><div class="ph-s">24 plans · 200% ROI · Claim daily · PIN required</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -500,7 +500,7 @@ body::after{display:none}
   <div class="page" id="p-claim">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
     <div class="ph"><div class="ph-t">Daily Claims</div><div class="ph-s">Return every day. Miss a day — it's gone forever.</div></div>
-    <div class="claim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="cb-t"><strong>Warning:</strong> Each plan pays a fixed daily amount for 30 days. You must claim manually every day. Any missed day is permanently forfeited.</div></div>
+    <div class="claim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="cb-t"><strong>Warning:</strong> Each plan pays a fixed daily amount for 60 days. You must claim manually every day. Any missed day is permanently forfeited.</div></div>
     <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Invest in a plan to start earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
@@ -545,31 +545,6 @@ body::after{display:none}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/></svg>
         Pay Now
       </button>
-
-      <!-- MANUAL TRANSFER FALLBACK -->
-      <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--b1)">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:12px">Or transfer manually</div>
-        <div class="dep-card" style="margin-bottom:0">
-          <div class="dep-row"><span class="dep-lbl">Bank</span><span class="dep-val">Momo Payment Service Bank</span></div>
-          <div class="dep-row"><span class="dep-lbl">Account Number</span><div style="display:flex;align-items:center"><span class="dep-val big">8140395634</span><span class="dep-copy" onclick="cpy('8140395634')">Copy</span></div></div>
-          <div class="dep-row"><span class="dep-lbl">Account Name</span><span class="dep-val">Auro Wealth Ltd</span></div>
-        </div>
-        <div style="margin-top:12px;font-size:11px;color:var(--sil);font-weight:300;line-height:1.6;background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:var(--r);padding:11px 13px">
-          <strong style="color:var(--gold)">After manual transfer:</strong> Enter amount below and submit — admin will credit your balance after verifying.
-        </div>
-        <div style="margin-top:14px">
-          <label class="fl">Amount Transferred (manual)</label>
-          <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-manual-a" placeholder="0.00" oninput="updManualDep()"/></div>
-          <div class="sbox" style="margin-bottom:14px">
-            <div class="sr"><span>Amount</span><strong id="dep-manual-sa">₦0.00</strong></div>
-            <div class="sr"><span>Status</span><strong style="color:var(--gold)">Pending admin approval</strong></div>
-          </div>
-          <button class="bb" style="background:transparent;border:1.5px solid var(--gb);color:var(--gold)" onclick="doManualDeposit()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/></svg>
-            Submit Manual Request
-          </button>
-        </div>
-      </div>
 
       <div style="margin-top:22px">
         <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
@@ -708,8 +683,8 @@ body::after{display:none}
       <div style="text-align:right"><div class="mp-lbl">Total Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
     </div>
     <div class="md-row"><span>Daily claim</span><strong class="g" id="m-daily">—</strong></div>
-    <div class="md-row"><span>Duration</span><strong>30 days · must claim daily</strong></div>
-    <div class="md-row"><span>ROI</span><strong class="g">500%</strong></div>
+    <div class="md-row"><span>Duration</span><strong>60 days · must claim daily</strong></div>
+    <div class="md-row"><span>ROI</span><strong class="g">200%</strong></div>
     <div class="md-row"><span>Your balance</span><strong id="m-bal">—</strong></div>
     <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
     <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Miss a day = that day's earnings are permanently forfeited</div>
@@ -818,8 +793,8 @@ const AMTS=[5000,10000,15000,20000,25000,30000,35000,40000,45000,50000,55000,600
 const TIERS=['Starter','Starter','Starter','Starter','Builder','Builder','Builder','Builder','Growth','Growth','Growth','Growth','Elite','Elite','Elite','Elite','Premium','Premium','Premium','Premium','Sovereign','Sovereign','Sovereign','Sovereign'];
 const BADGES=['Entry','Entry','Entry','Entry','Standard','Standard','Standard','Standard','Popular','Popular','Popular','Popular','High Yield','High Yield','High Yield','High Yield','Premium','Premium','Premium','Premium','Private','Private','Exclusive','Exclusive'];
 const PLANS = AMTS.map((amt,i) => ({
-  id:'plan_'+i, invest:amt, total:amt*6,
-  daily: parseFloat((amt*6/30).toFixed(2)),
+  id:'plan_'+i, invest:amt, total:amt*3,
+  daily: parseFloat((amt*3/60).toFixed(2)),
   tier:TIERS[i], badge:BADGES[i]
 }));
 
@@ -1055,10 +1030,10 @@ function updateUserUI() {
 // ══════════════════════════════════
 function dayElapsed(inv) {
   const s = new Date(inv.startDate), t = new Date(simToday(null));
-  return Math.min(Math.max(Math.floor((t-s)/86400000)+1, 1), 30);
+  return Math.min(Math.max(Math.floor((t-s)/86400000)+1, 1), 60);
 }
 function todayKey(inv) { return simToday(_user)+'_d'+dayElapsed(inv); }
-function canClaim(inv) { return inv.status==='active' && dayElapsed(inv)<=30 && !(inv.claimed||[]).includes(todayKey(inv)); }
+function canClaim(inv) { return inv.status==='active' && dayElapsed(inv)<=60 && !(inv.claimed||[]).includes(todayKey(inv)); }
 function hasClaimed(inv) { return (inv.claimed||[]).includes(todayKey(inv)); }
 function missedDays(inv) { return Math.max(0, (dayElapsed(inv)-1) - (inv.claimed||[]).length); }
 
@@ -1075,7 +1050,7 @@ async function doClaim(invId) {
   const updInvs = (_user.investments||[]).map(i => {
     if (i.id !== invId) return i;
     const nc = [...(i.claimed||[]), key];
-    return {...i, claimed:nc, totalClaimed:(i.totalClaimed||0)+i.daily, status:nc.length>=30?'completed':i.status};
+    return {...i, claimed:nc, totalClaimed:(i.totalClaimed||0)+i.daily, status:nc.length>=60?'completed':i.status};
   });
   showLoader(true, 'Claiming…');
   try {
@@ -1099,7 +1074,7 @@ function openInvModal(planId) {
   _planId = planId;
   const g = id => document.getElementById(id);
   g('m-t').textContent = (TC[plan.tier]?TC[plan.tier].name+' · ':'')+plan.tier+' Plan';
-  g('m-s').textContent = 'Invest '+fmt(plan.invest)+' · Earn '+fmt(plan.total)+' over 30 days';
+  g('m-s').textContent = 'Invest '+fmt(plan.invest)+' · Earn '+fmt(plan.total)+' over 60 days';
   g('m-inv').textContent = fmt(plan.invest);
   g('m-ret').textContent = fmt(plan.total);
   g('m-daily').textContent = fmt(plan.daily)+' / day';
@@ -1225,27 +1200,7 @@ function doDeposit() {
   handler.openIframe();
 }
 
-// Manual deposit (bank transfer fallback)
-function updManualDep() {
-  const v = parseFloat(document.getElementById('dep-manual-a').value)||0;
-  document.getElementById('dep-manual-sa').textContent = fmt2(v);
-}
-async function doManualDeposit() {
-  if (!_user) return;
-  const v = parseFloat(document.getElementById('dep-manual-a').value)||0;
-  if (v < 100) { toast('Minimum deposit is ₦100'); return; }
-  showLoader(true, 'Submitting request…');
-  try {
-    await withTimeout(db.collection('deposits').add({
-      userId: _user.id, userName: _user.name,
-      amount: v, date: nowISO(),
-      status: 'pending', method: 'manual'
-    }));
-    document.getElementById('dep-manual-a').value = ''; updManualDep();
-    toast('Manual request submitted · Awaiting admin approval');
-  } catch(e) { console.error(e); toast('Could not submit. Check your connection.'); }
-  finally { showLoader(false); }
-}
+
 
 function renderDepHistory(deps) {
   const c = document.getElementById('dep-history');
@@ -1321,9 +1276,37 @@ function renderWitHistory(wits) {
 // ══════════════════════════════════
 // RENDER — PLANS
 // ══════════════════════════════════
+const TIER_INFO = {
+  Starter: {
+    sector: 'Solid Mineral Extraction — Granite & Limestone',
+    detail: 'This investment will help in the financing of licensed granite and limestone quarrying operations across Ogun and Kogi States. Capital is deployed into blasting, crushing, and haulage cycles supplying construction-grade aggregates to federal road contractors and real estate developers. Revenue is settled per truckload, generating consistent daily inflows backed by physical rock in the ground.'
+  },
+  Builder: {
+    sector: 'Crude Oil Blending & Petroleum Products Distribution',
+    detail: 'This investment will help in the procurement of refined petroleum products — AGO (diesel) and PMS (petrol) — for bulk distribution to filling stations and industrial clients across the South-South and South-West. Funds are deployed into certified depot loading cycles with off-take agreements already in place, ensuring capital recovery within the 60-day window backed by one of Nigeria\'s most liquid physical commodities.'
+  },
+  Growth: {
+    sector: 'Commercial Farmland Acquisition & Cassava Processing',
+    detail: 'This investment will help in the outright acquisition of irrigated farmland in Benue and Niger States, and the operation of cassava processing mills producing high-quality garri, starch, and flour for export and domestic FMCG supply chains. Land is a tangible, appreciating asset; processor off-take contracts with Nestlé and Flour Mills affiliates underpin predictable revenue across the full 60-day cycle.'
+  },
+  Elite: {
+    sector: 'Industrial Real Estate — Warehouse & Cold Storage Leasing',
+    detail: 'This investment will help in the development and leasing of temperature-controlled warehousing and dry-storage facilities to blue-chip FMCG companies, pharmaceutical distributors, and e-commerce logistics firms in Lagos, Abuja, and Kano. Built on titled land with registered lease agreements, this is one of the most asset-backed investment categories in the Nigerian commercial property market.'
+  },
+  Premium: {
+    sector: 'Natural Gas Infrastructure & LPG Distribution',
+    detail: 'This investment will help in the construction and operation of LPG cylinder-filling plants and gas pipeline stub infrastructure serving industrial estates and high-density residential areas. Backed by NMDPRA-licensed assets and long-term gas supply agreements with NLNG affiliates, capital is secured against physical infrastructure with government-regulated tariff income flowing daily from commercial off-takers.'
+  },
+  Sovereign: {
+    sector: 'Institutional Gold Bullion & FGN Bond Portfolio',
+    detail: 'This investment will help in the acquisition of LBMA-certified gold bullion held in licensed vaulted custody, combined with a structured allocation into Federal Government of Nigeria (FGN) bonds and CBN Treasury Bills. Gold is the world\'s oldest store of value; FGN bonds carry sovereign guarantee. Together they form the most capital-secure, tangible investment portfolio available to private investors in the Nigerian market today.'
+  }
+};
+
 function renderPlans() {
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
+    const info = TIER_INFO[p.tier];
     const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${t.r};border-color:${t.pbd}`;
     return `<div class="plan-item" style="--pi-l:${t.l};--pi-glow:${t.glow}" onclick="openInvModal('${p.id}')">
       <div class="pi-atm"></div>
@@ -1340,11 +1323,15 @@ function renderPlans() {
         <div class="pi-return"><div class="pi-lbl">You Get</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
       </div>
       <div class="pi-meta">
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">30 days</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">500% ROI</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60 days</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">200% ROI</strong></div>
         <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Secured</strong></div>
       </div>
-      <div class="pi-daily">Daily: <strong>${fmt(p.daily)}</strong> for 30 days</div>
+      <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
+        <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
+      </div>
+      <div class="pi-daily">Daily: <strong>${fmt(p.daily)}</strong> for 60 days</div>
       <button class="pi-cta" style="${bs}">Invest ${fmt(p.invest)}</button>
     </div>`;
   }).join('');
@@ -1368,24 +1355,24 @@ function renderClaims() {
     const t = TC[inv.tier]||TC.Starter;
     const day = dayElapsed(inv);
     const cl = inv.claimed||[];
-    const pct = Math.round((cl.length/30)*100);
+    const pct = Math.round((cl.length/60)*100);
     const miss = missedDays(inv);
     const claimed = hasClaimed(inv);
     const canC = canClaim(inv);
     let btn = '';
     if (claimed) btn = `<div class="cc-claimed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Come back tomorrow</div>`;
     else if (canC) btn = `<button class="cc-btn" onclick="doClaim('${inv.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claim ${fmt(inv.daily)} Now</button>`;
-    else btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,30)}</div>`;
+    else btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,60)}</div>`;
     return `<div class="cc" style="--cc-l:${t.l}">
       <div class="cc-top">
         <div><div class="cc-name">${inv.name}</div><div class="cc-inv">Invested: ${fmt(inv.invest)}</div></div>
-        <div class="cc-tag" style="background:${claimed?'var(--okd)':canC?t.pb:'var(--s2)'};color:${claimed?'var(--ok)':canC?t.pc:'var(--sil)'};border:1px solid ${claimed?'rgba(15,174,107,.2)':canC?t.pbd:'var(--b1)'}">Day ${day}/30</div>
+        <div class="cc-tag" style="background:${claimed?'var(--okd)':canC?t.pb:'var(--s2)'};color:${claimed?'var(--ok)':canC?t.pc:'var(--sil)'};border:1px solid ${claimed?'rgba(15,174,107,.2)':canC?t.pbd:'var(--b1)'}">Day ${day}/60</div>
       </div>
       <div class="cc-daily-lbl">Today's Claimable Amount</div>
       <div class="cc-daily-val" style="color:${t.r}">${fmt(inv.daily)}</div>
       ${btn}
       <div class="cc-pbar"><div class="cc-pbar-f" style="width:${pct}%;background:${t.r}"></div></div>
-      <div class="cc-meta"><span class="${miss>0?'miss':'ok'}">${miss>0?miss+' day'+(miss>1?'s':'')+' missed':'No days missed'}</span><span>${cl.length}/30 · ${fmt(inv.totalClaimed||0)} earned</span></div>
+      <div class="cc-meta"><span class="${miss>0?'miss':'ok'}">${miss>0?miss+' day'+(miss>1?'s':'')+' missed':'No days missed'}</span><span>${cl.length}/60 · ${fmt(inv.totalClaimed||0)} earned</span></div>
     </div>`;
   }).join('');
 }
