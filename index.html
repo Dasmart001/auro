@@ -1560,29 +1560,28 @@ function renderPlans() {
 // Claim multiple investments in a group at once
 async function doClaimGroup(ids) {
   if (!_user) return;
-  const pin = await askPin(); if (!pin) return;
-  if (pin !== _user.pin) { shakePinModal(); toast('Incorrect PIN'); return; }
-  closeM('pin-modal-inv');
+  const invs = (_user.investments||[]);
+  const claimable = invs.filter(i => ids.includes(i.id) && canClaim(i));
+  if (!claimable.length) return;
+
+  let totalCreditAmount = 0;
+  const updated = invs.map(i => {
+    if (!ids.includes(i.id) || !canClaim(i)) return i;
+    const tk = todayKey(i);
+    const nc = [...(i.claimed||[]), tk];
+    const newTotal = (i.totalClaimed||0) + i.daily;
+    totalCreditAmount += i.daily;
+    return { ...i, claimed: nc, totalClaimed: newTotal, status: nc.length >= 60 ? 'completed' : i.status };
+  });
+
   showLoader(true, 'Claiming…');
   try {
-    const invs = (_user.investments||[]);
-    const today = simToday(_user);
-    let totalCreditAmount = 0;
-    const updated = invs.map(i => {
-      if (!ids.includes(i.id)) return i;
-      if (!canClaim(i)) return i;
-      const tk = todayKey(i);
-      const nc = [...(i.claimed||[]), tk];
-      const newTotal = (i.totalClaimed||0) + i.daily;
-      totalCreditAmount += i.daily;
-      return { ...i, claimed: nc, totalClaimed: newTotal, status: nc.length >= 60 ? 'completed' : i.status };
-    });
-    const newBal = _user.balance + totalCreditAmount;
-    const newEarned = (_user.totalEarned||0) + totalCreditAmount;
     await withTimeout(db.collection('users').doc(_user.id).update({
-      investments: updated, balance: newBal, totalEarned: newEarned
+      investments: updated,
+      balance: firebase.firestore.FieldValue.increment(totalCreditAmount),
+      totalEarned: firebase.firestore.FieldValue.increment(totalCreditAmount)
     }));
-    toast('Claimed ' + fmt(totalCreditAmount) + ' successfully');
+    toast(fmt(totalCreditAmount) + ' claimed and added to your balance');
   } catch(e) { console.error(e); toast('Claim failed. Try again.'); }
   finally { showLoader(false); }
 }
