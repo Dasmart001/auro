@@ -359,6 +359,14 @@ body::after{display:none}
 .adm-close{width:34px;height:34px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil)}
 .adm-close svg{width:14px;height:14px}
 .adm-sec{padding:20px 20px 0}
+.treasury-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.tr-card{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px 13px}
+.tr-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:5px}
+.tr-val{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat);line-height:1}
+.tr-val.gold{color:var(--gold)}
+.tr-val.ok{color:var(--ok)}
+.tr-val.warn{color:#f59e0b}
+.tr-sub{font-size:9px;color:var(--sil);font-weight:300;margin-top:4px}
 .adm-sec-t{font-family:var(--d);font-size:15px;font-weight:500;color:var(--plat);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
 .req-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:15px;margin-bottom:10px}
 .rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
@@ -485,7 +493,7 @@ body::after{display:none}
     <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
     <div class="a-grp">
       <label class="a-lbl">Set Your 4-Digit Investment PIN</label>
-      <input class="a-inp" id="su-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit PIN" autocomplete="new-password" style="-webkit-text-security:disc;letter-spacing:.3em;font-size:22px;font-family:var(--d)"/>
+      <input class="a-inp" id="su-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit PIN" autocomplete="new-password"/>
       <div class="a-hint">You'll use this PIN to confirm every investment.</div>
     </div>
     <div class="a-grp"><label class="a-lbl">Referral Code <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label><input class="a-inp" id="su-ref" type="text" placeholder="Enter a referral code" autocomplete="off" style="text-transform:uppercase"/></div>
@@ -734,7 +742,40 @@ body::after{display:none}
     <div class="adm-title">Admin Panel</div>
     <div class="adm-close" onclick="closeAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
   </div>
-  <div class="adm-sec"><div class="adm-sec-t">Pending Deposits</div><div id="adm-deps"></div></div>
+
+  <!-- TREASURY -->
+  <div class="adm-sec">
+    <div class="adm-sec-t">Platform Treasury</div>
+    <div class="treasury-grid" id="treasury-grid">
+      <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">₦0</div><div class="tr-sub">User available balances</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Invested</div><div class="tr-val gold" id="tr-invested">₦0</div><div class="tr-sub">Active capital deployed</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">0</div><div class="tr-sub">Registered accounts</div></div>
+      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">0</div><div class="tr-sub">Running investments</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">₦0</div><div class="tr-sub">All-time earnings claimed</div></div>
+      <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">₦0</div><div class="tr-sub">Awaiting processing</div></div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="adm-sec-t" style="margin-bottom:8px;font-size:11px">Manual Balance Adjustment</div>
+      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+        <div style="flex:1;min-width:160px">
+          <div style="font-size:10px;color:var(--sil);margin-bottom:4px">User ID or Name</div>
+          <input class="f-plain" id="adj-user" type="text" placeholder="Search user…" style="font-size:12px;padding:9px 11px" oninput="adjSearch()"/>
+          <div id="adj-results" style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;margin-top:4px;display:none;max-height:120px;overflow-y:auto"></div>
+        </div>
+        <div style="width:110px">
+          <div style="font-size:10px;color:var(--sil);margin-bottom:4px">Amount (₦)</div>
+          <input class="f-plain" id="adj-amt" type="number" placeholder="0" style="font-size:12px;padding:9px 11px"/>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="rc-ap" style="padding:9px 14px;font-size:11px" onclick="adjBalance('credit')">+ Credit</button>
+          <button class="rc-rj" style="padding:9px 14px;font-size:11px" onclick="adjBalance('debit')">− Debit</button>
+        </div>
+      </div>
+      <div id="adj-selected" style="font-size:10px;color:var(--gold);margin-top:6px;min-height:14px"></div>
+    </div>
+  </div>
+
+  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Deposits</div><div id="adm-deps"></div></div>
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
   <div class="adm-sec" style="padding-bottom:50px"><div class="adm-sec-t" style="margin-top:8px">All Users</div><div id="adm-users"></div></div>
 </div>
@@ -1516,8 +1557,35 @@ function renderPlans() {
   }).join('');
 }
 
-// ══════════════════════════════════
-// RENDER — CLAIMS
+// Claim multiple investments in a group at once
+async function doClaimGroup(ids) {
+  if (!_user) return;
+  const pin = await askPin(); if (!pin) return;
+  if (pin !== _user.pin) { shakePinModal(); toast('Incorrect PIN'); return; }
+  closeM('pin-modal-inv');
+  showLoader(true, 'Claiming…');
+  try {
+    const invs = (_user.investments||[]);
+    const today = simToday(_user);
+    let totalCreditAmount = 0;
+    const updated = invs.map(i => {
+      if (!ids.includes(i.id)) return i;
+      if (!canClaim(i)) return i;
+      const tk = todayKey(i);
+      const nc = [...(i.claimed||[]), tk];
+      const newTotal = (i.totalClaimed||0) + i.daily;
+      totalCreditAmount += i.daily;
+      return { ...i, claimed: nc, totalClaimed: newTotal, status: nc.length >= 60 ? 'completed' : i.status };
+    });
+    const newBal = _user.balance + totalCreditAmount;
+    const newEarned = (_user.totalEarned||0) + totalCreditAmount;
+    await withTimeout(db.collection('users').doc(_user.id).update({
+      investments: updated, balance: newBal, totalEarned: newEarned
+    }));
+    toast('Claimed ' + fmt(totalCreditAmount) + ' successfully');
+  } catch(e) { console.error(e); toast('Claim failed. Try again.'); }
+  finally { showLoader(false); }
+}
 // ══════════════════════════════════
 function renderClaims() {
   const c = document.getElementById('claim-c');
@@ -1530,28 +1598,73 @@ function renderClaims() {
       'Browse Plans',"go('p-plans','n-plans')"
     ); return;
   }
-  c.innerHTML = active.map(inv => {
-    const t = TC[inv.tier]||TC.Starter;
-    const day = dayElapsed(inv);
-    const cl = inv.claimed||[];
-    const pct = Math.round((cl.length/60)*100);
-    const miss = missedDays(inv);
-    const claimed = hasClaimed(inv);
-    const canC = canClaim(inv);
+
+  // Group by plan name (same plan = same tier + invest amount)
+  const groups = {};
+  active.forEach(inv => {
+    const key = inv.name; // e.g. "Starter · ₦5,000"
+    if (!groups[key]) groups[key] = { invs: [], tier: inv.tier, name: inv.name };
+    groups[key].invs.push(inv);
+  });
+
+  c.innerHTML = Object.values(groups).map(grp => {
+    const t = TC[grp.tier] || TC.Starter;
+    const invs = grp.invs;
+    const count = invs.length;
+
+    // Merged figures
+    const totalInvested  = invs.reduce((s,i) => s + i.invest, 0);
+    const totalDaily     = invs.reduce((s,i) => s + i.daily, 0);
+    const totalReturn    = invs.reduce((s,i) => s + i.total, 0);
+    const totalClaimed   = invs.reduce((s,i) => s + (i.totalClaimed||0), 0);
+
+    // Use the earliest start date for day tracking
+    const earliestInv = invs.slice().sort((a,b) => new Date(a.startDate)-new Date(b.startDate))[0];
+    const day = dayElapsed(earliestInv);
+
+    // Claims: union of all claimed keys across all investments in group
+    const allClaimed = [...new Set(invs.flatMap(i => i.claimed||[]))];
+    const pct = Math.round((allClaimed.length / 60) * 100);
+
+    // Missed: days that NONE of the investments were claimed
+    const missedCount = invs.reduce((s,i) => s + missedDays(i), 0);
+
+    // Can claim: any unclaimed today
+    const anyCanClaim = invs.some(i => canClaim(i));
+    const allClaimedToday = invs.every(i => hasClaimed(i));
+
+    // Build claim button — claims ALL unclaimed investments in group at once
     let btn = '';
-    if (claimed) btn = `<div class="cc-claimed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Come back tomorrow</div>`;
-    else if (canC) btn = `<button class="cc-btn" onclick="doClaim('${inv.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claim ${fmt(inv.daily)} Now</button>`;
-    else btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,60)}</div>`;
+    if (allClaimedToday) {
+      btn = `<div class="cc-claimed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Come back tomorrow</div>`;
+    } else if (anyCanClaim) {
+      const claimableNow = invs.filter(i => canClaim(i)).reduce((s,i) => s+i.daily, 0);
+      const ids = invs.filter(i => canClaim(i)).map(i => `'${i.id}'`).join(',');
+      btn = `<button class="cc-btn" onclick="doClaimGroup([${ids}])"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claim ${fmt(claimableNow)} Now</button>`;
+    } else {
+      btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,60)}</div>`;
+    }
+
+    const tagBg    = allClaimedToday ? 'var(--okd)' : anyCanClaim ? t.pb : 'var(--s2)';
+    const tagColor = allClaimedToday ? 'var(--ok)'  : anyCanClaim ? t.pc : 'var(--sil)';
+    const tagBdr   = allClaimedToday ? 'rgba(15,174,107,.2)' : anyCanClaim ? t.pbd : 'var(--b1)';
+
     return `<div class="cc" style="--cc-l:${t.l}">
       <div class="cc-top">
-        <div><div class="cc-name">${inv.name}</div><div class="cc-inv">Invested: ${fmt(inv.invest)}</div></div>
-        <div class="cc-tag" style="background:${claimed?'var(--okd)':canC?t.pb:'var(--s2)'};color:${claimed?'var(--ok)':canC?t.pc:'var(--sil)'};border:1px solid ${claimed?'rgba(15,174,107,.2)':canC?t.pbd:'var(--b1)'}">Day ${day}/60</div>
+        <div>
+          <div class="cc-name">${grp.name}${count > 1 ? ` <span style="font-size:10px;color:var(--sil);font-weight:400">×${count}</span>` : ''}</div>
+          <div class="cc-inv">Total Invested: ${fmt(totalInvested)}${count > 1 ? ` · ${count} slots` : ''}</div>
+        </div>
+        <div class="cc-tag" style="background:${tagBg};color:${tagColor};border:1px solid ${tagBdr}">Day ${day}/60</div>
       </div>
       <div class="cc-daily-lbl">Today's Claimable Amount</div>
-      <div class="cc-daily-val" style="color:${t.r}">${fmt(inv.daily)}</div>
+      <div class="cc-daily-val" style="color:${t.r}">${fmt(totalDaily)}</div>
       ${btn}
       <div class="cc-pbar"><div class="cc-pbar-f" style="width:${pct}%;background:${t.r}"></div></div>
-      <div class="cc-meta"><span class="${miss>0?'miss':'ok'}">${miss>0?miss+' day'+(miss>1?'s':'')+' missed':'No days missed'}</span><span>${cl.length}/60 · ${fmt(inv.totalClaimed||0)} earned</span></div>
+      <div class="cc-meta">
+        <span class="${missedCount>0?'miss':'ok'}">${missedCount>0?missedCount+' day'+(missedCount>1?'s':'')+' missed':'No days missed'}</span>
+        <span>${allClaimed.length}/60 · ${fmt(totalClaimed)} earned</span>
+      </div>
     </div>`;
   }).join('');
 }
@@ -1687,11 +1800,82 @@ function openAdminPanel() {
   // Listen for pending withdrawals
   if (_unsubAdmWit) _unsubAdmWit();
   _unsubAdmWit = db.collection('withdrawals').where('status','==','pending')
-    .onSnapshot(snap => renderAdmWits(snap.docs.map(d=>({id:d.id,...d.data()}))));
-  // All users
+    .onSnapshot(snap => {
+      const wits = snap.docs.map(d=>({id:d.id,...d.data()}));
+      renderAdmWits(wits);
+      // Update pending withdrawals total in treasury
+      const pendTotal = wits.reduce((s,w)=>s+(w.amount||0),0);
+      const el = document.getElementById('tr-pendwit');
+      if (el) el.textContent = fmt(pendTotal);
+    });
+  // All users — also powers the treasury
   if (_unsubAdmUsr) _unsubAdmUsr();
   _unsubAdmUsr = db.collection('users')
-    .onSnapshot(snap => renderAdmUsers(snap.docs.map(d=>({id:d.id,...d.data()}))));
+    .onSnapshot(snap => {
+      const users = snap.docs.map(d=>({id:d.id,...d.data()}));
+      renderAdmUsers(users);
+      renderTreasury(users);
+      _admAllUsers = users; // cache for search
+    });
+}
+
+let _admAllUsers = [];
+let _adjSelectedUser = null;
+
+function renderTreasury(users) {
+  const totalWallets  = users.reduce((s,u) => s + (u.balance||0), 0);
+  const totalInvested = users.reduce((s,u) => s + (u.investments||[]).reduce((si,i)=>si+i.invest,0), 0);
+  const totalPaid     = users.reduce((s,u) => s + (u.totalEarned||0), 0);
+  const activePlans   = users.reduce((s,u) => s + (u.investments||[]).filter(i=>i.status==='active').length, 0);
+
+  const el = id => document.getElementById(id);
+  if (el('tr-wallets'))  el('tr-wallets').textContent  = fmt(totalWallets);
+  if (el('tr-invested')) el('tr-invested').textContent = fmt(totalInvested);
+  if (el('tr-users'))    el('tr-users').textContent    = users.length;
+  if (el('tr-plans'))    el('tr-plans').textContent    = activePlans;
+  if (el('tr-paid'))     el('tr-paid').textContent     = fmt(totalPaid);
+}
+
+function adjSearch() {
+  const q = (document.getElementById('adj-user').value||'').toLowerCase().trim();
+  const res = document.getElementById('adj-results');
+  if (!q || q.length < 2) { res.style.display='none'; return; }
+  const matches = _admAllUsers.filter(u => u.name.toLowerCase().includes(q)).slice(0,5);
+  if (!matches.length) { res.style.display='none'; return; }
+  res.style.display = 'block';
+  res.innerHTML = matches.map(u => `
+    <div onclick="adjSelect('${u.id}','${u.name.replace(/'/g,"\\'")}',${u.balance})"
+      style="padding:9px 11px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--b1);color:var(--plat)">
+      ${u.name} <span style="color:var(--sil);font-size:10px">· ${fmt(u.balance)}</span>
+    </div>`).join('');
+}
+
+function adjSelect(id, name, balance) {
+  _adjSelectedUser = { id, name, balance };
+  document.getElementById('adj-user').value = name;
+  document.getElementById('adj-results').style.display = 'none';
+  document.getElementById('adj-selected').textContent = `Selected: ${name} · Current balance: ${fmt(balance)}`;
+}
+
+async function adjBalance(type) {
+  if (!_adjSelectedUser) { toast('Select a user first'); return; }
+  const amt = parseFloat(document.getElementById('adj-amt').value||'0');
+  if (!amt || amt <= 0) { toast('Enter a valid amount'); return; }
+  const confirm = window.confirm(`${type==='credit'?'Credit':'Debit'} ${fmt(amt)} ${type==='credit'?'to':'from'} ${_adjSelectedUser.name}?`);
+  if (!confirm) return;
+  showLoader(true, type==='credit'?'Crediting…':'Debiting…');
+  try {
+    const delta = type === 'credit' ? amt : -amt;
+    await withTimeout(db.collection('users').doc(_adjSelectedUser.id).update({
+      balance: firebase.firestore.FieldValue.increment(delta)
+    }));
+    toast(`${fmt(amt)} ${type==='credit'?'credited to':'debited from'} ${_adjSelectedUser.name}`);
+    document.getElementById('adj-amt').value = '';
+    document.getElementById('adj-user').value = '';
+    document.getElementById('adj-selected').textContent = '';
+    _adjSelectedUser = null;
+  } catch(e) { console.error(e); toast('Failed. Try again.'); }
+  finally { showLoader(false); }
 }
 function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
