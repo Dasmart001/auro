@@ -378,9 +378,10 @@ body::after{display:none}
 /* ── ADMIN BROADCAST ── */
 .broadcast-box{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px;margin-bottom:10px}
 /* ── USER HISTORY MODAL ── */
-.hist-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);z-index:600;display:none;align-items:flex-end;justify-content:center}
+.hist-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);z-index:5000;display:none;align-items:flex-end;justify-content:center}
 .hist-modal.open{display:flex}
-.hist-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 18px 50px;width:100%;max-height:85vh;overflow-y:auto;animation:shu .35s var(--ez) both}
+.hist-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 18px 50px;width:100%;max-height:85vh;overflow-y:auto;animation:shu .35s var(--ez) both;position:relative}
+.hist-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 /* ── PUSH PROMPT ── */
 .push-prompt{margin:0 16px 14px;background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.12));border:1px solid var(--gb);border-radius:var(--rl);padding:15px;display:flex;gap:12px;align-items:center}
 .push-ico{width:38px;height:38px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -2483,16 +2484,23 @@ async function sendBroadcast() {
   const title = (document.getElementById('bc-title').value||'').trim();
   const body  = (document.getElementById('bc-body').value||'').trim();
   if (!title || !body) { toast('Enter both a title and message'); return; }
-  const confirm = window.confirm(`Send "${title}" to all users?`);
+  if (!_admAllUsers.length) { toast('No users loaded yet'); return; }
+  const confirm = window.confirm(`Send "${title}" to all ${_admAllUsers.length} users?`);
   if (!confirm) return;
   showLoader(true, 'Broadcasting…');
   try {
-    await withTimeout(db.collection('broadcasts').add({
-      title, body, date: nowISO(), sentBy: 'admin'
-    }));
+    const msg = { title, body, date: nowISO(), read: false };
+    const batch = db.batch();
+    _admAllUsers.forEach(u => {
+      const ref = db.collection('users').doc(u.id);
+      batch.update(ref, {
+        notifications: firebase.firestore.FieldValue.arrayUnion(msg)
+      });
+    });
+    await withTimeout(batch.commit());
     document.getElementById('bc-title').value = '';
     document.getElementById('bc-body').value  = '';
-    toast('Broadcast sent to all users');
+    toast(`Broadcast sent to ${_admAllUsers.length} users ✓`);
   } catch(e) { console.error(e); toast('Failed to send. Try again.'); }
   finally { showLoader(false); }
 }
