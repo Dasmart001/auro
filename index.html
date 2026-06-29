@@ -11,7 +11,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -584,23 +583,44 @@ body::after{display:none}
   <!-- DEPOSIT -->
   <div class="page" id="p-deposit">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Fund your wallet instantly with card or bank transfer.</div></div>
+    <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Transfer directly to fund your wallet.</div></div>
     <div class="dep-sec">
 
-      <!-- PAYSTACK PAYMENT METHOD -->
-      <div class="dep-card">
-        <div class="dep-title">Pay with Card or Bank Transfer</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Visa</div>
-          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Mastercard</div>
-          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Bank Transfer</div>
-          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">USSD</div>
-          <div style="background:rgba(15,174,107,0.1);border:1px solid var(--okb);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--ok)">Instant Credit</div>
+      <!-- OPAY ACCOUNT CARD -->
+      <div class="dep-card" style="text-align:center;padding:22px 18px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:14px">Send to this account</div>
+
+        <!-- Bank badge -->
+        <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,174,107,.08);border:1px solid rgba(15,174,107,.22);border-radius:20px;padding:5px 14px;margin-bottom:16px">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></div>
+          <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
         </div>
-        <div style="font-size:11px;color:var(--sil);font-weight:300;line-height:1.6">Your balance is credited <strong style="color:var(--gold)">automatically</strong> as soon as payment is confirmed. No manual approval needed.</div>
+
+        <!-- Account number -->
+        <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
+
+        <!-- Copy button -->
+        <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy Number
+        </button>
+
+        <!-- QR code -->
+        <div style="margin:0 auto 14px;width:160px;height:160px;border-radius:14px;overflow:hidden;border:3px solid var(--b1);background:#fff;padding:8px">
+          <img id="dep-qr" src="" alt="OPay QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/>
+        </div>
+        <div style="font-size:10px;color:var(--sil);margin-bottom:4px">Scan with OPay or any bank app</div>
+
+        <!-- Info note -->
+        <div style="margin-top:16px;background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:11px 13px;text-align:left">
+          <div style="font-size:10px;color:var(--sil);line-height:1.7;font-weight:300">
+            <strong style="color:var(--gold)">How it works:</strong> Transfer your desired amount to the account above, then enter the amount below and tap <strong style="color:var(--plat)">I've Paid</strong>. Your balance will be credited after confirmation.
+          </div>
+        </div>
       </div>
 
-      <label class="fl">Amount to Deposit</label>
+      <!-- AMOUNT INPUT -->
+      <label class="fl">Amount Transferred (₦)</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
       <div class="qrow">
         <button class="qb" onclick="setDep(5000)">₦5k</button>
@@ -611,16 +631,13 @@ body::after{display:none}
       </div>
 
       <div class="sbox">
-        <div class="sr"><span>Deposit amount</span><strong id="dep-sa">₦0.00</strong></div>
-        <div class="sr"><span>Processing fee</span><strong id="dep-fee">₦0.00</strong></div>
-        <div class="sr"><span>Powered by</span><strong style="color:var(--gold)">Paystack</strong></div>
-        <div class="sdiv"></div>
-        <div class="stotal"><span>You will pay</span><span class="stv" id="dep-sc">₦0.00</span></div>
+        <div class="sr"><span>Amount</span><strong id="dep-sa">₦0.00</strong></div>
+        <div class="sr"><span>Status</span><strong style="color:var(--gold)">Pending admin approval</strong></div>
       </div>
 
       <button class="bb" onclick="doDeposit()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/></svg>
-        Pay Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        I've Paid — Submit Request
       </button>
 
       <div style="margin-top:22px">
@@ -860,11 +877,11 @@ body::after{display:none}
 
       <h3>4. Deposits & Withdrawals</h3>
       <ul>
-        <li>Deposits are processed exclusively through Paystack, a licensed and regulated payment gateway. AURO does not store card details.</li>
-        <li>Minimum deposit is ₦100. A Paystack processing fee applies to all card transactions as displayed at checkout.</li>
+        <li>Deposits are made via direct bank transfer to AURO's designated OPay account. Transfer details are displayed on the deposit page.</li>
+        <li>Minimum deposit is ₦500. After transferring, you must submit your deposit request in the app. Your balance will be credited after admin confirmation, typically within 1–3 hours during business hours.</li>
         <li>Withdrawals are processed manually by our team within 1–3 business days. Withdrawal requests are subject to available cleared balance and may be delayed during high-volume periods.</li>
         <li>AURO reserves the right to request identity verification before processing any withdrawal above ₦500,000.</li>
-        <li>Fraudulent withdrawal attempts will result in immediate account suspension and may be reported to relevant authorities.</li>
+        <li>Fraudulent deposit claims — submitting a request without actually transferring — will result in immediate account suspension and may be reported to relevant authorities.</li>
       </ul>
 
       <h3>5. Referral Programme</h3>
@@ -1057,6 +1074,14 @@ function go(pid, nid) {
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
   if (nid && nid !== 'n-none') { const n = document.getElementById(nid); if (n) n.classList.add('active'); }
   window.scrollTo(0,0); rAll();
+  // Load QR code when deposit page opens
+  if (pid === 'p-deposit') {
+    const qr = document.getElementById('dep-qr');
+    if (qr && !qr.getAttribute('data-loaded')) {
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.setAttribute('data-loaded', '1');
+    }
+  }
 }
 function openUserMenu() { document.getElementById('user-menu').classList.add('open'); }
 function closeUserMenu() { document.getElementById('user-menu').classList.remove('open'); }
@@ -1363,77 +1388,32 @@ async function confirmInv() {
 // ══════════════════════════════════
 // DEPOSIT
 // ══════════════════════════════════
-const PAYSTACK_KEY = 'pk_test_2f3cfffffca233f3686033879478785406ee264c';
+
 
 function setDep(v) { document.getElementById('dep-a').value = v; updDep(); }
 function updDep() {
   const v = parseFloat(document.getElementById('dep-a').value)||0;
-  // Paystack charges 1.5% + ₦100 (capped at ₦2000) for Nigerian cards
-  let fee = 0;
-  if (v > 0) {
-    fee = Math.min((v * 0.015) + 100, 2000);
-    if (v <= 2500) fee = v * 0.015; // no flat fee under ₦2500
-    fee = Math.round(fee);
-  }
-  const total = v + fee;
   document.getElementById('dep-sa').textContent = fmt2(v);
-  document.getElementById('dep-fee').textContent = fmt2(fee);
-  document.getElementById('dep-sc').textContent = fmt2(total);
 }
 
-function doDeposit() {
+async function doDeposit() {
   if (!_user) return;
   const v = parseFloat(document.getElementById('dep-a').value)||0;
-  if (v < 100) { toast('Minimum deposit is ₦100'); return; }
-  // Calculate amount in kobo for Paystack
-  let fee = Math.round(Math.min((v * 0.015) + 100, 2000));
-  if (v <= 2500) fee = Math.round(v * 0.015);
-  const totalKobo = Math.round((v + fee) * 100);
-
-  const handler = PaystackPop.setup({
-    key: PAYSTACK_KEY,
-    email: _user.nameLower.replace(/\s+/g,'') + '@auro.app',
-    amount: totalKobo,
-    currency: 'NGN',
-    ref: 'AURO_' + Date.now() + '_' + _user.id.slice(0,8),
-    metadata: {
+  if (v < 500) { toast('Minimum deposit is ₦500'); return; }
+  showLoader(true, 'Submitting request…');
+  try {
+    await withTimeout(db.collection('deposits').add({
       userId: _user.id,
       userName: _user.name,
-      depositAmount: v
-    },
-    callback: async function(response) {
-      // Payment successful — credit balance automatically
-      showLoader(true, 'Confirming payment…');
-      try {
-        await withTimeout(Promise.all([
-          db.collection('users').doc(_user.id).update({
-            balance: firebase.firestore.FieldValue.increment(v)
-          }),
-          db.collection('deposits').add({
-            userId: _user.id,
-            userName: _user.name,
-            amount: v,
-            fee: fee,
-            paystackRef: response.reference,
-            date: nowISO(),
-            status: 'approved',
-            method: 'paystack'
-          })
-        ]));
-        document.getElementById('dep-a').value = ''; updDep();
-        toast('₦' + v.toLocaleString() + ' credited to your balance');
-      } catch(e) {
-        console.error(e);
-        toast('Payment received but credit failed. Contact support with ref: ' + response.reference);
-      } finally {
-        showLoader(false);
-      }
-    },
-    onClose: function() {
-      toast('Payment cancelled');
-    }
-  });
-  handler.openIframe();
+      amount: v,
+      date: nowISO(),
+      status: 'pending',
+      method: 'opay_transfer'
+    }));
+    document.getElementById('dep-a').value = ''; updDep();
+    toast('Request submitted · Awaiting admin approval');
+  } catch(e) { console.error(e); toast('Could not submit. Check your connection.'); }
+  finally { showLoader(false); }
 }
 
 
@@ -2087,6 +2067,12 @@ async function boot() {
       const snap = await withTimeout(db.collection('users').doc(uid).get());
       if (snap.exists) {
         _user = {id: snap.id, ...snap.data()};
+        // Auto-generate refCode for existing users who don't have one
+        if (!_user.refCode) {
+          const newCode = genRefCode(_user.name||'USER');
+          db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
+          _user.refCode = newCode;
+        }
         updateUserUI(); rAll();
         startListening(uid);
         showApp();
