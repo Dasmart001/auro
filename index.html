@@ -10,6 +10,7 @@
 <!-- Firebase compat v9 — most stable for HTML-only apps -->
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -85,7 +86,7 @@ body::after{display:none}
 .logo{font-family:var(--d);font-size:19px;font-weight:800;letter-spacing:.01em;color:var(--gold);cursor:pointer}
 .logo sup{font-size:8px;color:var(--sil);font-family:var(--b);font-weight:300}
 .tb-r{display:flex;gap:9px;align-items:center}
-.ib{width:37px;height:37px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil);transition:all .2s;flex-shrink:0}
+.ib{width:37px;height:37px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil);transition:all .2s;flex-shrink:0;position:relative}
 .ib:hover{background:var(--s2);color:var(--plat);border-color:var(--b2)}
 .ib svg{width:15px;height:15px}
 .av{width:37px;height:37px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:13px;font-weight:600;color:var(--void);border:1.5px solid var(--gb);cursor:pointer;flex-shrink:0}
@@ -373,7 +374,9 @@ body::after{display:none}
 .rc-user{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
 .rc-date{font-size:10px;color:var(--sil)}
 .rc-amt{font-family:var(--d);font-size:22px;font-weight:600;color:var(--gold)}
-.rc-bank{font-size:11px;color:var(--sil);margin-bottom:10px;line-height:1.7}
+.rc-bank{font-size:12.5px;color:var(--plat);margin-bottom:10px;line-height:1.85;background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:10px 12px}
+.rc-bank b{color:var(--sil);font-weight:500}
+.rc-cpy{color:var(--gold);font-weight:600;text-decoration:underline;cursor:pointer;margin-left:6px;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
 .rc-bank strong{color:var(--plat)}
 .rc-acts{display:flex;gap:8px}
 .rc-ap{flex:1;padding:9px;border:none;border-radius:7px;background:var(--ok);color:var(--void);font-family:var(--b);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
@@ -517,7 +520,7 @@ body::after{display:none}
     <div class="tb">
       <div class="logo" id="logo-tap">AURO<sup>®</sup></div>
       <div class="tb-r">
-        <div class="ib" onclick="go('p-notif','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+        <div class="ib" id="notif-bell" onclick="openNotifPage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><div class="cbadge" id="notif-dot"></div></div>
         <div class="av" id="home-av" onclick="openUserMenu()">DA</div>
       </div>
     </div>
@@ -703,10 +706,7 @@ body::after{display:none}
   <div class="page" id="p-notif">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
     <div class="ph"><div class="ph-t">Notifications</div></div>
-    <div class="notifs">
-      <div class="notif"><div class="notif-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start investing and earning daily returns.</div><div class="ntime">Just now</div></div></div>
-      <div class="notif"><div class="notif-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="ntit">Daily Claim Reminder</div><div class="ndesc">You must claim manually every day or you will forfeit that day's returns permanently.</div><div class="ntime">Today</div></div></div>
-    </div>
+    <div class="notifs" id="notif-c"></div>
   </div>
 
 </div><!-- /app -->
@@ -747,12 +747,12 @@ body::after{display:none}
   <div class="adm-sec">
     <div class="adm-sec-t">Platform Treasury</div>
     <div class="treasury-grid" id="treasury-grid">
-      <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">₦0</div><div class="tr-sub">User available balances</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Invested</div><div class="tr-val gold" id="tr-invested">₦0</div><div class="tr-sub">Active capital deployed</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">0</div><div class="tr-sub">Registered accounts</div></div>
-      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">0</div><div class="tr-sub">Running investments</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">₦0</div><div class="tr-sub">All-time earnings claimed</div></div>
-      <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">₦0</div><div class="tr-sub">Awaiting processing</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">—</div><div class="tr-sub">User available balances</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Invested</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Active capital deployed</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
+      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Running investments</div></div>
+      <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings claimed</div></div>
+      <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
     </div>
     <div style="margin-top:12px">
       <div class="adm-sec-t" style="margin-bottom:8px;font-size:11px">Manual Balance Adjustment</div>
@@ -816,13 +816,17 @@ body::after{display:none}
   <div class="msheet">
     <div class="m-handle"></div>
     <div class="m-title">Admin Access</div>
-    <div class="m-sub">Enter the admin password.</div>
+    <div class="m-sub">Sign in with your admin account.</div>
+    <div style="margin-bottom:12px">
+      <label class="fl" style="margin-bottom:7px">Email</label>
+      <input class="a-inp" type="email" id="adm-email" autocomplete="username" placeholder="admin@yourdomain.com" style="background:rgba(17,20,43,.04);border-color:var(--b2)" onkeydown="if(event.key==='Enter')checkAdminLogin()"/>
+    </div>
     <div style="margin-bottom:16px">
       <label class="fl" style="margin-bottom:7px">Password</label>
-      <input class="a-inp" type="password" id="adm-pw" placeholder="Admin password" style="background:rgba(17,20,43,.04);border-color:var(--b2)" onkeydown="if(event.key==='Enter')checkAdminPw()"/>
+      <input class="a-inp" type="password" id="adm-pw" autocomplete="current-password" placeholder="Admin password" style="background:rgba(17,20,43,.04);border-color:var(--b2)" onkeydown="if(event.key==='Enter')checkAdminLogin()"/>
     </div>
     <div class="a-err" id="adm-err" style="margin-bottom:14px"></div>
-    <button class="bb" onclick="checkAdminPw()">Enter Admin Panel</button>
+    <button class="bb" id="adm-login-btn" onclick="checkAdminLogin()">Enter Admin Panel</button>
     <button onclick="closeM('adm-login')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:4px">Cancel</button>
   </div>
 </div>
@@ -951,6 +955,7 @@ const FB_CONFIG = {
 };
 
 let db = null;
+let fbAuth = null;
 
 function waitForFirebase() {
   return new Promise((resolve, reject) => {
@@ -961,6 +966,7 @@ function waitForFirebase() {
         try {
           if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
           db = firebase.firestore();
+          fbAuth = firebase.auth();
           // Enable offline persistence for better reliability
           
           resolve();
@@ -986,7 +992,7 @@ function withTimeout(promise, ms = 30000) {
 // ══════════════════════════════════
 // CONSTANTS & PLANS
 // ══════════════════════════════════
-const ADMIN_PW = 'dasmartauro';
+// Admin auth now lives in Firebase Auth + the admins/{uid} Firestore collection — see checkAdminLogin()
 const SK = 'auro_uid';
 
 const TC = {
@@ -1031,6 +1037,7 @@ function simToday(u) {
 // ══════════════════════════════════
 let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
+let _myDeps = [], _myWits = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null;
 
 // ══════════════════════════════════
@@ -1199,6 +1206,7 @@ function doLogout() {
   [_unsubUser, _unsubDep, _unsubWit].forEach(fn => { if(fn) fn(); });
   _unsubUser = _unsubDep = _unsubWit = null;
   _user = null;
+  _myDeps = []; _myWits = [];
   localStorage.removeItem(SK);
   showAuth();
 }
@@ -1220,7 +1228,9 @@ function startListening(uid) {
   _unsubDep = db.collection('deposits').where('userId','==', uid)
     .onSnapshot(snap => {
       const deps = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.date.localeCompare(a.date));
+      _myDeps = deps;
       renderDepHistory(deps);
+      renderNotifications();
     }, e => console.error('Dep listener error:', e));
 
   // Withdrawals
@@ -1228,7 +1238,9 @@ function startListening(uid) {
   _unsubWit = db.collection('withdrawals').where('userId','==', uid)
     .onSnapshot(snap => {
       const wits = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.date.localeCompare(a.date));
+      _myWits = wits;
       renderWitHistory(wits);
+      renderNotifications();
     }, e => console.error('Wit listener error:', e));
 }
 
@@ -1248,17 +1260,21 @@ function updateUserUI() {
 // ══════════════════════════════════
 // CLAIM LOGIC
 // ══════════════════════════════════
-function dayElapsed(inv) {
+function realDaysElapsed(inv) {
   const s = new Date(inv.startDate), t = new Date(simToday(null));
-  return Math.min(Math.max(Math.floor((t-s)/86400000)+1, 1), 60);
+  return Math.floor((t-s)/86400000)+1;
 }
+function dayElapsed(inv) {
+  return Math.min(Math.max(realDaysElapsed(inv), 1), 60);
+}
+function isActive(inv) { return inv.status==='active' && realDaysElapsed(inv) <= 60; }
 function todayKey(inv) { return simToday(_user)+'_d'+dayElapsed(inv); }
-function canClaim(inv) { return inv.status==='active' && dayElapsed(inv)<=60 && !(inv.claimed||[]).includes(todayKey(inv)); }
+function canClaim(inv) { return isActive(inv) && !(inv.claimed||[]).includes(todayKey(inv)); }
 function hasClaimed(inv) { return (inv.claimed||[]).includes(todayKey(inv)); }
 function missedDays(inv) { return Math.max(0, (dayElapsed(inv)-1) - (inv.claimed||[]).length); }
 
 function updDot() {
-  const has = _user && (_user.investments||[]).some(i => i.status==='active' && canClaim(i));
+  const has = _user && (_user.investments||[]).some(i => canClaim(i));
   document.getElementById('claim-dot').style.display = has ? 'block' : 'none';
 }
 
@@ -1589,7 +1605,7 @@ async function doClaimGroup(ids) {
 function renderClaims() {
   const c = document.getElementById('claim-c');
   if (!_user) { c.innerHTML = ''; return; }
-  const active = (_user.investments||[]).filter(i => i.status==='active');
+  const active = (_user.investments||[]).filter(i => isActive(i));
   if (!active.length) {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
@@ -1688,7 +1704,7 @@ function renderHome() {
   const invs = _user.investments||[];
   const tInv = invs.reduce((s,i)=>s+i.invest, 0);
   const tCl  = invs.reduce((s,i)=>s+(i.totalClaimed||0), 0);
-  const actC = invs.filter(i=>i.status==='active').length;
+  const actC = invs.filter(i=>isActive(i)).length;
   const todC = invs.filter(i=>canClaim(i)).reduce((s,i)=>s+i.daily, 0);
   document.getElementById('h-invested').textContent = fmt(tInv);
   document.getElementById('h-earned').textContent   = fmt(tCl);
@@ -1700,7 +1716,7 @@ function renderHome() {
   else          sub.innerHTML = 'Deposit to start investing';
 
   const posEl = document.getElementById('h-pos');
-  const active = invs.filter(i=>i.status==='active').slice(0,3);
+  const active = invs.filter(i=>isActive(i)).slice(0,3);
   if (!active.length) {
     posEl.innerHTML = '<div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go(\'p-plans\',\'n-plans\')">Browse plans →</span></div>';
     return;
@@ -1740,7 +1756,7 @@ function renderPortfolio() {
     const t = TC[inv.tier]||TC.Starter;
     const pct = Math.round(((inv.claimed||[]).length/60)*100);
     const day = dayElapsed(inv);
-    const done = inv.status==='completed';
+    const done = !isActive(inv);
     return `<div class="pcard">
       <div class="pc-top">
         <div class="pc-left">
@@ -1761,9 +1777,67 @@ function renderPortfolio() {
   }).join('');
 }
 
+// ══════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════
+function relTime(iso) {
+  if (!iso) return '';
+  const d = new Date(iso), now = new Date();
+  const diffMin = Math.floor((now - d) / 60000);
+  if (diffMin < 1) return 'Just now';
+  if (diffMin < 60) return diffMin + 'm ago';
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return diffHr + 'h ago';
+  const diffDay = Math.floor(diffHr / 24);
+  if (diffDay === 1) return 'Yesterday';
+  if (diffDay < 7) return diffDay + 'd ago';
+  return dateStr(iso);
+}
+function buildNotifFeed() {
+  const items = [];
+  (_myDeps||[]).forEach(d => {
+    if (d.status==='approved') items.push({time:d.date, color:'#0FAE6B', title:'Deposit Successful', desc:fmt(d.amount)+' was added to your balance.', icon:'<path d="M12 19V5M5 12l7-7 7 7"/>'});
+    else if (d.status==='pending') items.push({time:d.date, color:'#C98A00', title:'Deposit Pending', desc:fmt(d.amount)+' is awaiting confirmation.', icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'});
+    else if (d.status==='rejected') items.push({time:d.date, color:'#EF4444', title:'Deposit Rejected', desc:fmt(d.amount)+' could not be confirmed.', icon:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'});
+  });
+  (_myWits||[]).forEach(w => {
+    if (w.status==='pending') items.push({time:w.date, color:'#C98A00', title:'Withdrawal Requested', desc:fmt(w.amount)+' to '+w.bank+' is being processed.', icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'});
+    else if (w.status==='approved') items.push({time:w.date, color:'#0FAE6B', title:'Withdrawal Sent', desc:fmt(w.amount)+' was sent to your '+w.bank+' account.', icon:'<path d="M5 12h14M13 6l6 6-6 6"/>'});
+    else if (w.status==='rejected') items.push({time:w.date, color:'#EF4444', title:'Withdrawal Rejected', desc:fmt(w.amount)+' was refunded to your balance.', icon:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'});
+  });
+  (_user&&_user.investments||[]).forEach(inv => {
+    items.push({time:inv.startDate, color:'#4338EC', title:'Investment Started', desc:fmt(inv.invest)+' invested in your '+inv.tier+' plan.', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'});
+  });
+  items.sort((a,b)=>(b.time||'').localeCompare(a.time||''));
+  return items;
+}
+function renderNotifications() {
+  const c = document.getElementById('notif-c');
+  if (!c) return;
+  const items = buildNotifFeed();
+  c.innerHTML = items.length ? items.map(n => `<div class="notif">
+      <div class="notif-ico" style="color:${n.color};background:${n.color}18;border-color:${n.color}40"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${n.icon}</svg></div>
+      <div><div class="ntit">${n.title}</div><div class="ndesc">${n.desc}</div><div class="ntime">${relTime(n.time)}</div></div>
+    </div>`).join('') :
+    `<div class="notif"><div class="notif-ico" style="color:var(--gold);background:var(--gd)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start investing and earning daily returns.</div><div class="ntime">Just now</div></div></div>`;
+  updateNotifDot(items);
+}
+function updateNotifDot(items) {
+  const dot = document.getElementById('notif-dot');
+  if (!dot) return;
+  const lastSeen = localStorage.getItem('auro_notif_seen') || '';
+  dot.style.display = (items||[]).some(n => (n.time||'') > lastSeen) ? 'block' : 'none';
+}
+function openNotifPage() {
+  go('p-notif','n-none');
+  localStorage.setItem('auro_notif_seen', nowISO());
+  const dot = document.getElementById('notif-dot');
+  if (dot) dot.style.display = 'none';
+}
+
 function rAll() {
   if (!_user) return;
-  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak();
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications();
 }
 
 // ══════════════════════════════════
@@ -1778,16 +1852,38 @@ document.getElementById('logo-tap').addEventListener('click', () => {
 });
 
 function openAdmLogin() {
+  document.getElementById('adm-email').value = '';
   document.getElementById('adm-pw').value = '';
   document.getElementById('adm-err').textContent = '';
   document.getElementById('adm-login').classList.add('open');
-  setTimeout(() => document.getElementById('adm-pw').focus(), 350);
+  setTimeout(() => document.getElementById('adm-email').focus(), 350);
 }
-function checkAdminPw() {
-  if (document.getElementById('adm-pw').value === ADMIN_PW) {
-    closeM('adm-login'); openAdminPanel();
-  } else {
-    document.getElementById('adm-err').textContent = 'Incorrect password.';
+async function checkAdminLogin() {
+  const email = document.getElementById('adm-email').value.trim();
+  const pw = document.getElementById('adm-pw').value;
+  const errEl = document.getElementById('adm-err');
+  const btn = document.getElementById('adm-login-btn');
+  errEl.textContent = '';
+  if (!email || !pw) { errEl.textContent = 'Enter email and password.'; return; }
+  btn.disabled = true; btn.textContent = 'Checking…';
+  try {
+    const cred = await fbAuth.signInWithEmailAndPassword(email, pw);
+    const uid = cred.user.uid;
+    // Real admin status lives in Firestore, not in this file — see admins/{uid}
+    const adminDoc = await db.collection('admins').doc(uid).get();
+    if (!adminDoc.exists) {
+      await fbAuth.signOut();
+      errEl.textContent = 'This account is not authorized as admin.';
+      return;
+    }
+    closeM('adm-login');
+    openAdminPanel();
+  } catch(e) {
+    console.error(e);
+    errEl.textContent = e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'
+      ? 'Incorrect email or password.' : 'Could not sign in. Check your connection.';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Enter Admin Panel';
   }
 }
 function openAdminPanel() {
@@ -1823,15 +1919,15 @@ let _adjSelectedUser = null;
 
 function renderTreasury(users) {
   const totalWallets  = users.reduce((s,u) => s + (u.balance||0), 0);
-  const totalInvested = users.reduce((s,u) => s + (u.investments||[]).reduce((si,i)=>si+i.invest,0), 0);
+  const totalInvested = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).reduce((si,i)=>si+i.invest,0), 0);
   const totalPaid     = users.reduce((s,u) => s + (u.totalEarned||0), 0);
-  const activePlans   = users.reduce((s,u) => s + (u.investments||[]).filter(i=>i.status==='active').length, 0);
+  const activePlans   = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).length, 0);
 
   const el = id => document.getElementById(id);
   if (el('tr-wallets'))  el('tr-wallets').textContent  = fmt(totalWallets);
   if (el('tr-invested')) el('tr-invested').textContent = fmt(totalInvested);
-  if (el('tr-users'))    el('tr-users').textContent    = users.length;
-  if (el('tr-plans'))    el('tr-plans').textContent    = activePlans;
+  if (el('tr-users'))    el('tr-users').textContent    = users.length.toLocaleString('en-NG');
+  if (el('tr-plans'))    el('tr-plans').textContent    = activePlans.toLocaleString('en-NG');
   if (el('tr-paid'))     el('tr-paid').textContent     = fmt(totalPaid);
 }
 
@@ -1839,13 +1935,13 @@ function adjSearch() {
   const q = (document.getElementById('adj-user').value||'').toLowerCase().trim();
   const res = document.getElementById('adj-results');
   if (!q || q.length < 2) { res.style.display='none'; return; }
-  const matches = _admAllUsers.filter(u => u.name.toLowerCase().includes(q)).slice(0,5);
+  const matches = _admAllUsers.filter(u => (u.name||'').toLowerCase().includes(q)).slice(0,5);
   if (!matches.length) { res.style.display='none'; return; }
   res.style.display = 'block';
   res.innerHTML = matches.map(u => `
-    <div onclick="adjSelect('${u.id}','${u.name.replace(/'/g,"\\'")}',${u.balance})"
+    <div onclick="adjSelect('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.balance||0})"
       style="padding:9px 11px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--b1);color:var(--plat)">
-      ${u.name} <span style="color:var(--sil);font-size:10px">· ${fmt(u.balance)}</span>
+      ${u.name||'(unnamed)'} <span style="color:var(--sil);font-size:10px">· ${fmt(u.balance||0)}</span>
     </div>`).join('');
 }
 
@@ -1880,6 +1976,7 @@ function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
   [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr].forEach(fn=>{if(fn)fn();});
   _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=null;
+  if (fbAuth && fbAuth.currentUser) fbAuth.signOut().catch(()=>{});
 }
 
 function noItems(msg) { return `<div style="font-size:12px;color:var(--sil);text-align:center;padding:18px 0">${msg}</div>`; }
@@ -1900,7 +1997,7 @@ function renderAdmWits(wits) {
   if (!wits.length) { c.innerHTML=noItems('No pending withdrawals'); return; }
   c.innerHTML = wits.map(w => `<div class="req-card">
     <div class="rc-top"><div><div class="rc-user">${w.userName}</div><div class="rc-date">${dateStr(w.date)}</div></div><div class="rc-amt">${fmt(w.amount)}</div></div>
-    <div class="rc-bank">Bank: <strong>${w.bank}</strong><br>Acct: <strong>${w.accountNumber}</strong><br>Name: <strong>${w.accountName}</strong></div>
+    <div class="rc-bank"><b>Bank</b> ${w.bank}<br><b>Acct No.</b> ${w.accountNumber}<span class="rc-cpy" onclick="cpy('${w.accountNumber}')">Copy</span><br><b>Acct Name</b> ${w.accountName}</div>
     <div class="rc-acts">
       <button class="rc-ap" onclick="admApproveWit('${w.id}')">Mark Sent</button>
       <button class="rc-rj" onclick="admRejectWit('${w.id}','${w.userId}',${w.amount})">Reject & Refund</button>
@@ -1911,7 +2008,7 @@ function renderAdmUsers(users) {
   const c = document.getElementById('adm-users');
   if (!users.length) { c.innerHTML=noItems('No users yet'); return; }
   c.innerHTML = users.map(u => {
-    const act = (u.investments||[]).filter(i=>i.status==='active').length;
+    const act = (u.investments||[]).filter(i=>isActive(i)).length;
     const total = (u.investments||[]).reduce((s,i)=>s+i.invest,0);
     return `<div class="adm-user-row">
       <div class="au-name">${u.name}</div>
@@ -2056,7 +2153,7 @@ async function applyReferral(refCode, newUserId, newUserName) {
 // ══════════════════════════════════
 function calcStreak() {
   if (!_user) return 0;
-  const invs = (_user.investments||[]).filter(i=>i.status==='active');
+  const invs = (_user.investments||[]).filter(i=>isActive(i));
   if (!invs.length) return 0;
   const today = simToday(_user);
   // Check if any active plan was claimed today
