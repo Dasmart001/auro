@@ -360,6 +360,35 @@ body::after{display:none}
 .adm-close svg{width:14px;height:14px}
 .adm-sec{padding:20px 20px 0}
 .treasury-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+/* ── PROFILE PAGE ── */
+.prof-hero{margin:0 16px 18px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:22px 18px;text-align:center;position:relative;overflow:hidden}
+.prof-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.prof-avatar{width:64px;height:64px;border-radius:50%;background:var(--gd);border:2px solid var(--gb);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:var(--d);font-size:24px;font-weight:700;color:var(--gold)}
+.prof-name{font-family:var(--d);font-size:20px;font-weight:700;color:var(--plat);margin-bottom:3px}
+.prof-since{font-size:10px;color:var(--sil);font-weight:300}
+.prof-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 16px 14px}
+.prof-stat{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:12px 8px;text-align:center}
+.prof-stat-val{font-family:var(--d);font-size:16px;font-weight:700;color:var(--gold)}
+.prof-stat-lbl{font-size:9px;color:var(--sil);font-weight:400;margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+.prof-sec{margin:0 16px 14px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden}
+.prof-sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);padding:13px 15px 8px}
+.prof-row{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-top:1px solid var(--b1)}
+.prof-row-lbl{font-size:12px;color:var(--sil)}
+.prof-row-val{font-size:12px;font-weight:600;color:var(--plat)}
+/* ── ADMIN BROADCAST ── */
+.broadcast-box{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px;margin-bottom:10px}
+/* ── USER HISTORY MODAL ── */
+.hist-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);z-index:600;display:none;align-items:flex-end;justify-content:center}
+.hist-modal.open{display:flex}
+.hist-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 18px 50px;width:100%;max-height:85vh;overflow-y:auto;animation:shu .35s var(--ez) both}
+/* ── PUSH PROMPT ── */
+.push-prompt{margin:0 16px 14px;background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.12));border:1px solid var(--gb);border-radius:var(--rl);padding:15px;display:flex;gap:12px;align-items:center}
+.push-ico{width:38px;height:38px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.push-ico svg{color:#fff}
+.push-txt{flex:1}
+.push-title{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
+.push-sub{font-size:10px;color:var(--sil);font-weight:300;line-height:1.5}
+.push-btn{font-size:10px;font-weight:700;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap;font-family:var(--b)}
 .tr-card{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px 13px}
 .tr-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:5px}
 .tr-val{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat);line-height:1}
@@ -719,6 +748,35 @@ body::after{display:none}
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No investments yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
+  <!-- PROFILE -->
+  <div class="page" id="p-profile">
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">My Profile</div><div class="ph-s">Your account overview and settings.</div></div>
+    <div class="prof-hero">
+      <div class="prof-avatar" id="prof-avatar">—</div>
+      <div class="prof-name" id="prof-name">—</div>
+      <div class="prof-since" id="prof-since">Member</div>
+    </div>
+    <div class="prof-stats">
+      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">Invested</div></div>
+      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
+      <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Plans</div></div>
+    </div>
+    <div class="prof-sec">
+      <div class="prof-sec-title">Referral</div>
+      <div class="prof-row"><span class="prof-row-lbl">Your Code</span><span class="prof-row-val" id="prof-refcode" style="color:var(--gold);letter-spacing:.08em">—</span></div>
+      <div class="prof-row"><span class="prof-row-lbl">People Referred</span><span class="prof-row-val" id="prof-refcount">0</span></div>
+      <div class="prof-row"><span class="prof-row-lbl">Referral Earnings</span><span class="prof-row-val ok" id="prof-refearned">₦0</span></div>
+    </div>
+    <div class="prof-sec">
+      <div class="prof-sec-title">Account</div>
+      <div class="prof-row" onclick="openPinChange()" style="cursor:pointer"><span class="prof-row-lbl">Change Investment PIN</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+      <div class="prof-row" onclick="openTos()" style="cursor:pointer"><span class="prof-row-lbl">Terms of Service</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+      <div class="prof-row" onclick="requestPushPermission()" style="cursor:pointer"><span class="prof-row-lbl">Enable Claim Reminders</span><span class="prof-row-val" id="prof-push-status" style="font-size:10px;color:var(--sil)">Tap to enable</span></div>
+      <div class="prof-row" onclick="doLogout()" style="cursor:pointer"><span class="prof-row-lbl" style="color:var(--err)">Sign Out</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--err)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+    </div>
+  </div>
+
   <!-- NOTIFICATIONS -->
   <div class="page" id="p-notif">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
@@ -743,6 +801,7 @@ body::after{display:none}
   <div class="um-card">
     <div class="um-name" id="um-name">—</div>
     <div class="um-meta" id="um-meta">Member</div>
+    <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
     <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
     <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
@@ -794,7 +853,37 @@ body::after{display:none}
 
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Deposits</div><div id="adm-deps"></div></div>
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
-  <div class="adm-sec" style="padding-bottom:50px"><div class="adm-sec-t" style="margin-top:8px">All Users</div><div id="adm-users"></div></div>
+  <div class="adm-sec">
+    <div class="adm-sec-t" style="margin-top:8px">Broadcast Message</div>
+    <div class="broadcast-box">
+      <div style="font-size:10px;color:var(--sil);margin-bottom:8px">Send a notification to all users simultaneously.</div>
+      <input class="f-plain" id="bc-title" type="text" placeholder="Title (e.g. System Update)" style="width:100%;margin-bottom:8px;font-size:12px;padding:9px 11px"/>
+      <textarea id="bc-body" placeholder="Write your message here…" style="width:100%;background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:10px 11px;font-family:var(--b);font-size:12px;color:var(--plat);resize:none;height:80px;outline:none"></textarea>
+      <button class="rc-ap" style="width:100%;margin-top:8px;padding:10px" onclick="sendBroadcast()">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Send to All Users
+      </button>
+    </div>
+  </div>
+  <div class="adm-sec" style="padding-bottom:50px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
+      <div class="adm-sec-t" style="margin:0">All Users</div>
+      <button onclick="exportCSV()" style="font-size:10px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:5px 12px;cursor:pointer;font-family:var(--b)">Export CSV</button>
+    </div>
+    <input class="f-plain" id="adm-user-search" type="text" placeholder="Search users by name…" style="width:100%;margin:8px 0;font-size:12px;padding:9px 11px" oninput="filterAdmUsers()"/>
+    <div id="adm-users"></div>
+  </div>
+</div>
+
+<!-- USER HISTORY MODAL -->
+<div class="hist-modal" id="hist-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="hist-sheet">
+    <div class="m-handle"></div>
+    <div class="m-title" id="hist-name">Investment History</div>
+    <div class="m-sub" id="hist-meta"></div>
+    <div id="hist-body" style="margin-top:14px"></div>
+    <button onclick="document.getElementById('hist-modal').classList.remove('open')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:8px">Close</button>
+  </div>
 </div>
 
 <!-- INVEST MODAL -->
@@ -1817,7 +1906,8 @@ function openNotifPage() {
 
 function rAll() {
   if (!_user) return;
-  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications();
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications(); renderProfile();
+  scheduleDailyReminder();
 }
 
 // ══════════════════════════════════
@@ -1890,7 +1980,11 @@ function openAdminPanel() {
       const users = snap.docs.map(d=>({id:d.id,...d.data()}));
       renderAdmUsers(users);
       renderTreasury(users);
-      _admAllUsers = users; // cache for search
+      _admAllUsers = users;
+      _admFilteredUsers = users;
+      // Reset search if open
+      const srch = document.getElementById('adm-user-search');
+      if (srch && !srch.value) renderAdmUsers(users);
     });
 }
 
@@ -1986,13 +2080,18 @@ function renderAdmWits(wits) {
 }
 function renderAdmUsers(users) {
   const c = document.getElementById('adm-users');
-  if (!users.length) { c.innerHTML=noItems('No users yet'); return; }
+  if (!users.length) { c.innerHTML=noItems('No users found'); return; }
   c.innerHTML = users.map(u => {
-    const act = (u.investments||[]).filter(i=>isActive(i)).length;
+    const act   = (u.investments||[]).filter(i=>isActive(i)).length;
     const total = (u.investments||[]).reduce((s,i)=>s+i.invest,0);
     return `<div class="adm-user-row">
-      <div class="au-name">${u.name}</div>
-      <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="au-name">${u.name||'(unnamed)'}</div>
+          <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance||0)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
+        </div>
+        <button onclick="showUserHistory('${u.id}')" style="font-size:9px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:4px 9px;cursor:pointer;font-family:var(--b);white-space:nowrap;flex-shrink:0">History</button>
+      </div>
     </div>`;
   }).join('');
 }
@@ -2293,6 +2392,178 @@ async function doChangePin() {
     toast('PIN updated successfully');
   } catch(e) { console.error(e); toast('Could not update PIN. Try again.'); }
   finally { showLoader(false); }
+}
+
+// ══════════════════════════════════
+// PROFILE PAGE
+// ══════════════════════════════════
+async function renderProfile() {
+  if (!_user) return;
+  const initials = (_user.name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const el = id => document.getElementById(id);
+  if (el('prof-avatar')) el('prof-avatar').textContent = initials;
+  if (el('prof-name'))   el('prof-name').textContent = _user.name || '—';
+  if (el('prof-since'))  el('prof-since').textContent = 'Member since ' + ((_user.createdAt||'').slice(0,10) || 'N/A');
+  if (el('prof-refcode')) el('prof-refcode').textContent = _user.refCode || '—';
+
+  const invs = _user.investments||[];
+  const totalInvested = invs.reduce((s,i)=>s+i.invest,0);
+  const activePlans   = invs.filter(i=>isActive(i)).length;
+  if (el('prof-invested')) el('prof-invested').textContent = fmt(totalInvested);
+  if (el('prof-earned'))   el('prof-earned').textContent   = fmt(_user.totalEarned||0);
+  if (el('prof-plans'))    el('prof-plans').textContent    = activePlans;
+
+  // Referral stats — count users who have referredBy === this user's refCode
+  if (_user.refCode) {
+    try {
+      const snap = await db.collection('users').where('referredBy','==',_user.refCode).get();
+      const count = snap.size;
+      const refEarned = count * 2000;
+      if (el('prof-refcount')) el('prof-refcount').textContent = count;
+      if (el('prof-refearned')) el('prof-refearned').textContent = fmt(refEarned);
+    } catch(e) {}
+  }
+
+  // Push status
+  if (el('prof-push-status')) {
+    if (!('Notification' in window)) {
+      el('prof-push-status').textContent = 'Not supported';
+    } else if (Notification.permission === 'granted') {
+      el('prof-push-status').textContent = '✓ Enabled';
+      el('prof-push-status').style.color = 'var(--ok)';
+    } else if (Notification.permission === 'denied') {
+      el('prof-push-status').textContent = 'Blocked in browser';
+    } else {
+      el('prof-push-status').textContent = 'Tap to enable';
+    }
+  }
+}
+
+// ══════════════════════════════════
+// PUSH NOTIFICATIONS
+// ══════════════════════════════════
+function requestPushPermission() {
+  if (!('Notification' in window)) { toast('Push notifications not supported on this browser'); return; }
+  if (Notification.permission === 'granted') { toast('Claim reminders already enabled ✓'); return; }
+  if (Notification.permission === 'denied')  { toast('Notifications blocked — enable in browser settings'); return; }
+  Notification.requestPermission().then(perm => {
+    if (perm === 'granted') {
+      toast('Claim reminders enabled ✓');
+      scheduleDailyReminder();
+      renderProfile();
+    } else {
+      toast('Notifications not enabled');
+    }
+  });
+}
+
+function scheduleDailyReminder() {
+  // Schedule a reminder if user has active plans and hasn't claimed today
+  if (!_user || Notification.permission !== 'granted') return;
+  const hasActive = (_user.investments||[]).some(i=>isActive(i));
+  if (!hasActive) return;
+  const allClaimed = (_user.investments||[]).filter(i=>isActive(i)).every(i=>hasClaimed(i));
+  if (!allClaimed) {
+    setTimeout(() => {
+      if (document.hidden) {
+        new Notification('AURO · Claim your daily returns 💰', {
+          body: 'You have unclaimed returns today. Open AURO now before midnight.',
+          icon: '/favicon.ico',
+          badge: '/favicon.ico'
+        });
+      }
+    }, 3000);
+  }
+}
+
+// ══════════════════════════════════
+// ADMIN — BROADCAST
+// ══════════════════════════════════
+async function sendBroadcast() {
+  const title = (document.getElementById('bc-title').value||'').trim();
+  const body  = (document.getElementById('bc-body').value||'').trim();
+  if (!title || !body) { toast('Enter both a title and message'); return; }
+  const confirm = window.confirm(`Send "${title}" to all users?`);
+  if (!confirm) return;
+  showLoader(true, 'Broadcasting…');
+  try {
+    await withTimeout(db.collection('broadcasts').add({
+      title, body, date: nowISO(), sentBy: 'admin'
+    }));
+    document.getElementById('bc-title').value = '';
+    document.getElementById('bc-body').value  = '';
+    toast('Broadcast sent to all users');
+  } catch(e) { console.error(e); toast('Failed to send. Try again.'); }
+  finally { showLoader(false); }
+}
+
+// ══════════════════════════════════
+// ADMIN — CSV EXPORT
+// ══════════════════════════════════
+function exportCSV() {
+  if (!_admAllUsers.length) { toast('No user data loaded yet'); return; }
+  const rows = [['Name','Balance','Total Invested','Total Earned','Active Plans','Referral Code','Joined']];
+  _admAllUsers.forEach(u => {
+    const invs = u.investments||[];
+    const totalInv = invs.reduce((s,i)=>s+i.invest,0);
+    const active   = invs.filter(i=>isActive(i)).length;
+    rows.push([
+      u.name||'',
+      u.balance||0,
+      totalInv,
+      u.totalEarned||0,
+      active,
+      u.refCode||'',
+      (u.createdAt||'').slice(0,10)
+    ]);
+  });
+  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'auro-users-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  toast('CSV exported');
+}
+
+// ══════════════════════════════════
+// ADMIN — USER HISTORY MODAL
+// ══════════════════════════════════
+function showUserHistory(userId) {
+  const u = _admAllUsers.find(u=>u.id===userId);
+  if (!u) return;
+  const modal = document.getElementById('hist-modal');
+  const invs  = u.investments||[];
+  document.getElementById('hist-name').textContent = u.name;
+  document.getElementById('hist-meta').textContent =
+    `Balance: ${fmt(u.balance||0)} · Total Invested: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
+  document.getElementById('hist-body').innerHTML = invs.length ? [...invs].reverse().map(inv => {
+    const t = TC[inv.tier]||TC.Starter;
+    const done = inv.status==='completed';
+    const pct  = Math.round(((inv.claimed||[]).length/60)*100);
+    return `<div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:12px;font-weight:600;color:var(--plat)">${inv.name}</div>
+        <div style="font-size:9px;font-weight:600;padding:3px 8px;border-radius:10px;background:${done?'var(--okd)':'var(--gd)'};color:${done?'var(--ok)':'var(--gold)'}">${done?'Completed':'Active'}</div>
+      </div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:6px">Invested: <strong style="color:var(--plat)">${fmt(inv.invest)}</strong> · Daily: ${fmt(inv.daily)} · Return: <strong style="color:${t.r}">${fmt(inv.total)}</strong></div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Claimed: ${(inv.claimed||[]).length}/60 days · Earned so far: ${fmt(inv.totalClaimed||0)} · Missed: ${missedDays(inv)} days</div>
+      <div style="height:4px;background:var(--b1);border-radius:2px"><div style="height:100%;width:${pct}%;background:${t.r};border-radius:2px"></div></div>
+    </div>`;
+  }).join('') : `<div style="text-align:center;padding:20px;color:var(--sil);font-size:12px">No investments yet</div>`;
+  modal.classList.add('open');
+}
+
+// ══════════════════════════════════
+// ADMIN — USER SEARCH FILTER
+// ══════════════════════════════════
+let _admFilteredUsers = [];
+function filterAdmUsers() {
+  const q = (document.getElementById('adm-user-search').value||'').toLowerCase().trim();
+  const filtered = q ? _admAllUsers.filter(u=>(u.name||'').toLowerCase().includes(q)) : _admAllUsers;
+  _admFilteredUsers = filtered;
+  renderAdmUsers(filtered);
 }
 
 boot();
