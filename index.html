@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="theme-color" content="#080A14"/>
+<meta name="theme-color" content="#F3F4FA"/>
 
 <!-- Primary SEO -->
 <title>AURO · Earn Daily Returns on Real Investments</title>
@@ -12,10 +12,13 @@
 <link rel="canonical" href="https://auroinvest.vercel.app/"/>
 
 <!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png"/>
 <link rel="icon" type="image/png" href="/favicon.png"/>
-<link rel="apple-touch-icon" href="/favicon.png"/>
 
-<!-- Open Graph (WhatsApp, Facebook, LinkedIn, Telegram) -->
+<!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://auroinvest.vercel.app/"/>
 <meta property="og:title" content="AURO · Your Money Should Work Harder Than You Ever Will"/>
@@ -33,179 +36,181 @@
 <meta name="twitter:image" content="https://auroinvest.vercel.app/og-image.jpg"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#080A14;
-  --s1:#0D1020;
-  --s2:#131629;
+  /* ── Exact palette pulled from the live app ── */
+  --void:#F3F4FA;
+  --s1:#FFFFFF;
+  --s2:#F8F9FC;
+  --b1:rgba(17,20,43,0.07);
+  --b2:rgba(17,20,43,0.13);
   --indigo:#4338EC;
   --indigo2:#6C5CE7;
-  --gold:#C9A84C;
-  --gold2:#E8C96A;
-  --white:#FFFFFF;
-  --muted:#8890B0;
-  --dim:#4A5070;
+  --gd:rgba(67,56,236,0.07);
+  --gb:rgba(67,56,236,0.18);
+  --plat:#13152E;
+  --sil:#6E7191;
+  --dim:#A7A9C0;
   --ok:#0FAE6B;
-  --glass:rgba(255,255,255,0.04);
-  --glass-b:rgba(255,255,255,0.08);
-  --ind-glow:rgba(67,56,236,0.35);
-  --gold-glow:rgba(201,168,76,0.25);
-  --r:14px;--rl:20px;--rx:28px;
+  --okd:rgba(15,174,107,0.1);
+  --okb:rgba(15,174,107,0.25);
+  --err:#EF4444;
+  /* tier accents, exact from app */
+  --t-starter:#0D9488;
+  --t-builder:#E8722A;
+  --t-growth:#168F58;
+  --t-elite:#7C3AED;
+  --t-premium:#C98A00;
+  --r:14px;--rl:18px;--rx:22px;--rxl:28px;
   --d:'Sora',sans-serif;
-  --b:'Inter',sans-serif;
+  --b:'Outfit',sans-serif;
   --ez:cubic-bezier(0.22,1,0.36,1)
 }
 html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--white);font-family:var(--b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--void);color:var(--plat);font-family:var(--b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:0}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
-
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .4s var(--ez)}
-nav.scrolled{background:rgba(8,10,20,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .35s var(--ez)}
+nav.scrolled{background:rgba(243,244,250,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);padding:14px 0}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--d);font-size:22px;font-weight:800;letter-spacing:.06em;color:var(--white)}
-.nav-logo span{color:var(--indigo)}
+.nav-logo{font-family:var(--d);font-size:21px;font-weight:800;letter-spacing:.01em;color:var(--plat);display:flex;align-items:center;gap:10px}
+.nav-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nav-links{display:flex;align-items:center;gap:32px}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--indigo);color:var(--white);font-family:var(--d);font-size:13px;font-weight:600;padding:10px 22px;border-radius:10px;transition:all .2s;border:none;cursor:pointer}
+.nav-links a{font-size:13px;font-weight:500;color:var(--sil);transition:color .2s}
+.nav-links a:hover{color:var(--plat)}
+.nav-cta{background:var(--indigo);color:#fff;font-family:var(--d);font-size:13px;font-weight:700;padding:11px 22px;border-radius:10px;transition:all .2s;border:none;cursor:pointer}
 .nav-cta:hover{background:var(--indigo2);transform:translateY(-1px)}
 @media(max-width:700px){.nav-links{display:none}}
 
-/* ── SECTIONS ── */
 section{position:relative;z-index:1}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
-.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(67,56,236,.22) 0%,transparent 70%);pointer-events:none}
-.hero-glow2{position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(67,56,236,.12);border:1px solid rgba(67,56,236,.3);border-radius:100px;padding:7px 16px;margin-bottom:32px;animation:fadeUp .8s .2s var(--ez) both}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 70px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(67,56,236,.10) 0%,transparent 65%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--okd);border:1px solid var(--okb);border-radius:100px;padding:8px 17px;margin-bottom:30px;animation:fadeUp .8s .15s var(--ez) both}
 .hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.hero-eyebrow span{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo2)}
-.hero-h1{font-family:var(--d);font-size:clamp(42px,8vw,88px);font-weight:800;line-height:1.0;letter-spacing:-.02em;margin-bottom:24px;animation:fadeUp .8s .35s var(--ez) both}
-.hero-h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.25)}
-.hero-h1 .accent{color:transparent;background:linear-gradient(135deg,var(--indigo2),var(--gold));-webkit-background-clip:text;background-clip:text}
-.hero-sub{font-size:clamp(15px,2.5vw,20px);color:var(--muted);font-weight:300;max-width:560px;line-height:1.7;margin:0 auto 40px;animation:fadeUp .8s .45s var(--ez) both}
-.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .55s var(--ez) both}
-.btn-primary{background:var(--indigo);color:var(--white);font-family:var(--d);font-size:15px;font-weight:700;padding:16px 36px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 40px rgba(67,56,236,.4)}
-.btn-primary:hover{background:var(--indigo2);transform:translateY(-2px);box-shadow:0 8px 50px rgba(67,56,236,.5)}
-.btn-secondary{background:transparent;color:var(--white);font-family:var(--d);font-size:15px;font-weight:600;padding:16px 36px;border-radius:12px;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:all .25s}
-.btn-secondary:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.05)}
-.hero-stats{display:flex;align-items:center;gap:40px;margin-top:64px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .65s var(--ez) both}
-.hero-stat-divider{width:1px;height:40px;background:var(--dim)}
-.hero-stat-val{font-family:var(--d);font-size:28px;font-weight:700;color:var(--white)}
-.hero-stat-lbl{font-size:11px;color:var(--muted);font-weight:400;margin-top:2px;letter-spacing:.06em;text-transform:uppercase}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero-eyebrow span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ok)}
+.hero-h1{font-family:var(--d);font-size:clamp(38px,7.5vw,80px);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin-bottom:22px;color:var(--plat);animation:fadeUp .8s .3s var(--ez) both}
+.hero-h1 .accent{color:transparent;background:linear-gradient(120deg,var(--indigo),var(--indigo2));-webkit-background-clip:text;background-clip:text}
+.hero-sub{font-size:clamp(15px,2.3vw,19px);color:var(--sil);font-weight:300;max-width:560px;line-height:1.7;margin:0 auto 38px;animation:fadeUp .8s .42s var(--ez) both}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .52s var(--ez) both}
+.btn-primary{background:var(--indigo);color:#fff;font-family:var(--d);font-size:15px;font-weight:700;padding:16px 34px;border-radius:13px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 32px rgba(67,56,236,.28)}
+.btn-primary:hover{background:var(--indigo2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(67,56,236,.36)}
+.btn-secondary{background:#fff;color:var(--plat);font-family:var(--d);font-size:15px;font-weight:600;padding:16px 34px;border-radius:13px;border:1.5px solid var(--b2);cursor:pointer;transition:all .25s}
+.btn-secondary:hover{border-color:var(--indigo);background:var(--gd)}
+.hero-stats{display:flex;align-items:center;gap:36px;margin-top:60px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .62s var(--ez) both}
+.hero-stat-divider{width:1px;height:38px;background:var(--b2)}
+.hero-stat-val{font-family:var(--d);font-size:27px;font-weight:700;color:var(--plat)}
+.hero-stat-lbl{font-size:11px;color:var(--sil);font-weight:400;margin-top:2px;letter-spacing:.05em;text-transform:uppercase}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── TICKER ── */
-.ticker-section{padding:0;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
-.ticker-track{display:flex;gap:0;animation:ticker 30s linear infinite;width:max-content}
+.ticker-section{padding:0;overflow:hidden;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);background:#fff}
+.ticker-track{display:flex;gap:0;animation:ticker 32s linear infinite;width:max-content}
 .ticker-track:hover{animation-play-state:paused}
-.ticker-item{display:flex;align-items:center;gap:10px;padding:14px 32px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.05)}
-.ticker-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--d);color:#fff;flex-shrink:0}
-.ticker-text{font-size:12px;color:var(--muted)}
+.ticker-item{display:flex;align-items:center;gap:10px;padding:15px 30px;white-space:nowrap;border-right:1px solid var(--b1)}
+.ticker-avatar{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--d);color:#fff;flex-shrink:0}
+.ticker-text{font-size:12.5px;color:var(--sil)}
 .ticker-text strong{color:var(--ok);font-weight:600}
+.ticker-text b{color:var(--plat);font-weight:600}
 .ticker-time{font-size:10px;color:var(--dim)}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ── HOW IT WORKS ── */
-.how{padding:120px 0;background:var(--s1)}
-.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--indigo2);margin-bottom:14px}
-.section-title{font-family:var(--d);font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
-.section-sub{font-size:16px;color:var(--muted);font-weight:300;max-width:480px;line-height:1.7}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin-top:64px;background:rgba(255,255,255,.05);border-radius:var(--rl);overflow:hidden}
-.step{background:var(--s1);padding:40px 32px;position:relative;transition:background .3s}
-.step:hover{background:var(--s2)}
-.step-num{font-family:var(--d);font-size:64px;font-weight:800;color:rgba(255,255,255,.04);line-height:1;margin-bottom:20px;letter-spacing:-.04em}
-.step-ico{width:48px;height:48px;border-radius:12px;background:rgba(67,56,236,.15);border:1px solid rgba(67,56,236,.25);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.step-ico svg{color:var(--indigo2)}
-.step-title{font-family:var(--d);font-size:18px;font-weight:600;margin-bottom:10px}
-.step-desc{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300}
+.how{padding:110px 0;background:var(--void)}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
+.section-title{font-family:var(--d);font-size:clamp(27px,4.5vw,48px);font-weight:700;line-height:1.12;letter-spacing:-.01em;margin-bottom:16px;color:var(--plat)}
+.section-sub{font-size:16px;color:var(--sil);font-weight:300;max-width:480px;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:60px}
+.step{background:#fff;border:1px solid var(--b1);border-radius:var(--rxl);padding:36px 30px;position:relative;transition:all .3s var(--ez)}
+.step:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,20,43,.06);border-color:var(--gb)}
+.step-num{font-family:var(--d);font-size:56px;font-weight:800;color:var(--b2);line-height:1;margin-bottom:18px;letter-spacing:-.03em}
+.step-ico{width:46px;height:46px;border-radius:12px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.step-ico svg{color:var(--indigo)}
+.step-title{font-family:var(--d);font-size:18px;font-weight:600;margin-bottom:9px;color:var(--plat)}
+.step-desc{font-size:14px;color:var(--sil);line-height:1.7;font-weight:300}
 
 /* ── PLANS ── */
-.plans{padding:120px 0;background:var(--void)}
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:64px}
-.plan-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--rl);padding:32px;position:relative;overflow:hidden;transition:all .3s var(--ez);cursor:pointer}
-.plan-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(67,56,236,.08),transparent);opacity:0;transition:opacity .3s}
-.plan-card:hover{transform:translateY(-4px);border-color:rgba(67,56,236,.35);box-shadow:0 20px 60px rgba(67,56,236,.2)}
-.plan-card:hover::before{opacity:1}
-.plan-card.featured{background:linear-gradient(135deg,rgba(67,56,236,.18),rgba(108,92,231,.1));border-color:rgba(67,56,236,.4)}
-.plan-badge{position:absolute;top:20px;right:20px;background:var(--gold);color:var(--void);font-family:var(--d);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
-.plan-tier{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo2);margin-bottom:10px}
-.plan-name{font-family:var(--d);font-size:22px;font-weight:700;margin-bottom:6px}
-.plan-invest{font-size:14px;color:var(--muted);margin-bottom:28px}
-.plan-return{font-family:var(--d);font-size:40px;font-weight:800;color:var(--white);line-height:1;margin-bottom:6px}
-.plan-return span{font-size:16px;font-weight:400;color:var(--muted)}
-.plan-daily{font-size:13px;color:var(--ok);font-weight:500;margin-bottom:28px}
-.plan-divider{height:1px;background:rgba(255,255,255,.07);margin-bottom:22px}
-.plan-meta{display:flex;gap:16px;flex-wrap:wrap}
-.plan-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
-.plan-chip svg{color:var(--indigo2)}
+.plans{padding:110px 0;background:#fff}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:60px}
+.plan-card{background:var(--void);border:1px solid var(--b1);border-radius:var(--rxl);padding:30px;position:relative;overflow:hidden;transition:all .3s var(--ez);cursor:pointer}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(17,20,43,.08)}
+.plan-card.featured{background:linear-gradient(150deg,var(--gd),rgba(67,56,236,.03));border-color:var(--gb)}
+.plan-badge{position:absolute;top:20px;right:20px;font-family:var(--d);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:100px}
+.plan-tier{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.plan-name{font-family:var(--d);font-size:21px;font-weight:700;margin-bottom:6px;color:var(--plat)}
+.plan-invest{font-size:13px;color:var(--sil);margin-bottom:26px}
+.plan-return{font-family:var(--d);font-size:36px;font-weight:800;color:var(--plat);line-height:1;margin-bottom:6px}
+.plan-return span{font-size:15px;font-weight:400;color:var(--sil)}
+.plan-daily{font-size:13px;color:var(--ok);font-weight:600;margin-bottom:24px}
+.plan-divider{height:1px;background:var(--b1);margin-bottom:20px}
+.plan-meta{display:flex;gap:14px;flex-wrap:wrap}
+.plan-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sil);font-weight:500}
 
 /* ── INVESTMENTS ── */
-.investments{padding:120px 0;background:var(--s1)}
-.inv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:64px}
-.inv-card{background:var(--void);border:1px solid rgba(255,255,255,.07);border-radius:var(--rl);padding:28px;transition:all .3s}
-.inv-card:hover{border-color:rgba(201,168,76,.25);box-shadow:0 12px 40px rgba(201,168,76,.08);transform:translateY(-3px)}
-.inv-icon{width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:22px}
-.inv-sector{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.inv-title{font-family:var(--d);font-size:17px;font-weight:600;margin-bottom:10px;line-height:1.3}
-.inv-desc{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300}
+.investments{padding:110px 0;background:var(--void)}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:60px}
+.inv-card{background:#fff;border:1px solid var(--b1);border-radius:var(--rxl);padding:28px;transition:all .3s var(--ez)}
+.inv-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,20,43,.07)}
+.inv-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:21px}
+.inv-sector{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.inv-title{font-family:var(--d);font-size:16.5px;font-weight:600;margin-bottom:10px;line-height:1.3;color:var(--plat)}
+.inv-desc{font-size:13px;color:var(--sil);line-height:1.7;font-weight:300}
 
 /* ── REFERRAL ── */
-.referral{padding:120px 0;background:var(--void);position:relative;overflow:hidden}
-.referral-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none}
-.ref-box{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.2);border-radius:var(--rx);padding:60px 48px;text-align:center;position:relative;overflow:hidden;max-width:720px;margin:0 auto}
-.ref-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.ref-box-title{font-family:var(--d);font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;margin-bottom:16px}
-.ref-box-sub{font-size:16px;color:var(--muted);margin-bottom:40px;font-weight:300;line-height:1.7}
-.ref-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-.ref-card-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:20px 28px;text-align:center}
-.ref-card-val{font-family:var(--d);font-size:28px;font-weight:700;color:var(--gold)}
-.ref-card-lbl{font-size:11px;color:var(--muted);margin-top:4px;font-weight:300}
+.referral{padding:110px 0;background:#fff;position:relative;overflow:hidden}
+.ref-box{background:linear-gradient(150deg,var(--indigo),var(--indigo2));border-radius:var(--rxl);padding:60px 48px;text-align:center;position:relative;overflow:hidden;max-width:720px;margin:0 auto;box-shadow:0 24px 60px rgba(67,56,236,.22)}
+.ref-box::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
+.ref-box::after{content:'';position:absolute;bottom:-120px;left:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.06)}
+.ref-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px;position:relative}
+.ref-box-title{font-family:var(--d);font-size:clamp(27px,4.5vw,44px);font-weight:700;line-height:1.12;margin-bottom:16px;color:#fff;position:relative}
+.ref-box-sub{font-size:15.5px;color:rgba(255,255,255,.82);margin-bottom:38px;font-weight:300;line-height:1.7;position:relative;max-width:520px;margin-left:auto;margin-right:auto}
+.ref-cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;position:relative}
+.ref-card-item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:var(--rl);padding:18px 26px;text-align:center;backdrop-filter:blur(10px)}
+.ref-card-val{font-family:var(--d);font-size:26px;font-weight:700;color:#fff}
+.ref-card-lbl{font-size:11px;color:rgba(255,255,255,.75);margin-top:4px;font-weight:400}
+.ref-box .btn-primary{background:#fff;color:var(--indigo);box-shadow:0 10px 28px rgba(0,0,0,.15);position:relative}
+.ref-box .btn-primary:hover{background:#F8F9FC;transform:translateY(-2px)}
 
 /* ── FAQ ── */
-.faq{padding:120px 0;background:var(--s1)}
-.faq-list{max-width:720px;margin:64px auto 0;display:flex;flex-direction:column;gap:2px}
-.faq-item{background:var(--void);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;cursor:pointer;font-family:var(--d);font-size:15px;font-weight:600;transition:background .2s}
-.faq-q:hover{background:rgba(255,255,255,.03)}
-.faq-q svg{flex-shrink:0;color:var(--indigo2);transition:transform .3s}
+.faq{padding:110px 0;background:var(--void)}
+.faq-list{max-width:720px;margin:60px auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--b1);transition:border-color .2s}
+.faq-item.open{border-color:var(--gb)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:21px 23px;cursor:pointer;font-family:var(--d);font-size:14.5px;font-weight:600;color:var(--plat);transition:background .2s}
+.faq-q:hover{background:var(--s2)}
+.faq-q svg{flex-shrink:0;color:var(--indigo);transition:transform .3s}
 .faq-item.open .faq-q svg{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ez)}
 .faq-item.open .faq-a{max-height:300px}
-.faq-a-inner{padding:0 24px 22px;font-size:14px;color:var(--muted);line-height:1.75;font-weight:300;border-top:1px solid rgba(255,255,255,.05)}
+.faq-a-inner{padding:0 23px 21px;font-size:13.5px;color:var(--sil);line-height:1.75;font-weight:300;border-top:1px solid var(--b1)}
 
 /* ── CTA FOOTER ── */
-.cta-section{padding:120px 24px;background:var(--void);text-align:center;position:relative;overflow:hidden}
-.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(67,56,236,.18) 0%,transparent 70%);pointer-events:none}
-.cta-title{font-family:var(--d);font-size:clamp(36px,7vw,80px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-bottom:20px}
-.cta-title .gold{color:transparent;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text}
-.cta-sub{font-size:18px;color:var(--muted);font-weight:300;margin-bottom:40px;line-height:1.6}
-footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:center}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
-.footer-logo{font-family:var(--d);font-size:18px;font-weight:800;letter-spacing:.06em}
+.cta-section{padding:120px 24px;background:#fff;text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(67,56,236,.08) 0%,transparent 65%);pointer-events:none}
+.cta-title{font-family:var(--d);font-size:clamp(34px,6.5vw,72px);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px;color:var(--plat)}
+.cta-title .accent{color:transparent;background:linear-gradient(120deg,var(--indigo),var(--indigo2));-webkit-background-clip:text;background-clip:text}
+.cta-sub{font-size:17px;color:var(--sil);font-weight:300;margin-bottom:38px;line-height:1.6}
+footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;background:var(--void)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-logo{font-family:var(--d);font-size:17px;font-weight:800;color:var(--plat)}
 .footer-note{font-size:12px;color:var(--dim)}
 
-/* ── SCROLL REVEAL ── */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ez),transform .8s var(--ez)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ez),transform .8s var(--ez)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── MOBILE ── */
 @media(max-width:600px){
-  .hero-stats{gap:20px}.hero-stat-divider{display:none}
-  .ref-box{padding:36px 20px}
+  .hero-stats{gap:18px}.hero-stat-divider{display:none}
+  .ref-box{padding:36px 22px}
   .steps{grid-template-columns:1fr}
-  .footer-inner{flex-direction:column;gap:12px;text-align:center}
+  .footer-inner{flex-direction:column;gap:10px;text-align:center}
 }
 </style>
 </head>
@@ -214,7 +219,15 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="nav-logo">AU<span>R</span>O</div>
+    <div class="nav-logo">
+      <div class="nav-mark">
+        <svg width="17" height="17" viewBox="0 0 320 320">
+          <circle cx="160" cy="160" r="138" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-dasharray="810 60" transform="rotate(-95 160 160)" opacity="0.9"/>
+          <path d="M160 78 L226 248 L196 248 L181 208 L139 208 L124 248 L94 248 Z M160 122 L144 172 L176 172 Z" fill="#fff"/>
+        </svg>
+      </div>
+      AURO
+    </div>
     <div class="nav-links">
       <a href="#how">How it works</a>
       <a href="#plans">Plans</a>
@@ -228,14 +241,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 <!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
   <div class="hero-eyebrow">
     <div class="hero-eyebrow-dot"></div>
     <span>Live · Payouts running now</span>
   </div>
   <h1 class="hero-h1">
     Your money should<br>
-    work <em>harder</em> than<br>
+    work harder than<br>
     <span class="accent">you ever will</span>
   </h1>
   <p class="hero-sub">AURO connects your capital to real Nigerian businesses — oil, gold, land, and infrastructure — paying you every single day for 60 days.</p>
@@ -285,19 +297,19 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
     <div class="steps reveal">
       <div class="step">
         <div class="step-num">01</div>
-        <div class="step-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="step-title">Fund your wallet</div>
         <div class="step-desc">Transfer any amount to your AURO wallet via OPay bank transfer. Minimum ₦5,000. Credited within 1–3 hours after confirmation.</div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <div class="step-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div>
+        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div>
         <div class="step-title">Pick your plan</div>
         <div class="step-desc">Choose from 24 investment tiers across 6 sectors. Each plan runs for 60 days and pays a fixed daily return directly to your wallet balance.</div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <div class="step-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <div class="step-title">Claim every day</div>
         <div class="step-desc">Log in daily, tap Claim, and your returns land in your wallet instantly. Withdraw to any Nigerian bank account whenever you're ready.</div>
       </div>
@@ -316,7 +328,8 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
     <div class="plans-grid reveal">
 
       <div class="plan-card">
-        <div class="plan-tier">Starter Tier</div>
+        <div class="plan-badge" style="background:rgba(13,148,136,.1);color:var(--t-starter)">Entry</div>
+        <div class="plan-tier" style="color:var(--t-starter)">Starter Tier · Daily Trade</div>
         <div class="plan-name">Granite Quarry</div>
         <div class="plan-invest">Invest ₦5,000</div>
         <div class="plan-return">₦10,000 <span>total</span></div>
@@ -330,8 +343,8 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
       </div>
 
       <div class="plan-card featured">
-        <div class="plan-badge">Most Popular</div>
-        <div class="plan-tier">Growth Tier</div>
+        <div class="plan-badge" style="background:var(--indigo);color:#fff">Most Popular</div>
+        <div class="plan-tier" style="color:var(--t-growth)">Growth Tier · Harvest</div>
         <div class="plan-name">Farmland & Processing</div>
         <div class="plan-invest">Invest ₦50,000</div>
         <div class="plan-return">₦100,000 <span>total</span></div>
@@ -345,7 +358,8 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
       </div>
 
       <div class="plan-card">
-        <div class="plan-tier">Sovereign Tier</div>
+        <div class="plan-badge" style="background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff">Private</div>
+        <div class="plan-tier" style="color:var(--indigo)">Sovereign Tier · Treasury</div>
         <div class="plan-name">Gold Bullion & FGN Bonds</div>
         <div class="plan-invest">Invest ₦500,000</div>
         <div class="plan-return">₦1,000,000 <span>total</span></div>
@@ -360,7 +374,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 
     </div>
     <div style="text-align:center;margin-top:40px" class="reveal">
-      <p style="color:var(--muted);font-size:14px;margin-bottom:20px">+ 21 more plans across all tiers. Something for every budget.</p>
+      <p style="color:var(--sil);font-size:14px;margin-bottom:20px">+ 21 more plans across all tiers. Something for every budget.</p>
       <button class="btn-primary" onclick="window.location.href='/app.html'">View All 24 Plans</button>
     </div>
   </div>
@@ -376,38 +390,38 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
     </div>
     <div class="inv-grid reveal">
       <div class="inv-card">
-        <div class="inv-icon">⛏️</div>
-        <div class="inv-sector">Solid Minerals</div>
+        <div class="inv-icon" style="background:rgba(13,148,136,.1)">⛏️</div>
+        <div class="inv-sector" style="color:var(--t-starter)">Solid Minerals</div>
         <div class="inv-title">Granite & Limestone Quarrying</div>
         <div class="inv-desc">Licensed quarrying operations across Ogun and Kogi States supplying construction-grade aggregates to federal road contractors. Revenue settled per truckload daily.</div>
       </div>
       <div class="inv-card">
-        <div class="inv-icon">🛢️</div>
-        <div class="inv-sector">Energy</div>
+        <div class="inv-icon" style="background:rgba(232,114,42,.1)">🛢️</div>
+        <div class="inv-sector" style="color:var(--t-builder)">Energy</div>
         <div class="inv-title">Petroleum Products Distribution</div>
         <div class="inv-desc">Bulk AGO and PMS distribution to filling stations across the South-South and South-West. Off-take agreements already in place, one of Nigeria's most liquid commodities.</div>
       </div>
       <div class="inv-card">
-        <div class="inv-icon">🌾</div>
-        <div class="inv-sector">Agriculture</div>
+        <div class="inv-icon" style="background:rgba(22,143,88,.1)">🌾</div>
+        <div class="inv-sector" style="color:var(--t-growth)">Agriculture</div>
         <div class="inv-title">Farmland & Cassava Processing</div>
         <div class="inv-desc">Irrigated farmland in Benue and Niger States with cassava processing mills producing for Nestlé and Flour Mills affiliates. Land is a tangible, appreciating asset.</div>
       </div>
       <div class="inv-card">
-        <div class="inv-icon">🏢</div>
-        <div class="inv-sector">Real Estate</div>
+        <div class="inv-icon" style="background:rgba(124,58,237,.1)">🏢</div>
+        <div class="inv-sector" style="color:var(--t-elite)">Real Estate</div>
         <div class="inv-title">Industrial Warehouse & Cold Storage</div>
         <div class="inv-desc">Temperature-controlled facilities leased to blue-chip FMCG companies and pharmaceutical distributors in Lagos, Abuja, and Kano. Registered lease agreements on titled land.</div>
       </div>
       <div class="inv-card">
-        <div class="inv-icon">⚡</div>
-        <div class="inv-sector">Infrastructure</div>
+        <div class="inv-icon" style="background:rgba(201,138,0,.1)">⚡</div>
+        <div class="inv-sector" style="color:var(--t-premium)">Infrastructure</div>
         <div class="inv-title">Natural Gas & LPG Distribution</div>
         <div class="inv-desc">NMDPRA-licensed LPG cylinder-filling plants with long-term gas supply agreements with NLNG affiliates. Government-regulated tariff income with daily commercial settlements.</div>
       </div>
       <div class="inv-card">
-        <div class="inv-icon">🥇</div>
-        <div class="inv-sector">Financial Instruments</div>
+        <div class="inv-icon" style="background:var(--gd)">🥇</div>
+        <div class="inv-sector" style="color:var(--indigo)">Financial Instruments</div>
         <div class="inv-title">Gold Bullion & FGN Bond Portfolio</div>
         <div class="inv-desc">LBMA-certified gold in licensed vaulted custody combined with Federal Government of Nigeria bonds and CBN Treasury Bills. The most capital-secure portfolio in the Nigerian market.</div>
       </div>
@@ -417,10 +431,9 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 
 <!-- REFERRAL -->
 <section class="referral" id="referral">
-  <div class="referral-glow"></div>
   <div class="container">
     <div class="ref-box reveal">
-      <div class="section-eyebrow" style="color:var(--gold)">Referral Programme</div>
+      <div class="ref-eyebrow">Referral Programme</div>
       <h2 class="ref-box-title">Earn ₦2,000<br>for every friend you bring</h2>
       <p class="ref-box-sub">Share your unique referral code. When a friend signs up and makes their first deposit, you both receive ₦2,000 credited to your wallets instantly. No limit on how many you can refer.</p>
       <div class="ref-cards">
@@ -499,9 +512,9 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 <!-- FINAL CTA -->
 <section class="cta-section">
   <div class="cta-glow"></div>
-  <h2 class="cta-title">The best time<br>to start was <span class="gold">yesterday.</span><br>The second best is now.</h2>
+  <h2 class="cta-title">The best time<br>to start was <span class="accent">yesterday.</span><br>The second best is now.</h2>
   <p class="cta-sub">Join thousands of Nigerians earning daily returns on AURO.<br>It takes less than 3 minutes to create your account.</p>
-  <button class="btn-primary" style="font-size:17px;padding:18px 44px" onclick="window.location.href='/app.html'">
+  <button class="btn-primary" style="font-size:17px;padding:18px 42px" onclick="window.location.href='/app.html'">
     Create Free Account
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </button>
@@ -522,12 +535,10 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:c
 </footer>
 
 <script>
-// ── NAV SCROLL ──
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ── LIVE TICKER ──
 const tickerData = [
   {name:'Chisom O.',init:'CO',action:'just claimed',amount:'₦12,500',time:'2s ago'},
   {name:'Emeka B.',init:'EB',action:'just invested',amount:'₦50,000',time:'8s ago'},
@@ -549,20 +560,18 @@ function buildTicker() {
   track.innerHTML = double.map(d => `
     <div class="ticker-item">
       <div class="ticker-avatar">${d.init}</div>
-      <div class="ticker-text"><strong>${d.name}</strong> ${d.action} <strong>${d.amount}</strong></div>
+      <div class="ticker-text"><b>${d.name}</b> ${d.action} <strong>${d.amount}</strong></div>
       <div class="ticker-time">${d.time}</div>
     </div>
   `).join('');
 }
 buildTicker();
 
-// ── SCROLL REVEAL ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, {threshold: 0.1});
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── FAQ TOGGLE ──
 function toggleFaq(el) {
   const item = el.parentElement;
   const isOpen = item.classList.contains('open');
@@ -570,7 +579,6 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ── COUNTER ANIMATION ──
 function animateCounter(el, target, prefix='', suffix='') {
   let start = 0;
   const duration = 2000;
