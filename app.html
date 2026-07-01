@@ -1387,50 +1387,53 @@ function switchTab(t) {
 // ══════════════════════════════════
 // AUTH — GOOGLE
 // ══════════════════════════════════
-let _googlePendingUser = null; // holds Firebase user while new user sets their PIN
+let _googlePendingUser = null;
 
 async function doGoogleSignIn() {
-  const errEl = document.getElementById('li-err') || document.getElementById('su-err');
   ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=true; b.style.opacity='.6';} });
-  showLoader(true, 'Connecting Google…');
+  showLoader(true, 'Redirecting to Google…');
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
-    const cred = await fbAuth.signInWithPopup(provider);
-    const uid  = cred.user.uid;
+    // Redirect works on all mobile browsers; popup is blocked by mobile Chrome
+    await fbAuth.signInWithRedirect(provider);
+    // Page will reload after Google auth — result handled in boot() via getRedirectResult
+  } catch(e) {
+    console.error('Google redirect error:', e);
+    showLoader(false);
+    ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=false; b.style.opacity='1';} });
+    const errEl = document.getElementById('li-err');
+    if (errEl) errEl.textContent = 'Google sign-in failed. Try again.';
+  }
+}
 
-    // Check if Firestore doc already exists (returning user)
+async function handleGoogleRedirectResult() {
+  try {
+    const result = await fbAuth.getRedirectResult();
+    if (!result || !result.user) return; // no redirect in progress
+    const uid = result.user.uid;
     const snap = await withTimeout(db.collection('users').doc(uid).get());
     if (snap.exists) {
+      // Returning Google user
       _user = { id: snap.id, ...snap.data() };
       startListening(uid);
       updateUserUI(); rAll();
       showApp();
     } else {
-      // New user — store pending Firebase user and show PIN setup
-      _googlePendingUser = cred.user;
-      showLoader(false);
+      // New Google user — collect PIN
+      _googlePendingUser = result.user;
       ['gp1','gp2','gp3','gp4','gp1b','gp2b','gp3b','gp4b'].forEach(id => {
         const e = document.getElementById(id); if(e) e.value='';
       });
       document.getElementById('gp-err').textContent = '';
       document.getElementById('google-pin-modal').classList.add('open');
       setTimeout(()=>{ const e=document.getElementById('gp1'); if(e) e.focus(); }, 350);
-      return; // don't hide loader again in finally
     }
   } catch(e) {
-    console.error('Google sign-in error:', e);
-    const code = e.code||'';
-    const msg = code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request'
-      ? '' // user just closed the popup — silent
-      : code === 'auth/popup-blocked'
-        ? 'Popup was blocked. Allow popups for this site and try again.'
-        : 'Google sign-in failed. Try again.';
-    if (msg && errEl) errEl.textContent = msg;
-  } finally {
-    showLoader(false);
-    ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=false; b.style.opacity='1';} });
+    console.error('Google redirect result error:', e);
+    const errEl = document.getElementById('li-err');
+    if (errEl) errEl.textContent = 'Google sign-in failed. Please try again.';
   }
 }
 
@@ -1448,9 +1451,9 @@ async function finishGoogleSignup() {
   btn.disabled = true;
   showLoader(true, 'Setting up your account…');
   try {
-    const uid      = _googlePendingUser.uid;
-    const name     = _googlePendingUser.displayName || 'AURO User';
-    const email    = _googlePendingUser.email || '';
+    const uid        = _googlePendingUser.uid;
+    const name       = _googlePendingUser.displayName || 'AURO User';
+    const email      = _googlePendingUser.email || '';
     const newRefCode = genRefCode(name);
 
     await withTimeout(db.collection('users').doc(uid).set({
@@ -1472,7 +1475,6 @@ async function finishGoogleSignup() {
   } catch(e) {
     console.error('Google signup error:', e);
     err.textContent = 'Could not create account. Try again.';
-    // Sign out the dangling Firebase Auth session so they can retry cleanly
     await fbAuth.signOut().catch(()=>{});
     _googlePendingUser = null;
   } finally {
@@ -2521,6 +2523,11 @@ async function boot() {
   // Hide splash after animation
   await new Promise(r => setTimeout(r, 2800));
   document.getElementById('splash').classList.add('hide');
+
+  // Check if we're returning from a Google redirect sign-in
+  showLoader(true, 'Loading…');
+  await handleGoogleRedirectResult();
+  showLoader(false);
 
   // Firebase Auth handles persistent session automatically
   // onAuthStateChanged fires once on load: user object if logged in, null if not
