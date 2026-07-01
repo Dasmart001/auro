@@ -205,6 +205,48 @@ body::after{display:none}
 
 /* DEPOSIT */
 .dep-sec{padding:0 16px}
+
+/* ── DEPOSIT STEP 1: amount selection ── */
+.dep-min-banner{display:flex;align-items:center;gap:10px;background:var(--gd);border:1px solid var(--gb);border-radius:12px;padding:13px 15px;margin-bottom:18px}
+.dep-min-banner svg{flex-shrink:0;color:var(--gold)}
+.dep-min-txt{font-size:11.5px;color:var(--plat);font-weight:500;line-height:1.5}
+.dep-min-txt strong{color:var(--gold)}
+.dep-amt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0}
+.dep-amt-opt{background:var(--s1);border:1.5px solid var(--b1);border-radius:13px;padding:16px 14px;text-align:center;cursor:pointer;transition:all .2s}
+.dep-amt-opt:hover{border-color:var(--gb)}
+.dep-amt-opt.sel{background:var(--gd);border-color:var(--gold);box-shadow:0 0 0 3px rgba(67,56,236,.08)}
+.dep-amt-val{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat)}
+.dep-amt-opt.sel .dep-amt-val{color:var(--gold)}
+.dep-amt-lbl{font-size:9.5px;color:var(--sil);font-weight:500;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+.dep-or{display:flex;align-items:center;gap:12px;margin:22px 0 14px}
+.dep-or-line{flex:1;height:1px;background:var(--b1)}
+.dep-or-txt{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.dep-continue{opacity:.4;pointer-events:none;transition:opacity .25s}
+.dep-continue.ready{opacity:1;pointer-events:auto}
+
+/* ── DEPOSIT STEP 2: locked payment details ── */
+.dep-step2-back{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--sil);cursor:pointer;margin-bottom:18px}
+.dep-step2-back svg{width:15px;height:15px}
+.dep-step2-back:hover{color:var(--plat)}
+.dep-locked-amt{text-align:center;margin-bottom:6px}
+.dep-locked-amt-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
+.dep-locked-amt-val{font-family:var(--d);font-size:38px;font-weight:800;color:var(--plat)}
+.dep-locked-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--dim);margin-bottom:24px}
+.dep-locked-note svg{width:11px;height:11px}
+
+/* ── GENERATING SCREEN ── */
+.dep-generating{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;min-height:340px}
+.dep-gen-ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--b1);border-top:3px solid var(--gold);animation:spin 1s linear infinite;margin-bottom:28px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dep-gen-title{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat);margin-bottom:8px}
+.dep-gen-sub{font-size:12px;color:var(--sil);font-weight:300;line-height:1.6;max-width:260px}
+.dep-gen-steps{display:flex;flex-direction:column;gap:10px;margin-top:24px;width:100%;max-width:280px}
+.dep-gen-step{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--dim);font-weight:400}
+.dep-gen-step.done{color:var(--ok)}
+.dep-gen-step.active{color:var(--plat);font-weight:600}
+.dep-gen-step-dot{width:8px;height:8px;border-radius:50%;background:var(--b2);flex-shrink:0;transition:all .3s}
+.dep-gen-step.done .dep-gen-step-dot{background:var(--ok)}
+.dep-gen-step.active .dep-gen-step-dot{background:var(--gold);box-shadow:0 0 0 3px rgba(67,56,236,.15)}
 .dep-card{background:linear-gradient(135deg,rgba(67,56,236,.06),rgba(108,92,231,.03));border:1px solid var(--gb);border-radius:var(--rl);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
 .dep-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .dep-title{font-family:var(--d);font-size:14px;font-weight:500;color:var(--gold);letter-spacing:.05em;margin-bottom:14px}
@@ -613,68 +655,130 @@ body::after{display:none}
   <!-- DEPOSIT -->
   <div class="page" id="p-deposit">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Transfer directly to fund your wallet.</div></div>
-    <div class="dep-sec">
 
-      <!-- OPAY ACCOUNT CARD -->
-      <div class="dep-card" style="text-align:center;padding:22px 18px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:14px">Send to this account</div>
+    <!-- ═══ STEP 1: AMOUNT SELECTION ═══ -->
+    <div id="dep-step-1">
+      <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Choose an amount to fund your wallet.</div></div>
+      <div class="dep-sec">
 
-        <!-- Bank badge -->
-        <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,174,107,.08);border:1px solid rgba(15,174,107,.22);border-radius:20px;padding:5px 14px;margin-bottom:16px">
-          <div style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></div>
-          <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
+        <div class="dep-min-banner">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <div class="dep-min-txt">Minimum deposit is <strong>₦5,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
         </div>
 
-        <!-- Account number -->
-        <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
+        <label class="fl">Select Amount</label>
+        <div class="dep-amt-grid">
+          <div class="dep-amt-opt" data-amt="5000" onclick="pickDep(5000)"><div class="dep-amt-val">₦5,000</div><div class="dep-amt-lbl">Starter</div></div>
+          <div class="dep-amt-opt" data-amt="10000" onclick="pickDep(10000)"><div class="dep-amt-val">₦10,000</div><div class="dep-amt-lbl">Popular</div></div>
+          <div class="dep-amt-opt" data-amt="25000" onclick="pickDep(25000)"><div class="dep-amt-val">₦25,000</div><div class="dep-amt-lbl">Standard</div></div>
+          <div class="dep-amt-opt" data-amt="50000" onclick="pickDep(50000)"><div class="dep-amt-val">₦50,000</div><div class="dep-amt-lbl">Growth</div></div>
+          <div class="dep-amt-opt" data-amt="100000" onclick="pickDep(100000)"><div class="dep-amt-val">₦100,000</div><div class="dep-amt-lbl">Premium</div></div>
+          <div class="dep-amt-opt" data-amt="500000" onclick="pickDep(500000)"><div class="dep-amt-val">₦500,000</div><div class="dep-amt-lbl">Elite</div></div>
+        </div>
 
-        <!-- Copy button -->
-        <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy Number
+        <div class="dep-or"><div class="dep-or-line"></div><div class="dep-or-txt">Or enter custom amount</div><div class="dep-or-line"></div></div>
+
+        <label class="fl">Custom Amount (₦)</label>
+        <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
+        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦5,000 and maximum is ₦1,000,000.</div>
+
+        <div class="sbox" style="margin-top:18px">
+          <div class="sr"><span>You will deposit</span><strong id="dep-sa">₦0.00</strong></div>
+        </div>
+
+        <button class="bb dep-continue" id="dep-continue-btn" onclick="goDepStep2()">
+          Continue to Payment
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
 
-        <!-- QR code -->
-        <div style="margin:0 auto 14px;width:160px;height:160px;border-radius:14px;overflow:hidden;border:3px solid var(--b1);background:#fff;padding:8px">
-          <img id="dep-qr" src="" alt="OPay QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/>
+        <div style="margin-top:22px">
+          <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
+          <div id="dep-history"></div>
         </div>
-        <div style="font-size:10px;color:var(--sil);margin-bottom:4px">Scan with OPay or any bank app</div>
-
-        <!-- Info note -->
-        <div style="margin-top:16px;background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:11px 13px;text-align:left">
-          <div style="font-size:10px;color:var(--sil);line-height:1.7;font-weight:300">
-            <strong style="color:var(--gold)">How it works:</strong> Transfer your desired amount to the account above, then enter the amount below and tap <strong style="color:var(--plat)">I've Paid</strong>. Your balance will be credited after confirmation.
-          </div>
-        </div>
-      </div>
-
-      <!-- AMOUNT INPUT -->
-      <label class="fl">Amount Transferred (₦)</label>
-      <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
-      <div class="qrow">
-        <button class="qb" onclick="setDep(5000)">₦5k</button>
-        <button class="qb" onclick="setDep(10000)">₦10k</button>
-        <button class="qb" onclick="setDep(20000)">₦20k</button>
-        <button class="qb" onclick="setDep(50000)">₦50k</button>
-        <button class="qb" onclick="setDep(100000)">₦100k</button>
-      </div>
-
-      <div class="sbox">
-        <div class="sr"><span>Amount</span><strong id="dep-sa">₦0.00</strong></div>
-        <div class="sr"><span>Status</span><strong style="color:var(--gold)">Pending admin approval</strong></div>
-      </div>
-
-      <button class="bb" onclick="doDeposit()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        I've Paid — Submit Request
-      </button>
-
-      <div style="margin-top:22px">
-        <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
-        <div id="dep-history"></div>
       </div>
     </div>
+
+    <!-- ═══ STEP 2: LOCKED PAYMENT DETAILS ═══ -->
+    <div id="dep-step-2" style="display:none">
+      <div class="ph">
+        <div class="dep-step2-back" onclick="goDepStep1()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Change amount
+        </div>
+        <div class="ph-t">Complete Your Deposit</div>
+        <div class="ph-s">Transfer the exact amount below to confirm your deposit.</div>
+      </div>
+      <div class="dep-sec">
+
+        <!-- GENERATING ANIMATION SCREEN -->
+        <div class="dep-generating" id="dep-generating">
+          <div class="dep-gen-ring"></div>
+          <div class="dep-gen-title">Generating your payment details</div>
+          <div class="dep-gen-sub">We are preparing a secure transfer reference for your transaction. This takes just a moment.</div>
+          <div class="dep-gen-steps">
+            <div class="dep-gen-step" id="dep-gs-1"><div class="dep-gen-step-dot"></div>Verifying transaction amount</div>
+            <div class="dep-gen-step" id="dep-gs-2"><div class="dep-gen-step-dot"></div>Allocating secure payment channel</div>
+            <div class="dep-gen-step" id="dep-gs-3"><div class="dep-gen-step-dot"></div>Preparing recipient account details</div>
+          </div>
+        </div>
+
+        <!-- ACTUAL PAYMENT DETAILS (shown after animation) -->
+        <div id="dep-payment-details" style="display:none">
+
+        <div class="dep-locked-amt">
+          <div class="dep-locked-amt-lbl">Amount to Transfer</div>
+          <div class="dep-locked-amt-val" id="dep-locked-val">₦0</div>
+        </div>
+        <div class="dep-locked-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          This amount is locked for your security
+        </div>
+
+        <!-- OPAY ACCOUNT CARD -->
+        <div class="dep-card" style="text-align:center;padding:22px 18px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:14px">Recipient Account Details</div>
+
+          <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,174,107,.08);border:1px solid rgba(15,174,107,.22);border-radius:20px;padding:5px 14px;margin-bottom:16px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></div>
+            <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
+          </div>
+
+          <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
+
+          <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy Account Number
+          </button>
+
+          <div style="margin:0 auto 10px;width:160px;height:160px;border-radius:14px;overflow:hidden;border:3px solid var(--b1);background:#fff;padding:8px">
+            <img id="dep-qr" src="" alt="OPay QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/>
+          </div>
+          <div style="font-size:10px;color:var(--sil);margin-bottom:18px">Scan with OPay or any mobile banking app</div>
+
+          <div style="background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:14px;text-align:left">
+            <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Next Steps</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">1</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Open your bank app and transfer the exact amount shown above to the account number provided.</div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">2</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Once your transfer is complete, tap <strong style="color:var(--plat)">I Have Made This Payment</strong> below to notify us.</div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">3</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Your wallet will be credited within <strong style="color:var(--plat)">1–3 hours</strong> once our team confirms receipt.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sbox">
+          <div class="sr"><span>Amount to be credited</span><strong id="dep-sa-2">₦0.00</strong></div>
+          <div class="sr"><span>Processing time</span><strong style="color:var(--gold)">1–3 hours</strong></div>
+          <div class="sr"><span>Status</span><strong style="color:#f59e0b">Pending payment</strong></div>
+        </div>
+
+        <button class="bb" onclick="doDeposit()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          I Have Made This Payment
+        </button>
+        </div><!-- end dep-payment-details -->
+      </div><!-- end dep-sec -->
+    </div><!-- end dep-step-2 -->
+
   </div>
 
   <!-- WITHDRAW -->
@@ -1159,12 +1263,19 @@ function setAuthBtn(id, on) {
   if (el) { el.disabled = !on; el.style.opacity = on ? '1' : '0.6'; }
 }
 function go(pid, nid) {
+  // Reset deposit to step 1 when leaving the page
+  if (pid !== 'p-deposit') {
+    const s1 = document.getElementById('dep-step-1');
+    const s2 = document.getElementById('dep-step-2');
+    if (s1) s1.style.display = 'block';
+    if (s2) s2.style.display = 'none';
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
   if (nid && nid !== 'n-none') { const n = document.getElementById(nid); if (n) n.classList.add('active'); }
   window.scrollTo(0,0); rAll();
-  // Load QR code when deposit page opens
+  // Load QR code when deposit page opens directly to step 1
   if (pid === 'p-deposit') {
     const qr = document.getElementById('dep-qr');
     if (qr && !qr.getAttribute('data-loaded')) {
@@ -1480,17 +1591,109 @@ async function confirmInv() {
 // ══════════════════════════════════
 
 
-function setDep(v) { document.getElementById('dep-a').value = v; updDep(); }
+// ── DEPOSIT: track currently selected amount ──
+let _depAmt = 0;
+
+function pickDep(v) {
+  _depAmt = v;
+  // Highlight selected preset
+  document.querySelectorAll('.dep-amt-opt').forEach(el => {
+    el.classList.toggle('sel', parseInt(el.dataset.amt) === v);
+  });
+  // Sync custom input field
+  document.getElementById('dep-a').value = v;
+  updDep();
+}
+
 function updDep() {
-  const v = parseFloat(document.getElementById('dep-a').value)||0;
-  document.getElementById('dep-sa').textContent = fmt2(v);
+  const v = parseFloat(document.getElementById('dep-a').value) || 0;
+  _depAmt = v;
+  // Clear preset highlights if user typed manually
+  document.querySelectorAll('.dep-amt-opt').forEach(el => {
+    el.classList.toggle('sel', parseInt(el.dataset.amt) === v);
+  });
+  // Update summary
+  const saEl = document.getElementById('dep-sa');
+  if (saEl) saEl.textContent = fmt2(v);
+  // Show/hide minimum error
+  const errEl = document.getElementById('dep-min-err');
+  if (errEl) errEl.style.display = (v > 0 && (v < 5000 || v > 1000000)) ? 'block' : 'none';
+  // Enable/disable continue button
+  const btn = document.getElementById('dep-continue-btn');
+  if (btn) btn.classList.toggle('ready', v >= 5000 && v <= 1000000);
+}
+
+function goDepStep2() {
+  const v = _depAmt;
+  if (v < 5000)     { toast('Minimum deposit is ₦5,000'); return; }
+  if (v > 1000000)  { toast('Maximum deposit is ₦1,000,000'); return; }
+
+  // Lock amount into step 2 display
+  const lockedEl = document.getElementById('dep-locked-val');
+  const sa2El    = document.getElementById('dep-sa-2');
+  if (lockedEl) lockedEl.textContent = fmt(v);
+  if (sa2El)    sa2El.textContent    = fmt2(v);
+
+  // Show step 2, hide step 1
+  document.getElementById('dep-step-1').style.display  = 'none';
+  document.getElementById('dep-step-2').style.display  = 'block';
+
+  // Show generating screen, hide payment details
+  document.getElementById('dep-generating').style.display     = 'flex';
+  document.getElementById('dep-payment-details').style.display = 'none';
+
+  // Reset all steps to idle
+  ['dep-gs-1','dep-gs-2','dep-gs-3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('done','active'); }
+  });
+
+  window.scrollTo(0, 0);
+
+  // Animated sequence: step 1 → step 2 → step 3 → reveal
+  const steps = ['dep-gs-1','dep-gs-2','dep-gs-3'];
+  const delays = [400, 1100, 1900]; // when each step becomes "active"
+  const dones  = [1000, 1700, 2600]; // when each step becomes "done"
+
+  steps.forEach((id, i) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('done'); el.classList.add('active'); }
+    }, delays[i]);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('active'); el.classList.add('done'); }
+    }, dones[i]);
+  });
+
+  // After all steps done, reveal payment details
+  setTimeout(() => {
+    document.getElementById('dep-generating').style.display     = 'none';
+    document.getElementById('dep-payment-details').style.display = 'block';
+    // Load QR code once
+    const qr = document.getElementById('dep-qr');
+    if (qr && !qr.getAttribute('data-loaded')) {
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.setAttribute('data-loaded', '1');
+    }
+    window.scrollTo(0, 0);
+  }, 3200);
+}
+
+function goDepStep1() {
+  document.getElementById('dep-step-2').style.display  = 'none';
+  document.getElementById('dep-generating').style.display     = 'flex';
+  document.getElementById('dep-payment-details').style.display = 'none';
+  document.getElementById('dep-step-1').style.display  = 'block';
+  window.scrollTo(0, 0);
 }
 
 async function doDeposit() {
   if (!_user) return;
-  const v = parseFloat(document.getElementById('dep-a').value)||0;
-  if (v < 500) { toast('Minimum deposit is ₦500'); return; }
-  showLoader(true, 'Submitting request…');
+  const v = _depAmt;
+  if (v < 5000)    { toast('Minimum deposit is ₦5,000'); return; }
+  if (v > 1000000) { toast('Maximum deposit is ₦1,000,000'); return; }
+  showLoader(true, 'Submitting your request…');
   try {
     await withTimeout(db.collection('deposits').add({
       userId: _user.id,
@@ -1500,9 +1703,14 @@ async function doDeposit() {
       status: 'pending',
       method: 'opay_transfer'
     }));
-    document.getElementById('dep-a').value = ''; updDep();
-    toast('Request submitted · Awaiting admin approval');
-  } catch(e) { console.error(e); toast('Could not submit. Check your connection.'); }
+    // Reset both steps after success
+    _depAmt = 0;
+    document.getElementById('dep-a').value = '';
+    document.querySelectorAll('.dep-amt-opt').forEach(el => el.classList.remove('sel'));
+    updDep();
+    goDepStep1();
+    toast('Payment request submitted · We will credit your wallet within 1–3 hours');
+  } catch(e) { console.error(e); toast('Could not submit. Check your connection and try again.'); }
   finally { showLoader(false); }
 }
 
