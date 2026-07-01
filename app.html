@@ -2241,7 +2241,6 @@ async function checkAdminLogin() {
   try {
     const cred = await fbAuth.signInWithEmailAndPassword(email, pw);
     const uid = cred.user.uid;
-    // Real admin status lives in Firestore, not in this file — see admins/{uid}
     const adminDoc = await db.collection('admins').doc(uid).get();
     if (!adminDoc.exists) {
       await fbAuth.signOut();
@@ -2251,9 +2250,25 @@ async function checkAdminLogin() {
     closeM('adm-login');
     openAdminPanel();
   } catch(e) {
-    console.error(e);
-    errEl.textContent = e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'
-      ? 'Incorrect email or password.' : 'Could not sign in. Check your connection.';
+    console.error('Admin login error:', e.code, e.message);
+    const knownAuthErrors = [
+      'auth/invalid-credential',
+      'auth/wrong-password',
+      'auth/user-not-found',
+      'auth/invalid-email',
+      'auth/invalid-login-credentials'
+    ];
+    if (knownAuthErrors.includes(e.code)) {
+      errEl.textContent = 'Incorrect email or password.';
+    } else if (e.code === 'auth/too-many-requests') {
+      errEl.textContent = 'Too many failed attempts. Wait a few minutes and try again.';
+    } else if (e.code === 'auth/network-request-failed') {
+      errEl.textContent = 'Network error. Check your internet connection.';
+    } else if (e.code === 'auth/operation-not-allowed') {
+      errEl.textContent = 'Email/Password sign-in is not enabled in Firebase. Enable it in the Firebase Console under Authentication → Sign-in method.';
+    } else {
+      errEl.textContent = 'Error: ' + (e.code || e.message || 'Unknown error');
+    }
   } finally {
     btn.disabled = false; btn.textContent = 'Enter Admin Panel';
   }
