@@ -66,11 +66,6 @@ body::after{display:none}
 .a-inp:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(67,56,236,.09)}
 .a-inp::placeholder{color:var(--dim)}
 .a-btn{margin-top:4px;padding:15px;border:none;border-radius:11px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s}
-.a-btn:hover{opacity:.88}
-.a-or{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--dim);font-size:11px;font-weight:500}
-.a-or::before,.a-or::after{content:'';flex:1;height:1px;background:var(--b1)}
-.g-btn{width:100%;padding:14px;border:1.5px solid var(--b2);border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-family:var(--b);font-size:13px;font-weight:600;color:var(--plat);transition:all .22s}
-.g-btn:hover{background:var(--s2);border-color:var(--b2)}
 .a-btn:hover{background:var(--gold2);transform:translateY(-1px)}
 .a-err{font-size:11px;color:var(--err);text-align:center;min-height:16px;padding:2px 0}
 .a-hint{font-size:10px;color:var(--sil);padding:0 2px}
@@ -525,7 +520,17 @@ body::after{display:none}
 .tos-btn.ready{opacity:1;pointer-events:auto}
 .tos-btn.ready:hover{background:var(--gold2)}
 
-/* ── PIN CHANGE MODAL ── */
+/* ── SUPPORT MODAL ── */
+.support-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 22px 50px;width:100%;max-height:80vh;overflow-y:auto;animation:shu .35s var(--ez) both;position:relative}
+.support-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent)}
+.support-option{display:flex;align-items:center;gap:14px;background:var(--s2);border:1px solid var(--b1);border-radius:14px;padding:16px 15px;margin-bottom:10px;cursor:pointer;transition:all .2s;text-decoration:none}
+.support-option:hover{border-color:var(--gb);background:var(--gd)}
+.support-option-ico{width:40px;height:40px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.support-option-ico svg{color:var(--gold)}
+.support-option-txt{flex:1}
+.support-option-title{font-size:13px;font-weight:600;color:var(--plat);margin-bottom:2px}
+.support-option-sub{font-size:11px;color:var(--sil);font-weight:300}
+.support-hours{background:var(--okd);border:1px solid var(--okb);border-radius:11px;padding:11px 14px;margin-top:4px;font-size:11px;color:var(--ok);font-weight:500;text-align:center;line-height:1.55}
 #pin-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);z-index:500;align-items:flex-end;justify-content:center}
 #pin-modal.open{display:flex;animation:fi .22s ease both}
 .pin-modal-sheet{background:var(--s1);border:1px solid var(--gb);border-bottom:none;border-radius:22px 22px 0 0;padding:0 22px 52px;width:100%;max-width:430px;animation:shu .35s var(--ez) both;position:relative}
@@ -560,20 +565,14 @@ body::after{display:none}
   </div>
   <!-- LOGIN -->
   <div id="form-login" class="a-form">
-    <div class="a-grp"><label class="a-lbl">Email</label><input class="a-inp" id="li-email" type="email" placeholder="Enter your email" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="li-name" type="text" placeholder="Enter your full name" autocomplete="name" onkeydown="if(event.key==='Enter')doLogin()"/></div>
     <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="li-pw" type="password" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
     <div class="a-err" id="li-err"></div>
     <button class="a-btn" id="li-btn" onclick="doLogin()">Sign In</button>
-    <div class="a-or">or</div>
-    <button class="g-btn" id="li-g-btn" onclick="doGoogleSignIn()">
-      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
-      Continue with Google
-    </button>
   </div>
   <!-- SIGNUP -->
   <div id="form-signup" class="a-form" style="display:none">
     <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="su-name" type="text" placeholder="Your full name" autocomplete="name"/></div>
-    <div class="a-grp"><label class="a-lbl">Email</label><input class="a-inp" id="su-email" type="email" placeholder="Your email address" autocomplete="email"/></div>
     <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="su-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/></div>
     <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
     <div class="a-grp">
@@ -590,11 +589,6 @@ body::after{display:none}
     </div>
     <div class="a-err" id="su-err"></div>
     <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
-    <div class="a-or">or</div>
-    <button class="g-btn" id="su-g-btn" onclick="doGoogleSignIn()">
-      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
-      Continue with Google
-    </button>
   </div>
 </div>
 
@@ -894,6 +888,7 @@ body::after{display:none}
       <div class="prof-row" onclick="openPinChange()" style="cursor:pointer"><span class="prof-row-lbl">Change Investment PIN</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="prof-row" onclick="openTos()" style="cursor:pointer"><span class="prof-row-lbl">Terms of Service</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="prof-row" onclick="requestPushPermission()" style="cursor:pointer"><span class="prof-row-lbl">Enable Claim Reminders</span><span class="prof-row-val" id="prof-push-status" style="font-size:10px;color:var(--sil)">Tap to enable</span></div>
+      <div class="prof-row" onclick="openSupport()" style="cursor:pointer"><span class="prof-row-lbl">Customer Support</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="prof-row" onclick="doLogout()" style="cursor:pointer"><span class="prof-row-lbl" style="color:var(--err)">Sign Out</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--err)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
     </div>
   </div>
@@ -927,6 +922,7 @@ body::after{display:none}
     <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
     <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
     <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
+    <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
     <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
   </div>
 </div>
@@ -1060,6 +1056,46 @@ body::after{display:none}
 
 </div><!-- /root -->
 
+<!-- SUPPORT MODAL -->
+<div id="support-modal" style="position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);display:none;align-items:flex-end;justify-content:center;max-width:430px;margin:0 auto">
+  <div class="support-sheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Customer Support</div>
+    <div class="m-sub" style="margin-bottom:20px">We're here to help. Choose how to reach us.</div>
+
+    <a class="support-option" href="mailto:support@auro.app">
+      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="support-option-txt">
+        <div class="support-option-title">Email Support</div>
+        <div class="support-option-sub">support@auro.app · Reply within 2–4 hours</div>
+      </div>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="support-option" href="https://wa.me/2348000000000" target="_blank">
+      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+      <div class="support-option-txt">
+        <div class="support-option-title">WhatsApp Support</div>
+        <div class="support-option-sub">Chat with us directly · Fastest response</div>
+      </div>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="support-option" href="https://t.me/auroinvest" target="_blank">
+      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 10.5l6.5 2.5M21 3l-8 18-3.5-8M21 3L9.5 13"/></svg></div>
+      <div class="support-option-txt">
+        <div class="support-option-title">Telegram Community</div>
+        <div class="support-option-sub">Join our channel for updates and announcements</div>
+      </div>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <div class="support-hours">🕘 Support hours: Monday – Saturday · 9:00am – 8:00pm WAT<br>AURO will never ask for your PIN or password.</div>
+
+    <button onclick="closeSupport()" style="width:100%;padding:13px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:10px">Close</button>
+  </div>
+</div>
+
 <!-- TOS MODAL -->
 <div id="tos-modal">
   <div class="tos-sheet">
@@ -1067,98 +1103,109 @@ body::after{display:none}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <p>Please read these Terms of Service ("Terms") carefully before using the AURO investment platform ("Platform", "we", "us", or "our"). By creating an account or using any part of this Platform, you confirm that you have read, understood, and agree to be bound by these Terms in full.</p>
+      <p><strong style="color:var(--plat)">IMPORTANT LEGAL NOTICE:</strong> These Terms of Service constitute a legally binding agreement between you and AURO. By creating an account, depositing funds, or using any feature of this Platform, you unconditionally accept every clause in this document. If you do not agree to any part of these Terms, you must immediately cease using the Platform and contact us to close your account.</p>
 
-      <h3>1. Eligibility</h3>
-      <p>You must be at least 18 years of age and a legal resident of the Federal Republic of Nigeria to use this Platform. By registering, you represent and warrant that all information you provide is accurate, current, and complete. AURO reserves the right to suspend or terminate any account found to be in violation of this clause without prior notice.</p>
+      <h3>1. Eligibility & Representations</h3>
+      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading, investment, or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
+      <p>Any false representation constitutes grounds for immediate permanent termination of your account and forfeiture of all funds held therein, without compensation, refund, or right of appeal.</p>
 
-      <h3>2. Nature of the Platform</h3>
-      <p>AURO is a digital investment platform that pools capital from registered users and deploys it across active trading and market-making activities including but not limited to micro-cap memecoin trading, new crypto token launches and airdrops, leveraged crypto futures, prediction markets, options and forex trading, and quantitative sports trading. Returns are generated from the trading profits and market positions of the underlying activities.</p>
-      <p>AURO does not guarantee profits. While every plan is structured with defined return rates, actual trading performance is subject to market conditions, price volatility, regulatory developments, and operational factors beyond our control. Stated ROI figures represent projected returns based on historical and estimated trading performance, not guaranteed outcomes. All trading activities carry significant risk including the possibility of loss.</p>
+      <h3>2. Nature of the Platform & No Guarantee of Returns</h3>
+      <p>AURO is a digital trading and investment platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
+      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By investing on this Platform, you expressly acknowledge that: (a) you may lose some or all of your invested capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
 
-      <h3>3. Investment Plans & Returns</h3>
+      <h3>3. Investment Plans — Terms, Conditions & Forfeitures</h3>
       <ul>
-        <li>Each investment plan has a fixed duration of 60 calendar days from the date of activation.</li>
-        <li>Returns are made available for daily manual claiming throughout the plan duration. You must actively claim each day's return through the app.</li>
-        <li>Any day's return not claimed on that calendar day is permanently forfeited and cannot be recovered, transferred, or compensated.</li>
-        <li>Once a plan is activated and capital is deployed, it cannot be reversed, cancelled, or withdrawn before the plan's completion date.</li>
-        <li>Completed plans automatically close. Any unclaimed returns at plan expiry are permanently forfeited.</li>
+        <li>Each investment plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
+        <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
+        <li><strong style="color:var(--plat)">Any daily return not claimed on the specific calendar day it becomes available is permanently and irrevocably forfeited.</strong> AURO will not reinstate, compensate, extend, or make any payment in respect of missed daily claims under any circumstances, including claims of technical difficulty, illness, lack of internet access, or any other reason whatsoever.</li>
+        <li>Once an investment plan is activated and capital is deployed, the investment is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of invested capital is permitted under any circumstances.</strong></li>
+        <li>Upon plan completion, any daily returns that were not claimed prior to plan expiry are permanently forfeited. AURO has no obligation to pay expired unclaimed amounts.</li>
+        <li>AURO reserves the right to modify, restructure, pause, or discontinue any investment plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uninvested portion of your deposited capital, if any, at AURO's sole discretion.</li>
       </ul>
 
-      <h3>4. Deposits & Withdrawals</h3>
+      <h3>4. Deposits — Terms, Obligations & Fraud Policy</h3>
       <ul>
-        <li>Deposits are made via direct bank transfer to AURO's designated OPay account. Transfer details are displayed on the deposit page.</li>
-        <li>Minimum deposit is ₦500. After transferring, you must submit your deposit request in the app. Your balance will be credited after admin confirmation, typically within 1–3 hours during business hours.</li>
-        <li>Withdrawals are processed manually by our team within 1–3 business days. Withdrawal requests are subject to available cleared balance and may be delayed during high-volume periods.</li>
-        <li>AURO reserves the right to request identity verification before processing any withdrawal above ₦500,000.</li>
-        <li>Fraudulent deposit claims — submitting a request without actually transferring — will result in immediate account suspension and may be reported to relevant authorities.</li>
+        <li>Deposits are made exclusively via bank transfer to AURO's designated account as displayed in the app at the time of transaction. AURO reserves the right to change designated accounts at any time without notice.</li>
+        <li>Minimum deposit is ₦5,000. Maximum single deposit is ₦1,000,000.</li>
+        <li>After completing your bank transfer, you must submit a deposit notification through the app. <strong style="color:var(--plat)">Submitting a deposit notification without actually completing the corresponding bank transfer is a criminal act of fraud.</strong> AURO will immediately and permanently terminate the accounts of any user found to have submitted false deposit claims, forfeit all funds in those accounts, and report the matter to relevant law enforcement authorities in Nigeria. AURO reserves the right to pursue civil and criminal remedies to the fullest extent of Nigerian law.</li>
+        <li>AURO will use reasonable efforts to credit confirmed deposits within 1–3 business hours. AURO is not liable for any delay, loss, or damage arising from banking system failures, third-party payment processing delays, or force majeure events.</li>
+        <li>All deposits are final and non-refundable once credited to your wallet and invested in a plan. Deposits sitting uninvested in your wallet may be withdrawn subject to Section 5.</li>
       </ul>
 
-      <h3>5. Referral Programme</h3>
-      <p>Users may earn a referral bonus of ₦2,000 when they refer a new user who successfully creates an account and makes their first deposit. The referred user also receives a ₦2,000 welcome bonus. Referral bonuses are credited to both parties' wallets within 24 hours of the qualifying deposit being confirmed. AURO reserves the right to modify, suspend, or discontinue the referral programme at any time. Abuse of the referral system — including self-referral, duplicate accounts, or coordinated fraud — will result in permanent account termination and forfeiture of all balances.</p>
-
-      <h3>6. Security & Account Responsibility</h3>
+      <h3>5. Withdrawals — Processing, Delays & Restrictions</h3>
       <ul>
-        <li>Your account password and 4-digit investment PIN are your sole responsibility. Do not share them with any third party.</li>
-        <li>AURO will never contact you to request your PIN, password, or payment details through any channel.</li>
-        <li>You are solely responsible for all activity conducted through your account. In the event of suspected unauthorized access, contact us immediately.</li>
-        <li>AURO employs industry-standard encryption and database security. However, no system is completely impenetrable. We are not liable for losses resulting from unauthorized account access caused by user negligence.</li>
+        <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
+        <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
+        <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
+        <li>Minimum withdrawal is ₦1,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
+        <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
       </ul>
 
-      <h3>7. Risk Disclosure</h3>
-      <p>All investments carry risk. The value of returns is not guaranteed and may be affected by factors including but not limited to: commodity price fluctuations, regulatory changes, macroeconomic conditions, natural events, and operational disruptions. Past performance of any investment sector is not a reliable indicator of future results. You should only invest what you can afford to lose. AURO strongly recommends that users seek independent financial advice before committing significant capital.</p>
+      <h3>6. Referral Programme</h3>
+      <p>AURO operates a referral programme offering bonuses to eligible referring and referred users. AURO reserves the absolute right to modify, suspend, cap, restructure, or permanently discontinue the referral programme at any time without notice or compensation. Referral bonuses are a discretionary reward and do not constitute a contractual obligation. Any attempt to abuse the referral programme — including but not limited to self-referral, creation of multiple accounts, coordinated ring referrals, or fraudulent account registrations — will result in immediate permanent termination of all accounts involved and forfeiture of all balances and bonuses, with no right of appeal or compensation.</p>
 
-      <h3>8. Prohibited Activities</h3>
-      <p>You may not use this Platform to: launder money or finance illegal activities; create multiple accounts for the purpose of exploiting referral bonuses; reverse-engineer or exploit any part of the Platform's code or infrastructure; impersonate AURO staff or misrepresent your identity; or use automated scripts or bots to interact with the Platform.</p>
-      <p>Violation of any prohibition above results in immediate permanent account termination and forfeiture of all funds, with no right of appeal.</p>
+      <h3>7. Account Security & User Responsibility</h3>
+      <ul>
+        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit investment PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
+        <li>You are fully liable for all activity conducted through your account, whether authorised by you or not, unless you have notified AURO of a security breach and AURO has confirmed suspension of your account in writing.</li>
+        <li>In the event of suspected unauthorised account access, you must notify AURO immediately at support@auro.app. AURO's response time is not guaranteed and AURO bears no liability for losses incurred prior to account suspension.</li>
+        <li>AURO implements reasonable technical security measures but provides no warranty that the Platform is free from vulnerabilities. You accept all risk of data breaches, hacking, or system failures that occur despite reasonable security measures.</li>
+      </ul>
 
-      <h3>9. Limitation of Liability</h3>
-      <p>To the fullest extent permitted by applicable law, AURO and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, loss of data, or loss of goodwill — arising out of or in connection with your use of the Platform, even if AURO has been advised of the possibility of such damages. AURO's total aggregate liability to you for any claim shall not exceed the amount you deposited in the 30 days preceding the event giving rise to the claim.</p>
+      <h3>8. Comprehensive Risk Disclosure</h3>
+      <p>By using this Platform, you confirm that you fully understand and accept the following risks:</p>
+      <ul>
+        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire investment. AURO does not guarantee return of principal.</li>
+        <li><strong style="color:var(--plat)">Market risk:</strong> Crypto markets, forex markets, prediction markets, and sports markets are highly volatile. Extreme movements can result in significant or total trading losses.</li>
+        <li><strong style="color:var(--plat)">Regulatory risk:</strong> The regulatory environment for cryptocurrency and digital assets is evolving. New laws or enforcement actions may materially affect AURO's ability to operate or fulfil obligations to users.</li>
+        <li><strong style="color:var(--plat)">Liquidity risk:</strong> AURO may at times face liquidity constraints that delay or prevent withdrawal processing. AURO is not a bank and does not hold user funds in insured accounts.</li>
+        <li><strong style="color:var(--plat)">Technology risk:</strong> Platform outages, smart contract failures, exchange hacks, or third-party API failures may affect returns or access to funds.</li>
+        <li><strong style="color:var(--plat)">Counterparty risk:</strong> Trading on third-party exchanges and platforms exposes AURO's capital to the insolvency or misconduct of those counterparties.</li>
+      </ul>
+      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before investing, and that you invest entirely at your own risk.</p>
 
-      <h3>10. Amendments</h3>
-      <p>AURO reserves the right to modify these Terms at any time. Changes take effect upon posting to the Platform. Continued use of the Platform following any amendment constitutes acceptance of the revised Terms. We recommend reviewing these Terms periodically.</p>
+      <h3>9. Prohibited Activities</h3>
+      <p>The following activities are strictly prohibited and will result in immediate permanent account termination and forfeiture of all balances, with no refund, compensation, or right of appeal:</p>
+      <ul>
+        <li>Submitting false, fraudulent, or inflated deposit notifications</li>
+        <li>Using the Platform to launder money, finance terrorism, or engage in any illegal financial activity</li>
+        <li>Creating multiple accounts for any purpose including referral abuse, plan manipulation, or identity concealment</li>
+        <li>Attempting to reverse-engineer, scrape, exploit, or otherwise attack the Platform's code, database, or infrastructure</li>
+        <li>Impersonating AURO staff, agents, or other users</li>
+        <li>Using automated scripts, bots, or software to interact with the Platform</li>
+        <li>Engaging in any activity intended to defraud AURO, its operators, or other users</li>
+        <li>Sharing, selling, or transferring your account to any third party</li>
+      </ul>
+      <p>AURO reserves the right to pursue civil and criminal legal action against users who engage in prohibited activities, to the fullest extent permitted under Nigerian law and applicable international law.</p>
 
-      <h3>11. Governing Law</h3>
-      <p>These Terms are governed by and construed in accordance with the laws of the Federal Republic of Nigeria. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Lagos State, Nigeria.</p>
+      <h3>10. Limitation of Liability & Indemnification</h3>
+      <p>To the absolute maximum extent permitted by applicable law, AURO, its operators, directors, employees, contractors, and agents shall not be liable for any loss, damage, claim, or expense of any kind arising from or related to: (a) trading losses; (b) missed daily claims; (c) delays in deposit crediting or withdrawal processing; (d) platform downtime or technical failures; (e) regulatory actions; (f) acts of third parties; (g) force majeure events; or (h) any other matter connected with your use of the Platform.</p>
+      <p><strong style="color:var(--plat)">AURO's total aggregate liability to you under any circumstances shall not exceed ₦10,000 (ten thousand naira), regardless of the nature or value of the claim.</strong></p>
+      <p>You agree to indemnify, defend, and hold harmless AURO and its operators from any claim, demand, loss, liability, cost, or expense (including legal fees) arising from your breach of these Terms, your fraudulent or illegal conduct, or your use of the Platform in a manner not authorised by these Terms.</p>
 
-      <h3>12. Contact</h3>
-      <p>For support, disputes, or enquiries regarding these Terms, contact us through the in-app notification system or at <strong style="color:var(--gold)">support@auro.app</strong>.</p>
+      <h3>11. No Financial Advice</h3>
+      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed investment adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to invest. You are solely responsible for your own investment decisions.</p>
+
+      <h3>12. Platform Availability & Modifications</h3>
+      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any investment losses, missed claims, or other damages resulting from a platform closure or modification.</p>
+
+      <h3>13. Amendments to Terms</h3>
+      <p>AURO may amend these Terms at any time by posting an updated version to the Platform. Amended Terms take effect immediately upon posting. <strong style="color:var(--plat)">Your continued use of the Platform after any amendment constitutes your unconditional acceptance of the revised Terms.</strong> It is your responsibility to review these Terms regularly. AURO is not obligated to notify you individually of any changes.</p>
+
+      <h3>14. Governing Law & Dispute Resolution</h3>
+      <p>These Terms are governed exclusively by the laws of the Federal Republic of Nigeria. You irrevocably submit to the exclusive jurisdiction of the courts of Lagos State, Nigeria for the resolution of any dispute arising under or in connection with these Terms or the Platform. <strong style="color:var(--plat)">You waive any right to bring a class action, collective claim, or representative proceeding against AURO.</strong> All disputes must be brought individually and any claim not initiated within 30 days of the relevant event is permanently time-barred.</p>
+
+      <h3>15. Severability & Entire Agreement</h3>
+      <p>If any provision of these Terms is found to be unenforceable by a court of competent jurisdiction, that provision shall be modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect. These Terms, together with any policies referenced herein, constitute the entire agreement between you and AURO and supersede all prior agreements, representations, or understandings relating to the Platform.</p>
+
+      <h3>16. Contact</h3>
+      <p>For legal notices, disputes, or formal correspondence, contact AURO at <strong style="color:var(--gold)">support@auro.app</strong>. Legal notices sent via email are deemed received 24 hours after transmission. AURO's response to any communication does not constitute a waiver of any right under these Terms.</p>
     </div>
     <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
       <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the investment risks described above.</div>
     </div>
     <button class="tos-btn" id="tos-confirm-btn" onclick="confirmTos()">I Agree & Continue</button>
-  </div>
-</div>
-
-<!-- GOOGLE PIN SETUP MODAL -->
-<div class="overlay" id="google-pin-modal" onclick="mClose(event,'google-pin-modal')">
-  <div class="msheet">
-    <div class="m-handle"></div>
-    <div class="m-title">Set Your Investment PIN</div>
-    <div class="m-sub">Choose a 4-digit PIN to confirm every investment. Keep it private.</div>
-    <div style="margin-bottom:6px">
-      <label class="pin-lbl">Create PIN</label>
-      <div class="pin-row">
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp1" autocomplete="off" oninput="pa(this,'gp2')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp2" autocomplete="off" oninput="pa(this,'gp3')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp3" autocomplete="off" oninput="pa(this,'gp4')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp4" autocomplete="off"/>
-      </div>
-      <label class="pin-lbl" style="margin-top:14px">Confirm PIN</label>
-      <div class="pin-row">
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp1b" autocomplete="off" oninput="pa(this,'gp2b')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp2b" autocomplete="off" oninput="pa(this,'gp3b')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp3b" autocomplete="off" oninput="pa(this,'gp4b')"/>
-        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp4b" autocomplete="off"/>
-      </div>
-    </div>
-    <div class="a-err" id="gp-err" style="margin-bottom:12px"></div>
-    <button class="bb" id="gp-btn" onclick="finishGoogleSignup()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-      Finish Setup
-    </button>
   </div>
 </div>
 
@@ -1385,134 +1432,31 @@ function switchTab(t) {
 }
 
 // ══════════════════════════════════
-// AUTH — GOOGLE
-// ══════════════════════════════════
-let _googlePendingUser = null;
-
-async function doGoogleSignIn() {
-  ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=true; b.style.opacity='.6';} });
-  showLoader(true, 'Redirecting to Google…');
-  try {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    // Redirect works on all mobile browsers; popup is blocked by mobile Chrome
-    await fbAuth.signInWithRedirect(provider);
-    // Page will reload after Google auth — result handled in boot() via getRedirectResult
-  } catch(e) {
-    console.error('Google redirect error:', e);
-    showLoader(false);
-    ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=false; b.style.opacity='1';} });
-    const errEl = document.getElementById('li-err');
-    if (errEl) errEl.textContent = 'Google sign-in failed. Try again.';
-  }
-}
-
-async function handleGoogleRedirectResult() {
-  try {
-    const result = await fbAuth.getRedirectResult();
-    if (!result || !result.user) return; // no redirect in progress
-    const uid = result.user.uid;
-    const snap = await withTimeout(db.collection('users').doc(uid).get());
-    if (snap.exists) {
-      // Returning Google user
-      _user = { id: snap.id, ...snap.data() };
-      startListening(uid);
-      updateUserUI(); rAll();
-      showApp();
-    } else {
-      // New Google user — collect PIN
-      _googlePendingUser = result.user;
-      ['gp1','gp2','gp3','gp4','gp1b','gp2b','gp3b','gp4b'].forEach(id => {
-        const e = document.getElementById(id); if(e) e.value='';
-      });
-      document.getElementById('gp-err').textContent = '';
-      document.getElementById('google-pin-modal').classList.add('open');
-      setTimeout(()=>{ const e=document.getElementById('gp1'); if(e) e.focus(); }, 350);
-    }
-  } catch(e) {
-    console.error('Google redirect result error:', e);
-    const errEl = document.getElementById('li-err');
-    if (errEl) errEl.textContent = 'Google sign-in failed. Please try again.';
-  }
-}
-
-async function finishGoogleSignup() {
-  if (!_googlePendingUser) return;
-  const pin  = ['gp1','gp2','gp3','gp4'].map(id=>(document.getElementById(id)||{}).value||'').join('');
-  const pinB = ['gp1b','gp2b','gp3b','gp4b'].map(id=>(document.getElementById(id)||{}).value||'').join('');
-  const err  = document.getElementById('gp-err');
-  err.textContent = '';
-
-  if (!/^\d{4}$/.test(pin))  { err.textContent = 'Enter a 4-digit PIN.'; return; }
-  if (pin !== pinB)           { err.textContent = 'PINs do not match.'; return; }
-
-  const btn = document.getElementById('gp-btn');
-  btn.disabled = true;
-  showLoader(true, 'Setting up your account…');
-  try {
-    const uid        = _googlePendingUser.uid;
-    const name       = _googlePendingUser.displayName || 'AURO User';
-    const email      = _googlePendingUser.email || '';
-    const newRefCode = genRefCode(name);
-
-    await withTimeout(db.collection('users').doc(uid).set({
-      name, nameLower: name.toLowerCase(),
-      email, pin,
-      balance: 0, totalEarned: 0,
-      refCode: newRefCode,
-      investments: [], createdAt: nowISO(),
-      authProvider: 'google'
-    }));
-
-    closeM('google-pin-modal');
-    _user = { id: uid, name, email, pin, balance: 0, totalEarned: 0, refCode: newRefCode, investments: [], authProvider: 'google' };
-    _googlePendingUser = null;
-    startListening(uid);
-    updateUserUI(); rAll();
-    showApp();
-    toast('Welcome to AURO, ' + name.split(' ')[0] + '!');
-  } catch(e) {
-    console.error('Google signup error:', e);
-    err.textContent = 'Could not create account. Try again.';
-    await fbAuth.signOut().catch(()=>{});
-    _googlePendingUser = null;
-  } finally {
-    showLoader(false);
-    btn.disabled = false;
-  }
-}
-
-// ══════════════════════════════════
 // AUTH — LOGIN
 // ══════════════════════════════════
 async function doLogin() {
-  const email = (document.getElementById('li-email').value||'').trim();
-  const pw    = document.getElementById('li-pw').value||'';
-  const err   = document.getElementById('li-err');
+  const name = (document.getElementById('li-name').value||'').trim();
+  const pw   = document.getElementById('li-pw').value||'';
+  const err  = document.getElementById('li-err');
   err.textContent = '';
-  if (!email || !pw) { err.textContent = 'Please fill in all fields.'; return; }
+  if (!name || !pw) { err.textContent = 'Please fill in all fields.'; return; }
 
   setAuthBtn('li-btn', false);
   showLoader(true, 'Signing in…');
   try {
-    const cred = await withTimeout(fbAuth.signInWithEmailAndPassword(email, pw));
-    const uid  = cred.user.uid;
-    const snap = await withTimeout(db.collection('users').doc(uid).get());
-    if (!snap.exists) { err.textContent = 'Account not found. Please sign up.'; await fbAuth.signOut(); return; }
-    _user = { id: snap.id, ...snap.data() };
-    startListening(uid);
+    const snap = await withTimeout(
+      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
+    );
+    if (snap.empty) { err.textContent = 'Name not found. Did you mean to sign up?'; return; }
+    const doc = snap.docs[0];
+    if (doc.data().password !== pw) { err.textContent = 'Incorrect password. Try again.'; return; }
+    localStorage.setItem(SK, doc.id);
+    startListening(doc.id);
     showApp();
   } catch(e) {
     console.error('Login error:', e);
-    const code = e.code || '';
-    if (code.includes('user-not-found') || code.includes('wrong-password') || code.includes('invalid-credential'))
-      err.textContent = 'Incorrect email or password.';
-    else if (code.includes('too-many-requests'))
-      err.textContent = 'Too many attempts. Try again later.';
-    else if (e.message === 'timeout')
-      err.textContent = 'Request timed out. Check your connection.';
-    else err.textContent = 'Error: ' + (e.code || e.message);
+    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
+    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
   } finally {
     showLoader(false);
     setAuthBtn('li-btn', true);
@@ -1523,59 +1467,50 @@ async function doLogin() {
 // AUTH — SIGNUP
 // ══════════════════════════════════
 async function doSignup() {
-  const name  = (document.getElementById('su-name').value||'').trim();
-  const email = (document.getElementById('su-email').value||'').trim();
-  const pw    = document.getElementById('su-pw').value||'';
-  const pw2   = document.getElementById('su-pw2').value||'';
-  const pin   = (document.getElementById('su-pin').value||'').trim();
-  const err   = document.getElementById('su-err');
+  const name = (document.getElementById('su-name').value||'').trim();
+  const pw   = document.getElementById('su-pw').value||'';
+  const pw2  = document.getElementById('su-pw2').value||'';
+  const pin  = (document.getElementById('su-pin').value||'').trim();
+  const err  = document.getElementById('su-err');
   err.textContent = '';
 
-  if (!name)               { err.textContent = 'Enter your full name.'; return; }
-  if (!email)              { err.textContent = 'Enter your email address.'; return; }
-  if (pw.length < 6)       { err.textContent = 'Password must be at least 6 characters.'; return; }
-  if (pw !== pw2)          { err.textContent = 'Passwords do not match.'; return; }
-  if (!/^\d{4}$/.test(pin)){ err.textContent = 'PIN must be exactly 4 digits.'; return; }
-  if (!_signupTosChecked)  { err.textContent = 'You must agree to the Terms of Service to continue.'; return; }
+  // Validate all fields before touching Firebase
+  if (!name)            { err.textContent = 'Enter your full name.'; return; }
+  if (pw.length < 6)   { err.textContent = 'Password must be at least 6 characters.'; return; }
+  if (pw !== pw2)      { err.textContent = 'Passwords do not match.'; return; }
+  if (!/^\d{4}$/.test(pin)) { err.textContent = 'PIN must be exactly 4 digits.'; return; }
+  if (!_signupTosChecked) { err.textContent = 'You must agree to the Terms of Service to continue.'; return; }
   const refInput = (document.getElementById('su-ref').value||'').trim().toUpperCase();
 
   setAuthBtn('su-btn', false);
   showLoader(true, 'Creating your account…');
-  let cred = null;
   try {
-    // 1. Create Firebase Auth account
-    cred = await withTimeout(fbAuth.createUserWithEmailAndPassword(email, pw));
-    const uid = cred.user.uid;
-    await cred.user.updateProfile({ displayName: name });
+    // Check name not taken
+    const snap = await withTimeout(
+      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
+    );
+    if (!snap.empty) { err.textContent = 'That name is already taken. Try a different name or sign in.'; return; }
 
-    // 2. Create Firestore doc using Firebase Auth UID — NO password stored
+    // Create user doc
+    const ref = db.collection('users').doc();
     const newRefCode = genRefCode(name);
-    await withTimeout(db.collection('users').doc(uid).set({
+    await withTimeout(ref.set({
       name, nameLower: name.toLowerCase(),
-      email, pin,
+      password: pw, pin,
       balance: 0, totalEarned: 0,
       refCode: newRefCode,
       investments: [], createdAt: nowISO()
     }));
+    // Apply referral bonus if valid code entered
+    if (refInput) await applyReferral(refInput, ref.id, name);
 
-    // 3. Apply referral bonus if valid code entered
-    if (refInput) await applyReferral(refInput, uid, name);
-
-    _user = { id: uid, name, email, pin, balance: 0, totalEarned: 0, refCode: newRefCode, investments: [] };
-    startListening(uid);
+    localStorage.setItem(SK, ref.id);
+    startListening(ref.id);
     showApp();
   } catch(e) {
     console.error('Signup error:', e);
-    // If Firestore failed after Auth was created, clean up the Auth account
-    if (cred) await fbAuth.signOut().catch(()=>{});
-    const code = e.code || '';
-    if (code.includes('email-already-in-use'))
-      err.textContent = 'An account with this email already exists. Try signing in.';
-    else if (code.includes('invalid-email'))
-      err.textContent = 'Please enter a valid email address.';
-    else if (e.message === 'timeout')
-      err.textContent = 'Request timed out. Check your connection.';
-    else err.textContent = 'Error: ' + (e.code || e.message);
+    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
+    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
   } finally {
     showLoader(false);
     setAuthBtn('su-btn', true);
@@ -1591,7 +1526,7 @@ function doLogout() {
   _unsubUser = _unsubDep = _unsubWit = null;
   _user = null;
   _myDeps = []; _myWits = [];
-  fbAuth.signOut().catch(()=>{});
+  localStorage.removeItem(SK);
   showAuth();
 }
 
@@ -2508,62 +2443,55 @@ function closeM(id) { document.getElementById(id).classList.remove('open'); }
 // BOOT
 // ══════════════════════════════════
 async function boot() {
+  // Show splash while Firebase loads
   try {
     await waitForFirebase();
   } catch(e) {
     console.error('Firebase failed:', e);
     document.getElementById('splash').classList.add('hide');
     showAuth();
-    document.getElementById('li-err').textContent = 'Could not connect. Check your internet and refresh.';
+    document.getElementById('li-err').textContent = 'Could not connect to database. Check your internet and refresh.';
     return;
   }
 
   renderPlans();
 
-  // Hide splash after animation
+  // Hide splash
   await new Promise(r => setTimeout(r, 2800));
   document.getElementById('splash').classList.add('hide');
 
-  // Check if we're returning from a Google redirect sign-in
-  showLoader(true, 'Loading…');
-  await handleGoogleRedirectResult();
-  showLoader(false);
-
-  // Firebase Auth handles persistent session automatically
-  // onAuthStateChanged fires once on load: user object if logged in, null if not
-  fbAuth.onAuthStateChanged(async (firebaseUser) => {
-    if (firebaseUser) {
-      showLoader(true, 'Loading your account…');
-      try {
-        const snap = await withTimeout(db.collection('users').doc(firebaseUser.uid).get());
-        if (snap.exists) {
-          _user = { id: snap.id, ...snap.data() };
-          // Auto-generate refCode for existing users who don't have one
-          if (!_user.refCode) {
-            const newCode = genRefCode(_user.name||'USER');
-            db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
-            _user.refCode = newCode;
-          }
-          startListening(firebaseUser.uid);
-          updateUserUI(); rAll();
-          showApp();
-        } else {
-          // Auth account exists but no Firestore doc — stale state, sign out
-          await fbAuth.signOut();
-          showAuth();
+  // Check saved session
+  const uid = localStorage.getItem(SK);
+  if (uid) {
+    showLoader(true, 'Loading your account…');
+    try {
+      const snap = await withTimeout(db.collection('users').doc(uid).get());
+      if (snap.exists) {
+        _user = {id: snap.id, ...snap.data()};
+        // Auto-generate refCode for existing users who don't have one
+        if (!_user.refCode) {
+          const newCode = genRefCode(_user.name||'USER');
+          db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
+          _user.refCode = newCode;
         }
-      } catch(e) {
-        console.error('Session restore error:', e);
-        await fbAuth.signOut().catch(()=>{});
+        updateUserUI(); rAll();
+        startListening(uid);
+        showApp();
+      } else {
+        localStorage.removeItem(SK);
         showAuth();
-        document.getElementById('li-err').textContent = 'Session expired. Please sign in again.';
-      } finally {
-        showLoader(false);
       }
-    } else {
+    } catch(e) {
+      console.error('Session restore error:', e);
+      localStorage.removeItem(SK);
       showAuth();
+      document.getElementById('li-err').textContent = 'Session expired. Please sign in again.';
+    } finally {
+      showLoader(false);
     }
-  });
+  } else {
+    showAuth();
+  }
 }
 
 // ══════════════════════════════════
@@ -2652,6 +2580,16 @@ function renderStreak() {
     lbl.textContent = streak+'-Day Streak';
     sub.textContent = 'Keep claiming daily to build your streak';
   }
+}
+
+// ══════════════════════════════════
+// CUSTOMER SUPPORT
+// ══════════════════════════════════
+function openSupport() {
+  document.getElementById('support-modal').style.display = 'flex';
+}
+function closeSupport() {
+  document.getElementById('support-modal').style.display = 'none';
 }
 
 // ══════════════════════════════════
