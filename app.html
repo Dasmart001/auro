@@ -66,6 +66,11 @@ body::after{display:none}
 .a-inp:focus{border-color:var(--gb);box-shadow:0 0 0 3px rgba(67,56,236,.09)}
 .a-inp::placeholder{color:var(--dim)}
 .a-btn{margin-top:4px;padding:15px;border:none;border-radius:11px;background:var(--gold);color:var(--void);font-family:var(--b);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .22s}
+.a-btn:hover{opacity:.88}
+.a-or{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--dim);font-size:11px;font-weight:500}
+.a-or::before,.a-or::after{content:'';flex:1;height:1px;background:var(--b1)}
+.g-btn{width:100%;padding:14px;border:1.5px solid var(--b2);border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-family:var(--b);font-size:13px;font-weight:600;color:var(--plat);transition:all .22s}
+.g-btn:hover{background:var(--s2);border-color:var(--b2)}
 .a-btn:hover{background:var(--gold2);transform:translateY(-1px)}
 .a-err{font-size:11px;color:var(--err);text-align:center;min-height:16px;padding:2px 0}
 .a-hint{font-size:10px;color:var(--sil);padding:0 2px}
@@ -555,14 +560,20 @@ body::after{display:none}
   </div>
   <!-- LOGIN -->
   <div id="form-login" class="a-form">
-    <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="li-name" type="text" placeholder="Enter your full name" autocomplete="name" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="a-grp"><label class="a-lbl">Email</label><input class="a-inp" id="li-email" type="email" placeholder="Enter your email" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()"/></div>
     <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="li-pw" type="password" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
     <div class="a-err" id="li-err"></div>
     <button class="a-btn" id="li-btn" onclick="doLogin()">Sign In</button>
+    <div class="a-or">or</div>
+    <button class="g-btn" id="li-g-btn" onclick="doGoogleSignIn()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+      Continue with Google
+    </button>
   </div>
   <!-- SIGNUP -->
   <div id="form-signup" class="a-form" style="display:none">
     <div class="a-grp"><label class="a-lbl">Full Name</label><input class="a-inp" id="su-name" type="text" placeholder="Your full name" autocomplete="name"/></div>
+    <div class="a-grp"><label class="a-lbl">Email</label><input class="a-inp" id="su-email" type="email" placeholder="Your email address" autocomplete="email"/></div>
     <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="su-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/></div>
     <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
     <div class="a-grp">
@@ -579,6 +590,11 @@ body::after{display:none}
     </div>
     <div class="a-err" id="su-err"></div>
     <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
+    <div class="a-or">or</div>
+    <button class="g-btn" id="su-g-btn" onclick="doGoogleSignIn()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+      Continue with Google
+    </button>
   </div>
 </div>
 
@@ -1116,6 +1132,36 @@ body::after{display:none}
   </div>
 </div>
 
+<!-- GOOGLE PIN SETUP MODAL -->
+<div class="overlay" id="google-pin-modal" onclick="mClose(event,'google-pin-modal')">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Set Your Investment PIN</div>
+    <div class="m-sub">Choose a 4-digit PIN to confirm every investment. Keep it private.</div>
+    <div style="margin-bottom:6px">
+      <label class="pin-lbl">Create PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp1" autocomplete="off" oninput="pa(this,'gp2')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp2" autocomplete="off" oninput="pa(this,'gp3')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp3" autocomplete="off" oninput="pa(this,'gp4')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp4" autocomplete="off"/>
+      </div>
+      <label class="pin-lbl" style="margin-top:14px">Confirm PIN</label>
+      <div class="pin-row">
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp1b" autocomplete="off" oninput="pa(this,'gp2b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp2b" autocomplete="off" oninput="pa(this,'gp3b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp3b" autocomplete="off" oninput="pa(this,'gp4b')"/>
+        <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="gp4b" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="a-err" id="gp-err" style="margin-bottom:12px"></div>
+    <button class="bb" id="gp-btn" onclick="finishGoogleSignup()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      Finish Setup
+    </button>
+  </div>
+</div>
+
 <!-- PIN CHANGE MODAL -->
 <div class="overlay" id="pin-modal" onclick="mClose(event,'pin-modal')">
   <div class="msheet">
@@ -1339,31 +1385,132 @@ function switchTab(t) {
 }
 
 // ══════════════════════════════════
+// AUTH — GOOGLE
+// ══════════════════════════════════
+let _googlePendingUser = null; // holds Firebase user while new user sets their PIN
+
+async function doGoogleSignIn() {
+  const errEl = document.getElementById('li-err') || document.getElementById('su-err');
+  ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=true; b.style.opacity='.6';} });
+  showLoader(true, 'Connecting Google…');
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    const cred = await fbAuth.signInWithPopup(provider);
+    const uid  = cred.user.uid;
+
+    // Check if Firestore doc already exists (returning user)
+    const snap = await withTimeout(db.collection('users').doc(uid).get());
+    if (snap.exists) {
+      _user = { id: snap.id, ...snap.data() };
+      startListening(uid);
+      updateUserUI(); rAll();
+      showApp();
+    } else {
+      // New user — store pending Firebase user and show PIN setup
+      _googlePendingUser = cred.user;
+      showLoader(false);
+      ['gp1','gp2','gp3','gp4','gp1b','gp2b','gp3b','gp4b'].forEach(id => {
+        const e = document.getElementById(id); if(e) e.value='';
+      });
+      document.getElementById('gp-err').textContent = '';
+      document.getElementById('google-pin-modal').classList.add('open');
+      setTimeout(()=>{ const e=document.getElementById('gp1'); if(e) e.focus(); }, 350);
+      return; // don't hide loader again in finally
+    }
+  } catch(e) {
+    console.error('Google sign-in error:', e);
+    const code = e.code||'';
+    const msg = code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request'
+      ? '' // user just closed the popup — silent
+      : code === 'auth/popup-blocked'
+        ? 'Popup was blocked. Allow popups for this site and try again.'
+        : 'Google sign-in failed. Try again.';
+    if (msg && errEl) errEl.textContent = msg;
+  } finally {
+    showLoader(false);
+    ['li-g-btn','su-g-btn'].forEach(id => { const b=document.getElementById(id); if(b){b.disabled=false; b.style.opacity='1';} });
+  }
+}
+
+async function finishGoogleSignup() {
+  if (!_googlePendingUser) return;
+  const pin  = ['gp1','gp2','gp3','gp4'].map(id=>(document.getElementById(id)||{}).value||'').join('');
+  const pinB = ['gp1b','gp2b','gp3b','gp4b'].map(id=>(document.getElementById(id)||{}).value||'').join('');
+  const err  = document.getElementById('gp-err');
+  err.textContent = '';
+
+  if (!/^\d{4}$/.test(pin))  { err.textContent = 'Enter a 4-digit PIN.'; return; }
+  if (pin !== pinB)           { err.textContent = 'PINs do not match.'; return; }
+
+  const btn = document.getElementById('gp-btn');
+  btn.disabled = true;
+  showLoader(true, 'Setting up your account…');
+  try {
+    const uid      = _googlePendingUser.uid;
+    const name     = _googlePendingUser.displayName || 'AURO User';
+    const email    = _googlePendingUser.email || '';
+    const newRefCode = genRefCode(name);
+
+    await withTimeout(db.collection('users').doc(uid).set({
+      name, nameLower: name.toLowerCase(),
+      email, pin,
+      balance: 0, totalEarned: 0,
+      refCode: newRefCode,
+      investments: [], createdAt: nowISO(),
+      authProvider: 'google'
+    }));
+
+    closeM('google-pin-modal');
+    _user = { id: uid, name, email, pin, balance: 0, totalEarned: 0, refCode: newRefCode, investments: [], authProvider: 'google' };
+    _googlePendingUser = null;
+    startListening(uid);
+    updateUserUI(); rAll();
+    showApp();
+    toast('Welcome to AURO, ' + name.split(' ')[0] + '!');
+  } catch(e) {
+    console.error('Google signup error:', e);
+    err.textContent = 'Could not create account. Try again.';
+    // Sign out the dangling Firebase Auth session so they can retry cleanly
+    await fbAuth.signOut().catch(()=>{});
+    _googlePendingUser = null;
+  } finally {
+    showLoader(false);
+    btn.disabled = false;
+  }
+}
+
+// ══════════════════════════════════
 // AUTH — LOGIN
 // ══════════════════════════════════
 async function doLogin() {
-  const name = (document.getElementById('li-name').value||'').trim();
-  const pw   = document.getElementById('li-pw').value||'';
-  const err  = document.getElementById('li-err');
+  const email = (document.getElementById('li-email').value||'').trim();
+  const pw    = document.getElementById('li-pw').value||'';
+  const err   = document.getElementById('li-err');
   err.textContent = '';
-  if (!name || !pw) { err.textContent = 'Please fill in all fields.'; return; }
+  if (!email || !pw) { err.textContent = 'Please fill in all fields.'; return; }
 
   setAuthBtn('li-btn', false);
   showLoader(true, 'Signing in…');
   try {
-    const snap = await withTimeout(
-      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
-    );
-    if (snap.empty) { err.textContent = 'Name not found. Did you mean to sign up?'; return; }
-    const doc = snap.docs[0];
-    if (doc.data().password !== pw) { err.textContent = 'Incorrect password. Try again.'; return; }
-    localStorage.setItem(SK, doc.id);
-    startListening(doc.id);
+    const cred = await withTimeout(fbAuth.signInWithEmailAndPassword(email, pw));
+    const uid  = cred.user.uid;
+    const snap = await withTimeout(db.collection('users').doc(uid).get());
+    if (!snap.exists) { err.textContent = 'Account not found. Please sign up.'; await fbAuth.signOut(); return; }
+    _user = { id: snap.id, ...snap.data() };
+    startListening(uid);
     showApp();
   } catch(e) {
     console.error('Login error:', e);
-    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
-    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
+    const code = e.code || '';
+    if (code.includes('user-not-found') || code.includes('wrong-password') || code.includes('invalid-credential'))
+      err.textContent = 'Incorrect email or password.';
+    else if (code.includes('too-many-requests'))
+      err.textContent = 'Too many attempts. Try again later.';
+    else if (e.message === 'timeout')
+      err.textContent = 'Request timed out. Check your connection.';
+    else err.textContent = 'Error: ' + (e.code || e.message);
   } finally {
     showLoader(false);
     setAuthBtn('li-btn', true);
@@ -1374,50 +1521,59 @@ async function doLogin() {
 // AUTH — SIGNUP
 // ══════════════════════════════════
 async function doSignup() {
-  const name = (document.getElementById('su-name').value||'').trim();
-  const pw   = document.getElementById('su-pw').value||'';
-  const pw2  = document.getElementById('su-pw2').value||'';
-  const pin  = (document.getElementById('su-pin').value||'').trim();
-  const err  = document.getElementById('su-err');
+  const name  = (document.getElementById('su-name').value||'').trim();
+  const email = (document.getElementById('su-email').value||'').trim();
+  const pw    = document.getElementById('su-pw').value||'';
+  const pw2   = document.getElementById('su-pw2').value||'';
+  const pin   = (document.getElementById('su-pin').value||'').trim();
+  const err   = document.getElementById('su-err');
   err.textContent = '';
 
-  // Validate all fields before touching Firebase
-  if (!name)            { err.textContent = 'Enter your full name.'; return; }
-  if (pw.length < 6)   { err.textContent = 'Password must be at least 6 characters.'; return; }
-  if (pw !== pw2)      { err.textContent = 'Passwords do not match.'; return; }
-  if (!/^\d{4}$/.test(pin)) { err.textContent = 'PIN must be exactly 4 digits.'; return; }
-  if (!_signupTosChecked) { err.textContent = 'You must agree to the Terms of Service to continue.'; return; }
+  if (!name)               { err.textContent = 'Enter your full name.'; return; }
+  if (!email)              { err.textContent = 'Enter your email address.'; return; }
+  if (pw.length < 6)       { err.textContent = 'Password must be at least 6 characters.'; return; }
+  if (pw !== pw2)          { err.textContent = 'Passwords do not match.'; return; }
+  if (!/^\d{4}$/.test(pin)){ err.textContent = 'PIN must be exactly 4 digits.'; return; }
+  if (!_signupTosChecked)  { err.textContent = 'You must agree to the Terms of Service to continue.'; return; }
   const refInput = (document.getElementById('su-ref').value||'').trim().toUpperCase();
 
   setAuthBtn('su-btn', false);
   showLoader(true, 'Creating your account…');
+  let cred = null;
   try {
-    // Check name not taken
-    const snap = await withTimeout(
-      db.collection('users').where('nameLower','==', name.toLowerCase()).limit(1).get()
-    );
-    if (!snap.empty) { err.textContent = 'That name is already taken. Try a different name or sign in.'; return; }
+    // 1. Create Firebase Auth account
+    cred = await withTimeout(fbAuth.createUserWithEmailAndPassword(email, pw));
+    const uid = cred.user.uid;
+    await cred.user.updateProfile({ displayName: name });
 
-    // Create user doc
-    const ref = db.collection('users').doc();
+    // 2. Create Firestore doc using Firebase Auth UID — NO password stored
     const newRefCode = genRefCode(name);
-    await withTimeout(ref.set({
+    await withTimeout(db.collection('users').doc(uid).set({
       name, nameLower: name.toLowerCase(),
-      password: pw, pin,
+      email, pin,
       balance: 0, totalEarned: 0,
       refCode: newRefCode,
       investments: [], createdAt: nowISO()
     }));
-    // Apply referral bonus if valid code entered
-    if (refInput) await applyReferral(refInput, ref.id, name);
 
-    localStorage.setItem(SK, ref.id);
-    startListening(ref.id);
+    // 3. Apply referral bonus if valid code entered
+    if (refInput) await applyReferral(refInput, uid, name);
+
+    _user = { id: uid, name, email, pin, balance: 0, totalEarned: 0, refCode: newRefCode, investments: [] };
+    startListening(uid);
     showApp();
   } catch(e) {
     console.error('Signup error:', e);
-    if (e.message === 'timeout') err.textContent = 'Request timed out. Check your internet and try again.';
-    else err.textContent = 'Error: ' + (e.code || e.message || JSON.stringify(e));
+    // If Firestore failed after Auth was created, clean up the Auth account
+    if (cred) await fbAuth.signOut().catch(()=>{});
+    const code = e.code || '';
+    if (code.includes('email-already-in-use'))
+      err.textContent = 'An account with this email already exists. Try signing in.';
+    else if (code.includes('invalid-email'))
+      err.textContent = 'Please enter a valid email address.';
+    else if (e.message === 'timeout')
+      err.textContent = 'Request timed out. Check your connection.';
+    else err.textContent = 'Error: ' + (e.code || e.message);
   } finally {
     showLoader(false);
     setAuthBtn('su-btn', true);
@@ -1433,7 +1589,7 @@ function doLogout() {
   _unsubUser = _unsubDep = _unsubWit = null;
   _user = null;
   _myDeps = []; _myWits = [];
-  localStorage.removeItem(SK);
+  fbAuth.signOut().catch(()=>{});
   showAuth();
 }
 
@@ -2350,55 +2506,57 @@ function closeM(id) { document.getElementById(id).classList.remove('open'); }
 // BOOT
 // ══════════════════════════════════
 async function boot() {
-  // Show splash while Firebase loads
   try {
     await waitForFirebase();
   } catch(e) {
     console.error('Firebase failed:', e);
     document.getElementById('splash').classList.add('hide');
     showAuth();
-    document.getElementById('li-err').textContent = 'Could not connect to database. Check your internet and refresh.';
+    document.getElementById('li-err').textContent = 'Could not connect. Check your internet and refresh.';
     return;
   }
 
   renderPlans();
 
-  // Hide splash
+  // Hide splash after animation
   await new Promise(r => setTimeout(r, 2800));
   document.getElementById('splash').classList.add('hide');
 
-  // Check saved session
-  const uid = localStorage.getItem(SK);
-  if (uid) {
-    showLoader(true, 'Loading your account…');
-    try {
-      const snap = await withTimeout(db.collection('users').doc(uid).get());
-      if (snap.exists) {
-        _user = {id: snap.id, ...snap.data()};
-        // Auto-generate refCode for existing users who don't have one
-        if (!_user.refCode) {
-          const newCode = genRefCode(_user.name||'USER');
-          db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
-          _user.refCode = newCode;
+  // Firebase Auth handles persistent session automatically
+  // onAuthStateChanged fires once on load: user object if logged in, null if not
+  fbAuth.onAuthStateChanged(async (firebaseUser) => {
+    if (firebaseUser) {
+      showLoader(true, 'Loading your account…');
+      try {
+        const snap = await withTimeout(db.collection('users').doc(firebaseUser.uid).get());
+        if (snap.exists) {
+          _user = { id: snap.id, ...snap.data() };
+          // Auto-generate refCode for existing users who don't have one
+          if (!_user.refCode) {
+            const newCode = genRefCode(_user.name||'USER');
+            db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
+            _user.refCode = newCode;
+          }
+          startListening(firebaseUser.uid);
+          updateUserUI(); rAll();
+          showApp();
+        } else {
+          // Auth account exists but no Firestore doc — stale state, sign out
+          await fbAuth.signOut();
+          showAuth();
         }
-        updateUserUI(); rAll();
-        startListening(uid);
-        showApp();
-      } else {
-        localStorage.removeItem(SK);
+      } catch(e) {
+        console.error('Session restore error:', e);
+        await fbAuth.signOut().catch(()=>{});
         showAuth();
+        document.getElementById('li-err').textContent = 'Session expired. Please sign in again.';
+      } finally {
+        showLoader(false);
       }
-    } catch(e) {
-      console.error('Session restore error:', e);
-      localStorage.removeItem(SK);
+    } else {
       showAuth();
-      document.getElementById('li-err').textContent = 'Session expired. Please sign in again.';
-    } finally {
-      showLoader(false);
     }
-  } else {
-    showAuth();
-  }
+  });
 }
 
 // ══════════════════════════════════
