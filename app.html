@@ -11,6 +11,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -205,48 +206,6 @@ body::after{display:none}
 
 /* DEPOSIT */
 .dep-sec{padding:0 16px}
-
-/* ── DEPOSIT STEP 1: amount selection ── */
-.dep-min-banner{display:flex;align-items:center;gap:10px;background:var(--gd);border:1px solid var(--gb);border-radius:12px;padding:13px 15px;margin-bottom:18px}
-.dep-min-banner svg{flex-shrink:0;color:var(--gold)}
-.dep-min-txt{font-size:11.5px;color:var(--plat);font-weight:500;line-height:1.5}
-.dep-min-txt strong{color:var(--gold)}
-.dep-amt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0}
-.dep-amt-opt{background:var(--s1);border:1.5px solid var(--b1);border-radius:13px;padding:16px 14px;text-align:center;cursor:pointer;transition:all .2s}
-.dep-amt-opt:hover{border-color:var(--gb)}
-.dep-amt-opt.sel{background:var(--gd);border-color:var(--gold);box-shadow:0 0 0 3px rgba(67,56,236,.08)}
-.dep-amt-val{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat)}
-.dep-amt-opt.sel .dep-amt-val{color:var(--gold)}
-.dep-amt-lbl{font-size:9.5px;color:var(--sil);font-weight:500;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
-.dep-or{display:flex;align-items:center;gap:12px;margin:22px 0 14px}
-.dep-or-line{flex:1;height:1px;background:var(--b1)}
-.dep-or-txt{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.dep-continue{opacity:.4;pointer-events:none;transition:opacity .25s}
-.dep-continue.ready{opacity:1;pointer-events:auto}
-
-/* ── DEPOSIT STEP 2: locked payment details ── */
-.dep-step2-back{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--sil);cursor:pointer;margin-bottom:18px}
-.dep-step2-back svg{width:15px;height:15px}
-.dep-step2-back:hover{color:var(--plat)}
-.dep-locked-amt{text-align:center;margin-bottom:6px}
-.dep-locked-amt-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
-.dep-locked-amt-val{font-family:var(--d);font-size:38px;font-weight:800;color:var(--plat)}
-.dep-locked-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--dim);margin-bottom:24px}
-.dep-locked-note svg{width:11px;height:11px}
-
-/* ── GENERATING SCREEN ── */
-.dep-generating{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;min-height:340px}
-.dep-gen-ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--b1);border-top:3px solid var(--gold);animation:spin 1s linear infinite;margin-bottom:28px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.dep-gen-title{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat);margin-bottom:8px}
-.dep-gen-sub{font-size:12px;color:var(--sil);font-weight:300;line-height:1.6;max-width:260px}
-.dep-gen-steps{display:flex;flex-direction:column;gap:10px;margin-top:24px;width:100%;max-width:280px}
-.dep-gen-step{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--dim);font-weight:400}
-.dep-gen-step.done{color:var(--ok)}
-.dep-gen-step.active{color:var(--plat);font-weight:600}
-.dep-gen-step-dot{width:8px;height:8px;border-radius:50%;background:var(--b2);flex-shrink:0;transition:all .3s}
-.dep-gen-step.done .dep-gen-step-dot{background:var(--ok)}
-.dep-gen-step.active .dep-gen-step-dot{background:var(--gold);box-shadow:0 0 0 3px rgba(67,56,236,.15)}
 .dep-card{background:linear-gradient(135deg,rgba(67,56,236,.06),rgba(108,92,231,.03));border:1px solid var(--gb);border-radius:var(--rl);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
 .dep-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .dep-title{font-family:var(--d);font-size:14px;font-weight:500;color:var(--gold);letter-spacing:.05em;margin-bottom:14px}
@@ -402,36 +361,6 @@ body::after{display:none}
 .adm-close svg{width:14px;height:14px}
 .adm-sec{padding:20px 20px 0}
 .treasury-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-/* ── PROFILE PAGE ── */
-.prof-hero{margin:0 16px 18px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:22px 18px;text-align:center;position:relative;overflow:hidden}
-.prof-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.prof-avatar{width:64px;height:64px;border-radius:50%;background:var(--gd);border:2px solid var(--gb);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:var(--d);font-size:24px;font-weight:700;color:var(--gold)}
-.prof-name{font-family:var(--d);font-size:20px;font-weight:700;color:var(--plat);margin-bottom:3px}
-.prof-since{font-size:10px;color:var(--sil);font-weight:300}
-.prof-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 16px 14px}
-.prof-stat{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:12px 8px;text-align:center}
-.prof-stat-val{font-family:var(--d);font-size:16px;font-weight:700;color:var(--gold)}
-.prof-stat-lbl{font-size:9px;color:var(--sil);font-weight:400;margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
-.prof-sec{margin:0 16px 14px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden}
-.prof-sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);padding:13px 15px 8px}
-.prof-row{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-top:1px solid var(--b1)}
-.prof-row-lbl{font-size:12px;color:var(--sil)}
-.prof-row-val{font-size:12px;font-weight:600;color:var(--plat)}
-/* ── ADMIN BROADCAST ── */
-.broadcast-box{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px;margin-bottom:10px}
-/* ── USER HISTORY MODAL ── */
-.hist-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(14px);z-index:5000;display:none;align-items:flex-end;justify-content:center}
-.hist-modal.open{display:flex}
-.hist-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 18px 50px;width:100%;max-height:85vh;overflow-y:auto;animation:shu .35s var(--ez) both;position:relative}
-.hist-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-/* ── PUSH PROMPT ── */
-.push-prompt{margin:0 16px 14px;background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.12));border:1px solid var(--gb);border-radius:var(--rl);padding:15px;display:flex;gap:12px;align-items:center}
-.push-ico{width:38px;height:38px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.push-ico svg{color:#fff}
-.push-txt{flex:1}
-.push-title{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
-.push-sub{font-size:10px;color:var(--sil);font-weight:300;line-height:1.5}
-.push-btn{font-size:10px;font-weight:700;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap;font-family:var(--b)}
 .tr-card{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px 13px}
 .tr-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:5px}
 .tr-val{font-family:var(--d);font-size:18px;font-weight:700;color:var(--plat);line-height:1}
@@ -457,6 +386,19 @@ body::after{display:none}
 .adm-user-row{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px}
 .au-name{font-size:13px;font-weight:600;color:var(--plat);margin-bottom:3px}
 .au-info{font-size:10px;color:var(--sil);line-height:1.6}
+.fraud-card{background:#fff;border:1.5px solid rgba(239,68,68,.35);border-radius:var(--r);padding:14px;margin-bottom:10px;position:relative}
+.fraud-card::before{content:'⚠ SUSPICIOUS';position:absolute;top:10px;right:12px;font-size:8px;font-weight:700;letter-spacing:.1em;color:var(--err);background:rgba(239,68,68,.08);padding:3px 7px;border-radius:20px;border:1px solid rgba(239,68,68,.22)}
+.fraud-name{font-size:13px;font-weight:700;color:var(--plat);margin-bottom:6px}
+.fraud-row{display:flex;justify-content:space-between;font-size:11px;color:var(--sil);padding:3px 0;border-bottom:1px solid var(--b1)}
+.fraud-row:last-of-type{border-bottom:none}
+.fraud-row strong{color:var(--plat);font-weight:600}
+.fraud-disc{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:8px 10px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:8px}
+.fraud-disc-lbl{font-size:10px;font-weight:600;color:var(--err);text-transform:uppercase;letter-spacing:.06em}
+.fraud-disc-amt{font-family:var(--d);font-size:16px;font-weight:700;color:var(--err)}
+.fraud-acts{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.fraud-ban{flex:1;padding:9px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--err);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:var(--b)}
+.fraud-zero{flex:1;padding:9px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(239,68,68,.1);color:var(--err);border:1px solid rgba(239,68,68,.3);border-radius:8px;cursor:pointer;font-family:var(--b)}
+.fraud-dismiss{flex:1;padding:9px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(17,20,43,.04);color:var(--sil);border:1px solid var(--b1);border-radius:8px;cursor:pointer;font-family:var(--b)}
 
 /* USER MENU */
 .user-menu{position:fixed;top:0;right:0;left:0;max-width:430px;margin:0 auto;z-index:400;display:none;align-items:flex-start;justify-content:flex-end;padding:88px 16px 0}
@@ -520,17 +462,7 @@ body::after{display:none}
 .tos-btn.ready{opacity:1;pointer-events:auto}
 .tos-btn.ready:hover{background:var(--gold2)}
 
-/* ── SUPPORT MODAL ── */
-.support-sheet{background:var(--s1);border-radius:22px 22px 0 0;padding:0 22px 50px;width:100%;max-height:80vh;overflow-y:auto;animation:shu .35s var(--ez) both;position:relative}
-.support-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent)}
-.support-option{display:flex;align-items:center;gap:14px;background:var(--s2);border:1px solid var(--b1);border-radius:14px;padding:16px 15px;margin-bottom:10px;cursor:pointer;transition:all .2s;text-decoration:none}
-.support-option:hover{border-color:var(--gb);background:var(--gd)}
-.support-option-ico{width:40px;height:40px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.support-option-ico svg{color:var(--gold)}
-.support-option-txt{flex:1}
-.support-option-title{font-size:13px;font-weight:600;color:var(--plat);margin-bottom:2px}
-.support-option-sub{font-size:11px;color:var(--sil);font-weight:300}
-.support-hours{background:var(--okd);border:1px solid var(--okb);border-radius:11px;padding:11px 14px;margin-top:4px;font-size:11px;color:var(--ok);font-weight:500;text-align:center;line-height:1.55}
+/* ── PIN CHANGE MODAL ── */
 #pin-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);z-index:500;align-items:flex-end;justify-content:center}
 #pin-modal.open{display:flex;animation:fi .22s ease both}
 .pin-modal-sheet{background:var(--s1);border:1px solid var(--gb);border-bottom:none;border-radius:22px 22px 0 0;padding:0 22px 52px;width:100%;max-width:430px;animation:shu .35s var(--ez) both;position:relative}
@@ -665,130 +597,50 @@ body::after{display:none}
   <!-- DEPOSIT -->
   <div class="page" id="p-deposit">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Fund your wallet instantly with card or bank transfer.</div></div>
+    <div class="dep-sec">
 
-    <!-- ═══ STEP 1: AMOUNT SELECTION ═══ -->
-    <div id="dep-step-1">
-      <div class="ph"><div class="ph-t">Deposit</div><div class="ph-s">Choose an amount to fund your wallet.</div></div>
-      <div class="dep-sec">
-
-        <div class="dep-min-banner">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <div class="dep-min-txt">Minimum deposit is <strong>₦5,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
+      <!-- PAYSTACK PAYMENT METHOD -->
+      <div class="dep-card">
+        <div class="dep-title">Pay with Card or Bank Transfer</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Visa</div>
+          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Mastercard</div>
+          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">Bank Transfer</div>
+          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--sil)">USSD</div>
+          <div style="background:rgba(15,174,107,0.1);border:1px solid var(--okb);border-radius:7px;padding:5px 11px;font-size:10px;font-weight:600;color:var(--ok)">Instant Credit</div>
         </div>
+        <div style="font-size:11px;color:var(--sil);font-weight:300;line-height:1.6">Your balance is credited <strong style="color:var(--gold)">automatically</strong> as soon as payment is confirmed. No manual approval needed.</div>
+      </div>
 
-        <label class="fl">Select Amount</label>
-        <div class="dep-amt-grid">
-          <div class="dep-amt-opt" data-amt="5000" onclick="pickDep(5000)"><div class="dep-amt-val">₦5,000</div><div class="dep-amt-lbl">Starter</div></div>
-          <div class="dep-amt-opt" data-amt="10000" onclick="pickDep(10000)"><div class="dep-amt-val">₦10,000</div><div class="dep-amt-lbl">Popular</div></div>
-          <div class="dep-amt-opt" data-amt="25000" onclick="pickDep(25000)"><div class="dep-amt-val">₦25,000</div><div class="dep-amt-lbl">Standard</div></div>
-          <div class="dep-amt-opt" data-amt="50000" onclick="pickDep(50000)"><div class="dep-amt-val">₦50,000</div><div class="dep-amt-lbl">Growth</div></div>
-          <div class="dep-amt-opt" data-amt="100000" onclick="pickDep(100000)"><div class="dep-amt-val">₦100,000</div><div class="dep-amt-lbl">Premium</div></div>
-          <div class="dep-amt-opt" data-amt="500000" onclick="pickDep(500000)"><div class="dep-amt-val">₦500,000</div><div class="dep-amt-lbl">Elite</div></div>
-        </div>
+      <label class="fl">Amount to Deposit</label>
+      <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
+      <div class="qrow">
+        <button class="qb" onclick="setDep(5000)">₦5k</button>
+        <button class="qb" onclick="setDep(10000)">₦10k</button>
+        <button class="qb" onclick="setDep(20000)">₦20k</button>
+        <button class="qb" onclick="setDep(50000)">₦50k</button>
+        <button class="qb" onclick="setDep(100000)">₦100k</button>
+      </div>
 
-        <div class="dep-or"><div class="dep-or-line"></div><div class="dep-or-txt">Or enter custom amount</div><div class="dep-or-line"></div></div>
+      <div class="sbox">
+        <div class="sr"><span>Deposit amount</span><strong id="dep-sa">₦0.00</strong></div>
+        <div class="sr"><span>Processing fee</span><strong id="dep-fee">₦0.00</strong></div>
+        <div class="sr"><span>Powered by</span><strong style="color:var(--gold)">Paystack</strong></div>
+        <div class="sdiv"></div>
+        <div class="stotal"><span>You will pay</span><span class="stv" id="dep-sc">₦0.00</span></div>
+      </div>
 
-        <label class="fl">Custom Amount (₦)</label>
-        <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
-        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦5,000 and maximum is ₦1,000,000.</div>
+      <button class="bb" onclick="doDeposit()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/></svg>
+        Pay Now
+      </button>
 
-        <div class="sbox" style="margin-top:18px">
-          <div class="sr"><span>You will deposit</span><strong id="dep-sa">₦0.00</strong></div>
-        </div>
-
-        <button class="bb dep-continue" id="dep-continue-btn" onclick="goDepStep2()">
-          Continue to Payment
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-
-        <div style="margin-top:22px">
-          <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
-          <div id="dep-history"></div>
-        </div>
+      <div style="margin-top:22px">
+        <div class="sh" style="padding:0;margin-bottom:12px"><h2 style="font-size:14px">Deposit History</h2></div>
+        <div id="dep-history"></div>
       </div>
     </div>
-
-    <!-- ═══ STEP 2: LOCKED PAYMENT DETAILS ═══ -->
-    <div id="dep-step-2" style="display:none">
-      <div class="ph">
-        <div class="dep-step2-back" onclick="goDepStep1()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Change amount
-        </div>
-        <div class="ph-t">Complete Your Deposit</div>
-        <div class="ph-s">Transfer the exact amount below to confirm your deposit.</div>
-      </div>
-      <div class="dep-sec">
-
-        <!-- GENERATING ANIMATION SCREEN -->
-        <div class="dep-generating" id="dep-generating">
-          <div class="dep-gen-ring"></div>
-          <div class="dep-gen-title">Generating your payment details</div>
-          <div class="dep-gen-sub">We are preparing a secure transfer reference for your transaction. This takes just a moment.</div>
-          <div class="dep-gen-steps">
-            <div class="dep-gen-step" id="dep-gs-1"><div class="dep-gen-step-dot"></div>Verifying transaction amount</div>
-            <div class="dep-gen-step" id="dep-gs-2"><div class="dep-gen-step-dot"></div>Allocating secure payment channel</div>
-            <div class="dep-gen-step" id="dep-gs-3"><div class="dep-gen-step-dot"></div>Preparing recipient account details</div>
-          </div>
-        </div>
-
-        <!-- ACTUAL PAYMENT DETAILS (shown after animation) -->
-        <div id="dep-payment-details" style="display:none">
-
-        <div class="dep-locked-amt">
-          <div class="dep-locked-amt-lbl">Amount to Transfer</div>
-          <div class="dep-locked-amt-val" id="dep-locked-val">₦0</div>
-        </div>
-        <div class="dep-locked-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          This amount is locked for your security
-        </div>
-
-        <!-- OPAY ACCOUNT CARD -->
-        <div class="dep-card" style="text-align:center;padding:22px 18px">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:14px">Recipient Account Details</div>
-
-          <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,174,107,.08);border:1px solid rgba(15,174,107,.22);border-radius:20px;padding:5px 14px;margin-bottom:16px">
-            <div style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></div>
-            <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
-          </div>
-
-          <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
-
-          <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            Copy Account Number
-          </button>
-
-          <div style="margin:0 auto 10px;width:160px;height:160px;border-radius:14px;overflow:hidden;border:3px solid var(--b1);background:#fff;padding:8px">
-            <img id="dep-qr" src="" alt="OPay QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/>
-          </div>
-          <div style="font-size:10px;color:var(--sil);margin-bottom:18px">Scan with OPay or any mobile banking app</div>
-
-          <div style="background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:14px;text-align:left">
-            <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Next Steps</div>
-            <div style="display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">1</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Open your bank app and transfer the exact amount shown above to the account number provided.</div></div>
-              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">2</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Once your transfer is complete, tap <strong style="color:var(--plat)">I Have Made This Payment</strong> below to notify us.</div></div>
-              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">3</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Your wallet will be credited within <strong style="color:var(--plat)">1–3 hours</strong> once our team confirms receipt.</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sbox">
-          <div class="sr"><span>Amount to be credited</span><strong id="dep-sa-2">₦0.00</strong></div>
-          <div class="sr"><span>Processing time</span><strong style="color:var(--gold)">1–3 hours</strong></div>
-          <div class="sr"><span>Status</span><strong style="color:#f59e0b">Pending payment</strong></div>
-        </div>
-
-        <button class="bb" onclick="doDeposit()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          I Have Made This Payment
-        </button>
-        </div><!-- end dep-payment-details -->
-      </div><!-- end dep-sec -->
-    </div><!-- end dep-step-2 -->
-
   </div>
 
   <!-- WITHDRAW -->
@@ -863,36 +715,6 @@ body::after{display:none}
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No investments yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
-  <!-- PROFILE -->
-  <div class="page" id="p-profile">
-    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">My Profile</div><div class="ph-s">Your account overview and settings.</div></div>
-    <div class="prof-hero">
-      <div class="prof-avatar" id="prof-avatar">—</div>
-      <div class="prof-name" id="prof-name">—</div>
-      <div class="prof-since" id="prof-since">Member</div>
-    </div>
-    <div class="prof-stats">
-      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">Invested</div></div>
-      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
-      <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Plans</div></div>
-    </div>
-    <div class="prof-sec">
-      <div class="prof-sec-title">Referral</div>
-      <div class="prof-row"><span class="prof-row-lbl">Your Code</span><span class="prof-row-val" id="prof-refcode" style="color:var(--gold);letter-spacing:.08em">—</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">People Referred</span><span class="prof-row-val" id="prof-refcount">0</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">Referral Earnings</span><span class="prof-row-val ok" id="prof-refearned">₦0</span></div>
-    </div>
-    <div class="prof-sec">
-      <div class="prof-sec-title">Account</div>
-      <div class="prof-row" onclick="openPinChange()" style="cursor:pointer"><span class="prof-row-lbl">Change Investment PIN</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-      <div class="prof-row" onclick="openTos()" style="cursor:pointer"><span class="prof-row-lbl">Terms of Service</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-      <div class="prof-row" onclick="requestPushPermission()" style="cursor:pointer"><span class="prof-row-lbl">Enable Claim Reminders</span><span class="prof-row-val" id="prof-push-status" style="font-size:10px;color:var(--sil)">Tap to enable</span></div>
-      <div class="prof-row" onclick="openSupport()" style="cursor:pointer"><span class="prof-row-lbl">Customer Support</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-      <div class="prof-row" onclick="doLogout()" style="cursor:pointer"><span class="prof-row-lbl" style="color:var(--err)">Sign Out</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--err)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-    </div>
-  </div>
-
   <!-- NOTIFICATIONS -->
   <div class="page" id="p-notif">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
@@ -917,12 +739,10 @@ body::after{display:none}
   <div class="um-card">
     <div class="um-name" id="um-name">—</div>
     <div class="um-meta" id="um-meta">Member</div>
-    <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
     <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
     <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
     <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
-    <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
     <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
   </div>
 </div>
@@ -970,37 +790,18 @@ body::after{display:none}
 
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Deposits</div><div id="adm-deps"></div></div>
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
-  <div class="adm-sec">
-    <div class="adm-sec-t" style="margin-top:8px">Broadcast Message</div>
-    <div class="broadcast-box">
-      <div style="font-size:10px;color:var(--sil);margin-bottom:8px">Send a notification to all users simultaneously.</div>
-      <input class="f-plain" id="bc-title" type="text" placeholder="Title (e.g. System Update)" style="width:100%;margin-bottom:8px;font-size:12px;padding:9px 11px"/>
-      <textarea id="bc-body" placeholder="Write your message here…" style="width:100%;background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:10px 11px;font-family:var(--b);font-size:12px;color:var(--plat);resize:none;height:80px;outline:none"></textarea>
-      <button class="rc-ap" style="width:100%;margin-top:8px;padding:10px" onclick="sendBroadcast()">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-        Send to All Users
-      </button>
-    </div>
-  </div>
-  <div class="adm-sec" style="padding-bottom:50px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
-      <div class="adm-sec-t" style="margin:0">All Users</div>
-      <button onclick="exportCSV()" style="font-size:10px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:5px 12px;cursor:pointer;font-family:var(--b)">Export CSV</button>
-    </div>
-    <input class="f-plain" id="adm-user-search" type="text" placeholder="Search users by name…" style="width:100%;margin:8px 0;font-size:12px;padding:9px 11px" oninput="filterAdmUsers()"/>
-    <div id="adm-users"></div>
-  </div>
-</div>
 
-<!-- USER HISTORY MODAL -->
-<div class="hist-modal" id="hist-modal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="hist-sheet">
-    <div class="m-handle"></div>
-    <div class="m-title" id="hist-name">Investment History</div>
-    <div class="m-sub" id="hist-meta"></div>
-    <div id="hist-body" style="margin-top:14px"></div>
-    <button onclick="document.getElementById('hist-modal').classList.remove('open')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:8px">Close</button>
+  <!-- FRAUD MONITOR -->
+  <div class="adm-sec" id="fraud-sec">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
+      <div class="adm-sec-t" style="margin:0">Fraud Monitor</div>
+      <button onclick="runFraudScan()" id="fraud-scan-btn" style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(239,68,68,.08);color:var(--err);border:1px solid rgba(239,68,68,.22);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Run Scan</button>
+    </div>
+    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Flags users whose wallet balance exceeds what their deposits, earnings, and withdrawals can explain.</div>
+    <div id="fraud-results"></div>
   </div>
+
+  <div class="adm-sec" style="padding-bottom:50px"><div class="adm-sec-t" style="margin-top:8px">All Users</div><div id="adm-users"></div></div>
 </div>
 
 <!-- INVEST MODAL -->
@@ -1056,46 +857,6 @@ body::after{display:none}
 
 </div><!-- /root -->
 
-<!-- SUPPORT MODAL -->
-<div id="support-modal" style="position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);display:none;align-items:flex-end;justify-content:center;max-width:430px;margin:0 auto">
-  <div class="support-sheet">
-    <div class="m-handle"></div>
-    <div class="m-title">Customer Support</div>
-    <div class="m-sub" style="margin-bottom:20px">We're here to help. Choose how to reach us.</div>
-
-    <a class="support-option" href="mailto:support@auro.app">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">Email Support</div>
-        <div class="support-option-sub">support@auro.app · Reply within 2–4 hours</div>
-      </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
-    <a class="support-option" href="https://wa.me/2348000000000" target="_blank">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">WhatsApp Support</div>
-        <div class="support-option-sub">Chat with us directly · Fastest response</div>
-      </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
-    <a class="support-option" href="https://t.me/auroinvest" target="_blank">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 10.5l6.5 2.5M21 3l-8 18-3.5-8M21 3L9.5 13"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">Telegram Community</div>
-        <div class="support-option-sub">Join our channel for updates and announcements</div>
-      </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
-    <div class="support-hours">🕘 Support hours: Monday – Saturday · 9:00am – 8:00pm WAT<br>AURO will never ask for your PIN or password.</div>
-
-    <button onclick="closeSupport()" style="width:100%;padding:13px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:10px">Close</button>
-  </div>
-</div>
-
 <!-- TOS MODAL -->
 <div id="tos-modal">
   <div class="tos-sheet">
@@ -1103,103 +864,62 @@ body::after{display:none}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <p><strong style="color:var(--plat)">IMPORTANT LEGAL NOTICE:</strong> These Terms of Service constitute a legally binding agreement between you and AURO. By creating an account, depositing funds, or using any feature of this Platform, you unconditionally accept every clause in this document. If you do not agree to any part of these Terms, you must immediately cease using the Platform and contact us to close your account.</p>
+      <p>Please read these Terms of Service ("Terms") carefully before using the AURO investment platform ("Platform", "we", "us", or "our"). By creating an account or using any part of this Platform, you confirm that you have read, understood, and agree to be bound by these Terms in full.</p>
 
-      <h3>1. Eligibility & Representations</h3>
-      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading, investment, or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
-      <p>Any false representation constitutes grounds for immediate permanent termination of your account and forfeiture of all funds held therein, without compensation, refund, or right of appeal.</p>
+      <h3>1. Eligibility</h3>
+      <p>You must be at least 18 years of age and a legal resident of the Federal Republic of Nigeria to use this Platform. By registering, you represent and warrant that all information you provide is accurate, current, and complete. AURO reserves the right to suspend or terminate any account found to be in violation of this clause without prior notice.</p>
 
-      <h3>2. Nature of the Platform & No Guarantee of Returns</h3>
-      <p>AURO is a digital trading and investment platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
-      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By investing on this Platform, you expressly acknowledge that: (a) you may lose some or all of your invested capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
+      <h3>2. Nature of the Platform</h3>
+      <p>AURO is a digital investment platform that pools capital from registered users and deploys it into real-sector business ventures including but not limited to solid mineral extraction, petroleum distribution, agricultural processing, commercial real estate, energy infrastructure, and sovereign-grade financial instruments. Returns are derived from the operating revenues of these underlying businesses.</p>
+      <p>AURO does not guarantee profits. While every plan is structured with defined return rates, actual business performance is subject to market conditions, regulatory developments, and operational factors beyond our control. Stated ROI figures represent projected returns based on historical and estimated business performance, not guaranteed outcomes.</p>
 
-      <h3>3. Investment Plans — Terms, Conditions & Forfeitures</h3>
+      <h3>3. Investment Plans & Returns</h3>
       <ul>
-        <li>Each investment plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
-        <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
-        <li><strong style="color:var(--plat)">Any daily return not claimed on the specific calendar day it becomes available is permanently and irrevocably forfeited.</strong> AURO will not reinstate, compensate, extend, or make any payment in respect of missed daily claims under any circumstances, including claims of technical difficulty, illness, lack of internet access, or any other reason whatsoever.</li>
-        <li>Once an investment plan is activated and capital is deployed, the investment is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of invested capital is permitted under any circumstances.</strong></li>
-        <li>Upon plan completion, any daily returns that were not claimed prior to plan expiry are permanently forfeited. AURO has no obligation to pay expired unclaimed amounts.</li>
-        <li>AURO reserves the right to modify, restructure, pause, or discontinue any investment plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uninvested portion of your deposited capital, if any, at AURO's sole discretion.</li>
+        <li>Each investment plan has a fixed duration of 60 calendar days from the date of activation.</li>
+        <li>Returns are made available for daily manual claiming throughout the plan duration. You must actively claim each day's return through the app.</li>
+        <li>Any day's return not claimed on that calendar day is permanently forfeited and cannot be recovered, transferred, or compensated.</li>
+        <li>Once a plan is activated and capital is deployed, it cannot be reversed, cancelled, or withdrawn before the plan's completion date.</li>
+        <li>Completed plans automatically close. Any unclaimed returns at plan expiry are permanently forfeited.</li>
       </ul>
 
-      <h3>4. Deposits — Terms, Obligations & Fraud Policy</h3>
+      <h3>4. Deposits & Withdrawals</h3>
       <ul>
-        <li>Deposits are made exclusively via bank transfer to AURO's designated account as displayed in the app at the time of transaction. AURO reserves the right to change designated accounts at any time without notice.</li>
-        <li>Minimum deposit is ₦5,000. Maximum single deposit is ₦1,000,000.</li>
-        <li>After completing your bank transfer, you must submit a deposit notification through the app. <strong style="color:var(--plat)">Submitting a deposit notification without actually completing the corresponding bank transfer is a criminal act of fraud.</strong> AURO will immediately and permanently terminate the accounts of any user found to have submitted false deposit claims, forfeit all funds in those accounts, and report the matter to relevant law enforcement authorities in Nigeria. AURO reserves the right to pursue civil and criminal remedies to the fullest extent of Nigerian law.</li>
-        <li>AURO will use reasonable efforts to credit confirmed deposits within 1–3 business hours. AURO is not liable for any delay, loss, or damage arising from banking system failures, third-party payment processing delays, or force majeure events.</li>
-        <li>All deposits are final and non-refundable once credited to your wallet and invested in a plan. Deposits sitting uninvested in your wallet may be withdrawn subject to Section 5.</li>
+        <li>Deposits are processed exclusively through Paystack, a licensed and regulated payment gateway. AURO does not store card details.</li>
+        <li>Minimum deposit is ₦100. A Paystack processing fee applies to all card transactions as displayed at checkout.</li>
+        <li>Withdrawals are processed manually by our team within 1–3 business days. Withdrawal requests are subject to available cleared balance and may be delayed during high-volume periods.</li>
+        <li>AURO reserves the right to request identity verification before processing any withdrawal above ₦500,000.</li>
+        <li>Fraudulent withdrawal attempts will result in immediate account suspension and may be reported to relevant authorities.</li>
       </ul>
 
-      <h3>5. Withdrawals — Processing, Delays & Restrictions</h3>
+      <h3>5. Referral Programme</h3>
+      <p>Users may earn a referral bonus of ₦2,000 when they refer a new user who successfully creates an account and makes their first deposit. The referred user also receives a ₦2,000 welcome bonus. Referral bonuses are credited to both parties' wallets within 24 hours of the qualifying deposit being confirmed. AURO reserves the right to modify, suspend, or discontinue the referral programme at any time. Abuse of the referral system — including self-referral, duplicate accounts, or coordinated fraud — will result in permanent account termination and forfeiture of all balances.</p>
+
+      <h3>6. Security & Account Responsibility</h3>
       <ul>
-        <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
-        <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
-        <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
-        <li>Minimum withdrawal is ₦1,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
-        <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
+        <li>Your account password and 4-digit investment PIN are your sole responsibility. Do not share them with any third party.</li>
+        <li>AURO will never contact you to request your PIN, password, or payment details through any channel.</li>
+        <li>You are solely responsible for all activity conducted through your account. In the event of suspected unauthorized access, contact us immediately.</li>
+        <li>AURO employs industry-standard encryption and database security. However, no system is completely impenetrable. We are not liable for losses resulting from unauthorized account access caused by user negligence.</li>
       </ul>
 
-      <h3>6. Referral Programme</h3>
-      <p>AURO operates a referral programme offering bonuses to eligible referring and referred users. AURO reserves the absolute right to modify, suspend, cap, restructure, or permanently discontinue the referral programme at any time without notice or compensation. Referral bonuses are a discretionary reward and do not constitute a contractual obligation. Any attempt to abuse the referral programme — including but not limited to self-referral, creation of multiple accounts, coordinated ring referrals, or fraudulent account registrations — will result in immediate permanent termination of all accounts involved and forfeiture of all balances and bonuses, with no right of appeal or compensation.</p>
+      <h3>7. Risk Disclosure</h3>
+      <p>All investments carry risk. The value of returns is not guaranteed and may be affected by factors including but not limited to: commodity price fluctuations, regulatory changes, macroeconomic conditions, natural events, and operational disruptions. Past performance of any investment sector is not a reliable indicator of future results. You should only invest what you can afford to lose. AURO strongly recommends that users seek independent financial advice before committing significant capital.</p>
 
-      <h3>7. Account Security & User Responsibility</h3>
-      <ul>
-        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit investment PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
-        <li>You are fully liable for all activity conducted through your account, whether authorised by you or not, unless you have notified AURO of a security breach and AURO has confirmed suspension of your account in writing.</li>
-        <li>In the event of suspected unauthorised account access, you must notify AURO immediately at support@auro.app. AURO's response time is not guaranteed and AURO bears no liability for losses incurred prior to account suspension.</li>
-        <li>AURO implements reasonable technical security measures but provides no warranty that the Platform is free from vulnerabilities. You accept all risk of data breaches, hacking, or system failures that occur despite reasonable security measures.</li>
-      </ul>
+      <h3>8. Prohibited Activities</h3>
+      <p>You may not use this Platform to: launder money or finance illegal activities; create multiple accounts for the purpose of exploiting referral bonuses; reverse-engineer or exploit any part of the Platform's code or infrastructure; impersonate AURO staff or misrepresent your identity; or use automated scripts or bots to interact with the Platform.</p>
+      <p>Violation of any prohibition above results in immediate permanent account termination and forfeiture of all funds, with no right of appeal.</p>
 
-      <h3>8. Comprehensive Risk Disclosure</h3>
-      <p>By using this Platform, you confirm that you fully understand and accept the following risks:</p>
-      <ul>
-        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire investment. AURO does not guarantee return of principal.</li>
-        <li><strong style="color:var(--plat)">Market risk:</strong> Crypto markets, forex markets, prediction markets, and sports markets are highly volatile. Extreme movements can result in significant or total trading losses.</li>
-        <li><strong style="color:var(--plat)">Regulatory risk:</strong> The regulatory environment for cryptocurrency and digital assets is evolving. New laws or enforcement actions may materially affect AURO's ability to operate or fulfil obligations to users.</li>
-        <li><strong style="color:var(--plat)">Liquidity risk:</strong> AURO may at times face liquidity constraints that delay or prevent withdrawal processing. AURO is not a bank and does not hold user funds in insured accounts.</li>
-        <li><strong style="color:var(--plat)">Technology risk:</strong> Platform outages, smart contract failures, exchange hacks, or third-party API failures may affect returns or access to funds.</li>
-        <li><strong style="color:var(--plat)">Counterparty risk:</strong> Trading on third-party exchanges and platforms exposes AURO's capital to the insolvency or misconduct of those counterparties.</li>
-      </ul>
-      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before investing, and that you invest entirely at your own risk.</p>
+      <h3>9. Limitation of Liability</h3>
+      <p>To the fullest extent permitted by applicable law, AURO and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, loss of data, or loss of goodwill — arising out of or in connection with your use of the Platform, even if AURO has been advised of the possibility of such damages. AURO's total aggregate liability to you for any claim shall not exceed the amount you deposited in the 30 days preceding the event giving rise to the claim.</p>
 
-      <h3>9. Prohibited Activities</h3>
-      <p>The following activities are strictly prohibited and will result in immediate permanent account termination and forfeiture of all balances, with no refund, compensation, or right of appeal:</p>
-      <ul>
-        <li>Submitting false, fraudulent, or inflated deposit notifications</li>
-        <li>Using the Platform to launder money, finance terrorism, or engage in any illegal financial activity</li>
-        <li>Creating multiple accounts for any purpose including referral abuse, plan manipulation, or identity concealment</li>
-        <li>Attempting to reverse-engineer, scrape, exploit, or otherwise attack the Platform's code, database, or infrastructure</li>
-        <li>Impersonating AURO staff, agents, or other users</li>
-        <li>Using automated scripts, bots, or software to interact with the Platform</li>
-        <li>Engaging in any activity intended to defraud AURO, its operators, or other users</li>
-        <li>Sharing, selling, or transferring your account to any third party</li>
-      </ul>
-      <p>AURO reserves the right to pursue civil and criminal legal action against users who engage in prohibited activities, to the fullest extent permitted under Nigerian law and applicable international law.</p>
+      <h3>10. Amendments</h3>
+      <p>AURO reserves the right to modify these Terms at any time. Changes take effect upon posting to the Platform. Continued use of the Platform following any amendment constitutes acceptance of the revised Terms. We recommend reviewing these Terms periodically.</p>
 
-      <h3>10. Limitation of Liability & Indemnification</h3>
-      <p>To the absolute maximum extent permitted by applicable law, AURO, its operators, directors, employees, contractors, and agents shall not be liable for any loss, damage, claim, or expense of any kind arising from or related to: (a) trading losses; (b) missed daily claims; (c) delays in deposit crediting or withdrawal processing; (d) platform downtime or technical failures; (e) regulatory actions; (f) acts of third parties; (g) force majeure events; or (h) any other matter connected with your use of the Platform.</p>
-      <p><strong style="color:var(--plat)">AURO's total aggregate liability to you under any circumstances shall not exceed ₦10,000 (ten thousand naira), regardless of the nature or value of the claim.</strong></p>
-      <p>You agree to indemnify, defend, and hold harmless AURO and its operators from any claim, demand, loss, liability, cost, or expense (including legal fees) arising from your breach of these Terms, your fraudulent or illegal conduct, or your use of the Platform in a manner not authorised by these Terms.</p>
+      <h3>11. Governing Law</h3>
+      <p>These Terms are governed by and construed in accordance with the laws of the Federal Republic of Nigeria. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Lagos State, Nigeria.</p>
 
-      <h3>11. No Financial Advice</h3>
-      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed investment adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to invest. You are solely responsible for your own investment decisions.</p>
-
-      <h3>12. Platform Availability & Modifications</h3>
-      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any investment losses, missed claims, or other damages resulting from a platform closure or modification.</p>
-
-      <h3>13. Amendments to Terms</h3>
-      <p>AURO may amend these Terms at any time by posting an updated version to the Platform. Amended Terms take effect immediately upon posting. <strong style="color:var(--plat)">Your continued use of the Platform after any amendment constitutes your unconditional acceptance of the revised Terms.</strong> It is your responsibility to review these Terms regularly. AURO is not obligated to notify you individually of any changes.</p>
-
-      <h3>14. Governing Law & Dispute Resolution</h3>
-      <p>These Terms are governed exclusively by the laws of the Federal Republic of Nigeria. You irrevocably submit to the exclusive jurisdiction of the courts of Lagos State, Nigeria for the resolution of any dispute arising under or in connection with these Terms or the Platform. <strong style="color:var(--plat)">You waive any right to bring a class action, collective claim, or representative proceeding against AURO.</strong> All disputes must be brought individually and any claim not initiated within 30 days of the relevant event is permanently time-barred.</p>
-
-      <h3>15. Severability & Entire Agreement</h3>
-      <p>If any provision of these Terms is found to be unenforceable by a court of competent jurisdiction, that provision shall be modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect. These Terms, together with any policies referenced herein, constitute the entire agreement between you and AURO and supersede all prior agreements, representations, or understandings relating to the Platform.</p>
-
-      <h3>16. Contact</h3>
-      <p>For legal notices, disputes, or formal correspondence, contact AURO at <strong style="color:var(--gold)">support@auro.app</strong>. Legal notices sent via email are deemed received 24 hours after transmission. AURO's response to any communication does not constitute a waiver of any right under these Terms.</p>
+      <h3>12. Contact</h3>
+      <p>For support, disputes, or enquiries regarding these Terms, contact us through the in-app notification system or at <strong style="color:var(--gold)">support@auro.app</strong>.</p>
     </div>
     <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
       <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
@@ -1343,6 +1063,8 @@ let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
 let _myDeps = [], _myWits = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null;
+let _unsubAdmAllDep = null, _unsubAdmAllWit = null;
+let _admAllDeps = [], _admAllWits = [], _fraudDismissed = [];
 
 // ══════════════════════════════════
 // UI HELPERS
@@ -1356,26 +1078,11 @@ function setAuthBtn(id, on) {
   if (el) { el.disabled = !on; el.style.opacity = on ? '1' : '0.6'; }
 }
 function go(pid, nid) {
-  // Reset deposit to step 1 when leaving the page
-  if (pid !== 'p-deposit') {
-    const s1 = document.getElementById('dep-step-1');
-    const s2 = document.getElementById('dep-step-2');
-    if (s1) s1.style.display = 'block';
-    if (s2) s2.style.display = 'none';
-  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
   if (nid && nid !== 'n-none') { const n = document.getElementById(nid); if (n) n.classList.add('active'); }
   window.scrollTo(0,0); rAll();
-  // Load QR code when deposit page opens directly to step 1
-  if (pid === 'p-deposit') {
-    const qr = document.getElementById('dep-qr');
-    if (qr && !qr.getAttribute('data-loaded')) {
-      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
-      qr.setAttribute('data-loaded', '1');
-    }
-  }
 }
 function openUserMenu() { document.getElementById('user-menu').classList.add('open'); }
 function closeUserMenu() { document.getElementById('user-menu').classList.remove('open'); }
@@ -1450,6 +1157,7 @@ async function doLogin() {
     if (snap.empty) { err.textContent = 'Name not found. Did you mean to sign up?'; return; }
     const doc = snap.docs[0];
     if (doc.data().password !== pw) { err.textContent = 'Incorrect password. Try again.'; return; }
+    if (doc.data().banned) { err.textContent = 'This account has been suspended. Contact support.'; return; }
     localStorage.setItem(SK, doc.id);
     startListening(doc.id);
     showApp();
@@ -1682,129 +1390,77 @@ async function confirmInv() {
 // ══════════════════════════════════
 // DEPOSIT
 // ══════════════════════════════════
+const PAYSTACK_KEY = 'pk_test_2f3cfffffca233f3686033879478785406ee264c';
 
-
-// ── DEPOSIT: track currently selected amount ──
-let _depAmt = 0;
-
-function pickDep(v) {
-  _depAmt = v;
-  // Highlight selected preset
-  document.querySelectorAll('.dep-amt-opt').forEach(el => {
-    el.classList.toggle('sel', parseInt(el.dataset.amt) === v);
-  });
-  // Sync custom input field
-  document.getElementById('dep-a').value = v;
-  updDep();
-}
-
+function setDep(v) { document.getElementById('dep-a').value = v; updDep(); }
 function updDep() {
-  const v = parseFloat(document.getElementById('dep-a').value) || 0;
-  _depAmt = v;
-  // Clear preset highlights if user typed manually
-  document.querySelectorAll('.dep-amt-opt').forEach(el => {
-    el.classList.toggle('sel', parseInt(el.dataset.amt) === v);
-  });
-  // Update summary
-  const saEl = document.getElementById('dep-sa');
-  if (saEl) saEl.textContent = fmt2(v);
-  // Show/hide minimum error
-  const errEl = document.getElementById('dep-min-err');
-  if (errEl) errEl.style.display = (v > 0 && (v < 5000 || v > 1000000)) ? 'block' : 'none';
-  // Enable/disable continue button
-  const btn = document.getElementById('dep-continue-btn');
-  if (btn) btn.classList.toggle('ready', v >= 5000 && v <= 1000000);
+  const v = parseFloat(document.getElementById('dep-a').value)||0;
+  // Paystack charges 1.5% + ₦100 (capped at ₦2000) for Nigerian cards
+  let fee = 0;
+  if (v > 0) {
+    fee = Math.min((v * 0.015) + 100, 2000);
+    if (v <= 2500) fee = v * 0.015; // no flat fee under ₦2500
+    fee = Math.round(fee);
+  }
+  const total = v + fee;
+  document.getElementById('dep-sa').textContent = fmt2(v);
+  document.getElementById('dep-fee').textContent = fmt2(fee);
+  document.getElementById('dep-sc').textContent = fmt2(total);
 }
 
-function goDepStep2() {
-  const v = _depAmt;
-  if (v < 5000)     { toast('Minimum deposit is ₦5,000'); return; }
-  if (v > 1000000)  { toast('Maximum deposit is ₦1,000,000'); return; }
-
-  // Lock amount into step 2 display
-  const lockedEl = document.getElementById('dep-locked-val');
-  const sa2El    = document.getElementById('dep-sa-2');
-  if (lockedEl) lockedEl.textContent = fmt(v);
-  if (sa2El)    sa2El.textContent    = fmt2(v);
-
-  // Show step 2, hide step 1
-  document.getElementById('dep-step-1').style.display  = 'none';
-  document.getElementById('dep-step-2').style.display  = 'block';
-
-  // Show generating screen, hide payment details
-  document.getElementById('dep-generating').style.display     = 'flex';
-  document.getElementById('dep-payment-details').style.display = 'none';
-
-  // Reset all steps to idle
-  ['dep-gs-1','dep-gs-2','dep-gs-3'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.classList.remove('done','active'); }
-  });
-
-  window.scrollTo(0, 0);
-
-  // Animated sequence: step 1 → step 2 → step 3 → reveal
-  const steps = ['dep-gs-1','dep-gs-2','dep-gs-3'];
-  const delays = [400, 1100, 1900]; // when each step becomes "active"
-  const dones  = [1000, 1700, 2600]; // when each step becomes "done"
-
-  steps.forEach((id, i) => {
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) { el.classList.remove('done'); el.classList.add('active'); }
-    }, delays[i]);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) { el.classList.remove('active'); el.classList.add('done'); }
-    }, dones[i]);
-  });
-
-  // After all steps done, reveal payment details
-  setTimeout(() => {
-    document.getElementById('dep-generating').style.display     = 'none';
-    document.getElementById('dep-payment-details').style.display = 'block';
-    // Load QR code once
-    const qr = document.getElementById('dep-qr');
-    if (qr && !qr.getAttribute('data-loaded')) {
-      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
-      qr.setAttribute('data-loaded', '1');
-    }
-    window.scrollTo(0, 0);
-  }, 3200);
-}
-
-function goDepStep1() {
-  document.getElementById('dep-step-2').style.display  = 'none';
-  document.getElementById('dep-generating').style.display     = 'flex';
-  document.getElementById('dep-payment-details').style.display = 'none';
-  document.getElementById('dep-step-1').style.display  = 'block';
-  window.scrollTo(0, 0);
-}
-
-async function doDeposit() {
+function doDeposit() {
   if (!_user) return;
-  const v = _depAmt;
-  if (v < 5000)    { toast('Minimum deposit is ₦5,000'); return; }
-  if (v > 1000000) { toast('Maximum deposit is ₦1,000,000'); return; }
-  showLoader(true, 'Submitting your request…');
-  try {
-    await withTimeout(db.collection('deposits').add({
+  const v = parseFloat(document.getElementById('dep-a').value)||0;
+  if (v < 100) { toast('Minimum deposit is ₦100'); return; }
+  // Calculate amount in kobo for Paystack
+  let fee = Math.round(Math.min((v * 0.015) + 100, 2000));
+  if (v <= 2500) fee = Math.round(v * 0.015);
+  const totalKobo = Math.round((v + fee) * 100);
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_KEY,
+    email: _user.nameLower.replace(/\s+/g,'') + '@auro.app',
+    amount: totalKobo,
+    currency: 'NGN',
+    ref: 'AURO_' + Date.now() + '_' + _user.id.slice(0,8),
+    metadata: {
       userId: _user.id,
       userName: _user.name,
-      amount: v,
-      date: nowISO(),
-      status: 'pending',
-      method: 'opay_transfer'
-    }));
-    // Reset both steps after success
-    _depAmt = 0;
-    document.getElementById('dep-a').value = '';
-    document.querySelectorAll('.dep-amt-opt').forEach(el => el.classList.remove('sel'));
-    updDep();
-    goDepStep1();
-    toast('Payment request submitted · We will credit your wallet within 1–3 hours');
-  } catch(e) { console.error(e); toast('Could not submit. Check your connection and try again.'); }
-  finally { showLoader(false); }
+      depositAmount: v
+    },
+    callback: async function(response) {
+      // Payment successful — credit balance automatically
+      showLoader(true, 'Confirming payment…');
+      try {
+        await withTimeout(Promise.all([
+          db.collection('users').doc(_user.id).update({
+            balance: firebase.firestore.FieldValue.increment(v)
+          }),
+          db.collection('deposits').add({
+            userId: _user.id,
+            userName: _user.name,
+            amount: v,
+            fee: fee,
+            paystackRef: response.reference,
+            date: nowISO(),
+            status: 'approved',
+            method: 'paystack'
+          })
+        ]));
+        document.getElementById('dep-a').value = ''; updDep();
+        toast('₦' + v.toLocaleString() + ' credited to your balance');
+      } catch(e) {
+        console.error(e);
+        toast('Payment received but credit failed. Contact support with ref: ' + response.reference);
+      } finally {
+        showLoader(false);
+      }
+    },
+    onClose: function() {
+      toast('Payment cancelled');
+    }
+  });
+  handler.openIframe();
 }
 
 
@@ -1885,28 +1541,28 @@ function renderWitHistory(wits) {
 // ══════════════════════════════════
 const TIER_INFO = {
   Starter: {
-    sector: 'Micro-Cap Memecoins',
-    detail: 'This investment will help in the active trading of micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements when momentum builds. Capital is rotated rapidly across early-stage coins identified by our on-chain analysts, with gains locked in and recycled daily to generate your consistent returns.'
+    sector: 'Solid Mineral Extraction — Granite & Limestone',
+    detail: 'This investment will help in the financing of licensed granite and limestone quarrying operations across Ogun and Kogi States. Capital is deployed into blasting, crushing, and haulage cycles supplying construction-grade aggregates to federal road contractors and real estate developers. Revenue is settled per truckload, generating consistent daily inflows backed by physical rock in the ground.'
   },
   Builder: {
-    sector: 'New Crypto Launches & Airdrops',
-    detail: 'This investment will help in participating in high-priority token generation events, IDOs, and strategic airdrop campaigns across emerging Layer-1 and Layer-2 ecosystems. Capital secures early allocation in new launches before public listing — where the highest percentage gains are captured — with proceeds distributed to investors as daily returns throughout the 60-day cycle.'
+    sector: 'Crude Oil Blending & Petroleum Products Distribution',
+    detail: 'This investment will help in the procurement of refined petroleum products — AGO (diesel) and PMS (petrol) — for bulk distribution to filling stations and industrial clients across the South-South and South-West. Funds are deployed into certified depot loading cycles with off-take agreements already in place, ensuring capital recovery within the 60-day window backed by one of Nigeria\'s most liquid physical commodities.'
   },
   Growth: {
-    sector: 'Leveraged Crypto Futures',
-    detail: 'This investment will help in the execution of leveraged long and short positions on crypto futures markets including Bitcoin, Ethereum, and high-volatility altcoins. Our trading desk uses disciplined risk management, tight stop-losses, and algorithmic entry/exit signals to capture intraday and swing moves, converting market volatility directly into daily payouts for investors.'
+    sector: 'Commercial Farmland Acquisition & Cassava Processing',
+    detail: 'This investment will help in the outright acquisition of irrigated farmland in Benue and Niger States, and the operation of cassava processing mills producing high-quality garri, starch, and flour for export and domestic FMCG supply chains. Land is a tangible, appreciating asset; processor off-take contracts with Nestlé and Flour Mills affiliates underpin predictable revenue across the full 60-day cycle.'
   },
   Elite: {
-    sector: 'Prediction Markets',
-    detail: 'This investment will help in deploying capital across decentralised and centralised prediction markets — platforms where traders stake on the outcome of real-world events including elections, sports fixtures, macroeconomic data releases, and crypto price targets. Edge comes from superior research and probability modelling, turning information asymmetry into daily compounding returns.'
+    sector: 'Industrial Real Estate — Warehouse & Cold Storage Leasing',
+    detail: 'This investment will help in the development and leasing of temperature-controlled warehousing and dry-storage facilities to blue-chip FMCG companies, pharmaceutical distributors, and e-commerce logistics firms in Lagos, Abuja, and Kano. Built on titled land with registered lease agreements, this is one of the most asset-backed investment categories in the Nigerian commercial property market.'
   },
   Premium: {
-    sector: 'Options & Forex Trading',
-    detail: 'This investment will help in the professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Capital is managed by experienced derivatives traders using volatility strategies — straddles, strangles, and directional plays — alongside high-conviction forex setups, producing consistent premium income paid to investors daily.'
+    sector: 'Natural Gas Infrastructure & LPG Distribution',
+    detail: 'This investment will help in the construction and operation of LPG cylinder-filling plants and gas pipeline stub infrastructure serving industrial estates and high-density residential areas. Backed by NMDPRA-licensed assets and long-term gas supply agreements with NLNG affiliates, capital is secured against physical infrastructure with government-regulated tariff income flowing daily from commercial off-takers.'
   },
   Sovereign: {
-    sector: 'Sports Trading',
-    detail: 'This investment will help in systematic sports trading across global football, basketball, and combat sports markets — not gambling, but data-driven market-making and arbitrage between bookmakers and exchanges. Capital is allocated by quantitative analysts using statistical models, live odds movements, and value-betting algorithms that generate an edge across hundreds of events daily.'
+    sector: 'Institutional Gold Bullion & FGN Bond Portfolio',
+    detail: 'This investment will help in the acquisition of LBMA-certified gold bullion held in licensed vaulted custody, combined with a structured allocation into Federal Government of Nigeria (FGN) bonds and CBN Treasury Bills. Gold is the world\'s oldest store of value; FGN bonds carry sovereign guarantee. Together they form the most capital-secure, tangible investment portfolio available to private investors in the Nigerian market today.'
   }
 };
 
@@ -2208,8 +1864,7 @@ function openNotifPage() {
 
 function rAll() {
   if (!_user) return;
-  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications(); renderProfile();
-  scheduleDailyReminder();
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications();
 }
 
 // ══════════════════════════════════
@@ -2241,6 +1896,7 @@ async function checkAdminLogin() {
   try {
     const cred = await fbAuth.signInWithEmailAndPassword(email, pw);
     const uid = cred.user.uid;
+    // Real admin status lives in Firestore, not in this file — see admins/{uid}
     const adminDoc = await db.collection('admins').doc(uid).get();
     if (!adminDoc.exists) {
       await fbAuth.signOut();
@@ -2250,25 +1906,9 @@ async function checkAdminLogin() {
     closeM('adm-login');
     openAdminPanel();
   } catch(e) {
-    console.error('Admin login error:', e.code, e.message);
-    const knownAuthErrors = [
-      'auth/invalid-credential',
-      'auth/wrong-password',
-      'auth/user-not-found',
-      'auth/invalid-email',
-      'auth/invalid-login-credentials'
-    ];
-    if (knownAuthErrors.includes(e.code)) {
-      errEl.textContent = 'Incorrect email or password.';
-    } else if (e.code === 'auth/too-many-requests') {
-      errEl.textContent = 'Too many failed attempts. Wait a few minutes and try again.';
-    } else if (e.code === 'auth/network-request-failed') {
-      errEl.textContent = 'Network error. Check your internet connection.';
-    } else if (e.code === 'auth/operation-not-allowed') {
-      errEl.textContent = 'Email/Password sign-in is not enabled in Firebase. Enable it in the Firebase Console under Authentication → Sign-in method.';
-    } else {
-      errEl.textContent = 'Error: ' + (e.code || e.message || 'Unknown error');
-    }
+    console.error(e);
+    errEl.textContent = e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'
+      ? 'Incorrect email or password.' : 'Could not sign in. Check your connection.';
   } finally {
     btn.disabled = false; btn.textContent = 'Enter Admin Panel';
   }
@@ -2297,12 +1937,16 @@ function openAdminPanel() {
       const users = snap.docs.map(d=>({id:d.id,...d.data()}));
       renderAdmUsers(users);
       renderTreasury(users);
-      _admAllUsers = users;
-      _admFilteredUsers = users;
-      // Reset search if open
-      const srch = document.getElementById('adm-user-search');
-      if (srch && !srch.value) renderAdmUsers(users);
+      _admAllUsers = users; // cache for search
     });
+  // All approved deposits — powers fraud detection
+  if (_unsubAdmAllDep) _unsubAdmAllDep();
+  _unsubAdmAllDep = db.collection('deposits').where('status','==','approved')
+    .onSnapshot(snap => { _admAllDeps = snap.docs.map(d=>({id:d.id,...d.data()})); });
+  // All approved withdrawals — powers fraud detection
+  if (_unsubAdmAllWit) _unsubAdmAllWit();
+  _unsubAdmAllWit = db.collection('withdrawals').where('status','==','approved')
+    .onSnapshot(snap => { _admAllWits = snap.docs.map(d=>({id:d.id,...d.data()})); });
 }
 
 let _admAllUsers = [];
@@ -2365,9 +2009,86 @@ async function adjBalance(type) {
 }
 function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
-  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr].forEach(fn=>{if(fn)fn();});
-  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=null;
+  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmAllDep,_unsubAdmAllWit].forEach(fn=>{if(fn)fn();});
+  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmAllDep=_unsubAdmAllWit=null;
+  _admAllDeps=[]; _admAllWits=[];
   if (fbAuth && fbAuth.currentUser) fbAuth.signOut().catch(()=>{});
+}
+
+// ══════════════════════════════════
+// FRAUD MONITOR
+// ══════════════════════════════════
+function runFraudScan() {
+  const btn = document.getElementById('fraud-scan-btn');
+  const res = document.getElementById('fraud-results');
+  btn.textContent = 'Scanning…'; btn.disabled = true;
+  const TOLERANCE = 5000; // ₦5k wiggle room covers referral bonuses & rounding
+
+  const flagged = _admAllUsers.map(u => {
+    if (_fraudDismissed.includes(u.id)) return null;
+    const totalDeposited  = _admAllDeps.filter(d=>d.userId===u.id).reduce((s,d)=>s+(d.amount||0),0);
+    const totalWithdrawn  = _admAllWits.filter(w=>w.userId===u.id).reduce((s,w)=>s+(w.amount||0),0);
+    const totalInvested   = (u.investments||[]).reduce((s,i)=>s+(i.invest||0),0);
+    const totalEarned     = u.totalEarned || 0;
+    const expectedBalance = totalDeposited + totalEarned - totalWithdrawn - totalInvested;
+    const discrepancy     = (u.balance||0) - expectedBalance;
+    if (discrepancy <= TOLERANCE) return null;
+    return { u, totalDeposited, totalWithdrawn, totalInvested, totalEarned, expectedBalance, discrepancy };
+  }).filter(Boolean);
+
+  if (!flagged.length) {
+    res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px 0;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No suspicious accounts detected</div>`;
+  } else {
+    res.innerHTML = flagged.map(({u,totalDeposited,totalWithdrawn,totalInvested,totalEarned,expectedBalance,discrepancy}) => `
+      <div class="fraud-card" id="fcard-${u.id}">
+        <div class="fraud-name">${u.name||'(unnamed)'}</div>
+        <div class="fraud-row"><span>Total Deposits</span><strong>${fmt(totalDeposited)}</strong></div>
+        <div class="fraud-row"><span>Total Earned (claims)</span><strong>${fmt(totalEarned)}</strong></div>
+        <div class="fraud-row"><span>Total Withdrawn</span><strong style="color:var(--err)">−${fmt(totalWithdrawn)}</strong></div>
+        <div class="fraud-row"><span>Total Invested</span><strong style="color:var(--err)">−${fmt(totalInvested)}</strong></div>
+        <div class="fraud-row"><span>Expected Balance</span><strong>${fmt(Math.max(0,expectedBalance))}</strong></div>
+        <div class="fraud-row"><span>Actual Balance</span><strong style="color:var(--err)">${fmt(u.balance||0)}</strong></div>
+        <div class="fraud-disc">
+          <div class="fraud-disc-lbl">Unexplained Surplus</div>
+          <div class="fraud-disc-amt">+${fmt(discrepancy)}</div>
+        </div>
+        <div class="fraud-acts">
+          <button class="fraud-ban" onclick="fraudBan('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')">Ban User</button>
+          <button class="fraud-zero" onclick="fraudZeroBal('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')">Zero Balance</button>
+          <button class="fraud-dismiss" onclick="fraudDismiss('${u.id}')">Dismiss</button>
+        </div>
+      </div>`).join('');
+  }
+  btn.textContent = `Scan Complete (${flagged.length} flagged)`;
+  btn.disabled = false;
+}
+
+async function fraudBan(uid, name) {
+  if (!confirm(`Ban ${name}? They will be locked out immediately and unable to log in or withdraw.`)) return;
+  showLoader(true,'Banning user…');
+  try {
+    await withTimeout(db.collection('users').doc(uid).update({ banned: true, bannedAt: nowISO() }));
+    document.getElementById('fcard-'+uid)?.remove();
+    toast(name+' has been banned.');
+  } catch(e) { console.error(e); toast('Error banning user.'); }
+  finally { showLoader(false); }
+}
+
+async function fraudZeroBal(uid, name) {
+  if (!confirm(`Zero out ${name}'s balance? This cannot be undone.`)) return;
+  showLoader(true,'Zeroing balance…');
+  try {
+    await withTimeout(db.collection('users').doc(uid).update({ balance: 0 }));
+    document.getElementById('fcard-'+uid)?.remove();
+    toast(name+"'s balance set to ₦0.");
+  } catch(e) { console.error(e); toast('Error updating balance.'); }
+  finally { showLoader(false); }
+}
+
+function fraudDismiss(uid) {
+  _fraudDismissed.push(uid);
+  document.getElementById('fcard-'+uid)?.remove();
+  toast('Flag dismissed for this session.');
 }
 
 function noItems(msg) { return `<div style="font-size:12px;color:var(--sil);text-align:center;padding:18px 0">${msg}</div>`; }
@@ -2397,18 +2118,13 @@ function renderAdmWits(wits) {
 }
 function renderAdmUsers(users) {
   const c = document.getElementById('adm-users');
-  if (!users.length) { c.innerHTML=noItems('No users found'); return; }
+  if (!users.length) { c.innerHTML=noItems('No users yet'); return; }
   c.innerHTML = users.map(u => {
-    const act   = (u.investments||[]).filter(i=>isActive(i)).length;
+    const act = (u.investments||[]).filter(i=>isActive(i)).length;
     const total = (u.investments||[]).reduce((s,i)=>s+i.invest,0);
     return `<div class="adm-user-row">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
-          <div class="au-name">${u.name||'(unnamed)'}</div>
-          <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance||0)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
-        </div>
-        <button onclick="showUserHistory('${u.id}')" style="font-size:9px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:4px 9px;cursor:pointer;font-family:var(--b);white-space:nowrap;flex-shrink:0">History</button>
-      </div>
+      <div class="au-name">${u.name}</div>
+      <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
     </div>`;
   }).join('');
 }
@@ -2482,13 +2198,13 @@ async function boot() {
     try {
       const snap = await withTimeout(db.collection('users').doc(uid).get());
       if (snap.exists) {
-        _user = {id: snap.id, ...snap.data()};
-        // Auto-generate refCode for existing users who don't have one
-        if (!_user.refCode) {
-          const newCode = genRefCode(_user.name||'USER');
-          db.collection('users').doc(_user.id).update({ refCode: newCode }).catch(()=>{});
-          _user.refCode = newCode;
+        if (snap.data().banned) {
+          localStorage.removeItem(SK);
+          showAuth();
+          document.getElementById('li-err').textContent = 'This account has been suspended. Contact support.';
+          return;
         }
+        _user = {id: snap.id, ...snap.data()};
         updateUserUI(); rAll();
         startListening(uid);
         showApp();
@@ -2595,16 +2311,6 @@ function renderStreak() {
     lbl.textContent = streak+'-Day Streak';
     sub.textContent = 'Keep claiming daily to build your streak';
   }
-}
-
-// ══════════════════════════════════
-// CUSTOMER SUPPORT
-// ══════════════════════════════════
-function openSupport() {
-  document.getElementById('support-modal').style.display = 'flex';
-}
-function closeSupport() {
-  document.getElementById('support-modal').style.display = 'none';
 }
 
 // ══════════════════════════════════
@@ -2719,185 +2425,6 @@ async function doChangePin() {
     toast('PIN updated successfully');
   } catch(e) { console.error(e); toast('Could not update PIN. Try again.'); }
   finally { showLoader(false); }
-}
-
-// ══════════════════════════════════
-// PROFILE PAGE
-// ══════════════════════════════════
-async function renderProfile() {
-  if (!_user) return;
-  const initials = (_user.name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  const el = id => document.getElementById(id);
-  if (el('prof-avatar')) el('prof-avatar').textContent = initials;
-  if (el('prof-name'))   el('prof-name').textContent = _user.name || '—';
-  if (el('prof-since'))  el('prof-since').textContent = 'Member since ' + ((_user.createdAt||'').slice(0,10) || 'N/A');
-  if (el('prof-refcode')) el('prof-refcode').textContent = _user.refCode || '—';
-
-  const invs = _user.investments||[];
-  const totalInvested = invs.reduce((s,i)=>s+i.invest,0);
-  const activePlans   = invs.filter(i=>isActive(i)).length;
-  if (el('prof-invested')) el('prof-invested').textContent = fmt(totalInvested);
-  if (el('prof-earned'))   el('prof-earned').textContent   = fmt(_user.totalEarned||0);
-  if (el('prof-plans'))    el('prof-plans').textContent    = activePlans;
-
-  // Referral stats — count users who have referredBy === this user's refCode
-  if (_user.refCode) {
-    try {
-      const snap = await db.collection('users').where('referredBy','==',_user.refCode).get();
-      const count = snap.size;
-      const refEarned = count * 2000;
-      if (el('prof-refcount')) el('prof-refcount').textContent = count;
-      if (el('prof-refearned')) el('prof-refearned').textContent = fmt(refEarned);
-    } catch(e) {}
-  }
-
-  // Push status
-  if (el('prof-push-status')) {
-    if (!('Notification' in window)) {
-      el('prof-push-status').textContent = 'Not supported';
-    } else if (Notification.permission === 'granted') {
-      el('prof-push-status').textContent = '✓ Enabled';
-      el('prof-push-status').style.color = 'var(--ok)';
-    } else if (Notification.permission === 'denied') {
-      el('prof-push-status').textContent = 'Blocked in browser';
-    } else {
-      el('prof-push-status').textContent = 'Tap to enable';
-    }
-  }
-}
-
-// ══════════════════════════════════
-// PUSH NOTIFICATIONS
-// ══════════════════════════════════
-function requestPushPermission() {
-  if (!('Notification' in window)) { toast('Push notifications not supported on this browser'); return; }
-  if (Notification.permission === 'granted') { toast('Claim reminders already enabled ✓'); return; }
-  if (Notification.permission === 'denied')  { toast('Notifications blocked — enable in browser settings'); return; }
-  Notification.requestPermission().then(perm => {
-    if (perm === 'granted') {
-      toast('Claim reminders enabled ✓');
-      scheduleDailyReminder();
-      renderProfile();
-    } else {
-      toast('Notifications not enabled');
-    }
-  });
-}
-
-function scheduleDailyReminder() {
-  // Schedule a reminder if user has active plans and hasn't claimed today
-  if (!_user || Notification.permission !== 'granted') return;
-  const hasActive = (_user.investments||[]).some(i=>isActive(i));
-  if (!hasActive) return;
-  const allClaimed = (_user.investments||[]).filter(i=>isActive(i)).every(i=>hasClaimed(i));
-  if (!allClaimed) {
-    setTimeout(() => {
-      if (document.hidden) {
-        new Notification('AURO · Claim your daily returns 💰', {
-          body: 'You have unclaimed returns today. Open AURO now before midnight.',
-          icon: '/favicon.ico',
-          badge: '/favicon.ico'
-        });
-      }
-    }, 3000);
-  }
-}
-
-// ══════════════════════════════════
-// ADMIN — BROADCAST
-// ══════════════════════════════════
-async function sendBroadcast() {
-  const title = (document.getElementById('bc-title').value||'').trim();
-  const body  = (document.getElementById('bc-body').value||'').trim();
-  if (!title || !body) { toast('Enter both a title and message'); return; }
-  if (!_admAllUsers.length) { toast('No users loaded yet'); return; }
-  const confirm = window.confirm(`Send "${title}" to all ${_admAllUsers.length} users?`);
-  if (!confirm) return;
-  showLoader(true, 'Broadcasting…');
-  try {
-    const msg = { title, body, date: nowISO(), read: false };
-    const batch = db.batch();
-    _admAllUsers.forEach(u => {
-      const ref = db.collection('users').doc(u.id);
-      batch.update(ref, {
-        notifications: firebase.firestore.FieldValue.arrayUnion(msg)
-      });
-    });
-    await withTimeout(batch.commit());
-    document.getElementById('bc-title').value = '';
-    document.getElementById('bc-body').value  = '';
-    toast(`Broadcast sent to ${_admAllUsers.length} users ✓`);
-  } catch(e) { console.error(e); toast('Failed to send. Try again.'); }
-  finally { showLoader(false); }
-}
-
-// ══════════════════════════════════
-// ADMIN — CSV EXPORT
-// ══════════════════════════════════
-function exportCSV() {
-  if (!_admAllUsers.length) { toast('No user data loaded yet'); return; }
-  const rows = [['Name','Balance','Total Invested','Total Earned','Active Plans','Referral Code','Joined']];
-  _admAllUsers.forEach(u => {
-    const invs = u.investments||[];
-    const totalInv = invs.reduce((s,i)=>s+i.invest,0);
-    const active   = invs.filter(i=>isActive(i)).length;
-    rows.push([
-      u.name||'',
-      u.balance||0,
-      totalInv,
-      u.totalEarned||0,
-      active,
-      u.refCode||'',
-      (u.createdAt||'').slice(0,10)
-    ]);
-  });
-  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = 'auro-users-'+new Date().toISOString().slice(0,10)+'.csv';
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
-  toast('CSV exported');
-}
-
-// ══════════════════════════════════
-// ADMIN — USER HISTORY MODAL
-// ══════════════════════════════════
-function showUserHistory(userId) {
-  const u = _admAllUsers.find(u=>u.id===userId);
-  if (!u) return;
-  const modal = document.getElementById('hist-modal');
-  const invs  = u.investments||[];
-  document.getElementById('hist-name').textContent = u.name;
-  document.getElementById('hist-meta').textContent =
-    `Balance: ${fmt(u.balance||0)} · Total Invested: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
-  document.getElementById('hist-body').innerHTML = invs.length ? [...invs].reverse().map(inv => {
-    const t = TC[inv.tier]||TC.Starter;
-    const done = inv.status==='completed';
-    const pct  = Math.round(((inv.claimed||[]).length/60)*100);
-    return `<div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:9px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div style="font-size:12px;font-weight:600;color:var(--plat)">${inv.name}</div>
-        <div style="font-size:9px;font-weight:600;padding:3px 8px;border-radius:10px;background:${done?'var(--okd)':'var(--gd)'};color:${done?'var(--ok)':'var(--gold)'}">${done?'Completed':'Active'}</div>
-      </div>
-      <div style="font-size:10px;color:var(--sil);margin-bottom:6px">Invested: <strong style="color:var(--plat)">${fmt(inv.invest)}</strong> · Daily: ${fmt(inv.daily)} · Return: <strong style="color:${t.r}">${fmt(inv.total)}</strong></div>
-      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Claimed: ${(inv.claimed||[]).length}/60 days · Earned so far: ${fmt(inv.totalClaimed||0)} · Missed: ${missedDays(inv)} days</div>
-      <div style="height:4px;background:var(--b1);border-radius:2px"><div style="height:100%;width:${pct}%;background:${t.r};border-radius:2px"></div></div>
-    </div>`;
-  }).join('') : `<div style="text-align:center;padding:20px;color:var(--sil);font-size:12px">No investments yet</div>`;
-  modal.classList.add('open');
-}
-
-// ══════════════════════════════════
-// ADMIN — USER SEARCH FILTER
-// ══════════════════════════════════
-let _admFilteredUsers = [];
-function filterAdmUsers() {
-  const q = (document.getElementById('adm-user-search').value||'').toLowerCase().trim();
-  const filtered = q ? _admAllUsers.filter(u=>(u.name||'').toLowerCase().includes(q)) : _admAllUsers;
-  _admFilteredUsers = filtered;
-  renderAdmUsers(filtered);
 }
 
 boot();
