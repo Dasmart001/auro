@@ -454,7 +454,18 @@ body::after{display:none}
 .rc-ap:hover{opacity:.85}
 .rc-rj{flex:1;padding:9px;border:1px solid var(--errb);border-radius:7px;background:var(--errd);color:var(--err);font-family:var(--b);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
 .rc-rj:hover{opacity:.85}
-.adm-user-row{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px}
+.adm-user-row{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .18s}
+.adm-user-row:hover{border-color:var(--gb)}
+.adm-user-row.expanded{border-color:var(--gold)}
+.au-expand{margin-top:12px;padding-top:12px;border-top:1px solid var(--b1);display:none}
+.adm-user-row.expanded .au-expand{display:block}
+.au-expand-row{display:flex;justify-content:space-between;font-size:11px;color:var(--sil);padding:4px 0;border-bottom:1px solid var(--b1)}
+.au-expand-row:last-child{border-bottom:none}
+.au-expand-row strong{color:var(--plat);font-weight:600}
+.au-expand-acts{display:flex;gap:7px;margin-top:10px}
+.adm-sort-btn{font-size:10px;font-weight:600;font-family:var(--b);padding:5px 11px;border-radius:20px;border:1px solid var(--b2);background:var(--s2);color:var(--sil);cursor:pointer;transition:all .15s}
+.adm-sort-btn.active{background:var(--gd);color:var(--gold);border-color:var(--gb)}
+.legacy-badge{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(201,138,0,.1);color:#C98A00;border:1px solid rgba(201,138,0,.25);padding:2px 6px;border-radius:10px;margin-left:6px}
 .fraud-card{background:#fff;border:1.5px solid rgba(239,68,68,.35);border-radius:var(--r);padding:14px;margin-bottom:10px;position:relative}
 .fraud-card::before{content:'⚠ SUSPICIOUS';position:absolute;top:10px;right:12px;font-size:8px;font-weight:700;letter-spacing:.1em;color:var(--err);background:rgba(239,68,68,.08);padding:3px 7px;border-radius:20px;border:1px solid rgba(239,68,68,.22)}
 .fraud-name{font-size:13px;font-weight:700;color:var(--plat);margin-bottom:6px}
@@ -658,7 +669,7 @@ body::after{display:none}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Trading Plans</div><div class="ph-s">24 plans · 200% returns · Claim daily · PIN required</div></div>
+    <div class="ph"><div class="ph-t">Trading Plans</div><div class="ph-s">36 plans · 200% returns · Claim daily · PIN required</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -960,7 +971,7 @@ body::after{display:none}
       <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings claimed</div></div>
       <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
     </div>
-    <div style="margin-top:12px">
+    <div style="margin-top:12px" id="adj-section">
       <div class="adm-sec-t" style="margin-bottom:8px;font-size:11px">Manual Balance Adjustment</div>
       <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
         <div style="flex:1;min-width:160px">
@@ -1010,7 +1021,13 @@ body::after{display:none}
       <div class="adm-sec-t" style="margin:0">All Users</div>
       <button onclick="exportCSV()" style="font-size:10px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:5px 12px;cursor:pointer;font-family:var(--b)">Export CSV</button>
     </div>
-    <input class="f-plain" id="adm-user-search" type="text" placeholder="Search users by name…" style="width:100%;margin:8px 0;font-size:12px;padding:9px 11px" oninput="filterAdmUsers()"/>
+    <input class="f-plain" id="adm-user-search" type="text" placeholder="Search by name…" style="width:100%;margin:8px 0 6px;font-size:12px;padding:9px 11px" oninput="filterAdmUsers()"/>
+    <div style="display:flex;gap:6px;margin-bottom:10px" id="adm-sort-btns">
+      <button class="adm-sort-btn active" id="sort-reg" onclick="setAdmSort('reg')">Newest</button>
+      <button class="adm-sort-btn" id="sort-az" onclick="setAdmSort('az')">A–Z</button>
+      <button class="adm-sort-btn" id="sort-bal" onclick="setAdmSort('bal')">Balance ↓</button>
+      <button class="adm-sort-btn" id="sort-bal-asc" onclick="setAdmSort('bal-asc')">Balance ↑</button>
+    </div>
     <div id="adm-users"></div>
   </div>
 </div>
@@ -1337,9 +1354,30 @@ const TC = {
     icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/>'}
 };
 
-const AMTS=[5000,10000,15000,20000,25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,150000,250000,500000,1000000];
-const TIERS=['Starter','Starter','Starter','Starter','Builder','Builder','Builder','Builder','Growth','Growth','Growth','Growth','Elite','Elite','Elite','Elite','Premium','Premium','Premium','Premium','Sovereign','Sovereign','Sovereign','Sovereign'];
-const BADGES=['Entry','Entry','Entry','Entry','Standard','Standard','Standard','Standard','Popular','Popular','Popular','Popular','High Yield','High Yield','High Yield','High Yield','Premium','Premium','Premium','Premium','Private','Private','Exclusive','Exclusive'];
+const AMTS=[
+  5000,8000,12000,18000,25000,30000,        // Daily Trade
+  35000,45000,55000,65000,75000,90000,       // Transit
+  100000,120000,140000,160000,180000,200000, // Harvest
+  220000,260000,300000,350000,400000,450000, // Skyline
+  500000,550000,600000,650000,700000,750000, // PowerGrid
+  800000,850000,900000,920000,960000,1000000 // Treasury
+];
+const TIERS=[
+  'Starter','Starter','Starter','Starter','Starter','Starter',
+  'Builder','Builder','Builder','Builder','Builder','Builder',
+  'Growth','Growth','Growth','Growth','Growth','Growth',
+  'Elite','Elite','Elite','Elite','Elite','Elite',
+  'Premium','Premium','Premium','Premium','Premium','Premium',
+  'Sovereign','Sovereign','Sovereign','Sovereign','Sovereign','Sovereign'
+];
+const BADGES=[
+  'Entry','Entry','Basic','Basic','Standard','Standard',
+  'Standard','Standard','Popular','Popular','Hot','Hot',
+  'Popular','Popular','Hot','Hot','High Yield','High Yield',
+  'High Yield','High Yield','Elite','Elite','Elite','Elite',
+  'Premium','Premium','Premium','VIP','VIP','VIP',
+  'Private','Private','Exclusive','Exclusive','Exclusive','Exclusive'
+];
 const PLANS = AMTS.map((amt,i) => ({
   id:'plan_'+i, invest:amt, total:amt*3,
   daily: parseFloat((amt*3/60).toFixed(2)),
@@ -2159,7 +2197,7 @@ function renderPortfolio() {
       <div class="pc-top">
         <div class="pc-left">
           <div class="pc-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}</div></div>
+          <div><div class="pc-name">${inv.name}${isLegacyTrade(inv)?'<span class="legacy-badge">Legacy Rate</span>':''}</div><div class="pc-date">Started ${inv.startDate}</div></div>
         </div>
         <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
@@ -2538,24 +2576,89 @@ function renderAdmWits(wits) {
     </div>
   </div>`).join('');
 }
+let _admSortMode = 'reg';
+function setAdmSort(mode) {
+  _admSortMode = mode;
+  document.querySelectorAll('.adm-sort-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('sort-'+mode);
+  if (btn) btn.classList.add('active');
+  renderAdmUsers(_admAllUsers);
+}
+function sortAdmUsers(users) {
+  const u = [...users];
+  if (_admSortMode === 'az')      return u.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  if (_admSortMode === 'bal')     return u.sort((a,b)=>(b.balance||0)-(a.balance||0));
+  if (_admSortMode === 'bal-asc') return u.sort((a,b)=>(a.balance||0)-(b.balance||0));
+  // 'reg' = newest first (default — Firestore createdAt string sorts lexicographically)
+  return u.sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+}
+function toggleAdmUser(id) {
+  const row = document.getElementById('au-row-'+id);
+  if (!row) return;
+  const wasOpen = row.classList.contains('expanded');
+  document.querySelectorAll('.adm-user-row.expanded').forEach(r => r.classList.remove('expanded'));
+  if (!wasOpen) row.classList.add('expanded');
+}
+function isLegacyTrade(inv) {
+  // Old 500% ROI plans had total = invest × 6; new ones × 3
+  return inv.total && inv.invest && inv.total > inv.invest * 4;
+}
 function renderAdmUsers(users) {
   const c = document.getElementById('adm-users');
-  if (!users.length) { c.innerHTML=noItems('No users found'); return; }
-  c.innerHTML = users.map(u => {
-    const act   = (u.investments||[]).filter(i=>isActive(i)).length;
-    const total = (u.investments||[]).reduce((s,i)=>s+i.invest,0);
-    return `<div class="adm-user-row">
+  const q = (document.getElementById('adm-user-search')?.value||'').toLowerCase().trim();
+  const filtered = q ? users.filter(u=>(u.name||'').toLowerCase().includes(q)) : users;
+  const sorted = sortAdmUsers(filtered);
+  if (!sorted.length) { c.innerHTML = noItems('No users found'); return; }
+  c.innerHTML = sorted.map(u => {
+    const invs       = u.investments||[];
+    const act        = invs.filter(i=>isActive(i)).length;
+    const legacy     = invs.filter(i=>isLegacyTrade(i) && isActive(i)).length;
+    const totalIn    = invs.reduce((s,i)=>s+(i.invest||0),0);
+    const earned     = u.totalEarned||0;
+    const banned     = u.banned ? '<span style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.1);color:var(--err);border:1px solid rgba(239,68,68,.25);padding:2px 6px;border-radius:10px;margin-left:6px">BANNED</span>' : '';
+    const legacyNote = legacy ? `<span class="legacy-badge">⚡ ${legacy} legacy</span>` : '';
+    const joined     = u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    return `<div class="adm-user-row" id="au-row-${u.id}" onclick="toggleAdmUser('${u.id}')">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div>
-          <div class="au-name">${u.name||'(unnamed)'}</div>
-          <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance||0)}</span> · In Trades: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
+          <div class="au-name">${u.name||'(unnamed)'}${banned}${legacyNote}</div>
+          <div class="au-info">Balance: <strong style="color:var(--gold)">${fmt(u.balance||0)}</strong> · In Trades: ${fmt(totalIn)} · ${act} active</div>
         </div>
-        <button onclick="showUserHistory('${u.id}')" style="font-size:9px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:4px 9px;cursor:pointer;font-family:var(--b);white-space:nowrap;flex-shrink:0">History</button>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="au-expand">
+        <div class="au-expand-row"><span>Joined</span><strong>${joined}</strong></div>
+        <div class="au-expand-row"><span>Total Earned</span><strong>${fmt(earned)}</strong></div>
+        <div class="au-expand-row"><span>Active Trades</span><strong>${act}${legacy?' ('+legacy+' legacy rate)':''}</strong></div>
+        <div class="au-expand-row"><span>Referral Code</span><strong>${u.refCode||'—'}</strong></div>
+        <div class="au-expand-row"><span>Status</span><strong style="color:${u.banned?'var(--err)':'var(--ok)'}">${u.banned?'Banned':'Active'}</strong></div>
+        <div class="au-expand-acts">
+          <button onclick="event.stopPropagation();showUserHistory('${u.id}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--gd);color:var(--gold);border:1px solid var(--gb);cursor:pointer">History</button>
+          ${u.banned
+            ? `<button onclick="event.stopPropagation();unbanUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--okd);color:var(--ok);border:1px solid var(--okb);cursor:pointer">Unban</button>`
+            : `<button onclick="event.stopPropagation();fraudBan('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--errd);color:var(--err);border:1px solid var(--errb);cursor:pointer">Ban</button>`
+          }
+          <button onclick="event.stopPropagation();adjFromRow('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.balance||0})" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:rgba(17,20,43,.04);color:var(--sil);border:1px solid var(--b2);cursor:pointer">Adjust Bal</button>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
+async function unbanUser(uid, name) {
+  if (!confirm(`Unban ${name}? They will be able to log in again.`)) return;
+  showLoader(true,'Unbanning…');
+  try {
+    await withTimeout(db.collection('users').doc(uid).update({ banned: false }));
+    toast(name+' has been unbanned.');
+  } catch(e) { console.error(e); toast('Error unbanning user.'); }
+  finally { showLoader(false); }
+}
+function adjFromRow(uid, name, balance) {
+  // Pre-fill the balance adjuster and scroll to it
+  adjSelect(uid, name, balance);
+  document.getElementById('adj-section')?.scrollIntoView({ behavior:'smooth' });
+}
 async function admApproveDep(depId, userId, amount) {
   showLoader(true,'Approving…');
   try {
@@ -3043,10 +3146,7 @@ function showUserHistory(userId) {
 // ══════════════════════════════════
 let _admFilteredUsers = [];
 function filterAdmUsers() {
-  const q = (document.getElementById('adm-user-search').value||'').toLowerCase().trim();
-  const filtered = q ? _admAllUsers.filter(u=>(u.name||'').toLowerCase().includes(q)) : _admAllUsers;
-  _admFilteredUsers = filtered;
-  renderAdmUsers(filtered);
+  renderAdmUsers(_admAllUsers);
 }
 
 boot();
