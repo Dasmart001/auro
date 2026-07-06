@@ -6,9 +6,9 @@
 <meta name="theme-color" content="#F3F4FA"/>
 
 <!-- Primary SEO -->
-<title>AURO · Earn Daily Returns on Real Investments</title>
-<meta name="description" content="Nigeria's fastest-growing digital investment platform. Earn daily returns across six high-yield trading markets — crypto, forex, derivatives, and more. 200% ROI in 60 days."/>
-<meta name="keywords" content="AURO, AURO invest, Nigerian investment platform, daily returns Nigeria, invest Nigeria, passive income Nigeria, online investment app"/>
+<title>AURO · Earn Daily Returns Through Real Trading</title>
+<meta name="description" content="Nigeria's fastest-growing digital trading platform. Earn daily returns across six high-yield trading markets — crypto, forex, derivatives, and more. 200% ROI in 60 days."/>
+<meta name="keywords" content="AURO, AURO trade, Nigerian trading platform, daily returns Nigeria, trade Nigeria, passive income Nigeria, online trading app"/>
 <link rel="canonical" href="https://auroinvest.vercel.app/"/>
 
 <!-- Favicon -->
@@ -154,8 +154,8 @@ section{position:relative;z-index:1}
 .plan-meta{display:flex;gap:14px;flex-wrap:wrap}
 .plan-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sil);font-weight:500}
 
-/* ── INVESTMENTS ── */
-.investments{padding:110px 0;background:var(--void)}
+/* ── TRADING PLANS ── */
+.trading-plans{padding:110px 0;background:var(--void)}
 .inv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:60px}
 .inv-card{background:#fff;border:1px solid var(--b1);border-radius:var(--rxl);padding:28px;transition:all .3s var(--ez)}
 .inv-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,20,43,.07)}
@@ -231,7 +231,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
     <div class="nav-links">
       <a href="#how">How it works</a>
       <a href="#plans">Plans</a>
-      <a href="#investments">Investments</a>
+      <a href="#trading-plans">Trading Plans</a>
       <a href="#faq">FAQ</a>
     </div>
     <button class="nav-cta" onclick="window.location.href='/app.html'">Start Earning</button>
@@ -254,14 +254,14 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
   <div class="hero-actions">
     <button class="btn-primary" id="app-link" onclick="window.location.href='/app.html'">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Start Investing Free
+      Start Trading Free
     </button>
     <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
   </div>
   <div class="hero-stats">
     <div>
       <div class="hero-stat-val" id="stat-users">2,400+</div>
-      <div class="hero-stat-lbl">Active investors</div>
+      <div class="hero-stat-lbl">Active traders</div>
     </div>
     <div class="hero-stat-divider"></div>
     <div>
@@ -271,7 +271,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
     <div class="hero-stat-divider"></div>
     <div>
       <div class="hero-stat-val">200%</div>
-      <div class="hero-stat-lbl">Return on investment</div>
+      <div class="hero-stat-lbl">Trading returns</div>
     </div>
     <div class="hero-stat-divider"></div>
     <div>
@@ -305,7 +305,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="step-num">02</div>
         <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div>
         <div class="step-title">Pick your plan</div>
-        <div class="step-desc">Choose from 24 investment tiers across 6 trading markets. Each plan runs for 60 days and pays a fixed daily return directly to your wallet balance.</div>
+        <div class="step-desc">Choose from 24 trading tiers across 6 trading markets. Each plan runs for 60 days and pays a fixed daily return directly to your wallet balance.</div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
@@ -321,9 +321,9 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
 <section class="plans" id="plans">
   <div class="container">
     <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">Investment Plans</div>
+      <div class="section-eyebrow">Trading Plans</div>
       <h2 class="section-title">Start with what you have.<br>Scale as you grow.</h2>
-      <p class="section-sub" style="margin:0 auto">24 plans across 6 tiers. Every plan returns 200% of your investment over 60 days — paid daily.</p>
+      <p class="section-sub" style="margin:0 auto">24 plans across 6 tiers. Every plan returns 200% over 60 days — paid daily.</p>
     </div>
     <div class="plans-grid reveal">
 
@@ -331,7 +331,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="plan-badge" style="background:rgba(13,148,136,.1);color:var(--t-starter)">Entry</div>
         <div class="plan-tier" style="color:var(--t-starter)">Starter Tier · Memecoin Trading</div>
         <div class="plan-name">Micro-Cap Memecoins</div>
-        <div class="plan-invest">Invest ₦5,000</div>
+        <div class="plan-invest">Trade ₦5,000</div>
         <div class="plan-return">₦10,000 <span>total</span></div>
         <div class="plan-daily">+₦167 every day for 60 days</div>
         <div class="plan-divider"></div>
@@ -346,7 +346,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="plan-badge" style="background:var(--indigo);color:#fff">Most Popular</div>
         <div class="plan-tier" style="color:var(--t-growth)">Growth Tier · Crypto Futures</div>
         <div class="plan-name">Leveraged Crypto Futures</div>
-        <div class="plan-invest">Invest ₦50,000</div>
+        <div class="plan-invest">Trade ₦50,000</div>
         <div class="plan-return">₦100,000 <span>total</span></div>
         <div class="plan-daily">+₦1,667 every day for 60 days</div>
         <div class="plan-divider"></div>
@@ -361,7 +361,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="plan-badge" style="background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff">Private</div>
         <div class="plan-tier" style="color:var(--indigo)">Sovereign Tier · Sports Trading</div>
         <div class="plan-name">Sports & Prediction Markets</div>
-        <div class="plan-invest">Invest ₦500,000</div>
+        <div class="plan-invest">Trade ₦500,000</div>
         <div class="plan-return">₦1,000,000 <span>total</span></div>
         <div class="plan-daily">+₦16,667 every day for 60 days</div>
         <div class="plan-divider"></div>
@@ -380,13 +380,13 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
   </div>
 </section>
 
-<!-- REAL WORLD INVESTMENTS -->
-<section class="investments" id="investments">
+<!-- TRADING MARKETS -->
+<section class="trading-plans" id="trading-plans">
   <div class="container">
     <div class="reveal">
       <div class="section-eyebrow">Where your money goes</div>
       <h2 class="section-title">Six markets.<br>Daily returns.</h2>
-      <p class="section-sub">Every naira you invest is actively traded across high-yield markets — crypto, forex, derivatives, and sports — generating consistent daily revenue that flows back to you.</p>
+      <p class="section-sub">Every naira you contribute is actively traded across high-yield markets — crypto, forex, derivatives, and sports — generating consistent daily revenue that flows back to you.</p>
     </div>
     <div class="inv-grid reveal">
       <div class="inv-card">
@@ -405,7 +405,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="inv-icon" style="background:rgba(22,143,88,.1)">📈</div>
         <div class="inv-sector" style="color:var(--t-growth)">Leveraged Crypto Futures</div>
         <div class="inv-title">Algorithmic Futures Trading</div>
-        <div class="inv-desc">Disciplined long and short positions on BTC, ETH, and high-volatility altcoin futures. Our trading desk uses algorithmic entry/exit signals and tight risk management to convert market volatility directly into daily investor payouts.</div>
+        <div class="inv-desc">Disciplined long and short positions on BTC, ETH, and high-volatility altcoin futures. Our trading desk uses algorithmic entry/exit signals and tight risk management to convert market volatility directly into daily payouts.</div>
       </div>
       <div class="inv-card">
         <div class="inv-icon" style="background:rgba(124,58,237,.1)">🎯</div>
@@ -417,7 +417,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
         <div class="inv-icon" style="background:rgba(201,138,0,.1)">💹</div>
         <div class="inv-sector" style="color:var(--t-premium)">Options & Forex Trading</div>
         <div class="inv-title">Derivatives & Currency Markets</div>
-        <div class="inv-desc">Professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Volatility strategies and high-conviction directional plays produce consistent premium income paid to investors every day.</div>
+        <div class="inv-desc">Professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Volatility strategies and high-conviction directional plays produce consistent premium income paid daily.</div>
       </div>
       <div class="inv-card">
         <div class="inv-icon" style="background:var(--gd)">⚽</div>
@@ -468,7 +468,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
           <span>Is my capital safe?</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">AURO deploys capital across six high-yield trading markets — crypto, forex, derivatives, prediction markets, and sports trading. All trading activities carry inherent risk and returns are not guaranteed. You should only invest capital you can afford to commit for the full 60-day duration. By investing, you acknowledge and accept these risks in full as described in our Terms of Service.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">AURO deploys capital across six high-yield trading markets — crypto, forex, derivatives, prediction markets, and sports trading. All trading activities carry inherent risk and returns are not guaranteed. You should only commit capital you can afford to commit for the full 60-day duration. By participating, you acknowledge and accept these risks in full as described in our Terms of Service.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
@@ -493,17 +493,17 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>What is the minimum and maximum investment?</span>
+          <span>What is the minimum and maximum trade?</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">The minimum investment is ₦5,000 on the Starter tier. The maximum single deposit is ₦1,000,000. You can hold multiple active investment positions simultaneously across different tiers, with no limit on your total combined investment on the platform.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The minimum trade is ₦5,000 on the Starter tier. The maximum single deposit is ₦1,000,000. You can hold multiple active trading positions simultaneously across different tiers, with no limit on your total combined positions on the platform.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>Can I invest in multiple plans at once?</span>
+          <span>Can I trade multiple plans at once?</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. You can hold as many active positions as your wallet balance allows across any combination of tiers. Multiple investments in the same plan automatically merge into one consolidated claim card showing your combined daily return — keeping your dashboard clean and easy to manage.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. You can hold as many active positions as your wallet balance allows across any combination of tiers. Multiple trades in the same plan automatically merge into one consolidated claim card showing your combined daily return — keeping your dashboard clean and easy to manage.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
@@ -539,7 +539,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
 <footer>
   <div class="footer-inner container">
     <div class="footer-logo">AURO<sup style="font-size:8px;font-weight:400">®</sup></div>
-    <div class="footer-note">© 2025 AURO Investments. All rights reserved. Invest responsibly.</div>
+    <div class="footer-note">© 2025 AURO. All rights reserved. Trade responsibly.</div>
     <div style="display:flex;gap:20px">
       <a href="#" style="font-size:12px;color:var(--dim)">Terms</a>
       <a href="#" style="font-size:12px;color:var(--dim)">Privacy</a>
@@ -555,14 +555,14 @@ window.addEventListener('scroll', () => {
 
 const tickerData = [
   {name:'Chisom O.',init:'CO',action:'just claimed',amount:'₦12,500',time:'2s ago'},
-  {name:'Emeka B.',init:'EB',action:'just invested',amount:'₦50,000',time:'8s ago'},
+  {name:'Emeka B.',init:'EB',action:'just started a trade',amount:'₦50,000',time:'8s ago'},
   {name:'Fatima A.',init:'FA',action:'just claimed',amount:'₦3,333',time:'15s ago'},
   {name:'Tunde K.',init:'TK',action:'just withdrew',amount:'₦85,000',time:'22s ago'},
   {name:'Ngozi M.',init:'NM',action:'just claimed',amount:'₦16,667',time:'31s ago'},
-  {name:'Ibrahim S.',init:'IS',action:'just invested',amount:'₦100,000',time:'44s ago'},
+  {name:'Ibrahim S.',init:'IS',action:'just started a trade',amount:'₦100,000',time:'44s ago'},
   {name:'Adaeze C.',init:'AC',action:'just claimed',amount:'₦8,333',time:'1m ago'},
   {name:'Segun F.',init:'SF',action:'just claimed',amount:'₦25,000',time:'1m ago'},
-  {name:'Kemi R.',init:'KR',action:'just invested',amount:'₦25,000',time:'2m ago'},
+  {name:'Kemi R.',init:'KR',action:'just started a trade',amount:'₦25,000',time:'2m ago'},
   {name:'Olumide P.',init:'OP',action:'just claimed',amount:'₦1,667',time:'2m ago'},
   {name:'Blessing N.',init:'BN',action:'just withdrew',amount:'₦200,000',time:'3m ago'},
   {name:'Ahmed D.',init:'AD',action:'just claimed',amount:'₦5,000',time:'4m ago'},

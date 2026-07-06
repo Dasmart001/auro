@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 <meta name="theme-color" content="#4338EC"/>
-<title>AURO · Invest & Earn</title>
+<title>AURO · Trade & Earn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <!-- Firebase compat v9 — most stable for HTML-only apps -->
@@ -556,7 +556,7 @@ body::after{display:none}
 <!-- SPLASH -->
 <div id="splash">
   <div class="sp-logo">AURO</div>
-  <div class="sp-tag">Invest. Earn. Grow.</div>
+  <div class="sp-tag">Trade. Earn. Grow.</div>
   <div class="sp-line"></div>
   <div class="sp-dots"><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div></div>
 </div>
@@ -571,7 +571,7 @@ body::after{display:none}
 <div id="auth">
   <div class="ag ag1"></div><div class="ag ag2"></div>
   <div class="a-logo">AURO</div>
-  <div class="a-tag">Invest. Earn. Grow.</div>
+  <div class="a-tag">Trade. Earn. Grow.</div>
   <div class="a-tabs">
     <button class="a-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
     <button class="a-tab" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
@@ -589,16 +589,16 @@ body::after{display:none}
     <div class="a-grp"><label class="a-lbl">Password</label><input class="a-inp" id="su-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/></div>
     <div class="a-grp"><label class="a-lbl">Confirm Password</label><input class="a-inp" id="su-pw2" type="password" placeholder="Repeat your password" autocomplete="new-password"/></div>
     <div class="a-grp">
-      <label class="a-lbl">Set Your 4-Digit Investment PIN</label>
+      <label class="a-lbl">Set Your 4-Digit Trade PIN</label>
       <input class="a-inp" id="su-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit PIN" autocomplete="new-password"/>
-      <div class="a-hint">You'll use this PIN to confirm every investment.</div>
+      <div class="a-hint">You'll use this PIN to confirm every trade.</div>
     </div>
     <div class="a-grp"><label class="a-lbl">Referral Code <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label><input class="a-inp" id="su-ref" type="text" placeholder="Enter a referral code" autocomplete="off" style="text-transform:uppercase"/></div>
     <div style="display:flex;align-items:flex-start;gap:10px;background:var(--gd);border:1px solid var(--gb);border-radius:11px;padding:12px;cursor:pointer" onclick="toggleSignupTos()" id="su-tos-row">
       <div id="su-tos-check" style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--gb);background:var(--s1);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s">
         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0" id="su-tos-tick"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <div style="font-size:11px;color:var(--sil);line-height:1.55">I have read and agree to the <strong style="color:var(--gold);cursor:pointer" onclick="event.stopPropagation();openTos()">Terms of Service</strong>. I understand the risks involved in investment activities.</div>
+      <div style="font-size:11px;color:var(--sil);line-height:1.55">I have read and agree to the <strong style="color:var(--gold);cursor:pointer" onclick="event.stopPropagation();openTos()">Terms of Service</strong>. I understand the risks involved in trading activities.</div>
     </div>
     <div class="a-err" id="su-err"></div>
     <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
@@ -630,9 +630,9 @@ body::after{display:none}
       </svg>
       <div class="bc-eye"><div class="pulse"></div>Total Portfolio Value<button class="eye-btn" id="eye-btn" onclick="toggleBal()" aria-label="Toggle balance visibility"><svg id="eye-ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       <div class="bc-num"><span class="cu">₦</span><span id="h-bal">0</span></div>
-      <div class="bc-sub" id="h-sub">Deposit to start investing</div>
+      <div class="bc-sub" id="h-sub">Deposit to start trading</div>
       <div class="bc-acts">
-        <button class="ba ba-g" onclick="go('p-plans','n-plans')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Invest</button>
+        <button class="ba ba-g" onclick="go('p-plans','n-plans')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Trade</button>
         <button class="ba ba-g2" onclick="go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit</button>
         <button class="ba ba-o" onclick="go('p-withdraw','n-withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
       </div>
@@ -646,7 +646,7 @@ body::after{display:none}
       <div class="ref-hint">Share your code. When a friend signs up and makes their first deposit, <strong>you both earn ₦2,000</strong> bonus credited to your wallets.</div>
     </div>
     <div class="stats">
-      <div class="stile" style="--sl:rgba(67,56,236,.25)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="st-val" id="h-invested">₦0</div><div class="st-lbl">Total Invested</div></div>
+      <div class="stile" style="--sl:rgba(67,56,236,.25)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="st-val" id="h-invested">₦0</div><div class="st-lbl">In Trades</div></div>
       <div class="stile" style="--sl:rgba(15,174,107,.3);--si:var(--okd);--sc:var(--ok);--svc:var(--ok)"><div class="st-ico" style="background:var(--okd)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-earned">₦0</div><div class="st-lbl">Claimed Earnings</div></div>
       <div class="stile" style="--sl:rgba(67,56,236,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="st-val" id="h-active">0</div><div class="st-lbl">Active Plans</div></div>
       <div class="stile" style="--sl:rgba(67,56,236,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-claimable">₦0</div><div class="st-lbl">Claimable Today</div></div>
@@ -658,7 +658,7 @@ body::after{display:none}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Investment Plans</div><div class="ph-s">24 plans · 200% ROI · Claim daily · PIN required</div></div>
+    <div class="ph"><div class="ph-t">Trading Plans</div><div class="ph-s">24 plans · 200% returns · Claim daily · PIN required</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -672,7 +672,7 @@ body::after{display:none}
       <div class="streak-txt"><div class="streak-label" id="streak-label">0-Day Streak</div><div class="streak-sub" id="streak-sub">Claim today to start your streak</div></div>
       <div class="streak-num" id="streak-num">0</div>
     </div>
-    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Invest in a plan to start earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Start a trade to begin earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
   <!-- DEPOSIT -->
@@ -868,12 +868,12 @@ body::after{display:none}
         <circle cx="390" cy="5" r="3" fill="var(--gold)"/>
       </svg>
       <div class="pch-figs">
-        <div><div class="pch-lbl">Invested</div><div class="pch-val" id="pf-inv">₦0</div></div>
+        <div><div class="pch-lbl">In Trades</div><div class="pch-val" id="pf-inv">₦0</div></div>
         <div style="text-align:center"><div class="pch-lbl">Total Return</div><div class="pch-val g" id="pf-exp">₦0</div></div>
         <div style="text-align:right"><div class="pch-lbl">Claimed</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
       </div>
     </div>
-    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No investments yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
   </div>
 
   <!-- PROFILE -->
@@ -886,7 +886,7 @@ body::after{display:none}
       <div class="prof-since" id="prof-since">Member</div>
     </div>
     <div class="prof-stats">
-      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">Invested</div></div>
+      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">In Trades</div></div>
       <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
       <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Plans</div></div>
     </div>
@@ -898,7 +898,7 @@ body::after{display:none}
     </div>
     <div class="prof-sec">
       <div class="prof-sec-title">Account</div>
-      <div class="prof-row" onclick="openPinChange()" style="cursor:pointer"><span class="prof-row-lbl">Change Investment PIN</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+      <div class="prof-row" onclick="openPinChange()" style="cursor:pointer"><span class="prof-row-lbl">Change Trade PIN</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="prof-row" onclick="openTos()" style="cursor:pointer"><span class="prof-row-lbl">Terms of Service</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="prof-row" onclick="requestPushPermission()" style="cursor:pointer"><span class="prof-row-lbl">Enable Claim Reminders</span><span class="prof-row-val" id="prof-push-status" style="font-size:10px;color:var(--sil)">Tap to enable</span></div>
       <div class="prof-row" onclick="openSupport()" style="cursor:pointer"><span class="prof-row-lbl">Customer Support</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
@@ -954,9 +954,9 @@ body::after{display:none}
     <div class="adm-sec-t">Platform Treasury</div>
     <div class="treasury-grid" id="treasury-grid">
       <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">—</div><div class="tr-sub">User available balances</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Invested</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Active capital deployed</div></div>
+      <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
       <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
-      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Running investments</div></div>
+      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Running trades</div></div>
       <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings claimed</div></div>
       <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
     </div>
@@ -1019,7 +1019,7 @@ body::after{display:none}
 <div class="hist-modal" id="hist-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="hist-sheet">
     <div class="m-handle"></div>
-    <div class="m-title" id="hist-name">Investment History</div>
+    <div class="m-title" id="hist-name">Trade History</div>
     <div class="m-sub" id="hist-meta"></div>
     <div id="hist-body" style="margin-top:14px"></div>
     <button onclick="document.getElementById('hist-modal').classList.remove('open')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:8px">Close</button>
@@ -1044,7 +1044,7 @@ body::after{display:none}
     <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
     <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Miss a day = that day's earnings are permanently forfeited</div>
     <div class="pin-sec">
-      <label class="pin-lbl">Enter your 4-digit Investment PIN</label>
+      <label class="pin-lbl">Enter your 4-digit Trade PIN</label>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p1" autocomplete="off" oninput="pa(this,'p2')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p2" autocomplete="off" oninput="pa(this,'p3')"/>
@@ -1052,7 +1052,7 @@ body::after{display:none}
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p4" autocomplete="off"/>
       </div>
     </div>
-    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Confirm Investment</button>
+    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Confirm Trade</button>
     <button onclick="closeM('inv-modal')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer">Cancel</button>
   </div>
 </div>
@@ -1129,21 +1129,21 @@ body::after{display:none}
       <p><strong style="color:var(--plat)">IMPORTANT LEGAL NOTICE:</strong> These Terms of Service constitute a legally binding agreement between you and AURO. By creating an account, depositing funds, or using any feature of this Platform, you unconditionally accept every clause in this document. If you do not agree to any part of these Terms, you must immediately cease using the Platform and contact us to close your account.</p>
 
       <h3>1. Eligibility & Representations</h3>
-      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading, investment, or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
+      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
       <p>Any false representation constitutes grounds for immediate permanent termination of your account and forfeiture of all funds held therein, without compensation, refund, or right of appeal.</p>
 
       <h3>2. Nature of the Platform & No Guarantee of Returns</h3>
-      <p>AURO is a digital trading and investment platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
-      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By investing on this Platform, you expressly acknowledge that: (a) you may lose some or all of your invested capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
+      <p>AURO is a digital trading platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
+      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By participating on this Platform, you expressly acknowledge that: (a) you may lose some or all of your committed capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
 
-      <h3>3. Investment Plans — Terms, Conditions & Forfeitures</h3>
+      <h3>3. Trading Plans — Terms, Conditions & Forfeitures</h3>
       <ul>
-        <li>Each investment plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
+        <li>Each trading plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
         <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
         <li><strong style="color:var(--plat)">Any daily return not claimed on the specific calendar day it becomes available is permanently and irrevocably forfeited.</strong> AURO will not reinstate, compensate, extend, or make any payment in respect of missed daily claims under any circumstances, including claims of technical difficulty, illness, lack of internet access, or any other reason whatsoever.</li>
-        <li>Once an investment plan is activated and capital is deployed, the investment is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of invested capital is permitted under any circumstances.</strong></li>
+        <li>Once an trading plan is activated and capital is deployed, your position is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of committed capital is permitted under any circumstances.</strong></li>
         <li>Upon plan completion, any daily returns that were not claimed prior to plan expiry are permanently forfeited. AURO has no obligation to pay expired unclaimed amounts.</li>
-        <li>AURO reserves the right to modify, restructure, pause, or discontinue any investment plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uninvested portion of your deposited capital, if any, at AURO's sole discretion.</li>
+        <li>AURO reserves the right to modify, restructure, pause, or discontinue any trading plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uncommitted portion of your deposited capital, if any, at AURO's sole discretion.</li>
       </ul>
 
       <h3>4. Deposits — Terms, Obligations & Fraud Policy</h3>
@@ -1152,7 +1152,7 @@ body::after{display:none}
         <li>Minimum deposit is ₦5,000. Maximum single deposit is ₦1,000,000.</li>
         <li>After completing your bank transfer, you must submit a deposit notification through the app. <strong style="color:var(--plat)">Submitting a deposit notification without actually completing the corresponding bank transfer is a criminal act of fraud.</strong> AURO will immediately and permanently terminate the accounts of any user found to have submitted false deposit claims, forfeit all funds in those accounts, and report the matter to relevant law enforcement authorities in Nigeria. AURO reserves the right to pursue civil and criminal remedies to the fullest extent of Nigerian law.</li>
         <li>AURO will use reasonable efforts to credit confirmed deposits within 1–3 business hours. AURO is not liable for any delay, loss, or damage arising from banking system failures, third-party payment processing delays, or force majeure events.</li>
-        <li>All deposits are final and non-refundable once credited to your wallet and invested in a plan. Deposits sitting uninvested in your wallet may be withdrawn subject to Section 5.</li>
+        <li>All deposits are final and non-refundable once credited to your wallet and deployed in a plan. Deposits sitting untrade started in your wallet may be withdrawn subject to Section 5.</li>
       </ul>
 
       <h3>5. Withdrawals — Processing, Delays & Restrictions</h3>
@@ -1169,7 +1169,7 @@ body::after{display:none}
 
       <h3>7. Account Security & User Responsibility</h3>
       <ul>
-        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit investment PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
+        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit trade PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
         <li>You are fully liable for all activity conducted through your account, whether authorised by you or not, unless you have notified AURO of a security breach and AURO has confirmed suspension of your account in writing.</li>
         <li>In the event of suspected unauthorised account access, you must notify AURO immediately at support@auro.app. AURO's response time is not guaranteed and AURO bears no liability for losses incurred prior to account suspension.</li>
         <li>AURO implements reasonable technical security measures but provides no warranty that the Platform is free from vulnerabilities. You accept all risk of data breaches, hacking, or system failures that occur despite reasonable security measures.</li>
@@ -1178,14 +1178,14 @@ body::after{display:none}
       <h3>8. Comprehensive Risk Disclosure</h3>
       <p>By using this Platform, you confirm that you fully understand and accept the following risks:</p>
       <ul>
-        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire investment. AURO does not guarantee return of principal.</li>
+        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire committed capital. AURO does not guarantee return of principal.</li>
         <li><strong style="color:var(--plat)">Market risk:</strong> Crypto markets, forex markets, prediction markets, and sports markets are highly volatile. Extreme movements can result in significant or total trading losses.</li>
         <li><strong style="color:var(--plat)">Regulatory risk:</strong> The regulatory environment for cryptocurrency and digital assets is evolving. New laws or enforcement actions may materially affect AURO's ability to operate or fulfil obligations to users.</li>
         <li><strong style="color:var(--plat)">Liquidity risk:</strong> AURO may at times face liquidity constraints that delay or prevent withdrawal processing. AURO is not a bank and does not hold user funds in insured accounts.</li>
         <li><strong style="color:var(--plat)">Technology risk:</strong> Platform outages, smart contract failures, exchange hacks, or third-party API failures may affect returns or access to funds.</li>
         <li><strong style="color:var(--plat)">Counterparty risk:</strong> Trading on third-party exchanges and platforms exposes AURO's capital to the insolvency or misconduct of those counterparties.</li>
       </ul>
-      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before investing, and that you invest entirely at your own risk.</p>
+      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before participating, and that you trade entirely at your own risk.</p>
 
       <h3>9. Prohibited Activities</h3>
       <p>The following activities are strictly prohibited and will result in immediate permanent account termination and forfeiture of all balances, with no refund, compensation, or right of appeal:</p>
@@ -1207,10 +1207,10 @@ body::after{display:none}
       <p>You agree to indemnify, defend, and hold harmless AURO and its operators from any claim, demand, loss, liability, cost, or expense (including legal fees) arising from your breach of these Terms, your fraudulent or illegal conduct, or your use of the Platform in a manner not authorised by these Terms.</p>
 
       <h3>11. No Financial Advice</h3>
-      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed investment adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to invest. You are solely responsible for your own investment decisions.</p>
+      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed trading adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to trade. You are solely responsible for your own trading decisions.</p>
 
       <h3>12. Platform Availability & Modifications</h3>
-      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any investment losses, missed claims, or other damages resulting from a platform closure or modification.</p>
+      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any trading losses, missed claims, or other damages resulting from a platform closure or modification.</p>
 
       <h3>13. Amendments to Terms</h3>
       <p>AURO may amend these Terms at any time by posting an updated version to the Platform. Amended Terms take effect immediately upon posting. <strong style="color:var(--plat)">Your continued use of the Platform after any amendment constitutes your unconditional acceptance of the revised Terms.</strong> It is your responsibility to review these Terms regularly. AURO is not obligated to notify you individually of any changes.</p>
@@ -1226,7 +1226,7 @@ body::after{display:none}
     </div>
     <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
       <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the investment risks described above.</div>
+      <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the trading risks described above.</div>
     </div>
     <button class="tos-btn" id="tos-confirm-btn" onclick="confirmTos()">I Agree & Continue</button>
   </div>
@@ -1236,7 +1236,7 @@ body::after{display:none}
 <div class="overlay" id="pin-modal" onclick="mClose(event,'pin-modal')">
   <div class="msheet">
     <div class="m-handle"></div>
-    <div class="m-title">Change Investment PIN</div>
+    <div class="m-title">Change Trade PIN</div>
     <div class="m-sub">Enter your current PIN, then set a new one.</div>
     <div style="margin-bottom:14px">
       <label class="pin-lbl">Current PIN</label>
@@ -1368,6 +1368,7 @@ let _myDeps = [], _myWits = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null;
 let _unsubAdmAllDep = null, _unsubAdmAllWit = null;
 let _admAllDeps = [], _admAllWits = [];
+let _fraudSessionDismissed = new Set(); // persists for entire admin session
 
 // ══════════════════════════════════
 // UI HELPERS
@@ -1912,27 +1913,27 @@ function renderWitHistory(wits) {
 const TIER_INFO = {
   Starter: {
     sector: 'Micro-Cap Memecoins',
-    detail: 'This investment will help in the active trading of micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements when momentum builds. Capital is rotated rapidly across early-stage coins identified by our on-chain analysts, with gains locked in and recycled daily to generate your consistent returns.'
+    detail: 'Your capital is deployed in active trading of micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements when momentum builds. Capital is rotated rapidly across early-stage coins identified by our on-chain analysts, with gains locked in and recycled daily to generate your consistent returns.'
   },
   Builder: {
     sector: 'New Crypto Launches & Airdrops',
-    detail: 'This investment will help in participating in high-priority token generation events, IDOs, and strategic airdrop campaigns across emerging Layer-1 and Layer-2 ecosystems. Capital secures early allocation in new launches before public listing — where the highest percentage gains are captured — with proceeds distributed to investors as daily returns throughout the 60-day cycle.'
+    detail: 'Your capital is deployed in participating in high-priority token generation events, IDOs, and strategic airdrop campaigns across emerging Layer-1 and Layer-2 ecosystems. Capital secures early allocation in new launches before public listing — where the highest percentage gains are captured — with proceeds distributed as daily returns throughout the 60-day cycle.'
   },
   Growth: {
     sector: 'Leveraged Crypto Futures',
-    detail: 'This investment will help in the execution of leveraged long and short positions on crypto futures markets including Bitcoin, Ethereum, and high-volatility altcoins. Our trading desk uses disciplined risk management, tight stop-losses, and algorithmic entry/exit signals to capture intraday and swing moves, converting market volatility directly into daily payouts for investors.'
+    detail: 'Your capital is deployed in the execution of leveraged long and short positions on crypto futures markets including Bitcoin, Ethereum, and high-volatility altcoins. Our trading desk uses disciplined risk management, tight stop-losses, and algorithmic entry/exit signals to capture intraday and swing moves, converting market volatility directly into daily payouts.'
   },
   Elite: {
     sector: 'Prediction Markets',
-    detail: 'This investment will help in deploying capital across decentralised and centralised prediction markets — platforms where traders stake on the outcome of real-world events including elections, sports fixtures, macroeconomic data releases, and crypto price targets. Edge comes from superior research and probability modelling, turning information asymmetry into daily compounding returns.'
+    detail: 'Your capital is deployed across decentralised and centralised prediction markets — platforms where traders stake on the outcome of real-world events including elections, sports fixtures, macroeconomic data releases, and crypto price targets. Edge comes from superior research and probability modelling, turning information asymmetry into daily compounding returns.'
   },
   Premium: {
     sector: 'Options & Forex Trading',
-    detail: 'This investment will help in the professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Capital is managed by experienced derivatives traders using volatility strategies — straddles, strangles, and directional plays — alongside high-conviction forex setups, producing consistent premium income paid to investors daily.'
+    detail: 'Your capital is deployed in the professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Capital is managed by experienced derivatives traders using volatility strategies — straddles, strangles, and directional plays — alongside high-conviction forex setups, producing consistent premium income paid daily.'
   },
   Sovereign: {
     sector: 'Sports Trading',
-    detail: 'This investment will help in systematic sports trading across global football, basketball, and combat sports markets — not gambling, but data-driven market-making and arbitrage between bookmakers and exchanges. Capital is allocated by quantitative analysts using statistical models, live odds movements, and value-betting algorithms that generate an edge across hundreds of events daily.'
+    detail: 'Your capital is deployed in systematic sports trading across global football, basketball, and combat sports markets — not gambling, but data-driven market-making and arbitrage between bookmakers and exchanges. Capital is allocated by quantitative analysts using statistical models, live odds movements, and value-betting algorithms that generate an edge across hundreds of events daily.'
   }
 };
 
@@ -2006,7 +2007,7 @@ function renderClaims() {
   if (!active.length) {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-      'No Active Investments','Invest in a plan to start earning daily claimable returns.',
+      'No Active Trades','Start a trade to begin earning daily claimable returns.',
       'Browse Plans',"go('p-plans','n-plans')"
     ); return;
   }
@@ -2065,7 +2066,7 @@ function renderClaims() {
       <div class="cc-top">
         <div>
           <div class="cc-name">${grp.name}${count > 1 ? ` <span style="font-size:10px;color:var(--sil);font-weight:400">×${count}</span>` : ''}</div>
-          <div class="cc-inv">Total Invested: ${fmt(totalInvested)}${count > 1 ? ` · ${count} slots` : ''}</div>
+          <div class="cc-inv">In Trades: ${fmt(totalInvested)}${count > 1 ? ` · ${count} slots` : ''}</div>
         </div>
         <div class="cc-tag" style="background:${tagBg};color:${tagColor};border:1px solid ${tagBdr}">Day ${day}/60</div>
       </div>
@@ -2110,7 +2111,7 @@ function renderHome() {
   const sub = document.getElementById('h-sub');
   if (tCl>0)    sub.innerHTML = '<span>+'+fmt(tCl)+'</span> earned total';
   else if (tInv>0) sub.innerHTML = '<span>'+fmt(tInv)+'</span> deployed · '+actC+' plan'+(actC!==1?'s':'');
-  else          sub.innerHTML = 'Deposit to start investing';
+  else          sub.innerHTML = 'Deposit to start trading';
 
   const posEl = document.getElementById('h-pos');
   const active = invs.filter(i=>isActive(i)).slice(0,3);
@@ -2146,7 +2147,7 @@ function renderPortfolio() {
   if (!invs.length) {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
-      'Portfolio Empty','No investments yet.','Browse Plans',"go('p-plans','n-plans')"
+      'Portfolio Empty','No trades yet.','Browse Plans',"go('p-plans','n-plans')"
     ); return;
   }
   c.innerHTML = [...invs].reverse().map(inv => {
@@ -2163,7 +2164,7 @@ function renderPortfolio() {
         <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
       <div class="pc-amts">
-        <div><div class="pc-al">Invested</div><div class="pc-av">${fmt(inv.invest)}</div></div>
+        <div><div class="pc-al">In Trades</div><div class="pc-av">${fmt(inv.invest)}</div></div>
         <div><div class="pc-al">Total Return</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
         <div><div class="pc-al">Claimed</div><div class="pc-av ok">${fmt(inv.totalClaimed||0)}</div></div>
       </div>
@@ -2203,7 +2204,7 @@ function buildNotifFeed() {
     else if (w.status==='rejected') items.push({time:w.date, color:'#EF4444', title:'Withdrawal Rejected', desc:fmt(w.amount)+' was refunded to your balance.', icon:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'});
   });
   (_user&&_user.investments||[]).forEach(inv => {
-    items.push({time:inv.startDate, color:'#4338EC', title:'Investment Started', desc:fmt(inv.invest)+' invested in your '+inv.tier+' plan.', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'});
+    items.push({time:inv.startDate, color:'#4338EC', title:'Trade Started', desc:fmt(inv.invest)+' trade started in your '+inv.tier+' plan.', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'});
   });
   items.sort((a,b)=>(b.time||'').localeCompare(a.time||''));
   return items;
@@ -2216,7 +2217,7 @@ function renderNotifications() {
       <div class="notif-ico" style="color:${n.color};background:${n.color}18;border-color:${n.color}40"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${n.icon}</svg></div>
       <div><div class="ntit">${n.title}</div><div class="ndesc">${n.desc}</div><div class="ntime">${relTime(n.time)}</div></div>
     </div>`).join('') :
-    `<div class="notif"><div class="notif-ico" style="color:var(--gold);background:var(--gd)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start investing and earning daily returns.</div><div class="ntime">Just now</div></div></div>`;
+    `<div class="notif"><div class="notif-ico" style="color:var(--gold);background:var(--gd)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start trading and earning daily returns.</div><div class="ntime">Just now</div></div></div>`;
   updateNotifDot(items);
 }
 function updateNotifDot(items) {
@@ -2401,38 +2402,48 @@ function closeAdmin() {
   [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmAllDep,_unsubAdmAllWit].forEach(fn=>{if(fn)fn();});
   _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmAllDep=_unsubAdmAllWit=null;
   _admAllDeps=[]; _admAllWits=[];
+  _fraudSessionDismissed = new Set();
+  _fraudHasRun = false;
   if (fbAuth && fbAuth.currentUser) fbAuth.signOut().catch(()=>{});
 }
 
 // ══════════════════════════════════
 // FRAUD MONITOR
 // ══════════════════════════════════
+let _fraudHasRun = false;
 async function runFraudScan() {
   const btn = document.getElementById('fraud-scan-btn');
   const res = document.getElementById('fraud-results');
-  btn.textContent = 'Scanning…'; btn.disabled = true;
-  const TOLERANCE = 5000; // ₦5k covers referral bonuses & rounding
 
-  // Load persisted dismissed list from Firestore (admin doc)
-  let dismissed = [];
+  // If already ran and showing results, require explicit re-scan
+  if (_fraudHasRun) {
+    _fraudHasRun = false;
+    res.innerHTML = '';
+    btn.textContent = 'Run Scan';
+    return;
+  }
+
+  btn.textContent = 'Scanning…'; btn.disabled = true;
+  const TOLERANCE = 5000;
+
+  // Load Firestore-persisted dismissed list and merge with session set
   try {
     const admSnap = await db.collection('adminMeta').doc('fraudDismissed').get();
-    if (admSnap.exists) dismissed = admSnap.data().uids || [];
-  } catch(e) { /* ignore if doc doesn't exist yet */ }
+    if (admSnap.exists) {
+      (admSnap.data().uids||[]).forEach(d => _fraudSessionDismissed.add(d.uid));
+    }
+  } catch(e) { /* ignore */ }
 
   const flagged = _admAllUsers.map(u => {
+    if (_fraudSessionDismissed.has(u.id)) return null;
     const totalDeposited  = _admAllDeps.filter(d=>d.userId===u.id).reduce((s,d)=>s+(d.amount||0),0);
     const totalWithdrawn  = _admAllWits.filter(w=>w.userId===u.id).reduce((s,w)=>s+(w.amount||0),0);
     const totalInvested   = (u.investments||[]).reduce((s,i)=>s+(i.invest||0),0);
-    const totalEarned     = u.totalEarned || 0;
+    const totalEarned     = u.totalEarned||0;
     const expectedBalance = totalDeposited + totalEarned - totalWithdrawn - totalInvested;
     const discrepancy     = (u.balance||0) - expectedBalance;
-    // Skip if below threshold OR if dismissed at this discrepancy level
-    const dismissedAt = dismissed.find(d=>d.uid===u.id);
     if (discrepancy <= TOLERANCE) return null;
-    // If dismissed before, only re-flag if discrepancy grew by more than ₦2k since dismissal
-    if (dismissedAt && discrepancy - dismissedAt.discrepancy < 2000) return null;
-    return { u, totalDeposited, totalWithdrawn, totalInvested, totalEarned, expectedBalance, discrepancy };
+    return {u, totalDeposited, totalWithdrawn, totalInvested, totalEarned, expectedBalance, discrepancy};
   }).filter(Boolean);
 
   if (!flagged.length) {
@@ -2444,7 +2455,7 @@ async function runFraudScan() {
         <div class="fraud-row"><span>Total Deposits</span><strong>${fmt(totalDeposited)}</strong></div>
         <div class="fraud-row"><span>Claimed Earnings</span><strong>${fmt(totalEarned)}</strong></div>
         <div class="fraud-row"><span>Total Withdrawn</span><strong style="color:var(--err)">−${fmt(totalWithdrawn)}</strong></div>
-        <div class="fraud-row"><span>Total Invested</span><strong style="color:var(--err)">−${fmt(totalInvested)}</strong></div>
+        <div class="fraud-row"><span>In Trades</span><strong style="color:var(--err)">−${fmt(totalInvested)}</strong></div>
         <div class="fraud-row"><span>Expected Balance</span><strong>${fmt(Math.max(0,expectedBalance))}</strong></div>
         <div class="fraud-row"><span>Actual Balance</span><strong style="color:var(--err)">${fmt(u.balance||0)}</strong></div>
         <div class="fraud-disc">
@@ -2458,8 +2469,10 @@ async function runFraudScan() {
         </div>
       </div>`).join('');
   }
-  btn.textContent = `Scanned · ${flagged.length} flagged`;
+
+  _fraudHasRun = true;
   btn.disabled = false;
+  btn.textContent = flagged.length ? `${flagged.length} Flagged · Clear` : 'Clear Results';
 }
 
 async function fraudBan(uid, name) {
@@ -2485,7 +2498,11 @@ async function fraudZeroBal(uid, name) {
 }
 
 async function fraudDismiss(uid, discrepancy) {
-  // Persist dismissed state to Firestore so it survives panel close/reopen
+  // Add to session memory immediately — this is what stops re-scans from re-showing
+  _fraudSessionDismissed.add(uid);
+  document.getElementById('fcard-'+uid)?.remove();
+  toast("Flag dismissed. Won't reappear this session.");
+  // Also persist to Firestore for future admin sessions
   try {
     const ref = db.collection('adminMeta').doc('fraudDismissed');
     const snap = await ref.get();
@@ -2493,9 +2510,7 @@ async function fraudDismiss(uid, discrepancy) {
     const updated = current.filter(d=>d.uid!==uid);
     updated.push({ uid, discrepancy, dismissedAt: nowISO() });
     await ref.set({ uids: updated });
-  } catch(e) { console.error('Dismiss save error:', e); }
-  document.getElementById('fcard-'+uid)?.remove();
-  toast('Flag dismissed. Won\'t reappear unless balance grows further.');
+  } catch(e) { console.error('Dismiss persist error:', e); }
 }
 
 function noItems(msg) { return `<div style="font-size:12px;color:var(--sil);text-align:center;padding:18px 0">${msg}</div>`; }
@@ -2533,7 +2548,7 @@ function renderAdmUsers(users) {
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div>
           <div class="au-name">${u.name||'(unnamed)'}</div>
-          <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance||0)}</span> · Invested: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
+          <div class="au-info">Balance: <span style="color:var(--gold);font-weight:600">${fmt(u.balance||0)}</span> · In Trades: ${fmt(total)} · ${act} active plan${act!==1?'s':''}</div>
         </div>
         <button onclick="showUserHistory('${u.id}')" style="font-size:9px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:4px 9px;cursor:pointer;font-family:var(--b);white-space:nowrap;flex-shrink:0">History</button>
       </div>
@@ -2970,7 +2985,7 @@ async function sendBroadcast() {
 // ══════════════════════════════════
 function exportCSV() {
   if (!_admAllUsers.length) { toast('No user data loaded yet'); return; }
-  const rows = [['Name','Balance','Total Invested','Total Earned','Active Plans','Referral Code','Joined']];
+  const rows = [['Name','Balance','In Trades','Total Earned','Active Plans','Referral Code','Joined']];
   _admAllUsers.forEach(u => {
     const invs = u.investments||[];
     const totalInv = invs.reduce((s,i)=>s+i.invest,0);
@@ -3005,7 +3020,7 @@ function showUserHistory(userId) {
   const invs  = u.investments||[];
   document.getElementById('hist-name').textContent = u.name;
   document.getElementById('hist-meta').textContent =
-    `Balance: ${fmt(u.balance||0)} · Total Invested: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
+    `Balance: ${fmt(u.balance||0)} · In Trades: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
   document.getElementById('hist-body').innerHTML = invs.length ? [...invs].reverse().map(inv => {
     const t = TC[inv.tier]||TC.Starter;
     const done = inv.status==='completed';
