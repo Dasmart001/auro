@@ -1004,6 +1004,16 @@ body::after{display:none}
     <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Flags users whose wallet balance exceeds what their deposits, earnings, and withdrawals can explain. Dismissed users are saved — they won't reappear unless their balance rises again.</div>
     <div id="fraud-results"></div>
   </div>
+
+  <!-- LEGACY MIGRATION TOOL -->
+  <div class="adm-sec" id="legacy-sec">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
+      <div class="adm-sec-t" style="margin:0">Legacy Trade Clearance</div>
+      <button onclick="previewLegacyClear()" id="legacy-preview-btn" style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(201,138,0,.08);color:#C98A00;border:1px solid rgba(201,138,0,.25);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Scan</button>
+    </div>
+    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Removes all old 500% ROI trades (pre-crypto version) from every user permanently. Run once — this cannot be undone.</div>
+    <div id="legacy-results"></div>
+  </div>
   <div class="adm-sec">
     <div class="adm-sec-t" style="margin-top:8px">Broadcast Message</div>
     <div class="broadcast-box">
@@ -2197,7 +2207,7 @@ function renderPortfolio() {
       <div class="pc-top">
         <div class="pc-left">
           <div class="pc-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pc-name">${inv.name}${isLegacyTrade(inv)?'<span class="legacy-badge">Legacy Rate</span>':''}</div><div class="pc-date">Started ${inv.startDate}</div></div>
+          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}</div></div>
         </div>
         <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
@@ -2612,11 +2622,10 @@ function renderAdmUsers(users) {
   c.innerHTML = sorted.map(u => {
     const invs       = u.investments||[];
     const act        = invs.filter(i=>isActive(i)).length;
-    const legacy     = invs.filter(i=>isLegacyTrade(i) && isActive(i)).length;
     const totalIn    = invs.reduce((s,i)=>s+(i.invest||0),0);
     const earned     = u.totalEarned||0;
     const banned     = u.banned ? '<span style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.1);color:var(--err);border:1px solid rgba(239,68,68,.25);padding:2px 6px;border-radius:10px;margin-left:6px">BANNED</span>' : '';
-    const legacyNote = legacy ? `<span class="legacy-badge">⚡ ${legacy} legacy</span>` : '';
+    const legacyNote = '';
     const joined     = u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '—';
     return `<div class="adm-user-row" id="au-row-${u.id}" onclick="toggleAdmUser('${u.id}')">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -2629,7 +2638,7 @@ function renderAdmUsers(users) {
       <div class="au-expand">
         <div class="au-expand-row"><span>Joined</span><strong>${joined}</strong></div>
         <div class="au-expand-row"><span>Total Earned</span><strong>${fmt(earned)}</strong></div>
-        <div class="au-expand-row"><span>Active Trades</span><strong>${act}${legacy?' ('+legacy+' legacy rate)':''}</strong></div>
+        <div class="au-expand-row"><span>Active Trades</span><strong>${act}</strong></div>
         <div class="au-expand-row"><span>Referral Code</span><strong>${u.refCode||'—'}</strong></div>
         <div class="au-expand-row"><span>Status</span><strong style="color:${u.banned?'var(--err)':'var(--ok)'}">${u.banned?'Banned':'Active'}</strong></div>
         <div class="au-expand-acts">
@@ -2645,6 +2654,83 @@ function renderAdmUsers(users) {
   }).join('');
 }
 
+// ══════════════════════════════════
+// LEGACY TRADE MIGRATION
+// ══════════════════════════════════
+function previewLegacyClear() {
+  const btn = document.getElementById('legacy-preview-btn');
+  const res = document.getElementById('legacy-results');
+  btn.textContent = 'Scanning…'; btn.disabled = true;
+
+  // Find all users who have legacy investments
+  const affected = _admAllUsers.map(u => {
+    const legacy = (u.investments||[]).filter(i => isLegacyTrade(i));
+    const clean  = (u.investments||[]).filter(i => !isLegacyTrade(i));
+    if (!legacy.length) return null;
+    return { u, legacy, clean };
+  }).filter(Boolean);
+
+  if (!affected.length) {
+    res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No legacy trades found. All users are on the current version.</div>`;
+    btn.textContent = 'Scan'; btn.disabled = false;
+    return;
+  }
+
+  const totalLegacy = affected.reduce((s,a) => s + a.legacy.length, 0);
+  res.innerHTML = `
+    <div style="background:rgba(201,138,0,.06);border:1px solid rgba(201,138,0,.25);border-radius:10px;padding:12px 14px;margin-bottom:12px">
+      <div style="font-size:12px;font-weight:700;color:#C98A00;margin-bottom:4px">⚡ ${totalLegacy} legacy trade${totalLegacy!==1?'s':''} found across ${affected.length} user${affected.length!==1?'s':''}</div>
+      <div style="font-size:10px;color:var(--sil);line-height:1.6">These were created under the old 500% ROI system. They will be permanently deleted. Users will keep their wallet balance — only the trade records are removed.</div>
+    </div>
+    ${affected.map(({u, legacy}) => `
+      <div style="background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:10px 13px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--plat)">${u.name||'(unnamed)'}</div>
+          <div style="font-size:10px;color:var(--sil)">${legacy.length} legacy trade${legacy.length!==1?'s':''} · ${legacy.map(i=>fmt(i.invest)).join(', ')}</div>
+        </div>
+        <div style="font-size:10px;color:#C98A00;font-weight:600">${legacy.length} to remove</div>
+      </div>`).join('')}
+    <button onclick="executeLegacyClear()" style="width:100%;margin-top:4px;padding:13px;background:var(--err);color:#fff;border:none;border-radius:10px;font-family:var(--b);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.02em">
+      Clear All Legacy Trades Permanently
+    </button>
+    <button onclick="document.getElementById('legacy-results').innerHTML='';document.getElementById('legacy-preview-btn').textContent='Scan';document.getElementById('legacy-preview-btn').disabled=false;" style="width:100%;margin-top:7px;padding:10px;background:none;border:none;font-family:var(--b);font-size:11px;color:var(--sil);cursor:pointer">Cancel</button>`;
+
+  btn.textContent = 'Scan'; btn.disabled = false;
+}
+
+async function executeLegacyClear() {
+  const affected = _admAllUsers.map(u => {
+    const legacy = (u.investments||[]).filter(i => isLegacyTrade(i));
+    const clean  = (u.investments||[]).filter(i => !isLegacyTrade(i));
+    if (!legacy.length) return null;
+    return { u, clean };
+  }).filter(Boolean);
+
+  if (!affected.length) { toast('Nothing to clear.'); return; }
+
+  showLoader(true, `Clearing ${affected.length} users…`);
+  try {
+    // Firestore batch writes (max 500 per batch)
+    const BATCH_SIZE = 400;
+    for (let i = 0; i < affected.length; i += BATCH_SIZE) {
+      const batch = db.batch();
+      affected.slice(i, i + BATCH_SIZE).forEach(({ u, clean }) => {
+        batch.update(db.collection('users').doc(u.id), { investments: clean });
+      });
+      await withTimeout(batch.commit());
+    }
+    document.getElementById('legacy-results').innerHTML =
+      `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ Done. Legacy trades cleared from ${affected.length} user${affected.length!==1?'s':''}. All wallets untouched.</div>`;
+    toast(`Legacy trades cleared from ${affected.length} users.`);
+    document.getElementById('legacy-preview-btn').textContent = 'Scan';
+    document.getElementById('legacy-preview-btn').disabled = false;
+  } catch(e) {
+    console.error(e);
+    toast('Error during migration. Some users may not have been updated — try again.');
+  } finally {
+    showLoader(false);
+  }
+}
 async function unbanUser(uid, name) {
   if (!confirm(`Unban ${name}? They will be able to log in again.`)) return;
   showLoader(true,'Unbanning…');
