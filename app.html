@@ -1001,18 +1001,8 @@ body::after{display:none}
       <div class="adm-sec-t" style="margin:0">Fraud Monitor</div>
       <button onclick="runFraudScan()" id="fraud-scan-btn" style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(239,68,68,.08);color:var(--err);border:1px solid rgba(239,68,68,.22);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Run Scan</button>
     </div>
-    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Flags users whose wallet balance exceeds what their deposits, earnings, and withdrawals can explain. Dismissed users are saved — they won't reappear unless their balance rises again.</div>
+    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Detects users with unexplained wallet balances. Actions are saved permanently — dismissed or cleared users won't reappear unless their balance grows significantly.</div>
     <div id="fraud-results"></div>
-  </div>
-
-  <!-- LEGACY MIGRATION TOOL -->
-  <div class="adm-sec" id="legacy-sec">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
-      <div class="adm-sec-t" style="margin:0">Legacy Trade Clearance</div>
-      <button onclick="previewLegacyClear()" id="legacy-preview-btn" style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(201,138,0,.08);color:#C98A00;border:1px solid rgba(201,138,0,.25);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Scan</button>
-    </div>
-    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Removes all old 500% ROI trades (pre-crypto version) from every user permanently. Run once — this cannot be undone.</div>
-    <div id="legacy-results"></div>
   </div>
   <div class="adm-sec">
     <div class="adm-sec-t" style="margin-top:8px">Broadcast Message</div>
@@ -1414,9 +1404,6 @@ let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
 let _myDeps = [], _myWits = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null;
-let _unsubAdmAllDep = null, _unsubAdmAllWit = null;
-let _admAllDeps = [], _admAllWits = [];
-let _fraudSessionDismissed = new Set(); // persists for entire admin session
 
 // ══════════════════════════════════
 // UI HELPERS
@@ -2378,13 +2365,6 @@ function openAdminPanel() {
       const srch = document.getElementById('adm-user-search');
       if (srch && !srch.value) renderAdmUsers(users);
     });
-  // All approved deposits + withdrawals — power fraud detection
-  if (_unsubAdmAllDep) _unsubAdmAllDep();
-  _unsubAdmAllDep = db.collection('deposits').where('status','==','approved')
-    .onSnapshot(snap => { _admAllDeps = snap.docs.map(d=>({id:d.id,...d.data()})); });
-  if (_unsubAdmAllWit) _unsubAdmAllWit();
-  _unsubAdmAllWit = db.collection('withdrawals').where('status','==','approved')
-    .onSnapshot(snap => { _admAllWits = snap.docs.map(d=>({id:d.id,...d.data()})); });
 }
 
 let _admAllUsers = [];
@@ -2447,145 +2427,183 @@ async function adjBalance(type) {
 }
 function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
-  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmAllDep,_unsubAdmAllWit].forEach(fn=>{if(fn)fn();});
-  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmAllDep=_unsubAdmAllWit=null;
+  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr].forEach(fn=>{if(fn)fn();});
+  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=null;
   _admAllDeps=[]; _admAllWits=[];
-  _fraudSessionDismissed = new Set();
-  _fraudHasRun = false;
+  // Reset scan button state
+  const scanBtn = document.getElementById('fraud-scan-btn');
+  if (scanBtn) { scanBtn.textContent = 'Run Scan'; scanBtn.dataset.showing = '0'; }
+  const scanRes = document.getElementById('fraud-results');
+  if (scanRes) scanRes.innerHTML = '';
   if (fbAuth && fbAuth.currentUser) fbAuth.signOut().catch(()=>{});
 }
 
 // ══════════════════════════════════
-// FRAUD MONITOR
+// FRAUD MONITOR — v2 (persistent, session-independent)
 // ══════════════════════════════════
-let _fraudHasRun = false;
+// HOW IT WORKS:
+//   - Always fetches fresh deposit/withdrawal data on scan (no listener timing issues)
+//   - Actions (dismiss/zero/ban) write fraudIgnore:true + fraudIgnoreDiscrepancy:N to user doc
+//   - On re-scan, ignored users are skipped UNLESS their discrepancy grew by >₦30k since action
+//   - Everything persists in Firestore on the user doc itself — survives admin logout/reload
+// ─────────────────────────────────
+const FRAUD_TOLERANCE   = 5000;  // ₦5k grace (referral bonuses, rounding)
+const FRAUD_REGROW_GATE = 30000; // ₦30k new suspicious growth before re-flagging an ignored user
+
 async function runFraudScan() {
   const btn = document.getElementById('fraud-scan-btn');
   const res = document.getElementById('fraud-results');
+  const isShowing = btn.dataset.showing === '1';
 
-  // If already ran and showing results, require explicit re-scan
-  if (_fraudHasRun) {
-    _fraudHasRun = false;
+  // Toggle: if results already showing, clear them
+  if (isShowing) {
     res.innerHTML = '';
     btn.textContent = 'Run Scan';
+    btn.dataset.showing = '0';
     return;
   }
 
-  btn.textContent = 'Scanning…'; btn.disabled = true;
-  const TOLERANCE = 5000;
+  btn.textContent = 'Scanning…';
+  btn.disabled = true;
+  res.innerHTML = `<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px">Fetching latest data…</div>`;
 
-  // Load Firestore-persisted dismissed list and merge with session set
   try {
-    const admSnap = await db.collection('adminMeta').doc('fraudDismissed').get();
-    if (admSnap.exists) {
-      (admSnap.data().uids||[]).forEach(d => _fraudSessionDismissed.add(d.uid));
+    // 1. Fetch ALL approved deposits fresh (not from listener cache)
+    const [depSnap, witSnap] = await Promise.all([
+      withTimeout(db.collection('deposits').where('status','==','approved').get()),
+      withTimeout(db.collection('withdrawals').where('status','==','approved').get())
+    ]);
+    const allDeps = depSnap.docs.map(d=>({...d.data()}));
+    const allWits = witSnap.docs.map(d=>({...d.data()}));
+
+    // 2. Calculate discrepancy per user against fresh data
+    const flagged = [];
+    for (const u of _admAllUsers) {
+      const deps    = allDeps.filter(d=>d.userId===u.id).reduce((s,d)=>s+(d.amount||0),0);
+      const wits    = allWits.filter(w=>w.userId===u.id).reduce((s,w)=>s+(w.amount||0),0);
+      const invested= (u.investments||[]).reduce((s,i)=>s+(i.invest||0),0);
+      const earned  = u.totalEarned||0;
+      const expected= deps + earned - wits - invested;
+      const disc    = (u.balance||0) - expected;
+
+      if (disc <= FRAUD_TOLERANCE) continue; // clean
+
+      // Check if admin already handled this user
+      if (u.fraudIgnore) {
+        const prevDisc = u.fraudIgnoreDiscrepancy || 0;
+        // Only re-flag if discrepancy grew significantly since last action
+        if (disc - prevDisc < FRAUD_REGROW_GATE) continue;
+      }
+
+      flagged.push({ u, deps, wits, invested, earned, expected, disc });
     }
-  } catch(e) { /* ignore */ }
 
-  const flagged = _admAllUsers.map(u => {
-    if (_fraudSessionDismissed.has(u.id)) return null;
-    const totalDeposited  = _admAllDeps.filter(d=>d.userId===u.id).reduce((s,d)=>s+(d.amount||0),0);
-    const totalWithdrawn  = _admAllWits.filter(w=>w.userId===u.id).reduce((s,w)=>s+(w.amount||0),0);
-    const totalInvested   = (u.investments||[]).reduce((s,i)=>s+(i.invest||0),0);
-    const totalEarned     = u.totalEarned||0;
-    const expectedBalance = totalDeposited + totalEarned - totalWithdrawn - totalInvested;
-    const discrepancy     = (u.balance||0) - expectedBalance;
-    if (discrepancy <= TOLERANCE) return null;
-    return {u, totalDeposited, totalWithdrawn, totalInvested, totalEarned, expectedBalance, discrepancy};
-  }).filter(Boolean);
+    // 3. Render results
+    if (!flagged.length) {
+      res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No suspicious accounts detected</div>`;
+    } else {
+      res.innerHTML = flagged.map(({u,deps,wits,invested,earned,expected,disc}) => `
+        <div class="fraud-card" id="fcard-${u.id}">
+          <div class="fraud-name">${u.name||'(unnamed)'}
+            ${u.fraudIgnore ? '<span style="font-size:8px;background:rgba(201,138,0,.12);color:#C98A00;border:1px solid rgba(201,138,0,.28);padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:700">PREVIOUSLY CLEARED</span>' : ''}
+          </div>
+          <div class="fraud-row"><span>Total Deposits</span><strong>${fmt(deps)}</strong></div>
+          <div class="fraud-row"><span>Claimed Earnings</span><strong>${fmt(earned)}</strong></div>
+          <div class="fraud-row"><span>Total Withdrawn</span><strong style="color:var(--err)">−${fmt(wits)}</strong></div>
+          <div class="fraud-row"><span>In Trades</span><strong style="color:var(--err)">−${fmt(invested)}</strong></div>
+          <div class="fraud-row"><span>Expected Balance</span><strong>${fmt(Math.max(0,expected))}</strong></div>
+          <div class="fraud-row"><span>Actual Balance</span><strong style="color:var(--err)">${fmt(u.balance||0)}</strong></div>
+          <div class="fraud-disc">
+            <div class="fraud-disc-lbl">Unexplained Surplus</div>
+            <div class="fraud-disc-amt">+${fmt(disc)}</div>
+          </div>
+          <div class="fraud-acts">
+            <button class="fraud-ban"    onclick="fraudAction('ban','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${disc})">Ban User</button>
+            <button class="fraud-zero"   onclick="fraudAction('zero','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${disc})">Zero Balance</button>
+            <button class="fraud-dismiss" onclick="fraudAction('dismiss','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${disc})">Dismiss</button>
+          </div>
+        </div>`).join('');
+    }
 
-  if (!flagged.length) {
-    res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No suspicious accounts detected</div>`;
-  } else {
-    res.innerHTML = flagged.map(({u,totalDeposited,totalWithdrawn,totalInvested,totalEarned,expectedBalance,discrepancy}) => `
-      <div class="fraud-card" id="fcard-${u.id}">
-        <div class="fraud-name">${u.name||'(unnamed)'}</div>
-        <div class="fraud-row"><span>Total Deposits</span><strong>${fmt(totalDeposited)}</strong></div>
-        <div class="fraud-row"><span>Claimed Earnings</span><strong>${fmt(totalEarned)}</strong></div>
-        <div class="fraud-row"><span>Total Withdrawn</span><strong style="color:var(--err)">−${fmt(totalWithdrawn)}</strong></div>
-        <div class="fraud-row"><span>In Trades</span><strong style="color:var(--err)">−${fmt(totalInvested)}</strong></div>
-        <div class="fraud-row"><span>Expected Balance</span><strong>${fmt(Math.max(0,expectedBalance))}</strong></div>
-        <div class="fraud-row"><span>Actual Balance</span><strong style="color:var(--err)">${fmt(u.balance||0)}</strong></div>
-        <div class="fraud-disc">
-          <div class="fraud-disc-lbl">Unexplained Surplus</div>
-          <div class="fraud-disc-amt">+${fmt(discrepancy)}</div>
-        </div>
-        <div class="fraud-acts">
-          <button class="fraud-ban" onclick="fraudBan('${u.id}','${(u.name||'').replace(/'/g,"\\\'")}')">Ban User</button>
-          <button class="fraud-zero" onclick="fraudZeroBal('${u.id}','${(u.name||'').replace(/'/g,"\\\'")}')">Zero Balance</button>
-          <button class="fraud-dismiss" onclick="fraudDismiss('${u.id}',${discrepancy})">Dismiss</button>
-        </div>
-      </div>`).join('');
+    btn.textContent = flagged.length ? `${flagged.length} Flagged · Clear` : 'Clear Results';
+    btn.dataset.showing = '1';
+  } catch(e) {
+    console.error(e);
+    res.innerHTML = `<div style="font-size:11px;color:var(--err);padding:12px;background:var(--errd);border:1px solid var(--errb);border-radius:10px">Scan failed. Check your connection and try again.</div>`;
+    btn.textContent = 'Retry Scan';
+  } finally {
+    btn.disabled = false;
   }
-
-  _fraudHasRun = true;
-  btn.disabled = false;
-  btn.textContent = flagged.length ? `${flagged.length} Flagged · Clear` : 'Clear Results';
 }
 
-async function fraudBan(uid, name) {
-  if (!confirm(`Ban ${name}? They will be locked out immediately.`)) return;
-  showLoader(true,'Banning user…');
+async function fraudAction(action, uid, name, discrepancy) {
+  const confirmMsg = {
+    ban:     `Ban ${name}? They will be locked out immediately.`,
+    zero:    `Zero out ${name}'s balance? This cannot be undone.`,
+    dismiss: `Dismiss flag for ${name}? Won't reappear unless balance grows by ₦30k+.`
+  }[action];
+
+  if (!confirm(confirmMsg)) return;
+  showLoader(true, action==='ban'?'Banning…':action==='zero'?'Zeroing balance…':'Dismissing…');
+
   try {
-    await withTimeout(db.collection('users').doc(uid).update({ banned: true, bannedAt: nowISO() }));
+    const updates = {
+      fraudIgnore: true,
+      fraudIgnoreDiscrepancy: discrepancy,
+      fraudIgnoreAction: action,
+      fraudIgnoreAt: nowISO()
+    };
+
+    if (action === 'ban') {
+      updates.banned = true;
+      updates.bannedAt = nowISO();
+    }
+    if (action === 'zero') {
+      updates.balance = 0;
+    }
+
+    await withTimeout(db.collection('users').doc(uid).update(updates));
+
+    // Also update local cache so re-scan reflects this immediately
+    const u = _admAllUsers.find(u => u.id === uid);
+    if (u) Object.assign(u, updates);
+
     document.getElementById('fcard-'+uid)?.remove();
-    toast(name+' has been banned.');
-  } catch(e) { console.error(e); toast('Error banning user.'); }
+
+    const msgs = { ban: name+' banned.', zero: name+"'s balance zeroed.", dismiss: 'Flag dismissed.' };
+    toast(msgs[action]);
+
+    // If all cards gone, show clean state
+    const res = document.getElementById('fraud-results');
+    if (res && !res.querySelector('.fraud-card')) {
+      res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No suspicious accounts remaining</div>`;
+    }
+  } catch(e) {
+    console.error(e);
+    toast('Action failed. Try again.');
+  } finally {
+    showLoader(false);
+  }
+}
+
+async function unbanUser(uid, name) {
+  if (!confirm(`Unban ${name}? They will be able to log in again.`)) return;
+  showLoader(true,'Unbanning…');
+  try {
+    await withTimeout(db.collection('users').doc(uid).update({ banned: false }));
+    const u = _admAllUsers.find(u=>u.id===uid);
+    if (u) u.banned = false;
+    toast(name+' has been unbanned.');
+  } catch(e) { console.error(e); toast('Error unbanning user.'); }
   finally { showLoader(false); }
 }
-
-async function fraudZeroBal(uid, name) {
-  if (!confirm(`Zero out ${name}'s balance? This cannot be undone.`)) return;
-  showLoader(true,'Zeroing balance…');
-  try {
-    await withTimeout(db.collection('users').doc(uid).update({ balance: 0 }));
-    document.getElementById('fcard-'+uid)?.remove();
-    toast(name+"'s balance set to ₦0.");
-  } catch(e) { console.error(e); toast('Error updating balance.'); }
-  finally { showLoader(false); }
+function adjFromRow(uid, name, balance) {
+  adjSelect(uid, name, balance);
+  document.getElementById('adj-section')?.scrollIntoView({ behavior:'smooth' });
 }
-
-async function fraudDismiss(uid, discrepancy) {
-  // Add to session memory immediately — this is what stops re-scans from re-showing
-  _fraudSessionDismissed.add(uid);
-  document.getElementById('fcard-'+uid)?.remove();
-  toast("Flag dismissed. Won't reappear this session.");
-  // Also persist to Firestore for future admin sessions
-  try {
-    const ref = db.collection('adminMeta').doc('fraudDismissed');
-    const snap = await ref.get();
-    const current = snap.exists ? (snap.data().uids||[]) : [];
-    const updated = current.filter(d=>d.uid!==uid);
-    updated.push({ uid, discrepancy, dismissedAt: nowISO() });
-    await ref.set({ uids: updated });
-  } catch(e) { console.error('Dismiss persist error:', e); }
-}
-
-function noItems(msg) { return `<div style="font-size:12px;color:var(--sil);text-align:center;padding:18px 0">${msg}</div>`; }
-
-function renderAdmDeps(deps) {
-  const c = document.getElementById('adm-deps');
-  if (!deps.length) { c.innerHTML=noItems('No pending deposits'); return; }
-  c.innerHTML = deps.map(d => `<div class="req-card">
-    <div class="rc-top"><div><div class="rc-user">${d.userName}</div><div class="rc-date">${dateStr(d.date)}</div></div><div class="rc-amt">${fmt(d.amount)}</div></div>
-    <div class="rc-acts">
-      <button class="rc-ap" onclick="admApproveDep('${d.id}','${d.userId}',${d.amount})">Approve & Credit</button>
-      <button class="rc-rj" onclick="admRejectDep('${d.id}')">Reject</button>
-    </div>
-  </div>`).join('');
-}
-function renderAdmWits(wits) {
-  const c = document.getElementById('adm-wits');
-  if (!wits.length) { c.innerHTML=noItems('No pending withdrawals'); return; }
-  c.innerHTML = wits.map(w => `<div class="req-card">
-    <div class="rc-top"><div><div class="rc-user">${w.userName}</div><div class="rc-date">${dateStr(w.date)}</div></div><div class="rc-amt">${fmt(w.amount)}</div></div>
-    <div class="rc-bank"><b>Bank</b> ${w.bank}<br><b>Acct No.</b> ${w.accountNumber}<span class="rc-cpy" onclick="cpy('${w.accountNumber}')">Copy</span><br><b>Acct Name</b> ${w.accountName}</div>
-    <div class="rc-acts">
-      <button class="rc-ap" onclick="admApproveWit('${w.id}')">Mark Sent</button>
-      <button class="rc-rj" onclick="admRejectWit('${w.id}','${w.userId}',${w.amount})">Reject & Refund</button>
-    </div>
-  </div>`).join('');
-}
+// ══════════════════════════════════
+// ADMIN USERS — SORT + RENDER
+// ══════════════════════════════════
 let _admSortMode = 'reg';
 function setAdmSort(mode) {
   _admSortMode = mode;
@@ -2599,7 +2617,6 @@ function sortAdmUsers(users) {
   if (_admSortMode === 'az')      return u.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
   if (_admSortMode === 'bal')     return u.sort((a,b)=>(b.balance||0)-(a.balance||0));
   if (_admSortMode === 'bal-asc') return u.sort((a,b)=>(a.balance||0)-(b.balance||0));
-  // 'reg' = newest first (default — Firestore createdAt string sorts lexicographically)
   return u.sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
 }
 function toggleAdmUser(id) {
@@ -2610,7 +2627,6 @@ function toggleAdmUser(id) {
   if (!wasOpen) row.classList.add('expanded');
 }
 function isLegacyTrade(inv) {
-  // Old 500% ROI plans had total = invest × 6; new ones × 3
   return inv.total && inv.invest && inv.total > inv.invest * 4;
 }
 function renderAdmUsers(users) {
@@ -2620,17 +2636,16 @@ function renderAdmUsers(users) {
   const sorted = sortAdmUsers(filtered);
   if (!sorted.length) { c.innerHTML = noItems('No users found'); return; }
   c.innerHTML = sorted.map(u => {
-    const invs       = u.investments||[];
-    const act        = invs.filter(i=>isActive(i)).length;
-    const totalIn    = invs.reduce((s,i)=>s+(i.invest||0),0);
-    const earned     = u.totalEarned||0;
-    const banned     = u.banned ? '<span style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.1);color:var(--err);border:1px solid rgba(239,68,68,.25);padding:2px 6px;border-radius:10px;margin-left:6px">BANNED</span>' : '';
-    const legacyNote = '';
-    const joined     = u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const invs    = u.investments||[];
+    const act     = invs.filter(i=>isActive(i)).length;
+    const totalIn = invs.reduce((s,i)=>s+(i.invest||0),0);
+    const earned  = u.totalEarned||0;
+    const banned  = u.banned ? '<span style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.1);color:var(--err);border:1px solid rgba(239,68,68,.25);padding:2px 6px;border-radius:10px;margin-left:6px">BANNED</span>' : '';
+    const joined  = u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '—';
     return `<div class="adm-user-row" id="au-row-${u.id}" onclick="toggleAdmUser('${u.id}')">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div>
-          <div class="au-name">${u.name||'(unnamed)'}${banned}${legacyNote}</div>
+          <div class="au-name">${u.name||'(unnamed)'}${banned}</div>
           <div class="au-info">Balance: <strong style="color:var(--gold)">${fmt(u.balance||0)}</strong> · In Trades: ${fmt(totalIn)} · ${act} active</div>
         </div>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M6 9l6 6 6-6"/></svg>
@@ -2644,8 +2659,8 @@ function renderAdmUsers(users) {
         <div class="au-expand-acts">
           <button onclick="event.stopPropagation();showUserHistory('${u.id}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--gd);color:var(--gold);border:1px solid var(--gb);cursor:pointer">History</button>
           ${u.banned
-            ? `<button onclick="event.stopPropagation();unbanUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--okd);color:var(--ok);border:1px solid var(--okb);cursor:pointer">Unban</button>`
-            : `<button onclick="event.stopPropagation();fraudBan('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--errd);color:var(--err);border:1px solid var(--errb);cursor:pointer">Ban</button>`
+            ? `<button onclick="event.stopPropagation();unbanUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')\" style=\"flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--okd);color:var(--ok);border:1px solid var(--okb);cursor:pointer\">Unban</button>`
+            : `<button onclick="event.stopPropagation();fraudAction('ban','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',0)" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--errd);color:var(--err);border:1px solid var(--errb);cursor:pointer">Ban</button>`
           }
           <button onclick="event.stopPropagation();adjFromRow('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.balance||0})" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:rgba(17,20,43,.04);color:var(--sil);border:1px solid var(--b2);cursor:pointer">Adjust Bal</button>
         </div>
@@ -2654,97 +2669,6 @@ function renderAdmUsers(users) {
   }).join('');
 }
 
-// ══════════════════════════════════
-// LEGACY TRADE MIGRATION
-// ══════════════════════════════════
-function previewLegacyClear() {
-  const btn = document.getElementById('legacy-preview-btn');
-  const res = document.getElementById('legacy-results');
-  btn.textContent = 'Scanning…'; btn.disabled = true;
-
-  // Find all users who have legacy investments
-  const affected = _admAllUsers.map(u => {
-    const legacy = (u.investments||[]).filter(i => isLegacyTrade(i));
-    const clean  = (u.investments||[]).filter(i => !isLegacyTrade(i));
-    if (!legacy.length) return null;
-    return { u, legacy, clean };
-  }).filter(Boolean);
-
-  if (!affected.length) {
-    res.innerHTML = `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ No legacy trades found. All users are on the current version.</div>`;
-    btn.textContent = 'Scan'; btn.disabled = false;
-    return;
-  }
-
-  const totalLegacy = affected.reduce((s,a) => s + a.legacy.length, 0);
-  res.innerHTML = `
-    <div style="background:rgba(201,138,0,.06);border:1px solid rgba(201,138,0,.25);border-radius:10px;padding:12px 14px;margin-bottom:12px">
-      <div style="font-size:12px;font-weight:700;color:#C98A00;margin-bottom:4px">⚡ ${totalLegacy} legacy trade${totalLegacy!==1?'s':''} found across ${affected.length} user${affected.length!==1?'s':''}</div>
-      <div style="font-size:10px;color:var(--sil);line-height:1.6">These were created under the old 500% ROI system. They will be permanently deleted. Users will keep their wallet balance — only the trade records are removed.</div>
-    </div>
-    ${affected.map(({u, legacy}) => `
-      <div style="background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:10px 13px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div style="font-size:12px;font-weight:600;color:var(--plat)">${u.name||'(unnamed)'}</div>
-          <div style="font-size:10px;color:var(--sil)">${legacy.length} legacy trade${legacy.length!==1?'s':''} · ${legacy.map(i=>fmt(i.invest)).join(', ')}</div>
-        </div>
-        <div style="font-size:10px;color:#C98A00;font-weight:600">${legacy.length} to remove</div>
-      </div>`).join('')}
-    <button onclick="executeLegacyClear()" style="width:100%;margin-top:4px;padding:13px;background:var(--err);color:#fff;border:none;border-radius:10px;font-family:var(--b);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.02em">
-      Clear All Legacy Trades Permanently
-    </button>
-    <button onclick="document.getElementById('legacy-results').innerHTML='';document.getElementById('legacy-preview-btn').textContent='Scan';document.getElementById('legacy-preview-btn').disabled=false;" style="width:100%;margin-top:7px;padding:10px;background:none;border:none;font-family:var(--b);font-size:11px;color:var(--sil);cursor:pointer">Cancel</button>`;
-
-  btn.textContent = 'Scan'; btn.disabled = false;
-}
-
-async function executeLegacyClear() {
-  const affected = _admAllUsers.map(u => {
-    const legacy = (u.investments||[]).filter(i => isLegacyTrade(i));
-    const clean  = (u.investments||[]).filter(i => !isLegacyTrade(i));
-    if (!legacy.length) return null;
-    return { u, clean };
-  }).filter(Boolean);
-
-  if (!affected.length) { toast('Nothing to clear.'); return; }
-
-  showLoader(true, `Clearing ${affected.length} users…`);
-  try {
-    // Firestore batch writes (max 500 per batch)
-    const BATCH_SIZE = 400;
-    for (let i = 0; i < affected.length; i += BATCH_SIZE) {
-      const batch = db.batch();
-      affected.slice(i, i + BATCH_SIZE).forEach(({ u, clean }) => {
-        batch.update(db.collection('users').doc(u.id), { investments: clean });
-      });
-      await withTimeout(batch.commit());
-    }
-    document.getElementById('legacy-results').innerHTML =
-      `<div style="font-size:11px;color:var(--ok);text-align:center;padding:16px;background:var(--okd);border:1px solid var(--okb);border-radius:10px">✓ Done. Legacy trades cleared from ${affected.length} user${affected.length!==1?'s':''}. All wallets untouched.</div>`;
-    toast(`Legacy trades cleared from ${affected.length} users.`);
-    document.getElementById('legacy-preview-btn').textContent = 'Scan';
-    document.getElementById('legacy-preview-btn').disabled = false;
-  } catch(e) {
-    console.error(e);
-    toast('Error during migration. Some users may not have been updated — try again.');
-  } finally {
-    showLoader(false);
-  }
-}
-async function unbanUser(uid, name) {
-  if (!confirm(`Unban ${name}? They will be able to log in again.`)) return;
-  showLoader(true,'Unbanning…');
-  try {
-    await withTimeout(db.collection('users').doc(uid).update({ banned: false }));
-    toast(name+' has been unbanned.');
-  } catch(e) { console.error(e); toast('Error unbanning user.'); }
-  finally { showLoader(false); }
-}
-function adjFromRow(uid, name, balance) {
-  // Pre-fill the balance adjuster and scroll to it
-  adjSelect(uid, name, balance);
-  document.getElementById('adj-section')?.scrollIntoView({ behavior:'smooth' });
-}
 async function admApproveDep(depId, userId, amount) {
   showLoader(true,'Approving…');
   try {
