@@ -81,7 +81,21 @@ body::after{display:none}
 @keyframes pgIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 /* TOPBAR */
-.tb{display:flex;align-items:center;justify-content:space-between;padding:52px 22px 16px}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:52px 22px 10px}
+.ticker-wrap{overflow:hidden;background:rgba(67,56,236,.04);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:6px 0;margin-bottom:6px}
+.ticker-track{display:flex;gap:0;animation:tickerScroll 28s linear infinite;width:max-content}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{display:flex;align-items:center;gap:5px;padding:0 18px;white-space:nowrap;font-size:10px;font-weight:500;border-right:1px solid var(--b1)}
+.ticker-sym{color:var(--plat);font-weight:700;font-family:var(--d)}
+.ticker-price{color:var(--sil)}
+.ticker-chg{font-weight:600}
+.ticker-chg.up{color:var(--ok)}
+.ticker-chg.dn{color:var(--err)}
+.mkt-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 22px 14px}
+.mkt-time{font-size:9.5px;color:var(--sil);font-weight:500}
+.mkt-status{display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.mkt-dot{width:5px;height:5px;border-radius:50%;animation:pls 2.2s ease infinite}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .logo{font-family:var(--d);font-size:19px;font-weight:800;letter-spacing:.01em;color:var(--gold);cursor:pointer}
 .logo sup{font-size:8px;color:var(--sil);font-family:var(--b);font-weight:300}
 .tb-r{display:flex;gap:9px;align-items:center}
@@ -629,7 +643,16 @@ body::after{display:none}
         <div class="av" id="home-av" onclick="openUserMenu()">DA</div>
       </div>
     </div>
-    <div style="padding:0 22px 20px">
+    <!-- LIVE MARKET TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+    <!-- MARKET SESSION BAR -->
+    <div class="mkt-bar">
+      <div class="mkt-time" id="mkt-time">Lagos · Loading…</div>
+      <div class="mkt-status" id="mkt-status"><div class="mkt-dot" style="background:var(--ok)"></div><span style="color:var(--ok)">Markets Open</span></div>
+    </div>
+    <div style="padding:0 22px 18px">
       <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;margin-bottom:2px">Good morning</div>
       <div style="font-family:var(--d);font-size:22px;font-weight:500;color:var(--plat)">Welcome, <em id="home-name" style="color:var(--gold)">—</em></div>
     </div>
@@ -659,17 +682,17 @@ body::after{display:none}
     <div class="stats">
       <div class="stile" style="--sl:rgba(67,56,236,.25)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="st-val" id="h-invested">₦0</div><div class="st-lbl">In Trades</div></div>
       <div class="stile" style="--sl:rgba(15,174,107,.3);--si:var(--okd);--sc:var(--ok);--svc:var(--ok)"><div class="st-ico" style="background:var(--okd)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-earned">₦0</div><div class="st-lbl">Claimed Earnings</div></div>
-      <div class="stile" style="--sl:rgba(67,56,236,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="st-val" id="h-active">0</div><div class="st-lbl">Active Plans</div></div>
+      <div class="stile" style="--sl:rgba(67,56,236,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="st-val" id="h-active">0</div><div class="st-lbl">Active Markets</div></div>
       <div class="stile" style="--sl:rgba(67,56,236,.2)"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="st-val" id="h-claimable">₦0</div><div class="st-lbl">Claimable Today</div></div>
     </div>
     <div class="sh"><h2>Active Positions</h2><div class="sh-a" onclick="go('p-portfolio','n-none')">View all</div></div>
-    <div class="positions" id="h-pos"><div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go('p-plans','n-plans')">Browse plans →</span></div></div>
+    <div class="positions" id="h-pos"><div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go('p-plans','n-plans')">Browse Markets →</span></div></div>
   </div>
 
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Trading Plans</div><div class="ph-s">36 plans · 200% returns · Claim daily · PIN required</div></div>
+    <div class="ph"><div class="ph-t">Markets</div><div class="ph-s">36 plans · 200% returns · Claim daily · PIN required</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -683,7 +706,7 @@ body::after{display:none}
       <div class="streak-txt"><div class="streak-label" id="streak-label">0-Day Streak</div><div class="streak-sub" id="streak-sub">Claim today to start your streak</div></div>
       <div class="streak-num" id="streak-num">0</div>
     </div>
-    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Investments</div><div class="empty-d">Start a trade to begin earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Open Markets</div><div class="empty-d">Start a trade to begin earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Markets</button></div></div>
   </div>
 
   <!-- DEPOSIT -->
@@ -884,7 +907,7 @@ body::after{display:none}
         <div style="text-align:right"><div class="pch-lbl">Claimed</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
       </div>
     </div>
-    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Plans</button></div></div>
+    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Markets</button></div></div>
   </div>
 
   <!-- PROFILE -->
@@ -899,7 +922,7 @@ body::after{display:none}
     <div class="prof-stats">
       <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">In Trades</div></div>
       <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
-      <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Plans</div></div>
+      <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Markets</div></div>
     </div>
     <div class="prof-sec">
       <div class="prof-sec-title">Referral</div>
@@ -929,7 +952,7 @@ body::after{display:none}
 <!-- BOTTOM NAV -->
 <nav class="bnav">
   <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-plans" onclick="go('p-plans','n-plans')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="ni-lbl">Plans</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-plans" onclick="go('p-plans','n-plans')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="ni-lbl">Markets</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Claim</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-deposit" onclick="go('p-deposit','n-deposit')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg></div><div class="ni-lbl">Deposit</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-withdraw" onclick="go('p-withdraw','n-withdraw')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg></div><div class="ni-lbl">Withdraw</div><div class="ni-dot"></div></div>
@@ -967,7 +990,7 @@ body::after{display:none}
       <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">—</div><div class="tr-sub">User available balances</div></div>
       <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
       <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
-      <div class="tr-card"><div class="tr-lbl">Active Plans</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Running trades</div></div>
+      <div class="tr-card"><div class="tr-lbl">Active Markets</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Open market positions</div></div>
       <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings claimed</div></div>
       <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
     </div>
@@ -1153,7 +1176,7 @@ body::after{display:none}
       <p>AURO is a digital trading platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
       <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By participating on this Platform, you expressly acknowledge that: (a) you may lose some or all of your committed capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
 
-      <h3>3. Trading Plans — Terms, Conditions & Forfeitures</h3>
+      <h3>3. Markets — Terms, Conditions & Forfeitures</h3>
       <ul>
         <li>Each trading plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
         <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
@@ -1478,6 +1501,7 @@ function showApp() {
   document.getElementById('auth').style.display = 'none';
   document.getElementById('main-app').style.display = 'block';
   go('p-home','n-home');
+  initTicker();
 }
 
 // ══════════════════════════════════
@@ -1722,8 +1746,10 @@ async function confirmInv() {
     return;
   }
   if (_user.balance < plan.invest) { toast('Insufficient balance · Please deposit first'); return; }
+  const ref = 'AUR-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,5).toUpperCase();
   const newInv = {
     id: 'inv_'+Date.now(), planId: plan.id,
+    ref,
     name: plan.tier+' Plan · '+fmt(plan.invest),
     invest: plan.invest, total: plan.total, daily: plan.daily,
     tier: plan.tier, startDate: simToday(_user),
@@ -1736,7 +1762,7 @@ async function confirmInv() {
       investments: firebase.firestore.FieldValue.arrayUnion(newInv)
     }));
     closeM('inv-modal');
-    toast('Position opened · '+fmt(plan.invest)+' invested');
+    toast('Position opened · Ref: '+ref);
   } catch(e) { console.error(e); toast('Error opening position. Check your connection.'); }
   finally { showLoader(false); }
 }
@@ -2043,7 +2069,7 @@ function renderClaims() {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
       'No Active Trades','Start a trade to begin earning daily claimable returns.',
-      'Browse Plans',"go('p-plans','n-plans')"
+      'Browse Markets',"go('p-plans','n-plans')"
     ); return;
   }
 
@@ -2151,7 +2177,7 @@ function renderHome() {
   const posEl = document.getElementById('h-pos');
   const active = invs.filter(i=>isActive(i)).slice(0,3);
   if (!active.length) {
-    posEl.innerHTML = '<div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go(\'p-plans\',\'n-plans\')">Browse plans →</span></div>';
+    posEl.innerHTML = '<div style="padding:14px 0;text-align:center;font-size:11px;color:var(--sil);font-weight:300">No positions yet. <span style="color:var(--gold);cursor:pointer" onclick="go(\'p-plans\',\'n-plans\')">Browse Markets →</span></div>';
     return;
   }
   posEl.innerHTML = active.map(inv => {
@@ -2182,7 +2208,7 @@ function renderPortfolio() {
   if (!invs.length) {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
-      'Portfolio Empty','No trades yet.','Browse Plans',"go('p-plans','n-plans')"
+      'Portfolio Empty','No trades yet.','Browse Markets',"go('p-plans','n-plans')"
     ); return;
   }
   c.innerHTML = [...invs].reverse().map(inv => {
@@ -2194,7 +2220,7 @@ function renderPortfolio() {
       <div class="pc-top">
         <div class="pc-left">
           <div class="pc-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}</div></div>
+          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}${inv.ref?' · Ref: '+inv.ref:''}</div></div>
         </div>
         <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
@@ -2266,6 +2292,80 @@ function openNotifPage() {
   localStorage.setItem('auro_notif_seen', nowISO());
   const dot = document.getElementById('notif-dot');
   if (dot) dot.style.display = 'none';
+}
+
+// ══════════════════════════════════
+// LIVE TICKER + MARKET CLOCK
+// ══════════════════════════════════
+const TICKER_ASSETS = [
+  {sym:'BTC/USD',  base:104200, vol:4800},
+  {sym:'ETH/USD',  base:3820,   vol:180},
+  {sym:'BNB/USD',  base:712,    vol:28},
+  {sym:'SOL/USD',  base:198,    vol:12},
+  {sym:'XRP/USD',  base:0.621,  vol:0.04},
+  {sym:'EUR/USD',  base:1.0842, vol:0.0022},
+  {sym:'GBP/USD',  base:1.2731, vol:0.0031},
+  {sym:'USD/NGN',  base:1583,   vol:8},
+  {sym:'DOGE/USD', base:0.198,  vol:0.015},
+  {sym:'ADA/USD',  base:0.889,  vol:0.04},
+];
+let _tickerPrices = {};
+let _tickerInterval = null;
+
+function initTicker() {
+  // Seed initial prices with slight random offset
+  TICKER_ASSETS.forEach(a => {
+    _tickerPrices[a.sym] = +(a.base + (Math.random()-.5)*a.vol*0.4).toFixed(a.base>=100?2:a.base>=1?3:4);
+  });
+  renderTicker();
+  updateMarketClock();
+  // Fluctuate prices every 4 seconds
+  if (_tickerInterval) clearInterval(_tickerInterval);
+  _tickerInterval = setInterval(() => {
+    TICKER_ASSETS.forEach(a => {
+      const prev = _tickerPrices[a.sym];
+      const move = (Math.random()-.48) * a.vol * 0.18;
+      _tickerPrices[a.sym] = Math.max(0.0001, +(prev + move).toFixed(a.base>=100?2:a.base>=1?3:4));
+    });
+    renderTicker();
+  }, 4000);
+  // Update clock every second
+  setInterval(updateMarketClock, 1000);
+}
+
+function renderTicker() {
+  const track = document.getElementById('ticker-track');
+  if (!track) return;
+  const items = TICKER_ASSETS.map(a => {
+    const price = _tickerPrices[a.sym];
+    const base  = a.base;
+    const diff  = price - base;
+    const pct   = ((diff/base)*100).toFixed(2);
+    const up    = diff >= 0;
+    const fmtP  = base >= 100 ? price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : price.toFixed(base>=1?3:4);
+    return `<div class="ticker-item"><span class="ticker-sym">${a.sym}</span><span class="ticker-price">${fmtP}</span><span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(pct)}%</span></div>`;
+  }).join('');
+  // Duplicate for seamless loop
+  track.innerHTML = items + items;
+}
+
+function updateMarketClock() {
+  const el = document.getElementById('mkt-time');
+  const st = document.getElementById('mkt-status');
+  if (!el || !st) return;
+  const now = new Date();
+  const lag = new Date(now.toLocaleString('en-US',{timeZone:'Africa/Lagos'}));
+  const h = lag.getHours(), m = lag.getMinutes(), s = lag.getSeconds();
+  const hStr = String(h).padStart(2,'0'), mStr = String(m).padStart(2,'0'), sStr = String(s).padStart(2,'0');
+  const ampm = h < 12 ? 'AM' : 'PM';
+  const h12 = h % 12 || 12;
+  el.textContent = `Lagos · ${h12}:${mStr}:${sStr} ${ampm} WAT`;
+  // Crypto trades 24/7; forex main session 9AM-5PM Lagos
+  const isWeekend = lag.getDay() === 0 || lag.getDay() === 6;
+  const isFxOpen = !isWeekend && h >= 9 && h < 17;
+  st.innerHTML = isFxOpen
+    ? `<div class="mkt-dot" style="background:var(--ok)"></div><span style="color:var(--ok)">Markets Open</span>`
+    : `<div class="mkt-dot" style="background:#C98A00;animation:none"></div><span style="color:#C98A00">Crypto 24/7 · Forex Closed</span>`;
 }
 
 function rAll() {
@@ -3098,7 +3198,7 @@ async function sendBroadcast() {
 // ══════════════════════════════════
 function exportCSV() {
   if (!_admAllUsers.length) { toast('No user data loaded yet'); return; }
-  const rows = [['Name','Balance','In Trades','Total Earned','Active Plans','Referral Code','Joined']];
+  const rows = [['Name','Balance','In Trades','Total Earned','Active Markets','Referral Code','Joined']];
   _admAllUsers.forEach(u => {
     const invs = u.investments||[];
     const totalInv = invs.reduce((s,i)=>s+i.invest,0);
