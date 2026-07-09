@@ -7,10 +7,6 @@
 <title>AURO · Trade & Earn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<!-- Firebase compat v9 — most stable for HTML-only apps -->
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -2504,8 +2500,12 @@ function openAdminPanel() {
   document.getElementById('admin-panel').style.display = 'block';
   // Listen for recent trades (all users, newest first)
   if (_unsubAdmTrades) _unsubAdmTrades();
-  _unsubAdmTrades = db.collection('trades').orderBy('date','desc').limit(30)
-    .onSnapshot(snap => renderAdmTrades(snap.docs.map(d=>({id:d.id,...d.data()}))));
+  _unsubAdmTrades = db.collection('trades').limit(30)
+    .onSnapshot(snap => {
+      const trades = snap.docs.map(d=>({id:d.id,...d.data()}))
+        .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      renderAdmTrades(trades);
+    }, e => console.error('Trades listener error:', e));
   // Listen for pending deposits
   if (_unsubAdmDep) _unsubAdmDep();
   _unsubAdmDep = db.collection('deposits').where('status','==','pending')
@@ -3385,5 +3385,9 @@ function filterAdmUsers() {
 
 boot();
 </script>
+<!-- Firebase loaded AFTER HTML so splash renders immediately -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </body>
 </html>
