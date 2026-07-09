@@ -572,6 +572,26 @@ body::after{display:none}
 #pin-modal.open{display:flex;animation:fi .22s ease both}
 .pin-modal-sheet{background:var(--s1);border:1px solid var(--gb);border-bottom:none;border-radius:22px 22px 0 0;padding:0 22px 52px;width:100%;max-width:430px;animation:shu .35s var(--ez) both;position:relative}
 .pin-modal-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* ── DARK MODE ──────────────────── */
+body.dark{
+  --void:#0D0F1A;--s1:#161926;--s2:#1E2235;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);
+  --plat:#E8EAF6;--sil:#8890B4;--dim:#555B7C;
+  --ok:#0FAE6B;--okd:rgba(15,174,107,.12);--okb:rgba(15,174,107,.28);
+  --err:#EF4444;--errd:rgba(239,68,68,.12);--errb:rgba(239,68,68,.28);
+}
+body.dark .ticker-wrap{background:rgba(255,255,255,.03)}
+body.dark .req-card,body.dark .adm-user-row,body.dark .fraud-card,body.dark .pf-tile,body.dark .plan-item,body.dark .pcard,body.dark .notif,body.dark .pos-item{background:var(--s1);border-color:var(--b1)}
+body.dark .bnav{background:rgba(13,15,26,.94)}
+body.dark .msheet,body.dark .user-menu-card,body.dark .overlay .msheet{background:var(--s2)}
+body.dark .f-inp,body.dark .f-plain,body.dark .a-inp,body.dark .f-select{background:rgba(255,255,255,.06);color:var(--plat);border-color:var(--b2)}
+body.dark .a-inp::placeholder,body.dark .f-inp::placeholder,body.dark .f-plain::placeholder{color:var(--dim)}
+body.dark .f-select option{background:#1E2235}
+body.dark .adm-sort-btn{background:var(--s2);border-color:var(--b2)}
+body.dark .adm-sort-btn.active{background:rgba(67,56,236,.18);border-color:var(--gb)}
+body.dark #auth{background:var(--void)}
+body.dark #splash{background:var(--void)}
 </style>
 </head>
 <body>
@@ -702,7 +722,7 @@ body::after{display:none}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Markets</div><div class="ph-s">36 plans · 200% returns · Claim daily · PIN required</div></div>
+    <div class="ph"><div class="ph-t">Markets</div><div class="ph-s">36 markets · 200% returns · Daily claims · PIN secured</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -977,6 +997,7 @@ body::after{display:none}
     <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
     <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
+    <div class="um-item" onclick="toggleDarkMode()" id="dark-mode-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><span id="dark-mode-label">Dark Mode</span></div>
     <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
     <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
     <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
@@ -1103,7 +1124,7 @@ body::after{display:none}
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p4" autocomplete="off"/>
       </div>
     </div>
-    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Confirm Trade</button>
+    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Open Position</button>
     <button onclick="closeM('inv-modal')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer">Cancel</button>
   </div>
 </div>
@@ -2027,14 +2048,14 @@ function renderPlans() {
       <div class="pi-top">
         <div class="pi-id">
           <div class="pi-ico" style="background:${t.pb};color:${t.pc}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pi-name">${t.name}</div><div class="pi-tier">${p.tier} Tier · ${fmt(p.invest)}</div></div>
+          <div><div class="pi-name">${t.name}</div><div class="pi-tier">${p.tier} Market · ${fmt(p.invest)}</div></div>
         </div>
         <div class="pi-badge" style="background:${t.pb};color:${t.pc};border-color:${t.pbd}">${p.badge}</div>
       </div>
       <div class="pi-figs">
-        <div class="pi-invest"><div class="pi-lbl">You Invest</div><div class="pi-val">${fmt(p.invest)}</div></div>
+        <div class="pi-invest"><div class="pi-lbl">You Allocate</div><div class="pi-val">${fmt(p.invest)}</div></div>
         <div class="pi-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-        <div class="pi-return"><div class="pi-lbl">You Get</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
+        <div class="pi-return"><div class="pi-lbl">You Receive</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
       </div>
       <div class="pi-meta">
         <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60 days</strong></div>
@@ -2045,8 +2066,8 @@ function renderPlans() {
         <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
         <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
       </div>
-      <div class="pi-daily">Daily: <strong>${fmt(p.daily)}</strong> for 60 days</div>
-      <button class="pi-cta" style="${bs}">Invest ${fmt(p.invest)}</button>
+      <div class="pi-daily">Daily Returns: <strong>${fmt(p.daily)}</strong> for 60 days</div>
+      <button class="pi-cta" style="${bs}">Open Position — ${fmt(p.invest)}</button>
     </div>`;
   }).join('');
 }
@@ -2358,56 +2379,104 @@ function openNotifPage() {
 // ══════════════════════════════════
 // LIVE TICKER + MARKET CLOCK
 // ══════════════════════════════════
-const TICKER_ASSETS = [
-  {sym:'BTC/USD',  base:104200, vol:4800},
-  {sym:'ETH/USD',  base:3820,   vol:180},
-  {sym:'BNB/USD',  base:712,    vol:28},
-  {sym:'SOL/USD',  base:198,    vol:12},
-  {sym:'XRP/USD',  base:0.621,  vol:0.04},
-  {sym:'EUR/USD',  base:1.0842, vol:0.0022},
-  {sym:'GBP/USD',  base:1.2731, vol:0.0031},
-  {sym:'USD/NGN',  base:1583,   vol:8},
-  {sym:'DOGE/USD', base:0.198,  vol:0.015},
-  {sym:'ADA/USD',  base:0.889,  vol:0.04},
-];
-let _tickerPrices = {};
-let _tickerInterval = null;
+// ══════════════════════════════════
+// LIVE MARKET TICKER — real prices
+// ══════════════════════════════════
+let _tickerData   = {};   // {sym: {price, change, decimals}}
+let _tickerTimer  = null;
+let _forexTimer   = null;
 
-function initTicker() {
-  // Seed initial prices with slight random offset
-  TICKER_ASSETS.forEach(a => {
-    _tickerPrices[a.sym] = +(a.base + (Math.random()-.5)*a.vol*0.4).toFixed(a.base>=100?2:a.base>=1?3:4);
-  });
-  renderTicker();
-  updateMarketClock();
-  // Fluctuate prices every 4 seconds
-  if (_tickerInterval) clearInterval(_tickerInterval);
-  _tickerInterval = setInterval(() => {
-    TICKER_ASSETS.forEach(a => {
-      const prev = _tickerPrices[a.sym];
-      const move = (Math.random()-.48) * a.vol * 0.18;
-      _tickerPrices[a.sym] = Math.max(0.0001, +(prev + move).toFixed(a.base>=100?2:a.base>=1?3:4));
+const CRYPTO_MAP = {
+  bitcoin:'BTC/USD', ethereum:'ETH/USD', binancecoin:'BNB/USD',
+  solana:'SOL/USD',  ripple:'XRP/USD',   dogecoin:'DOGE/USD', cardano:'ADA/USD'
+};
+
+function fmtTickerPrice(price, sym) {
+  if (price >= 1000)  return price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (price >= 1)     return price.toFixed(4);
+  return price.toFixed(6);
+}
+
+async function fetchCrypto() {
+  try {
+    const r = await fetch(
+      'https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano',
+      {signal: AbortSignal.timeout(6000)}
+    );
+    const d = await r.json();
+    (d.data||[]).forEach(a => {
+      const sym = CRYPTO_MAP[a.id];
+      if (sym) _tickerData[sym] = {
+        price:  parseFloat(a.priceUsd)||0,
+        change: parseFloat(a.changePercent24Hr)||0
+      };
     });
     renderTicker();
-  }, 4000);
-  // Update clock every second
-  setInterval(updateMarketClock, 1000);
+  } catch(e) { console.warn('Crypto fetch failed:', e.message); }
+}
+
+async function fetchForex() {
+  try {
+    // EUR & GBP vs USD
+    const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP',
+      {signal: AbortSignal.timeout(6000)});
+    const d = await r.json();
+    if (d.rates) {
+      _tickerData['EUR/USD'] = {price: +(1/d.rates.EUR).toFixed(5), change: null};
+      _tickerData['GBP/USD'] = {price: +(1/d.rates.GBP).toFixed(5), change: null};
+    }
+  } catch(e) { console.warn('Forex EUR/GBP failed:', e.message); }
+
+  try {
+    // USD/NGN — free exchange rate endpoint
+    const r = await fetch('https://open.er-api.com/v6/latest/USD',
+      {signal: AbortSignal.timeout(6000)});
+    const d = await r.json();
+    if (d.rates?.NGN) _tickerData['USD/NGN'] = {price: +d.rates.NGN.toFixed(2), change: null};
+  } catch(e) {
+    // Fallback if rate-limited
+    if (!_tickerData['USD/NGN']) _tickerData['USD/NGN'] = {price: 1583.00, change: null};
+    console.warn('NGN fetch failed, using fallback:', e.message);
+  }
+  renderTicker();
 }
 
 function renderTicker() {
   const track = document.getElementById('ticker-track');
-  if (!track) return;
-  const items = TICKER_ASSETS.map(a => {
-    const price = _tickerPrices[a.sym];
-    const base  = a.base;
-    const diff  = price - base;
-    const pct   = ((diff/base)*100).toFixed(2);
-    const up    = diff >= 0;
-    const fmtP  = base >= 100 ? price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : price.toFixed(base>=1?3:4);
-    return `<div class="ticker-item"><span class="ticker-sym">${a.sym}</span><span class="ticker-price">${fmtP}</span><span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(pct)}%</span></div>`;
-  }).join('');
-  // Duplicate for seamless loop
-  track.innerHTML = items + items;
+  if (!track || !Object.keys(_tickerData).length) return;
+
+  const ORDER = ['BTC/USD','ETH/USD','BNB/USD','SOL/USD','XRP/USD','EUR/USD','GBP/USD','USD/NGN','DOGE/USD','ADA/USD'];
+  const items = ORDER.map(sym => {
+    const d = _tickerData[sym];
+    if (!d || !d.price) return '';
+    const price  = fmtTickerPrice(d.price, sym);
+    const hasChg = d.change !== null && d.change !== undefined;
+    const up     = hasChg ? d.change >= 0 : null;
+    const chgStr = hasChg
+      ? `<span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</span>`
+      : '';
+    return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">${price}</span>${chgStr}</div>`;
+  }).filter(Boolean).join('');
+
+  track.innerHTML = items + items; // duplicate for seamless scroll
+}
+
+async function initTicker() {
+  // Show loading state
+  const track = document.getElementById('ticker-track');
+  if (track) track.innerHTML = '<div class="ticker-item" style="opacity:.5"><span class="ticker-sym">Loading live prices…</span></div>';
+
+  // Fetch everything in parallel on init
+  await Promise.allSettled([fetchCrypto(), fetchForex()]);
+
+  // Refresh crypto every 30s, forex every 10 min
+  if (_tickerTimer) clearInterval(_tickerTimer);
+  if (_forexTimer)  clearInterval(_forexTimer);
+  _tickerTimer = setInterval(fetchCrypto, 30000);
+  _forexTimer  = setInterval(fetchForex, 600000);
+
+  updateMarketClock();
+  setInterval(updateMarketClock, 1000);
 }
 
 function updateMarketClock() {
@@ -3382,6 +3451,27 @@ let _admFilteredUsers = [];
 function filterAdmUsers() {
   renderAdmUsers(_admAllUsers);
 }
+
+// ── DARK MODE ────────────────────────────────────────────────────────────
+function applyDarkMode(dark) {
+  document.body.classList.toggle('dark', dark);
+  const lbl = document.getElementById('dark-mode-label');
+  const ico = document.querySelector('#dark-mode-item svg');
+  if (lbl) lbl.textContent = dark ? 'Light Mode' : 'Dark Mode';
+  if (ico) ico.innerHTML = dark
+    ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
+    : '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+}
+function toggleDarkMode() {
+  const isDark = document.body.classList.contains('dark');
+  applyDarkMode(!isDark);
+  localStorage.setItem('auro_theme', !isDark ? 'dark' : 'light');
+}
+// Apply saved preference on load
+(function(){
+  const saved = localStorage.getItem('auro_theme');
+  if (saved === 'dark') applyDarkMode(true);
+})();
 
 boot();
 </script>
