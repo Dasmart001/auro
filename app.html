@@ -592,6 +592,33 @@ body.dark .adm-sort-btn{background:var(--s2);border-color:var(--b2)}
 body.dark .adm-sort-btn.active{background:rgba(67,56,236,.18);border-color:var(--gb)}
 body.dark #auth{background:var(--void)}
 body.dark #splash{background:var(--void)}
+
+/* ── SUPPORT CHAT ───────────────── */
+.sup-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.sup-cat-tile{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px;cursor:pointer;transition:all .18s}
+.sup-cat-tile:active{border-color:var(--gb);background:var(--gd)}
+.sup-cat-ico{width:34px;height:34px;border-radius:9px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;margin-bottom:8px;color:var(--gold)}
+.sup-cat-ico svg{width:16px;height:16px}
+.sup-cat-name{font-size:12px;font-weight:700;color:var(--plat);margin-bottom:2px}
+.sup-cat-desc{font-size:9.5px;color:var(--sil);line-height:1.4}
+.sup-msgs{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.sup-bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:12px;line-height:1.55;word-break:break-word}
+.sup-bubble.user{background:var(--gold);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.sup-bubble.admin{background:var(--s1);color:var(--plat);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--b1)}
+.sup-bubble-meta{font-size:9px;margin-top:4px}
+.sup-bubble.user .sup-bubble-meta{color:rgba(255,255,255,.65);text-align:right}
+.sup-bubble.admin .sup-bubble-meta{color:var(--dim)}
+.sup-input{flex:1;border:1px solid var(--b2);border-radius:10px;padding:10px 12px;font-size:12px;font-family:var(--b);background:var(--s2);color:var(--plat);outline:none}
+.sup-input:focus{border-color:var(--gold)}
+.sup-send-btn{background:var(--gold);color:#fff;border:none;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.sup-status-chip{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:10px}
+.sup-status-chip.open{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
+.sup-status-chip.resolved{background:var(--b1);color:var(--sil);border:1px solid var(--b2)}
+/* Admin support ticket rows */
+.adm-ticket-row{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .18s;position:relative}
+.adm-ticket-row:active{border-color:var(--gb)}
+.adm-ticket-unread{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.adm-chat-panel{position:fixed;inset:0;z-index:8000;background:var(--void);max-width:430px;margin:0 auto;display:flex;flex-direction:column;padding:0}
 </style>
 </head>
 <body>
@@ -658,6 +685,9 @@ body.dark #splash{background:var(--void)}
     <div class="tb">
       <div class="logo" id="logo-tap">AURO<sup>®</sup></div>
       <div class="tb-r">
+        <div class="ib" id="dark-toggle-btn" onclick="toggleDarkMode()" title="Toggle dark mode">
+          <svg id="dark-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </div>
         <div class="ib" id="notif-bell" onclick="openNotifPage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><div class="cbadge" id="notif-dot"></div></div>
         <div class="av" id="home-av" onclick="openUserMenu()">DA</div>
       </div>
@@ -996,8 +1026,6 @@ body.dark #splash{background:var(--void)}
     <div class="um-meta" id="um-meta">Member</div>
     <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
-    <div class="um-item" onclick="closeUserMenu();go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg>Deposit History</div>
-    <div class="um-item" onclick="toggleDarkMode()" id="dark-mode-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><span id="dark-mode-label">Dark Mode</span></div>
     <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
     <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
     <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
@@ -1046,6 +1074,23 @@ body.dark #splash{background:var(--void)}
     </div>
   </div>
 
+  <!-- ADMIN SUPPORT CHAT PANEL (full-screen overlay) -->
+  <div class="adm-chat-panel" id="adm-chat-panel" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;padding:52px 18px 12px;border-bottom:1px solid var(--b1);flex-shrink:0;background:var(--void)">
+      <button onclick="closeAdmTicket()" style="background:none;border:none;color:var(--gold);font-family:var(--b);font-size:12px;font-weight:600;cursor:pointer;padding:0">← Back</button>
+      <div style="flex:1;font-size:13px;font-weight:700;color:var(--plat)" id="adm-chat-title">Ticket</div>
+      <button onclick="resolveTicket()" id="resolve-btn" style="font-size:10px;font-weight:700;font-family:var(--b);background:var(--okd);color:var(--ok);border:1px solid var(--okb);border-radius:8px;padding:5px 12px;cursor:pointer">Mark Resolved</button>
+    </div>
+    <div class="sup-msgs" id="adm-sup-messages"></div>
+    <div style="display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--b1);flex-shrink:0;background:var(--void)">
+      <input class="sup-input" id="adm-sup-input" type="text" placeholder="Type reply…" onkeydown="if(event.key==='Enter')sendAdminReply()"/>
+      <button class="sup-send-btn" onclick="sendAdminReply()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Support Tickets</div><div id="adm-support"></div></div>
   <div class="adm-sec"><div class="adm-sec-t">Live Trades</div><div id="adm-trades" style="max-height:300px;overflow-y:auto"></div></div>
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Deposits</div><div id="adm-deps"></div></div>
   <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
@@ -1152,42 +1197,55 @@ body.dark #splash{background:var(--void)}
 </div><!-- /root -->
 
 <!-- SUPPORT MODAL -->
-<div id="support-modal" style="position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);display:none;align-items:flex-end;justify-content:center;max-width:430px;margin:0 auto">
-  <div class="support-sheet">
-    <div class="m-handle"></div>
-    <div class="m-title">Customer Support</div>
-    <div class="m-sub" style="margin-bottom:20px">We're here to help. Choose how to reach us.</div>
+<div id="support-modal" style="position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);display:none;align-items:flex-end;justify-content:center;max-width:430px;margin:0 auto">
+  <div style="background:var(--void);border-radius:22px 22px 0 0;width:100%;height:92vh;display:flex;flex-direction:column;overflow:hidden">
+    <div class="m-handle" style="margin:10px auto 0"></div>
 
-    <a class="support-option" href="mailto:support@auro.app">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">Email Support</div>
-        <div class="support-option-sub">support@auro.app · Reply within 2–4 hours</div>
+    <!-- CATEGORY SELECTOR -->
+    <div id="sup-cat-view" style="flex:1;overflow-y:auto;padding:4px 20px 20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0 4px">
+        <div class="m-title" style="margin:0">Support</div>
+        <button onclick="closeSupport()" style="background:none;border:none;color:var(--sil);cursor:pointer;font-size:20px;line-height:1;padding:0">×</button>
       </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
-    <a class="support-option" href="https://wa.me/2348000000000" target="_blank">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">WhatsApp Support</div>
-        <div class="support-option-sub">Chat with us directly · Fastest response</div>
+      <div class="m-sub" style="margin-bottom:18px">What do you need help with?</div>
+      <div id="sup-categories" class="sup-cat-grid"></div>
+      <div id="sup-existing-ticket" style="display:none;margin-top:4px">
+        <div style="font-size:10px;font-weight:600;color:var(--sil);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Open Ticket</div>
+        <div class="sup-cat-tile" onclick="openSupport()" style="display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;border-radius:9px;background:var(--okd);border:1px solid var(--okb);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--ok)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div><div style="font-size:12px;font-weight:700;color:var(--plat)" id="sup-existing-name">Continue Chat</div><div style="font-size:10px;color:var(--sil)" id="sup-existing-sub">Tap to reopen</div></div>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
       </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
+    </div>
 
-    <a class="support-option" href="https://t.me/auroinvest" target="_blank">
-      <div class="support-option-ico"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 10.5l6.5 2.5M21 3l-8 18-3.5-8M21 3L9.5 13"/></svg></div>
-      <div class="support-option-txt">
-        <div class="support-option-title">Telegram Community</div>
-        <div class="support-option-sub">Join our channel for updates and announcements</div>
+    <!-- CHAT VIEW -->
+    <div id="sup-chat-view" style="display:none;flex:1;flex-direction:column;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--b1);flex-shrink:0">
+        <button onclick="backToCategories()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--b);font-size:12px;font-weight:600;padding:0">← Back</button>
+        <div style="flex:1;font-size:13px;font-weight:700;color:var(--plat)" id="sup-chat-title">Support Chat</div>
+        <div class="sup-status-chip open" id="sup-status-chip">Open</div>
       </div>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
+      <div class="sup-msgs" id="sup-messages"></div>
+      <div style="padding:10px 16px 20px;border-top:1px solid var(--b1);display:flex;gap:8px;flex-shrink:0;background:var(--void)">
+        <input class="sup-input" id="sup-input" type="text" placeholder="Type your message…" onkeydown="if(event.key==='Enter')sendSupportMsg()"/>
+        <button class="sup-send-btn" onclick="sendSupportMsg()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <div class="support-hours">🕘 Support hours: Monday – Saturday · 9:00am – 8:00pm WAT<br>AURO will never ask for your PIN or password.</div>
-
-    <button onclick="closeSupport()" style="width:100%;padding:13px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:10px">Close</button>
+<!-- ADMIN SUPPORT CHAT PANEL -->
+<div id="adm-chat-panel" style="display:none;position:fixed;inset:0;z-index:8000;background:var(--void);max-width:430px;margin:0 auto;flex-direction:column">
+  <div style="display:flex;align-items:center;gap:10px;padding:52px 20px 14px;border-bottom:1px solid var(--b1);background:var(--s1);flex-shrink:0">
+    <button onclick="closeAdmTicket()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--b);font-size:12px;font-weight:600;padding:0">← Tickets</button>
+    <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--plat)" id="adm-chat-title">Support Chat</div><div style="font-size:10px;color:var(--sil)" id="adm-chat-user"></div></div>
+    <button onclick="resolveTicket()" id="adm-resolve-btn" style="font-size:10px;font-weight:700;background:var(--okd);color:var(--ok);border:1px solid var(--okb);border-radius:8px;padding:5px 11px;cursor:pointer;font-family:var(--b)">Resolve</button>
+  </div>
+  <div class="sup-msgs" id="adm-sup-messages" style="flex:1"></div>
+  <div style="padding:10px 16px 20px;border-top:1px solid var(--b1);display:flex;gap:8px;flex-shrink:0;background:var(--s1)">
+    <input class="sup-input" id="adm-sup-input" type="text" placeholder="Reply as support…" onkeydown="if(event.key==='Enter')sendAdminReply()"/>
+    <button class="sup-send-btn" onclick="sendAdminReply()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
@@ -2379,102 +2437,114 @@ function openNotifPage() {
 // ══════════════════════════════════
 // LIVE TICKER + MARKET CLOCK
 // ══════════════════════════════════
-// ══════════════════════════════════
 // LIVE MARKET TICKER — real prices
 // ══════════════════════════════════
-let _tickerData   = {};   // {sym: {price, change, decimals}}
-let _tickerTimer  = null;
-let _forexTimer   = null;
+let _tickerData  = {};
+let _tickerTimer = null;
+let _forexTimer  = null;
+let _microTimer  = null;
 
 const CRYPTO_MAP = {
   bitcoin:'BTC/USD', ethereum:'ETH/USD', binancecoin:'BNB/USD',
   solana:'SOL/USD',  ripple:'XRP/USD',   dogecoin:'DOGE/USD', cardano:'ADA/USD'
 };
+const TICKER_ORDER = ['BTC/USD','ETH/USD','BNB/USD','SOL/USD','XRP/USD','EUR/USD','GBP/USD','USD/NGN','DOGE/USD','ADA/USD'];
+const TICKER_SEED  = {'BTC/USD':104200,'ETH/USD':3820,'BNB/USD':712,'SOL/USD':198,'XRP/USD':0.621,'EUR/USD':1.0842,'GBP/USD':1.2731,'USD/NGN':1583,'DOGE/USD':0.198,'ADA/USD':0.889};
 
-function fmtTickerPrice(price, sym) {
-  if (price >= 1000)  return price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  if (price >= 1)     return price.toFixed(4);
-  return price.toFixed(6);
+function fetchTimeout(url, ms=7000) {
+  return Promise.race([
+    fetch(url),
+    new Promise((_,r) => setTimeout(() => r(new Error('timeout')), ms))
+  ]);
+}
+
+function seedTicker() {
+  TICKER_ORDER.forEach(sym => {
+    if (!_tickerData[sym]) {
+      const base = TICKER_SEED[sym];
+      _tickerData[sym] = { price: base, change: (Math.random()-0.5)*4 };
+    }
+  });
 }
 
 async function fetchCrypto() {
   try {
-    const r = await fetch(
-      'https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano',
-      {signal: AbortSignal.timeout(6000)}
-    );
+    const r = await fetchTimeout('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano');
     const d = await r.json();
     (d.data||[]).forEach(a => {
       const sym = CRYPTO_MAP[a.id];
-      if (sym) _tickerData[sym] = {
-        price:  parseFloat(a.priceUsd)||0,
-        change: parseFloat(a.changePercent24Hr)||0
-      };
+      if (sym) _tickerData[sym] = { price: parseFloat(a.priceUsd)||_tickerData[sym]?.price||0, change: parseFloat(a.changePercent24Hr)||0 };
     });
     renderTicker();
-  } catch(e) { console.warn('Crypto fetch failed:', e.message); }
+  } catch(e) {
+    console.warn('CoinCap failed, using seeds');
+    seedTicker(); renderTicker();
+  }
 }
 
 async function fetchForex() {
   try {
-    // EUR & GBP vs USD
-    const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP',
-      {signal: AbortSignal.timeout(6000)});
+    const r = await fetchTimeout('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP');
     const d = await r.json();
     if (d.rates) {
-      _tickerData['EUR/USD'] = {price: +(1/d.rates.EUR).toFixed(5), change: null};
-      _tickerData['GBP/USD'] = {price: +(1/d.rates.GBP).toFixed(5), change: null};
+      _tickerData['EUR/USD'] = { price: +(1/d.rates.EUR).toFixed(5), change: null };
+      _tickerData['GBP/USD'] = { price: +(1/d.rates.GBP).toFixed(5), change: null };
     }
-  } catch(e) { console.warn('Forex EUR/GBP failed:', e.message); }
-
+  } catch(e) { console.warn('Frankfurter failed'); }
   try {
-    // USD/NGN — free exchange rate endpoint
-    const r = await fetch('https://open.er-api.com/v6/latest/USD',
-      {signal: AbortSignal.timeout(6000)});
-    const d = await r.json();
-    if (d.rates?.NGN) _tickerData['USD/NGN'] = {price: +d.rates.NGN.toFixed(2), change: null};
+    const r2 = await fetchTimeout('https://open.er-api.com/v6/latest/USD');
+    const d2 = await r2.json();
+    if (d2.rates?.NGN) _tickerData['USD/NGN'] = { price: +d2.rates.NGN.toFixed(2), change: null };
   } catch(e) {
-    // Fallback if rate-limited
-    if (!_tickerData['USD/NGN']) _tickerData['USD/NGN'] = {price: 1583.00, change: null};
-    console.warn('NGN fetch failed, using fallback:', e.message);
+    if (!_tickerData['USD/NGN']) _tickerData['USD/NGN'] = { price: 1583.00, change: null };
   }
   renderTicker();
 }
 
+function fmtPrice(price, sym) {
+  if (!price) return '—';
+  if (price >= 1000) return price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (price >= 1)    return price.toFixed(4);
+  return price.toFixed(6);
+}
+
 function renderTicker() {
   const track = document.getElementById('ticker-track');
-  if (!track || !Object.keys(_tickerData).length) return;
-
-  const ORDER = ['BTC/USD','ETH/USD','BNB/USD','SOL/USD','XRP/USD','EUR/USD','GBP/USD','USD/NGN','DOGE/USD','ADA/USD'];
-  const items = ORDER.map(sym => {
+  if (!track) return;
+  const items = TICKER_ORDER.map(sym => {
     const d = _tickerData[sym];
-    if (!d || !d.price) return '';
-    const price  = fmtTickerPrice(d.price, sym);
+    if (!d?.price) return '';
     const hasChg = d.change !== null && d.change !== undefined;
     const up     = hasChg ? d.change >= 0 : null;
-    const chgStr = hasChg
-      ? `<span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</span>`
-      : '';
-    return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">${price}</span>${chgStr}</div>`;
+    const chg    = hasChg ? `<span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</span>` : '';
+    return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">${fmtPrice(d.price,sym)}</span>${chg}</div>`;
   }).filter(Boolean).join('');
-
-  track.innerHTML = items + items; // duplicate for seamless scroll
+  track.innerHTML = items + items;
 }
 
 async function initTicker() {
-  // Show loading state
   const track = document.getElementById('ticker-track');
-  if (track) track.innerHTML = '<div class="ticker-item" style="opacity:.5"><span class="ticker-sym">Loading live prices…</span></div>';
-
-  // Fetch everything in parallel on init
+  if (track) track.innerHTML = TICKER_ORDER.map(sym=>`<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">—</span></div>`).join('').repeat(2);
+  seedTicker();
   await Promise.allSettled([fetchCrypto(), fetchForex()]);
-
-  // Refresh crypto every 30s, forex every 10 min
+  // Micro-fluctuations every 3.5s for lively feel between real refreshes
+  if (_microTimer) clearInterval(_microTimer);
+  _microTimer = setInterval(() => {
+    let changed = false;
+    TICKER_ORDER.forEach(sym => {
+      const d = _tickerData[sym];
+      if (!d?.price) return;
+      const nudge = d.price * (Math.random()-0.49) * 0.0004;
+      d.price = Math.max(0.00001, d.price + nudge);
+      if (d.change !== null && d.change !== undefined) d.change += (Math.random()-0.5)*0.02;
+      changed = true;
+    });
+    if (changed) renderTicker();
+  }, 3500);
   if (_tickerTimer) clearInterval(_tickerTimer);
   if (_forexTimer)  clearInterval(_forexTimer);
   _tickerTimer = setInterval(fetchCrypto, 30000);
   _forexTimer  = setInterval(fetchForex, 600000);
-
   updateMarketClock();
   setInterval(updateMarketClock, 1000);
 }
@@ -2483,21 +2553,16 @@ function updateMarketClock() {
   const el = document.getElementById('mkt-time');
   const st = document.getElementById('mkt-status');
   if (!el || !st) return;
-  const now = new Date();
-  const lag = new Date(now.toLocaleString('en-US',{timeZone:'Africa/Lagos'}));
+  const lag = new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Lagos'}));
   const h = lag.getHours(), m = lag.getMinutes(), s = lag.getSeconds();
-  const hStr = String(h).padStart(2,'0'), mStr = String(m).padStart(2,'0'), sStr = String(s).padStart(2,'0');
   const ampm = h < 12 ? 'AM' : 'PM';
-  const h12 = h % 12 || 12;
-  el.textContent = `Lagos · ${h12}:${mStr}:${sStr} ${ampm} WAT`;
-  // Crypto trades 24/7; forex main session 9AM-5PM Lagos
-  const isWeekend = lag.getDay() === 0 || lag.getDay() === 6;
-  const isFxOpen = !isWeekend && h >= 9 && h < 17;
+  el.textContent = `Lagos · ${h%12||12}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ampm} WAT`;
+  const isWeekend = lag.getDay()===0||lag.getDay()===6;
+  const isFxOpen  = !isWeekend && h>=9 && h<17;
   st.innerHTML = isFxOpen
     ? `<div class="mkt-dot" style="background:var(--ok)"></div><span style="color:var(--ok)">Markets Open</span>`
     : `<div class="mkt-dot" style="background:#C98A00;animation:none"></div><span style="color:#C98A00">Crypto 24/7 · Forex Closed</span>`;
 }
-
 function rAll() {
   if (!_user) return;
   renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications(); renderProfile();
@@ -2568,6 +2633,7 @@ async function checkAdminLogin() {
 function openAdminPanel() {
   document.getElementById('admin-panel').style.display = 'block';
   // Listen for recent trades (all users, newest first)
+  startAdmSupportListener();
   if (_unsubAdmTrades) _unsubAdmTrades();
   _unsubAdmTrades = db.collection('trades').limit(30)
     .onSnapshot(snap => {
@@ -2665,8 +2731,9 @@ async function adjBalance(type) {
 }
 function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
-  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmTrades].forEach(fn=>{if(fn)fn();});
-  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmTrades=null;
+  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmTrades,_unsubAdmSupport,_unsubAdmChat].forEach(fn=>{if(fn)fn();});
+  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmTrades=_unsubAdmSupport=_unsubAdmChat=null;
+  if (_admActiveTicket) { document.getElementById('adm-chat-panel').style.display='none'; _admActiveTicket=null; }
   _admAllDeps=[]; _admAllWits=[];
   // Reset scan button state
   const scanBtn = document.getElementById('fraud-scan-btn');
@@ -3155,11 +3222,234 @@ function renderStreak() {
 // ══════════════════════════════════
 // CUSTOMER SUPPORT
 // ══════════════════════════════════
-function openSupport() {
-  document.getElementById('support-modal').style.display = 'flex';
+// ══════════════════════════════════
+// SUPPORT SYSTEM
+// ══════════════════════════════════
+const SUP_CATS = [
+  {id:'payment',    name:'Payment Issue',     desc:'Deposit not credited',       icon:'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>'},
+  {id:'trade',      name:'Trade Issue',       desc:'Problem with a position',    icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'},
+  {id:'withdrawal', name:'Withdrawal Issue',  desc:'Payout delayed or failed',   icon:'<path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/>'},
+  {id:'account',    name:'Account Issue',     desc:'Login or PIN problems',      icon:'<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>'},
+  {id:'technical',  name:'Technical Issue',   desc:'App bugs or errors',         icon:'<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M2 12h2M20 12h2"/>'},
+  {id:'general',    name:'General Inquiry',   desc:'Any other question',         icon:'<circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 015.12 2.12c0 2-3 3-3 3M12 17h.01"/>'},
+];
+
+let _userTicket    = null;
+let _unsubUserChat = null;
+let _admActiveTicket  = null;
+let _unsubAdmSupport  = null;
+let _unsubAdmChat     = null;
+
+async function openSupport() {
+  const modal = document.getElementById('support-modal');
+  modal.style.display = 'flex';
+  // Render category tiles
+  const grid = document.getElementById('sup-categories');
+  if (grid) grid.innerHTML = SUP_CATS.map(c=>`
+    <div class="sup-cat-tile" onclick="selectCategory('${c.id}','${c.name}')">
+      <div class="sup-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${c.icon}</svg></div>
+      <div class="sup-cat-name">${c.name}</div>
+      <div class="sup-cat-desc">${c.desc}</div>
+    </div>`).join('');
+
+  if (!_user) return;
+  // Check for existing open ticket
+  try {
+    const snap = await db.collection('support').where('userId','==',_user.id).where('status','==','open').limit(1).get();
+    if (!snap.empty) {
+      _userTicket = {id:snap.docs[0].id, ...snap.docs[0].data()};
+      showSupChat();
+    } else {
+      showSupCategories();
+    }
+  } catch(e) { showSupCategories(); }
 }
+
 function closeSupport() {
   document.getElementById('support-modal').style.display = 'none';
+  if (_unsubUserChat) { _unsubUserChat(); _unsubUserChat = null; }
+}
+
+function showSupCategories() {
+  document.getElementById('sup-cat-view').style.display = 'block';
+  document.getElementById('sup-chat-view').style.display = 'none';
+}
+
+function showSupChat() {
+  document.getElementById('sup-cat-view').style.display = 'none';
+  const cv = document.getElementById('sup-chat-view');
+  cv.style.display = 'flex';
+  cv.style.flexDirection = 'column';
+  cv.style.flex = '1';
+  const cat = SUP_CATS.find(c=>c.id===_userTicket?.category);
+  const titleEl = document.getElementById('sup-chat-title');
+  const chipEl  = document.getElementById('sup-status-chip');
+  if (titleEl) titleEl.textContent = cat?.name || 'Support Chat';
+  if (chipEl)  { chipEl.textContent = _userTicket?.status==='resolved'?'Resolved':'Open'; chipEl.className='sup-status-chip '+(_userTicket?.status||'open'); }
+  subscribeUserChat();
+}
+
+async function selectCategory(catId, catName) {
+  if (!_user) return;
+  showLoader(true,'Opening chat…');
+  try {
+    const ref = await db.collection('support').add({
+      userId:_user.id, userName:_user.name,
+      category:catId, categoryName:catName,
+      status:'open', lastMessage:'', lastAt:nowISO(),
+      unreadAdmin:true, createdAt:nowISO()
+    });
+    _userTicket = {id:ref.id, userId:_user.id, userName:_user.name, category:catId, categoryName:catName, status:'open'};
+    await db.collection('support').doc(ref.id).collection('messages').add({
+      text:`Hi ${_user.name}! You've opened a ticket for "${catName}". Please describe your issue and our team will respond shortly.`,
+      sender:'system', sentAt:nowISO()
+    });
+    showSupChat();
+  } catch(e) { console.error(e); toast('Could not open support. Check connection.'); }
+  finally { showLoader(false); }
+}
+
+function subscribeUserChat() {
+  if (_unsubUserChat) _unsubUserChat();
+  if (!_userTicket) return;
+  const ref = db.collection('support').doc(_userTicket.id).collection('messages');
+  // Try ordered first; fall back to unordered+client-sort if index missing
+  const onData = snap => {
+    const msgs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.sentAt.localeCompare(b.sentAt));
+    renderUserChat(msgs);
+  };
+  _unsubUserChat = ref.onSnapshot(onData, () => {
+    _unsubUserChat = ref.onSnapshot(onData);
+  });
+}
+
+function renderUserChat(msgs) {
+  const c = document.getElementById('sup-messages');
+  if (!c) return;
+  if (!msgs.length) {
+    c.innerHTML='<div style="text-align:center;padding:24px 0;font-size:11px;color:var(--sil)">Describe your issue and our team will respond shortly.</div>';
+    return;
+  }
+  c.innerHTML = msgs.map(m => {
+    const time = m.sentAt ? new Date(m.sentAt).toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}) : '';
+    if (m.sender==='system') return `<div style="text-align:center;font-size:10px;color:var(--sil);background:var(--s2);border:1px solid var(--b1);border-radius:20px;padding:7px 14px;margin:4px auto;max-width:90%">${m.text}</div>`;
+    const isUser = m.sender==='user';
+    return `<div style="display:flex;flex-direction:column;align-items:${isUser?'flex-end':'flex-start'}">
+      <div class="sup-bubble ${isUser?'user':'admin'}">${m.text}<div class="sup-bubble-meta">${isUser?'You':'AURO Support'} · ${time}</div></div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>{ c.scrollTop=c.scrollHeight; },50);
+}
+
+async function sendSupportMsg() {
+  if (!_userTicket||!_user) return;
+  const input = document.getElementById('sup-input');
+  const text  = (input?.value||'').trim();
+  if (!text) return;
+  input.value=''; input.disabled=true;
+  try {
+    const batch = db.batch();
+    batch.set(db.collection('support').doc(_userTicket.id).collection('messages').doc(), {text, sender:'user', sentAt:nowISO()});
+    batch.update(db.collection('support').doc(_userTicket.id), {lastMessage:text, lastAt:nowISO(), unreadAdmin:true});
+    await withTimeout(batch.commit());
+  } catch(e) { console.error(e); toast('Send failed. Try again.'); }
+  finally { input.disabled=false; input.focus(); }
+}
+
+function backToCategories() {
+  if (_unsubUserChat) { _unsubUserChat(); _unsubUserChat=null; }
+  _userTicket=null;
+  showSupCategories();
+}
+
+// ── ADMIN SUPPORT ─────────────────────────────────────────────────────────
+function startAdmSupportListener() {
+  if (_unsubAdmSupport) _unsubAdmSupport();
+  _unsubAdmSupport = db.collection('support')
+    .onSnapshot(snap => {
+      const tickets = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastAt||'').localeCompare(a.lastAt||''));
+      renderAdmSupport(tickets);
+    }, e => console.error('Support listener:', e));
+}
+
+function renderAdmSupport(tickets) {
+  const c = document.getElementById('adm-support');
+  if (!c) return;
+  if (!tickets.length) { c.innerHTML=noItems('No support tickets yet'); return; }
+  const open = tickets.filter(t=>t.status==='open');
+  const done = tickets.filter(t=>t.status==='resolved');
+  const renderTicket = t => `<div class="adm-ticket-row" onclick="openAdmTicket('${t.id}','${(t.userName||'').replace(/'/g,"\\'")}','${t.categoryName||t.category}','${t.status}')">
+    ${t.unreadAdmin?'<div class="adm-ticket-unread"></div>':''}
+    <div style="font-size:12px;font-weight:700;color:var(--plat);margin-bottom:2px">${t.userName||'Unknown'} <span style="font-size:10px;font-weight:500;color:var(--sil)">· ${t.categoryName||t.category}</span></div>
+    <div style="font-size:10px;color:var(--sil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.lastMessage||'No messages yet'}</div>
+    <div style="font-size:9px;color:var(--dim);margin-top:4px;display:flex;align-items:center;gap:6px">
+      ${dateStr(t.lastAt||t.createdAt)}
+      <span class="sup-status-chip ${t.status}" style="font-size:8px">${t.status==='resolved'?'Resolved':'Open'}</span>
+    </div>
+  </div>`;
+  c.innerHTML = (open.length?'<div style="font-size:10px;font-weight:600;color:var(--sil);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px">Open ('+open.length+')</div>':'')+open.map(renderTicket).join('')+(done.length?'<div style="font-size:10px;font-weight:600;color:var(--sil);letter-spacing:.07em;text-transform:uppercase;margin:12px 0 8px">Resolved ('+done.length+')</div>':'')+done.map(renderTicket).join('');
+}
+
+function openAdmTicket(ticketId, userName, catName, status) {
+  _admActiveTicket = ticketId;
+  const panel = document.getElementById('adm-chat-panel');
+  panel.style.display = 'flex';
+  document.getElementById('adm-chat-title').textContent = `${userName} · ${catName}`;
+  const resolveBtn = document.getElementById('resolve-btn');
+  if (resolveBtn) resolveBtn.style.display = status==='resolved'?'none':'block';
+  // Mark as read
+  db.collection('support').doc(ticketId).update({unreadAdmin:false}).catch(()=>{});
+  // Subscribe to messages
+  if (_unsubAdmChat) _unsubAdmChat();
+  const ref = db.collection('support').doc(ticketId).collection('messages');
+  _unsubAdmChat = ref.onSnapshot(snap => {
+    const msgs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.sentAt.localeCompare(b.sentAt));
+    renderAdmChat(msgs);
+  });
+}
+
+function renderAdmChat(msgs) {
+  const c = document.getElementById('adm-sup-messages');
+  if (!c) return;
+  if (!msgs.length) { c.innerHTML='<div style="text-align:center;padding:20px;font-size:11px;color:var(--sil)">No messages yet.</div>'; return; }
+  c.innerHTML = msgs.map(m => {
+    const time = m.sentAt?new Date(m.sentAt).toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}):'';
+    if (m.sender==='system') return `<div style="text-align:center;font-size:10px;color:var(--sil);background:var(--s2);border:1px solid var(--b1);border-radius:20px;padding:7px 14px;margin:4px auto;max-width:90%">${m.text}</div>`;
+    const isUser=m.sender==='user';
+    return `<div style="display:flex;flex-direction:column;align-items:${isUser?'flex-end':'flex-start'}"><div class="sup-bubble ${isUser?'user':'admin'}">${m.text}<div class="sup-bubble-meta">${isUser?'User':'Support'} · ${time}</div></div></div>`;
+  }).join('');
+  setTimeout(()=>{ c.scrollTop=c.scrollHeight; },50);
+}
+
+async function sendAdminReply() {
+  if (!_admActiveTicket) return;
+  const input = document.getElementById('adm-sup-input');
+  const text  = (input?.value||'').trim();
+  if (!text) return;
+  input.value=''; input.disabled=true;
+  try {
+    const batch = db.batch();
+    batch.set(db.collection('support').doc(_admActiveTicket).collection('messages').doc(), {text, sender:'admin', sentAt:nowISO()});
+    batch.update(db.collection('support').doc(_admActiveTicket), {lastMessage:text, lastAt:nowISO(), unreadAdmin:false});
+    await withTimeout(batch.commit());
+  } catch(e) { console.error(e); toast('Reply failed. Try again.'); }
+  finally { input.disabled=false; input.focus(); }
+}
+
+async function resolveTicket() {
+  if (!_admActiveTicket) return;
+  if (!confirm('Mark this ticket as resolved?')) return;
+  try {
+    await withTimeout(db.collection('support').doc(_admActiveTicket).update({status:'resolved'}));
+    document.getElementById('resolve-btn').style.display='none';
+    toast('Ticket marked as resolved.');
+  } catch(e) { toast('Could not resolve ticket.'); }
+}
+
+function closeAdmTicket() {
+  if (_unsubAdmChat) { _unsubAdmChat(); _unsubAdmChat=null; }
+  _admActiveTicket=null;
+  document.getElementById('adm-chat-panel').style.display='none';
 }
 
 // ══════════════════════════════════
@@ -3455,12 +3745,16 @@ function filterAdmUsers() {
 // ── DARK MODE ────────────────────────────────────────────────────────────
 function applyDarkMode(dark) {
   document.body.classList.toggle('dark', dark);
-  const lbl = document.getElementById('dark-mode-label');
-  const ico = document.querySelector('#dark-mode-item svg');
-  if (lbl) lbl.textContent = dark ? 'Light Mode' : 'Dark Mode';
-  if (ico) ico.innerHTML = dark
-    ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
-    : '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+  const icon = document.getElementById('dark-icon');
+  if (icon) {
+    if (dark) {
+      // Sun icon when dark (tap to go light)
+      icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+    } else {
+      // Moon icon when light (tap to go dark)
+      icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    }
+  }
 }
 function toggleDarkMode() {
   const isDark = document.body.classList.contains('dark');
