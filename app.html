@@ -3026,7 +3026,7 @@ function renderAdmDeps(deps) {
   const c = document.getElementById('adm-deps');
   if (!c) return;
   if (!deps.length) { c.innerHTML = noItems('No pending deposits'); return; }
-  c.innerHTML = deps.map(d => `<div class="req-card" id="dep-card-${d.id}">
+  c.innerHTML = deps.map(d => `<div class="req-card" >
     <div class="rc-top">
       <div><div class="rc-user">${d.userName||'—'}</div><div class="rc-date">${dateStr(d.date)}</div></div>
       <div class="rc-amt">${fmt(d.amount)}</div>
@@ -3042,7 +3042,7 @@ function renderAdmWits(wits) {
   const c = document.getElementById('adm-wits');
   if (!c) return;
   if (!wits.length) { c.innerHTML = noItems('No pending withdrawals'); return; }
-  c.innerHTML = wits.map(w => `<div class="req-card" id="wit-card-${w.id}">
+  c.innerHTML = wits.map(w => `<div class="req-card" >
     <div class="rc-top">
       <div><div class="rc-user">${w.userName||'—'}</div><div class="rc-date">${dateStr(w.date)}</div></div>
       <div class="rc-amt">${fmt(w.amount)}</div>
@@ -3056,73 +3056,77 @@ function renderAdmWits(wits) {
 }
 
 // Track in-progress admin actions to prevent double-tap
+// Simple in-progress guard — prevents double-tap without touching the UI
 const _admInProgress = new Set();
 
 async function admApproveDep(depId, userId, amount) {
   if (_admInProgress.has(depId)) return;
   _admInProgress.add(depId);
-  // Visually disable the card immediately
-  const card = document.getElementById('dep-card-'+depId);
-  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
-  showLoader(true,'Approving deposit…');
+  showLoader(true, 'Approving deposit…');
   try {
     await withTimeout(Promise.all([
       db.collection('deposits').doc(depId).update({status:'approved'}),
-      db.collection('users').doc(userId).update({balance:firebase.firestore.FieldValue.increment(amount)})
+      db.collection('users').doc(userId).update({balance: firebase.firestore.FieldValue.increment(amount)})
     ]));
     toast('₦'+Math.round(amount).toLocaleString()+' credited to user');
   } catch(e) {
-    toast('Error approving. Try again.');
     console.error(e);
-    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+    toast('Error approving. Try again.');
+  } finally {
+    showLoader(false);
     _admInProgress.delete(depId);
-  } finally { showLoader(false); }
-  // Note: don't delete from _admInProgress on success — card disappears via listener
+  }
 }
+
 async function admRejectDep(depId) {
   if (_admInProgress.has(depId)) return;
   _admInProgress.add(depId);
-  const card = document.getElementById('dep-card-'+depId);
-  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
-  showLoader(true,'Rejecting…');
+  showLoader(true, 'Rejecting deposit…');
   try {
     await withTimeout(db.collection('deposits').doc(depId).update({status:'rejected'}));
     toast('Deposit rejected.');
   } catch(e) {
+    console.error(e);
     toast('Error. Try again.');
-    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+  } finally {
+    showLoader(false);
     _admInProgress.delete(depId);
-  } finally { showLoader(false); }
+  }
 }
+
 async function admApproveWit(witId) {
   if (_admInProgress.has(witId)) return;
   _admInProgress.add(witId);
-  const card = document.getElementById('wit-card-'+witId);
-  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
-  showLoader(true,'Marking as sent…');
+  showLoader(true, 'Marking as sent…');
   try {
     await withTimeout(db.collection('withdrawals').doc(witId).update({status:'approved'}));
     toast('Withdrawal marked as sent.');
   } catch(e) {
+    console.error(e);
     toast('Error. Try again.');
-    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+  } finally {
+    showLoader(false);
     _admInProgress.delete(witId);
-  } finally { showLoader(false); }
+  }
 }
+
 async function admRejectWit(witId, userId, amount) {
   if (_admInProgress.has(witId)) return;
   _admInProgress.add(witId);
-  const card = document.getElementById('wit-card-'+witId);
-  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
-  showLoader(true,'Refunding…');
+  showLoader(true, 'Refunding…');
   try {
     await withTimeout(Promise.all([
       db.collection('withdrawals').doc(witId).update({status:'rejected'}),
-      db.collection('users').doc(userId).update({balance:firebase.firestore.FieldValue.increment(amount)})
+      db.collection('users').doc(userId).update({balance: firebase.firestore.FieldValue.increment(amount)})
     ]));
     toast('Withdrawal rejected · Balance refunded to user');
-  } catch(e) { toast('Error. Try again.'); console.error(e); }
-  finally { showLoader(false); }
+  } catch(e) {
+    console.error(e);
+    toast('Error. Try again.');
+  } finally {
+    showLoader(false);
+    _admInProgress.delete(witId);
+  }
 }
 
 // ══════════════════════════════════
