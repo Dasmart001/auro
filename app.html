@@ -637,6 +637,21 @@ body.dark #splash{background:var(--void)}
 .pcc-claim-btn{width:100%;padding:13px;border:none;border-radius:11px;font-family:var(--d);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .18s}
 .pcc-claimed-state{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--okd);border:1px solid var(--okb);border-radius:11px;font-size:12px;font-weight:600;color:var(--ok)}
 .pcc-wait-state{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--s2);border:1px solid var(--b1);border-radius:11px;font-size:12px;color:var(--sil)}
+
+/* ── REFERRAL SECTION (HOME) ────── */
+.ref-home{margin:0 16px 14px;background:linear-gradient(135deg,rgba(67,56,236,.07),rgba(108,92,231,.04));border:1px solid var(--gb);border-radius:16px;padding:16px;position:relative;overflow:hidden}
+.ref-home::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ref-home-title{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.ref-home-desc{font-size:11px;color:var(--sil);margin-bottom:12px;line-height:1.55}
+.ref-home-desc strong{color:var(--ok)}
+.ref-code-row{display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.ref-code-val{font-family:var(--d);font-size:18px;font-weight:800;color:var(--gold);letter-spacing:.12em;flex:1}
+.ref-copy-btn{background:var(--gd);border:1px solid var(--gb);color:var(--gold);border-radius:7px;padding:6px 13px;font-family:var(--b);font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em;white-space:nowrap}
+.ref-stats-row{display:flex;gap:8px}
+.ref-stat{flex:1;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px;text-align:center}
+.ref-stat-val{font-family:var(--d);font-size:16px;font-weight:700;color:var(--plat);margin-bottom:2px}
+.ref-stat-lbl{font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.05em}
+.ref-share-btn{width:100%;margin-top:10px;padding:11px;background:var(--gold);color:#fff;border:none;border-radius:10px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
 </style>
 </head>
 <body>
@@ -765,6 +780,24 @@ body.dark #splash{background:var(--void)}
     <!-- ACTIVE POSITIONS -->
     <div class="sh"><h2>Active Positions</h2><div class="sh-a" onclick="go('p-portfolio','n-none')">View all</div></div>
     <div class="positions" id="h-pos"></div>
+
+    <!-- REFERRAL SECTION -->
+    <div class="ref-home" id="home-ref-section">
+      <div class="ref-home-title">🤝 Refer &amp; Earn</div>
+      <div class="ref-home-desc">Share your code. When your friend makes their first deposit, you both earn <strong>₦2,000</strong> instantly.</div>
+      <div class="ref-code-row">
+        <div class="ref-code-val" id="home-ref-code">—</div>
+        <button class="ref-copy-btn" onclick="copyRefCode()">Copy Code</button>
+      </div>
+      <div class="ref-stats-row">
+        <div class="ref-stat"><div class="ref-stat-val" id="home-ref-count">0</div><div class="ref-stat-lbl">Referrals</div></div>
+        <div class="ref-stat"><div class="ref-stat-val" id="home-ref-earned">₦0</div><div class="ref-stat-lbl">Earned</div></div>
+      </div>
+      <button class="ref-share-btn" onclick="shareRefCode()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Share My Referral Link
+      </button>
+    </div>
   </div>
 
   <!-- PLANS -->
@@ -2034,7 +2067,7 @@ async function doWithdraw() {
   const bank = document.getElementById('w-bank').value;
   const acct = document.getElementById('w-acct').value.trim();
   const actn = document.getElementById('w-acct-name').value.trim();
-  if (v <= 0) { toast('Enter an amount to withdraw'); return; }
+  if (v < 15000) { toast('Minimum withdrawal is ₦15,000'); return; }
   if (v > _user.balance) { toast('Amount exceeds your available balance'); return; }
   if (!bank) { toast('Please select your bank'); return; }
   if (!acct || acct.length < 10) { toast('Enter a valid 10-digit account number'); return; }
@@ -2241,10 +2274,32 @@ function toggleBal() {
 function renderHome() {
   if (!_user) return;
 
+  // Name + avatar
+  const nameEl = document.getElementById('home-name');
+  if (nameEl) nameEl.textContent = (_user.name||'').split(' ')[0] || '—';
+  const avEl = document.getElementById('home-av');
+  if (avEl) avEl.textContent = (_user.name||'?').slice(0,2).toUpperCase();
+
   // Time-aware greeting
   const h = new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Lagos'})).getHours();
   const greetSub = document.getElementById('home-greet-sub');
   if (greetSub) greetSub.textContent = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+
+  // Referral card
+  const refCode = _user.refCode||'—';
+  const rcEl = document.getElementById('home-ref-code');
+  if (rcEl) rcEl.textContent = refCode;
+  // Load referral stats async
+  if (_user.refCode) {
+    db.collection('users').where('referredBy','==',_user.refCode).get().then(snap => {
+      const count = snap.size;
+      const earned = count * 2000;
+      const cntEl = document.getElementById('home-ref-count');
+      const ernEl = document.getElementById('home-ref-earned');
+      if (cntEl) cntEl.textContent = count;
+      if (ernEl) ernEl.textContent = fmt(earned);
+    }).catch(()=>{});
+  }
 
   // Balance (blur if hidden, else animate)
   const numWrap = document.getElementById('bc-num-wrap');
@@ -2258,29 +2313,27 @@ function renderHome() {
   const todC  = invs.filter(i=>isActive(i)&&canClaim(i)).reduce((s,i)=>s+i.daily, 0);
 
   // Performance strip
-  const hInv = document.getElementById('h-invested');
-  const hEar = document.getElementById('h-earned');
-  const hAct = document.getElementById('h-active');
-  if (hInv) hInv.textContent = fmt(tInv);
-  if (hEar) hEar.textContent = fmt(tEarn);
-  if (hAct) hAct.textContent = actC;
+  const el = id => document.getElementById(id);
+  if (el('h-invested')) el('h-invested').textContent = fmt(tInv);
+  if (el('h-earned'))   el('h-earned').textContent   = fmt(tEarn);
+  if (el('h-active'))   el('h-active').textContent   = actC;
 
-  // Today chip on balance card
-  const todayEl = document.getElementById('h-today-earn');
-  const subEl   = document.getElementById('bc-sub-text');
-  if (todayEl) todayEl.textContent = todC > 0 ? fmt(todC)+' claimable' : tEarn > 0 ? fmt(tEarn)+' earned' : '₦0 today';
-  if (subEl)   subEl.textContent   = tInv > 0 ? actC+' active position'+(actC!==1?'s':'') : 'Deposit to start trading';
+  // Today chip
+  const todayEl = el('h-today-earn');
+  const subEl   = el('bc-sub-text');
+  if (todayEl) todayEl.textContent = todC>0?fmt(todC)+' claimable':tEarn>0?fmt(tEarn)+' earned':'₦0 today';
+  if (subEl)   subEl.textContent   = tInv>0?actC+' active position'+(actC!==1?'s':''):'Deposit to start trading';
 
   // Claimable banner
-  const banner  = document.getElementById('claim-banner');
-  const claimEl = document.getElementById('h-claimable');
+  const banner  = el('claim-banner');
+  const claimEl = el('h-claimable');
   if (banner) {
-    if (todC > 0) { banner.style.display='flex'; if (claimEl) claimEl.textContent = fmt(todC); }
+    if (todC>0) { banner.style.display='flex'; if (claimEl) claimEl.textContent=fmt(todC); }
     else banner.style.display='none';
   }
 
   // Active positions
-  const posEl = document.getElementById('h-pos');
+  const posEl = el('h-pos');
   if (!posEl) return;
   const active = invs.filter(i=>isActive(i)).slice(0,3);
   if (!active.length) {
@@ -2293,10 +2346,10 @@ function renderHome() {
     return;
   }
   posEl.innerHTML = active.map(inv => {
-    const t    = TC[inv.tier]||TC.Starter;
-    const day  = dayElapsed(inv);
-    const pct  = Math.round((day/60)*100);
-    const can  = canClaim(inv);
+    const t   = TC[inv.tier]||TC.Starter;
+    const day = dayElapsed(inv);
+    const pct = Math.round((day/60)*100);
+    const can = canClaim(inv);
     return `<div class="pos-item" onclick="go('p-claim','n-claim')">
       <div class="pos-mark" style="background:${t.pb};color:${t.r}">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg>
@@ -2306,7 +2359,7 @@ function renderHome() {
         <div class="pos-meta">Day ${day} of 60 &nbsp;·&nbsp; ${(inv.claimed||[]).length} days claimed</div>
         <div class="pos-bar"><div class="pos-bar-f" style="width:${pct}%;background:${t.r}"></div></div>
         <div class="pos-bar-labels"><span>0%</span><span>${pct}%</span><span>100%</span></div>
-        ${can ? '<div class="pos-claimable">● Claim Available</div>' : ''}
+        ${can?'<div class="pos-claimable">● Claim Available</div>':''}
       </div>
       <div class="pos-r">
         <div class="pos-daily" style="color:${t.r}">${fmt(inv.daily)}</div>
@@ -2316,9 +2369,23 @@ function renderHome() {
   }).join('');
 }
 
-// ══════════════════════════════════
-// RENDER — PORTFOLIO
-// ══════════════════════════════════
+function copyRefCode() {
+  const code = _user?.refCode||'';
+  if (!code) return;
+  cpy(code);
+}
+
+function shareRefCode() {
+  const code = _user?.refCode||'';
+  const name = _user?.name||'AURO';
+  const text = `Join me on AURO — Nigeria's trading platform. Use my referral code ${code} when you sign up and we both get ₦2,000 when you make your first deposit!\n\nSign up here: https://auroinvest.vercel.app`;
+  if (navigator.share) {
+    navigator.share({ title: 'Join AURO', text }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text).then(()=> toast('Share link copied!')).catch(()=> toast('Code: '+code));
+  }
+}
+
 function renderPortfolio() {
   if (!_user) return;
   const invs = _user.investments||[];
@@ -3068,6 +3135,8 @@ async function admApproveDep(depId, userId, amount) {
       db.collection('deposits').doc(depId).update({status:'approved'}),
       db.collection('users').doc(userId).update({balance: firebase.firestore.FieldValue.increment(amount)})
     ]));
+    // Trigger referral bonus on first deposit approval
+    triggerReferralBonus(userId).catch(e => console.warn('Referral bonus failed:', e));
     toast('₦'+Math.round(amount).toLocaleString()+' credited to user');
   } catch(e) {
     console.error(e);
@@ -3224,17 +3293,33 @@ function fallbackCopy(text) {
 }
 
 async function applyReferral(refCode, newUserId, newUserName) {
+  // Only stores the referral link — bonus pays when referred user makes first deposit
   if (!refCode) return;
   try {
     const snap = await withTimeout(db.collection('users').where('refCode','==', refCode.toUpperCase()).limit(1).get());
     if (snap.empty) return;
     const referrerId = snap.docs[0].id;
     if (referrerId === newUserId) return; // no self-referral
+    // Save referredBy so deposit handler can trigger bonus
+    await withTimeout(db.collection('users').doc(newUserId).update({ referredBy: refCode.toUpperCase(), referrerId }));
+  } catch(e) { console.error('Referral link error:', e); }
+}
+
+async function triggerReferralBonus(userId) {
+  // Called when user's FIRST deposit is approved — pays ₦2k to both sides once only
+  try {
+    const userDoc = await db.collection('users').doc(userId).get();
+    const u = userDoc.data();
+    if (!u?.referredBy || u?.referralBonusPaid) return; // no referral or already paid
+    const snap = await db.collection('users').where('refCode','==', u.referredBy).limit(1).get();
+    if (snap.empty) return;
+    const referrerId = snap.docs[0].id;
+    if (referrerId === userId) return; // no self-referral
     await withTimeout(Promise.all([
       db.collection('users').doc(referrerId).update({ balance: firebase.firestore.FieldValue.increment(2000) }),
-      db.collection('users').doc(newUserId).update({ balance: firebase.firestore.FieldValue.increment(2000), referredBy: refCode.toUpperCase() })
+      db.collection('users').doc(userId).update({ balance: firebase.firestore.FieldValue.increment(2000), referralBonusPaid: true })
     ]));
-  } catch(e) { console.error('Referral error:', e); }
+  } catch(e) { console.error('Referral bonus error:', e); }
 }
 
 // ══════════════════════════════════
