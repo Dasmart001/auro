@@ -188,15 +188,12 @@ body::after{display:none}
 .pi-cta:hover{opacity:.8}
 
 /* CLAIM */
-.claim-banner{margin:0 16px 16px;background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:var(--r);padding:12px 14px;display:flex;gap:10px}
 .claim-banner svg{width:15px;height:15px;color:var(--gold);flex-shrink:0;margin-top:1px}
-.cb-t{font-size:11px;font-weight:300;color:var(--sil);line-height:1.65}
 .cb-t strong{color:var(--gold);font-weight:600}
 
 
 .dc-b{font-size:10px;font-weight:600;color:var(--sil);background:var(--s1);border:1px solid var(--b1);border-radius:6px;padding:5px 11px;cursor:pointer;transition:all .2s}
 .dc-b:hover{color:var(--gold);border-color:var(--gb)}
-.claim-cards{padding:0 16px}
 .cc{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:17px;margin-bottom:11px;position:relative;overflow:hidden}
 .cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cc-l,var(--gb)),transparent)}
 .cc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
@@ -526,7 +523,6 @@ body::after{display:none}
 .ref-hint strong{color:var(--gold)}
 
 /* ── STREAK ── */
-.streak-bar{display:flex;align-items:center;gap:8px;background:rgba(15,174,107,.06);border:1px solid rgba(15,174,107,.18);border-radius:10px;padding:9px 13px;margin:0 16px 12px}
 .streak-ico{font-size:16px;line-height:1}
 .streak-txt{flex:1}
 .streak-label{font-size:10px;font-weight:600;color:var(--ok)}
@@ -619,6 +615,28 @@ body.dark #splash{background:var(--void)}
 .adm-ticket-row:active{border-color:var(--gb)}
 .adm-ticket-unread{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
 .adm-chat-panel{position:fixed;inset:0;z-index:8000;background:var(--void);max-width:430px;margin:0 auto;display:flex;flex-direction:column;padding:0}
+
+/* ── CLAIM SCREEN ───────────────── */
+.pos-claim-card{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:16px;margin-bottom:12px;transition:border-color .18s}
+.pos-claim-card.claimable{border-color:var(--pcc,var(--gb));box-shadow:0 2px 16px var(--pcs,var(--gd))}
+.pcc-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.pcc-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pcc-info{flex:1;min-width:0}
+.pcc-name{font-size:13px;font-weight:700;color:var(--plat);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcc-ref{font-size:9.5px;color:var(--sil)}
+.pcc-day-chip{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+.pcc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;background:var(--s2);border:1px solid var(--b1);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.pcc-stat{padding:10px;text-align:center}
+.pcc-stat+.pcc-stat{border-left:1px solid var(--b1)}
+.pcc-stat-val{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat);margin-bottom:1px}
+.pcc-stat-lbl{font-size:8.5px;color:var(--sil);text-transform:uppercase;letter-spacing:.05em}
+.pcc-progress{margin-bottom:12px}
+.pcc-prog-bar{height:4px;background:var(--b1);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.pcc-prog-fill{height:100%;border-radius:4px;transition:width .6s var(--ez)}
+.pcc-prog-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--dim)}
+.pcc-claim-btn{width:100%;padding:13px;border:none;border-radius:11px;font-family:var(--d);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .18s}
+.pcc-claimed-state{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--okd);border:1px solid var(--okb);border-radius:11px;font-size:12px;font-weight:600;color:var(--ok)}
+.pcc-wait-state{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--s2);border:1px solid var(--b1);border-radius:11px;font-size:12px;color:var(--sil)}
 </style>
 </head>
 <body>
@@ -759,14 +777,24 @@ body.dark #splash{background:var(--void)}
   <!-- CLAIM -->
   <div class="page" id="p-claim">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Daily Claims</div><div class="ph-s">Return every day. Miss a day — it's gone forever.</div></div>
-    <div class="claim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="cb-t"><strong>Warning:</strong> Each plan pays a fixed daily amount for 60 days. You must claim manually every day. Any missed day is permanently forfeited.</div></div>
-    <div class="streak-bar" id="streak-bar">
-      <div class="streak-ico">🔥</div>
-      <div class="streak-txt"><div class="streak-label" id="streak-label">0-Day Streak</div><div class="streak-sub" id="streak-sub">Claim today to start your streak</div></div>
-      <div class="streak-num" id="streak-num">0</div>
+
+    <!-- CLAIM SUMMARY HEADER -->
+    <div style="padding:0 20px 16px">
+      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Daily Returns</div>
+      <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
+      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Available across all positions</div>
     </div>
-    <div class="claim-cards" id="claim-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="empty-t">No Open Markets</div><div class="empty-d">Start a trade to begin earning daily claimable returns.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Markets</button></div></div>
+
+    <!-- CLAIM ALL BUTTON (shown when multiple claimable) -->
+    <div id="claim-all-wrap" style="display:none;padding:0 20px 16px">
+      <button id="claim-all-btn" onclick="claimAll()" style="width:100%;padding:14px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-family:var(--d);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Claim All Returns
+      </button>
+    </div>
+
+    <!-- POSITION CLAIM CARDS -->
+    <div style="padding:0 16px 100px" id="claim-c"></div>
   </div>
 
   <!-- DEPOSIT -->
@@ -1773,28 +1801,6 @@ function updDot() {
   document.getElementById('claim-dot').style.display = has ? 'block' : 'none';
 }
 
-async function doClaim(invId) {
-  if (!_user) return;
-  const inv = (_user.investments||[]).find(i => i.id===invId);
-  if (!inv || !canClaim(inv)) return;
-  const key = todayKey(inv);
-  const updInvs = (_user.investments||[]).map(i => {
-    if (i.id !== invId) return i;
-    const nc = [...(i.claimed||[]), key];
-    return {...i, claimed:nc, totalClaimed:(i.totalClaimed||0)+i.daily, status:nc.length>=60?'completed':i.status};
-  });
-  showLoader(true, 'Claiming…');
-  try {
-    await withTimeout(db.collection('users').doc(_user.id).update({
-      balance: firebase.firestore.FieldValue.increment(inv.daily),
-      totalEarned: firebase.firestore.FieldValue.increment(inv.daily),
-      investments: updInvs
-    }));
-    toast(fmt(inv.daily)+' claimed and added to your balance');
-  } catch(e) { console.error(e); toast('Could not claim. Check your connection.'); }
-  finally { showLoader(false); }
-}
-
 // ══════════════════════════════════
 // INVEST
 // ══════════════════════════════════
@@ -2131,116 +2137,91 @@ function renderPlans() {
 }
 
 // Claim multiple investments in a group at once
-async function doClaimGroup(ids) {
-  if (!_user) return;
-  const invs = (_user.investments||[]);
-  const claimable = invs.filter(i => ids.includes(i.id) && canClaim(i));
-  if (!claimable.length) return;
-
-  let totalCreditAmount = 0;
-  const updated = invs.map(i => {
-    if (!ids.includes(i.id) || !canClaim(i)) return i;
-    const tk = todayKey(i);
-    const nc = [...(i.claimed||[]), tk];
-    const newTotal = (i.totalClaimed||0) + i.daily;
-    totalCreditAmount += i.daily;
-    return { ...i, claimed: nc, totalClaimed: newTotal, status: nc.length >= 60 ? 'completed' : i.status };
-  });
-
-  showLoader(true, 'Claiming…');
-  try {
-    await withTimeout(db.collection('users').doc(_user.id).update({
-      investments: updated,
-      balance: firebase.firestore.FieldValue.increment(totalCreditAmount),
-      totalEarned: firebase.firestore.FieldValue.increment(totalCreditAmount)
-    }));
-    toast(fmt(totalCreditAmount) + ' claimed and added to your balance');
-  } catch(e) { console.error(e); toast('Claim failed. Try again.'); }
-  finally { showLoader(false); }
-}
 // ══════════════════════════════════
 function renderClaims() {
   const c = document.getElementById('claim-c');
-  if (!_user) { c.innerHTML = ''; return; }
+  if (!_user || !c) return;
   const active = (_user.investments||[]).filter(i => isActive(i));
+
   if (!active.length) {
-    c.innerHTML = emptyHTML(
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-      'No Active Trades','Start a trade to begin earning daily claimable returns.',
-      'Browse Markets',"go('p-plans','n-plans')"
-    ); return;
+    c.innerHTML = `<div style="text-align:center;padding:40px 20px">
+      <div style="font-size:40px;margin-bottom:12px">📊</div>
+      <div style="font-size:14px;font-weight:700;color:var(--plat);margin-bottom:6px">No Active Positions</div>
+      <div style="font-size:12px;color:var(--sil);margin-bottom:20px">Open a market position to start earning daily returns.</div>
+      <button onclick="go('p-plans','n-plans')" style="background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-family:var(--b);font-size:13px;font-weight:700;cursor:pointer">Browse Markets</button>
+    </div>`;
+    document.getElementById('claim-total-val').textContent = '₦0';
+    document.getElementById('claim-total-sub').textContent = 'No active positions';
+    const wrap = document.getElementById('claim-all-wrap');
+    if (wrap) wrap.style.display = 'none';
+    return;
   }
 
-  // Group by plan name (same plan = same tier + invest amount)
-  const groups = {};
-  active.forEach(inv => {
-    const key = inv.name; // e.g. "Starter · ₦5,000"
-    if (!groups[key]) groups[key] = { invs: [], tier: inv.tier, name: inv.name };
-    groups[key].invs.push(inv);
-  });
+  // Calculate totals for header
+  const claimable = active.filter(i => canClaim(i));
+  const totalClaimable = claimable.reduce((s,i) => s + i.daily, 0);
+  const claimed = active.filter(i => hasClaimed(i) && !canClaim(i));
 
-  c.innerHTML = Object.values(groups).map(grp => {
-    const t = TC[grp.tier] || TC.Starter;
-    const invs = grp.invs;
-    const count = invs.length;
+  document.getElementById('claim-total-val').textContent = fmt(totalClaimable);
+  document.getElementById('claim-total-sub').textContent = claimable.length
+    ? `${claimable.length} position${claimable.length!==1?'s':''} ready to claim`
+    : claimed.length === active.length ? 'All claimed today · Come back tomorrow' : 'No returns available right now';
 
-    // Merged figures
-    const totalInvested  = invs.reduce((s,i) => s + i.invest, 0);
-    const totalDaily     = invs.reduce((s,i) => s + i.daily, 0);
-    const totalReturn    = invs.reduce((s,i) => s + i.total, 0);
-    const totalClaimed   = invs.reduce((s,i) => s + (i.totalClaimed||0), 0);
+  // Show claim-all button only when 2+ positions claimable
+  const wrap = document.getElementById('claim-all-wrap');
+  const allBtn = document.getElementById('claim-all-btn');
+  if (wrap && allBtn) {
+    wrap.style.display = claimable.length >= 2 ? 'block' : 'none';
+    if (claimable.length >= 2) allBtn.textContent = `Claim All — ${fmt(totalClaimable)}`;
+  }
 
-    // Use the earliest start date for day tracking
-    const earliestInv = invs.slice().sort((a,b) => new Date(a.startDate)-new Date(b.startDate))[0];
-    const day = dayElapsed(earliestInv);
+  // Render each position as a card
+  c.innerHTML = active.map(inv => {
+    const t   = TC[inv.tier] || TC.Starter;
+    const day = dayElapsed(inv);
+    const pct = Math.round((day/60)*100);
+    const claimedCount = (inv.claimed||[]).length;
+    const isClaimed = hasClaimed(inv);
+    const canC = canClaim(inv);
 
-    // Claims: union of all claimed keys across all investments in group
-    const allClaimed = [...new Set(invs.flatMap(i => i.claimed||[]))];
-    const pct = Math.round((allClaimed.length / 60) * 100);
-
-    // Missed: days that NONE of the investments were claimed
-    const missedCount = invs.reduce((s,i) => s + missedDays(i), 0);
-
-    // Can claim: any unclaimed today
-    const anyCanClaim = invs.some(i => canClaim(i));
-    const allClaimedToday = invs.every(i => hasClaimed(i));
-
-    // Build claim button — claims ALL unclaimed investments in group at once
-    let btn = '';
-    if (allClaimedToday) {
-      btn = `<div class="cc-claimed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Come back tomorrow</div>`;
-    } else if (anyCanClaim) {
-      const claimableNow = invs.filter(i => canClaim(i)).reduce((s,i) => s+i.daily, 0);
-      const ids = invs.filter(i => canClaim(i)).map(i => `'${i.id}'`).join(',');
-      btn = `<button class="cc-btn" onclick="doClaimGroup([${ids}])"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claim ${fmt(claimableNow)} Now</button>`;
+    let actionEl = '';
+    if (isClaimed) {
+      actionEl = `<div class="pcc-claimed-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Returns in wallet</div>`;
+    } else if (canC) {
+      actionEl = `<button class="pcc-claim-btn" id="claim-btn-${inv.id}" style="background:${t.r};color:#fff" onclick="doClaimSingle('${inv.id}',this)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Claim ${fmt(inv.daily)}
+      </button>`;
     } else {
-      btn = `<div class="cc-wait">Claim opens tomorrow · Day ${Math.min(day+1,60)}</div>`;
+      actionEl = `<div class="pcc-wait-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Opens tomorrow · Day ${Math.min(day+1,60)} of 60</div>`;
     }
 
-    const tagBg    = allClaimedToday ? 'var(--okd)' : anyCanClaim ? t.pb : 'var(--s2)';
-    const tagColor = allClaimedToday ? 'var(--ok)'  : anyCanClaim ? t.pc : 'var(--sil)';
-    const tagBdr   = allClaimedToday ? 'rgba(15,174,107,.2)' : anyCanClaim ? t.pbd : 'var(--b1)';
+    const claimableStyle = canC ? `--pcc:${t.r};--pcs:${t.glow}` : '';
 
-    return `<div class="cc" style="--cc-l:${t.l}">
-      <div class="cc-top">
-        <div>
-          <div class="cc-name">${grp.name}${count > 1 ? ` <span style="font-size:10px;color:var(--sil);font-weight:400">×${count}</span>` : ''}</div>
-          <div class="cc-inv">In Trades: ${fmt(totalInvested)}${count > 1 ? ` · ${count} slots` : ''}</div>
+    return `<div class="pos-claim-card ${canC?'claimable':''}" style="${claimableStyle}">
+      <div class="pcc-header">
+        <div class="pcc-ico" style="background:${t.pb}">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="${t.r}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg>
         </div>
-        <div class="cc-tag" style="background:${tagBg};color:${tagColor};border:1px solid ${tagBdr}">Day ${day}/60</div>
+        <div class="pcc-info">
+          <div class="pcc-name">${inv.name}</div>
+          <div class="pcc-ref">${inv.ref ? 'Ref: '+inv.ref : 'Started '+inv.startDate}</div>
+        </div>
+        <div class="pcc-day-chip" style="background:${t.pb};color:${t.r};border:1px solid ${t.pbd}">Day ${day}/60</div>
       </div>
-      <div class="cc-daily-lbl">Today's Claimable Amount</div>
-      <div class="cc-daily-val" style="color:${t.r}">${fmt(totalDaily)}</div>
-      ${btn}
-      <div class="cc-pbar"><div class="cc-pbar-f" style="width:${pct}%;background:${t.r}"></div></div>
-      <div class="cc-meta">
-        <span class="${missedCount>0?'miss':'ok'}">${missedCount>0?missedCount+' day'+(missedCount>1?'s':'')+' missed':'No days missed'}</span>
-        <span>${allClaimed.length}/60 · ${fmt(totalClaimed)} earned</span>
+      <div class="pcc-stats">
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.daily)}</div><div class="pcc-stat-lbl">Per Day</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.invest)}</div><div class="pcc-stat-lbl">Allocated</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val" style="color:var(--ok)">${claimedCount}/60</div><div class="pcc-stat-lbl">Days Claimed</div></div>
       </div>
+      <div class="pcc-progress">
+        <div class="pcc-prog-bar"><div class="pcc-prog-fill" style="width:${pct}%;background:${t.r}"></div></div>
+        <div class="pcc-prog-labels"><span>${claimedCount} days claimed</span><span>${60-claimedCount} remaining</span></div>
+      </div>
+      ${actionEl}
     </div>`;
   }).join('');
 }
-
 // ══════════════════════════════════
 // RENDER — HOME
 // ══════════════════════════════════
@@ -2527,16 +2508,15 @@ async function initTicker() {
   if (track) track.innerHTML = TICKER_ORDER.map(sym=>`<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">—</span></div>`).join('').repeat(2);
   seedTicker();
   await Promise.allSettled([fetchCrypto(), fetchForex()]);
-  // Micro-fluctuations every 3.5s for lively feel between real refreshes
+  // Micro-fluctuations every 3.5s — tiny nudge only, real API values always anchor on refresh
   if (_microTimer) clearInterval(_microTimer);
   _microTimer = setInterval(() => {
     let changed = false;
     TICKER_ORDER.forEach(sym => {
       const d = _tickerData[sym];
       if (!d?.price) return;
-      const nudge = d.price * (Math.random()-0.49) * 0.0004;
-      d.price = Math.max(0.00001, d.price + nudge);
-      if (d.change !== null && d.change !== undefined) d.change += (Math.random()-0.5)*0.02;
+      // Very small nudge (±0.008%) so prices stay close to real values
+      d.price = Math.max(0.00001, d.price * (1 + (Math.random()-0.5) * 0.00016));
       changed = true;
     });
     if (changed) renderTicker();
@@ -2563,9 +2543,55 @@ function updateMarketClock() {
     ? `<div class="mkt-dot" style="background:var(--ok)"></div><span style="color:var(--ok)">Markets Open</span>`
     : `<div class="mkt-dot" style="background:#C98A00;animation:none"></div><span style="color:#C98A00">Crypto 24/7 · Forex Closed</span>`;
 }
+async function doClaimSingle(invId, btn) {
+  if (!_user) return;
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; }
+  showLoader(true, 'Claiming returns…');
+  try {
+    const inv = (_user.investments||[]).find(i => i.id === invId);
+    if (!inv || !canClaim(inv)) { toast('Nothing to claim right now.'); return; }
+    const key = todayKey(inv);
+    const updInvs = (_user.investments||[]).map(i => {
+      if (i.id !== invId) return i;
+      return {...i, claimed:[...(i.claimed||[]),key], totalClaimed:(i.totalClaimed||0)+i.daily};
+    });
+    await withTimeout(db.collection('users').doc(_user.id).update({
+      investments: updInvs,
+      balance:     firebase.firestore.FieldValue.increment(inv.daily),
+      totalEarned: firebase.firestore.FieldValue.increment(inv.daily)
+    }));
+    toast(fmt(inv.daily)+' claimed and added to your balance');
+  } catch(e) { console.error(e); toast('Could not claim. Check your connection.'); }
+  finally { showLoader(false); }
+}
+
+async function claimAll() {
+  if (!_user) return;
+  const claimable = (_user.investments||[]).filter(i => canClaim(i));
+  if (!claimable.length) { toast('Nothing to claim right now.'); return; }
+  const btn = document.getElementById('claim-all-btn');
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+  showLoader(true, 'Claiming all returns…');
+  try {
+    const total = claimable.reduce((s,i) => s + i.daily, 0);
+    const updInvs = (_user.investments||[]).map(inv => {
+      if (!canClaim(inv)) return inv;
+      const key = todayKey(inv);
+      return {...inv, claimed:[...(inv.claimed||[]),key], totalClaimed:(inv.totalClaimed||0)+inv.daily};
+    });
+    await withTimeout(db.collection('users').doc(_user.id).update({
+      investments: updInvs,
+      balance:     firebase.firestore.FieldValue.increment(total),
+      totalEarned: firebase.firestore.FieldValue.increment(total)
+    }));
+    toast(fmt(total)+' claimed across all positions');
+  } catch(e) { console.error(e); toast('Could not claim. Try again.'); }
+  finally { showLoader(false); if (btn) { btn.disabled=false; btn.style.opacity='1'; } }
+}
+
 function rAll() {
   if (!_user) return;
-  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderStreak(); renderNotifications(); renderProfile();
+  renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderNotifications(); renderProfile();
   scheduleDailyReminder();
 }
 
@@ -3000,7 +3026,7 @@ function renderAdmDeps(deps) {
   const c = document.getElementById('adm-deps');
   if (!c) return;
   if (!deps.length) { c.innerHTML = noItems('No pending deposits'); return; }
-  c.innerHTML = deps.map(d => `<div class="req-card">
+  c.innerHTML = deps.map(d => `<div class="req-card" id="dep-card-${d.id}">
     <div class="rc-top">
       <div><div class="rc-user">${d.userName||'—'}</div><div class="rc-date">${dateStr(d.date)}</div></div>
       <div class="rc-amt">${fmt(d.amount)}</div>
@@ -3016,7 +3042,7 @@ function renderAdmWits(wits) {
   const c = document.getElementById('adm-wits');
   if (!c) return;
   if (!wits.length) { c.innerHTML = noItems('No pending withdrawals'); return; }
-  c.innerHTML = wits.map(w => `<div class="req-card">
+  c.innerHTML = wits.map(w => `<div class="req-card" id="wit-card-${w.id}">
     <div class="rc-top">
       <div><div class="rc-user">${w.userName||'—'}</div><div class="rc-date">${dateStr(w.date)}</div></div>
       <div class="rc-amt">${fmt(w.amount)}</div>
@@ -3029,30 +3055,65 @@ function renderAdmWits(wits) {
   </div>`).join('');
 }
 
+// Track in-progress admin actions to prevent double-tap
+const _admInProgress = new Set();
+
 async function admApproveDep(depId, userId, amount) {
-  showLoader(true,'Approving…');
+  if (_admInProgress.has(depId)) return;
+  _admInProgress.add(depId);
+  // Visually disable the card immediately
+  const card = document.getElementById('dep-card-'+depId);
+  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
+  showLoader(true,'Approving deposit…');
   try {
     await withTimeout(Promise.all([
       db.collection('deposits').doc(depId).update({status:'approved'}),
       db.collection('users').doc(userId).update({balance:firebase.firestore.FieldValue.increment(amount)})
     ]));
     toast('₦'+Math.round(amount).toLocaleString()+' credited to user');
-  } catch(e) { toast('Error. Try again.'); console.error(e); }
-  finally { showLoader(false); }
+  } catch(e) {
+    toast('Error approving. Try again.');
+    console.error(e);
+    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+    _admInProgress.delete(depId);
+  } finally { showLoader(false); }
+  // Note: don't delete from _admInProgress on success — card disappears via listener
 }
 async function admRejectDep(depId) {
+  if (_admInProgress.has(depId)) return;
+  _admInProgress.add(depId);
+  const card = document.getElementById('dep-card-'+depId);
+  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
+  showLoader(true,'Rejecting…');
   try {
     await withTimeout(db.collection('deposits').doc(depId).update({status:'rejected'}));
-    toast('Deposit rejected');
-  } catch(e) { toast('Error. Try again.'); }
+    toast('Deposit rejected.');
+  } catch(e) {
+    toast('Error. Try again.');
+    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+    _admInProgress.delete(depId);
+  } finally { showLoader(false); }
 }
 async function admApproveWit(witId) {
+  if (_admInProgress.has(witId)) return;
+  _admInProgress.add(witId);
+  const card = document.getElementById('wit-card-'+witId);
+  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
+  showLoader(true,'Marking as sent…');
   try {
     await withTimeout(db.collection('withdrawals').doc(witId).update({status:'approved'}));
-    toast('Withdrawal marked as sent');
-  } catch(e) { toast('Error. Try again.'); }
+    toast('Withdrawal marked as sent.');
+  } catch(e) {
+    toast('Error. Try again.');
+    if (card) { card.style.opacity='1'; card.style.pointerEvents='auto'; }
+    _admInProgress.delete(witId);
+  } finally { showLoader(false); }
 }
 async function admRejectWit(witId, userId, amount) {
+  if (_admInProgress.has(witId)) return;
+  _admInProgress.add(witId);
+  const card = document.getElementById('wit-card-'+witId);
+  if (card) { card.style.opacity='0.5'; card.style.pointerEvents='none'; }
   showLoader(true,'Refunding…');
   try {
     await withTimeout(Promise.all([
@@ -3174,53 +3235,6 @@ async function applyReferral(refCode, newUserId, newUserName) {
 
 // ══════════════════════════════════
 // STREAK TRACKER
-// ══════════════════════════════════
-function calcStreak() {
-  if (!_user) return 0;
-  const invs = (_user.investments||[]).filter(i=>isActive(i));
-  if (!invs.length) return 0;
-  const today = simToday(_user);
-  // Check if any active plan was claimed today
-  const claimedToday = invs.some(i => (i.claimed||[]).some(k => k.startsWith(today)));
-  if (!claimedToday) return 0;
-  // Walk back days to count streak
-  let streak = 0;
-  let d = new Date(today);
-  while (true) {
-    const dStr = d.toISOString().slice(0,10);
-    const anyClaimedThatDay = invs.some(i => (i.claimed||[]).some(k => k.startsWith(dStr)));
-    if (!anyClaimedThatDay) break;
-    streak++;
-    d.setDate(d.getDate()-1);
-  }
-  return streak;
-}
-
-function renderStreak() {
-  const streak = calcStreak();
-  const el = document.getElementById('streak-num');
-  const lbl = document.getElementById('streak-label');
-  const sub = document.getElementById('streak-sub');
-  if (!el) return;
-  el.textContent = streak;
-  if (streak === 0) {
-    lbl.textContent = 'No Active Streak';
-    sub.textContent = 'Claim today to start your streak';
-    document.getElementById('streak-bar').style.background = 'rgba(17,20,43,.04)';
-    document.getElementById('streak-bar').style.borderColor = 'var(--b1)';
-    lbl.style.color = 'var(--sil)';
-    el.style.color = 'var(--sil)';
-  } else if (streak >= 7) {
-    lbl.textContent = streak+'-Day Streak 🔥';
-    sub.textContent = streak >= 30 ? 'Legendary! Keep it going.' : 'You\'re on fire — don\'t break it!';
-  } else {
-    lbl.textContent = streak+'-Day Streak';
-    sub.textContent = 'Keep claiming daily to build your streak';
-  }
-}
-
-// ══════════════════════════════════
-// CUSTOMER SUPPORT
 // ══════════════════════════════════
 // ══════════════════════════════════
 // SUPPORT SYSTEM
