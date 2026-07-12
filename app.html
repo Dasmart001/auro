@@ -2548,124 +2548,134 @@ function openNotifPage() {
 // ══════════════════════════════════
 // LIVE MARKET TICKER
 // ══════════════════════════════════
-// Source: Binance (crypto) + Frankfurter (forex) + OpenER (NGN)
-// Prices stay anchored to real API; micro-nudges max ±0.05% between refreshes
+// Crypto: CryptoCompare → CoinCap → CoinGecko (3 fallbacks)
+// Forex:  open.er-api.com (EUR/GBP/NGN in one call — already confirmed working)
+// Micro-nudges bounded within ±0.05% of last real price
 // ══════════════════════════════════
-let _realPrices    = {};  // true API prices
-let _dispPrices    = {};  // displayed prices (micro-nudged)
-let _tickerTimer   = null;
-let _forexTimer    = null;
-let _microTimer    = null;
+let _realPrices = {};
+let _dispPrices = {};
+let _tickerTimer = null;
+let _forexTimer  = null;
+let _microTimer  = null;
 
-const TICKER_ORDER  = ['BTC/USD','ETH/USD','BNB/USD','SOL/USD','XRP/USD','EUR/USD','GBP/USD','USD/NGN','DOGE/USD','ADA/USD'];
-const BINANCE_SYMS  = {BTCUSDT:'BTC/USD',ETHUSDT:'ETH/USD',BNBUSDT:'BNB/USD',SOLUSDT:'SOL/USD',XRPUSDT:'XRP/USD',DOGEUSDT:'DOGE/USD',ADAUSDT:'ADA/USD'};
+const TICKER_ORDER = ['BTC/USD','ETH/USD','BNB/USD','SOL/USD','XRP/USD','EUR/USD','GBP/USD','USD/NGN','DOGE/USD','ADA/USD'];
 
-function fetchT(url, ms=7000) {
+function setPrice(pair, price, change) {
+  if (!price || price <= 0) return;
+  _realPrices[pair] = { price, change: change ?? null };
+  if (!_dispPrices[pair]) _dispPrices[pair] = { price, change: change ?? null };
+  else { _dispPrices[pair].price = price; _dispPrices[pair].change = change ?? null; }
+}
+
+function fetchWithTimeout(url, ms=12000) {
   return Promise.race([
     fetch(url),
-    new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))
+    new Promise((_,r) => setTimeout(() => r(new Error('timeout')), ms))
   ]);
 }
 
-async function fetchCrypto() {
-  // Primary: Binance 24hr ticker (real-time, no key, perfect CORS)
+async function tryCryptoCompare() {
   try {
-    const syms = JSON.stringify(Object.keys(BINANCE_SYMS));
-    const r = await fetchT(`https://api.binance.com/api/v3/ticker/24hr?symbols=${encodeURIComponent(syms)}`);
-    const data = await r.json();
-    data.forEach(t => {
-      const pair = BINANCE_SYMS[t.symbol];
-      if (!pair) return;
-      const price = parseFloat(t.lastPrice);
-      const chg   = parseFloat(t.priceChangePercent);
-      if (price > 0) {
-        _realPrices[pair] = { price, change: chg };
-        _dispPrices[pair] = { price, change: chg };
-      }
+    const r = await fetchWithTimeout('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB,SOL,XRP,DOGE,ADA&tsyms=USD');
+    if (!r.ok) return false;
+    const d = await r.json();
+    const raw = d.RAW||{};
+    const map = {BTC:'BTC/USD',ETH:'ETH/USD',BNB:'BNB/USD',SOL:'SOL/USD',XRP:'XRP/USD',DOGE:'DOGE/USD',ADA:'ADA/USD'};
+    let count = 0;
+    Object.entries(map).forEach(([sym, pair]) => {
+      const item = raw[sym]?.USD;
+      if (item?.PRICE > 0) { setPrice(pair, item.PRICE, item.CHANGEPCT24HOUR||0); count++; }
     });
-    renderTicker();
-    return;
-  } catch(e) { console.warn('Binance failed:', e.message); }
+    return count > 0;
+  } catch(e) { console.warn('CryptoCompare failed:', e.message); return false; }
+}
 
-  // Fallback: CoinCap
+async function tryCoinCap() {
   try {
-    const r = await fetchT('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano');
+    const r = await fetchWithTimeout('https://api.coincap.io/v2/assets?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano');
+    if (!r.ok) return false;
     const d = await r.json();
     const map = {bitcoin:'BTC/USD',ethereum:'ETH/USD',binancecoin:'BNB/USD',solana:'SOL/USD',ripple:'XRP/USD',dogecoin:'DOGE/USD',cardano:'ADA/USD'};
+    let count = 0;
     (d.data||[]).forEach(a => {
       const pair = map[a.id];
-      if (!pair) return;
       const price = parseFloat(a.priceUsd);
-      const chg   = parseFloat(a.changePercent24Hr);
-      if (price > 0) {
-        _realPrices[pair] = { price, change: chg };
-        _dispPrices[pair] = { price, change: chg };
-      }
+      if (pair && price > 0) { setPrice(pair, price, parseFloat(a.changePercent24Hr)||0); count++; }
     });
-    renderTicker();
-  } catch(e) { console.warn('CoinCap fallback failed:', e.message); }
+    return count > 0;
+  } catch(e) { console.warn('CoinCap failed:', e.message); return false; }
+}
+
+async function tryCoinGecko() {
+  try {
+    const r = await fetchWithTimeout('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,ripple,dogecoin,cardano&vs_currencies=usd&include_24hr_change=true');
+    if (!r.ok) return false;
+    const d = await r.json();
+    const map = {bitcoin:'BTC/USD',ethereum:'ETH/USD',binancecoin:'BNB/USD',solana:'SOL/USD',ripple:'XRP/USD',dogecoin:'DOGE/USD',cardano:'ADA/USD'};
+    let count = 0;
+    Object.entries(map).forEach(([id, pair]) => {
+      const item = d[id];
+      if (item?.usd > 0) { setPrice(pair, item.usd, item.usd_24h_change||0); count++; }
+    });
+    return count > 0;
+  } catch(e) { console.warn('CoinGecko failed:', e.message); return false; }
+}
+
+async function fetchCrypto() {
+  const worked = await tryCryptoCompare();
+  if (!worked) {
+    const w2 = await tryCoinCap();
+    if (!w2) await tryCoinGecko();
+  }
+  renderTicker();
 }
 
 async function fetchForex() {
-  // EUR + GBP via Frankfurter (unlimited, open source)
+  // Same API that already works for USD/NGN — also returns EUR & GBP
   try {
-    const r = await fetchT('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP');
+    const r = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD');
+    if (!r.ok) throw new Error('HTTP '+r.status);
     const d = await r.json();
     if (d.rates) {
-      const eur = { price: +(1/d.rates.EUR).toFixed(5), change: null };
-      const gbp = { price: +(1/d.rates.GBP).toFixed(5), change: null };
-      _realPrices['EUR/USD'] = eur; _dispPrices['EUR/USD'] = {...eur};
-      _realPrices['GBP/USD'] = gbp; _dispPrices['GBP/USD'] = {...gbp};
+      if (d.rates.EUR) setPrice('EUR/USD', +(1/d.rates.EUR).toFixed(5), null);
+      if (d.rates.GBP) setPrice('GBP/USD', +(1/d.rates.GBP).toFixed(5), null);
+      if (d.rates.NGN) setPrice('USD/NGN',  +d.rates.NGN.toFixed(2),   null);
     }
-  } catch(e) { console.warn('Frankfurter failed:', e.message); }
-
-  // NGN via Open Exchange Rates (free, 1500 req/month)
-  try {
-    const r = await fetchT('https://open.er-api.com/v6/latest/USD');
-    const d = await r.json();
-    if (d.rates?.NGN) {
-      const ngn = { price: +d.rates.NGN.toFixed(2), change: null };
-      _realPrices['USD/NGN'] = ngn; _dispPrices['USD/NGN'] = {...ngn};
-    }
-  } catch(e) { console.warn('NGN rate failed:', e.message); }
-
-  renderTicker();
+    renderTicker();
+  } catch(e) { console.warn('Forex fetch failed:', e.message); }
 }
 
 function fmtTickerPrice(price, sym) {
   if (!price || price <= 0) return '—';
-  if (sym === 'USD/NGN')     return '₦'+price.toLocaleString('en-NG',{maximumFractionDigits:2});
-  if (price >= 10000)        return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  if (price >= 100)          return '$'+price.toFixed(2);
-  if (price >= 1)            return '$'+price.toFixed(4);
+  if (sym === 'USD/NGN') return '₦'+price.toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (price >= 10000)    return '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (price >= 100)      return '$'+price.toFixed(2);
+  if (price >= 1)        return '$'+price.toFixed(4);
   return '$'+price.toFixed(6);
 }
 
 function renderTicker() {
   const track = document.getElementById('ticker-track');
   if (!track) return;
-  const hasData = Object.keys(_dispPrices).length > 0;
-  if (!hasData) {
-    track.innerHTML = TICKER_ORDER.map(s=>`<div class="ticker-item"><span class="ticker-sym">${s}</span><span class="ticker-price" style="color:var(--dim)">Fetching…</span></div>`).join('').repeat(2);
+  if (!Object.keys(_dispPrices).length) {
+    track.innerHTML = TICKER_ORDER.map(s=>`<div class="ticker-item"><span class="ticker-sym">${s}</span><span class="ticker-price" style="opacity:.4">Loading…</span></div>`).join('').repeat(2);
     return;
   }
   const items = TICKER_ORDER.map(sym => {
     const d = _dispPrices[sym];
-    if (!d?.price) return '';
+    if (!d?.price) return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price" style="opacity:.4">—</span></div>`;
     const hasChg = d.change !== null && d.change !== undefined;
     const up     = hasChg && d.change >= 0;
     const chg    = hasChg ? `<span class="ticker-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</span>` : '';
     return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">${fmtTickerPrice(d.price,sym)}</span>${chg}</div>`;
-  }).filter(Boolean).join('');
+  }).join('');
   track.innerHTML = items + items;
 }
 
 async function initTicker() {
-  // Show loading state immediately
-  renderTicker();
-  // Fetch crypto + forex in parallel
+  renderTicker(); // show loading state
   await Promise.allSettled([fetchCrypto(), fetchForex()]);
-  // Micro-nudges every 3.5s — stay within ±0.05% of real price
+  // Micro-nudges every 3.5s — bounded to ±0.05% of real price so display stays accurate
   if (_microTimer) clearInterval(_microTimer);
   _microTimer = setInterval(() => {
     let changed = false;
@@ -2673,19 +2683,16 @@ async function initTicker() {
       const real = _realPrices[sym];
       const disp = _dispPrices[sym];
       if (!real?.price || !disp) return;
-      const nudge     = real.price * (Math.random()-0.5) * 0.0003;
-      const candidate = disp.price + nudge;
-      const maxBound  = real.price * 1.0005;
-      const minBound  = real.price * 0.9995;
-      _dispPrices[sym] = { ...disp, price: Math.min(maxBound, Math.max(minBound, candidate)) };
+      const nudge = real.price * (Math.random()-0.5) * 0.0003;
+      const cand  = disp.price + nudge;
+      _dispPrices[sym] = {...disp, price: Math.min(real.price*1.0005, Math.max(real.price*0.9995, cand))};
       changed = true;
     });
     if (changed) renderTicker();
   }, 3500);
-  // Refresh crypto every 20s, forex every 10 min
   if (_tickerTimer) clearInterval(_tickerTimer);
   if (_forexTimer)  clearInterval(_forexTimer);
-  _tickerTimer = setInterval(fetchCrypto, 20000);
+  _tickerTimer = setInterval(fetchCrypto, 25000);
   _forexTimer  = setInterval(fetchForex, 600000);
   updateMarketClock();
   setInterval(updateMarketClock, 1000);
@@ -2699,8 +2706,7 @@ function updateMarketClock() {
   const h   = lag.getHours(), m = lag.getMinutes(), s = lag.getSeconds();
   el.textContent = `Lagos · ${h%12||12}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${h<12?'AM':'PM'} WAT`;
   const isWeekend = lag.getDay()===0||lag.getDay()===6;
-  const isFxOpen  = !isWeekend && h>=9 && h<17;
-  st.innerHTML = isFxOpen
+  st.innerHTML = (!isWeekend && h>=9 && h<17)
     ? `<div class="mkt-dot" style="background:var(--ok)"></div><span style="color:var(--ok)">Markets Open</span>`
     : `<div class="mkt-dot" style="background:#C98A00;animation:none"></div><span style="color:#C98A00">Crypto 24/7 · Forex Closed</span>`;
 }
@@ -3094,6 +3100,25 @@ function adjFromRow(uid, name, balance) {
   adjSelect(uid, name, balance);
   document.getElementById('adj-section')?.scrollIntoView({ behavior:'smooth' });
 }
+
+async function editTotalEarned(uid, name, current) {
+  const input = prompt(`Edit Total Earned for ${name}\n\nCurrent: ₦${Math.round(current).toLocaleString('en-NG')}\n\nEnter new value (numbers only):`);
+  if (input === null) return; // cancelled
+  const val = parseFloat(input.replace(/[^0-9.]/g,''));
+  if (isNaN(val) || val < 0) { toast('Invalid amount entered.'); return; }
+  showLoader(true, 'Updating total earned…');
+  try {
+    await withTimeout(db.collection('users').doc(uid).update({ totalEarned: val }));
+    // Update local cache so treasury recalculates immediately
+    const u = _admAllUsers.find(u => u.id === uid);
+    if (u) u.totalEarned = val;
+    renderTreasury(_admAllUsers);
+    toast(`${name}'s Total Earned updated to ${fmt(val)}`);
+  } catch(e) {
+    console.error(e);
+    toast('Error updating. Try again.');
+  } finally { showLoader(false); }
+}
 // ══════════════════════════════════
 // ADMIN USERS — SORT + RENDER
 // ══════════════════════════════════
@@ -3155,7 +3180,8 @@ function renderAdmUsers(users) {
             ? `<button onclick="event.stopPropagation();unbanUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')\" style=\"flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--okd);color:var(--ok);border:1px solid var(--okb);cursor:pointer\">Unban</button>`
             : `<button onclick="event.stopPropagation();fraudAction('ban','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',0)" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--errd);color:var(--err);border:1px solid var(--errb);cursor:pointer">Ban</button>`
           }
-          <button onclick="event.stopPropagation();adjFromRow('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.balance||0})" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:rgba(17,20,43,.04);color:var(--sil);border:1px solid var(--b2);cursor:pointer">Adjust Bal</button>
+          <button onclick="event.stopPropagation();adjFromRow('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.balance||0})" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:rgba(17,20,43,.04);color:var(--sil);border:1px solid var(--b2);cursor:pointer">Adj Balance</button>
+          <button onclick="event.stopPropagation();editTotalEarned('${u.id}','${(u.name||'').replace(/'/g,"\\'")}',${u.totalEarned||0})" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:rgba(67,56,236,.07);color:var(--gold);border:1px solid var(--gb);cursor:pointer">Edit Earned</button>
         </div>
       </div>
     </div>`;
