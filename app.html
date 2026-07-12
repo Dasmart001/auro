@@ -405,7 +405,6 @@ body::after{display:none}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 
 /* ADMIN */
-#admin-panel{display:none;position:fixed;inset:0;z-index:800;background:var(--void);max-width:430px;margin:0 auto;overflow-y:auto}
 .adm-tb{display:flex;align-items:center;justify-content:space-between;padding:52px 22px 16px;border-bottom:1px solid var(--b1)}
 .adm-title{font-family:var(--d);font-size:20px;font-weight:600;letter-spacing:.1em;color:var(--gold)}
 .adm-close{width:34px;height:34px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil)}
@@ -449,7 +448,7 @@ body::after{display:none}
 .tr-val.ok{color:var(--ok)}
 .tr-val.warn{color:#f59e0b}
 .tr-sub{font-size:9px;color:var(--sil);font-weight:300;margin-top:4px}
-.adm-sec-t{font-family:var(--d);font-size:15px;font-weight:500;color:var(--plat);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
+/* removed legacy adm-sec-t */
 .req-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:15px;margin-bottom:10px}
 .rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .rc-user{font-size:12px;font-weight:600;color:var(--plat);margin-bottom:2px}
@@ -652,6 +651,27 @@ body.dark #splash{background:var(--void)}
 .ref-stat-val{font-family:var(--d);font-size:16px;font-weight:700;color:var(--plat);margin-bottom:2px}
 .ref-stat-lbl{font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.05em}
 .ref-share-btn{width:100%;margin-top:10px;padding:11px;background:var(--gold);color:#fff;border:none;border-radius:10px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+
+/* ── ADMIN PANEL REDESIGN ──────── */
+#admin-panel{position:fixed;inset:0;z-index:5000;background:var(--void);display:none;flex-direction:column;max-width:430px;margin:0 auto;overflow:hidden}
+.adm-tb{display:flex;align-items:center;justify-content:space-between;padding:52px 20px 12px;background:var(--void);border-bottom:1px solid var(--b1);flex-shrink:0}
+.adm-title{font-family:var(--d);font-size:20px;font-weight:800;color:var(--gold)}
+.adm-close{background:var(--b1);border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sil)}
+.adm-close svg{width:14px;height:14px}
+/* Tab bar */
+.adm-tabs{display:flex;gap:4px;padding:10px 16px;background:var(--void);border-bottom:1px solid var(--b1);flex-shrink:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.adm-tabs::-webkit-scrollbar{display:none}
+.adm-tab{flex-shrink:0;padding:7px 13px;border-radius:20px;border:none;font-family:var(--b);font-size:11px;font-weight:600;cursor:pointer;color:var(--sil);background:transparent;transition:all .18s;position:relative}
+.adm-tab.active{background:var(--gold);color:#fff}
+.adm-tab-badge{position:absolute;top:2px;right:3px;background:var(--err);color:#fff;font-size:7px;font-weight:700;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* Panel container */
+.adm-panels{flex:1;overflow:hidden;position:relative}
+.adm-panel{display:none;height:100%;overflow-y:auto;padding:16px 16px 80px;-webkit-overflow-scrolling:touch}
+.adm-panel.active{display:block}
+.adm-panel-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:12px}
+.adm-divider{height:1px;background:var(--b1);margin:18px 0}
+.adm-input-lbl{font-size:10px;color:var(--sil);margin-bottom:4px}
+.adm-input{font-size:12px;padding:9px 11px}
 </style>
 </head>
 <body>
@@ -1098,99 +1118,142 @@ body.dark #splash{background:var(--void)}
 
 <!-- ADMIN PANEL -->
 <div id="admin-panel">
+
+  <!-- ── HEADER ─────────────────────────────────── -->
   <div class="adm-tb">
-    <div class="adm-title">Admin Panel</div>
-    <div class="adm-close" onclick="closeAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    <div>
+      <div class="adm-title">AURO Admin</div>
+      <div style="font-size:9.5px;color:var(--sil);margin-top:1px">Management Console</div>
+    </div>
+    <button class="adm-close" onclick="closeAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
 
-  <!-- TREASURY -->
-  <div class="adm-sec">
-    <div class="adm-sec-t">Platform Treasury</div>
-    <div class="treasury-grid" id="treasury-grid">
-      <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">—</div><div class="tr-sub">User available balances</div></div>
-      <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
-      <div class="tr-card"><div class="tr-lbl">Active Markets</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Open market positions</div></div>
-      <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings claimed</div></div>
-      <div class="tr-card"><div class="tr-lbl">Pending Withdrawals</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
+  <!-- ── TAB BAR ────────────────────────────────── -->
+  <div class="adm-tabs" id="adm-tabs">
+    <button class="adm-tab active" id="atab-overview"  onclick="switchAdmTab('overview')">Overview</button>
+    <button class="adm-tab"        id="atab-requests"  onclick="switchAdmTab('requests')">Requests<span class="adm-tab-badge" id="atab-requests-badge" style="display:none">0</span></button>
+    <button class="adm-tab"        id="atab-trades"    onclick="switchAdmTab('trades')">Trades</button>
+    <button class="adm-tab"        id="atab-users"     onclick="switchAdmTab('users')">Users</button>
+    <button class="adm-tab"        id="atab-support"   onclick="switchAdmTab('support')">Support<span class="adm-tab-badge" id="atab-support-badge" style="display:none">0</span></button>
+    <button class="adm-tab"        id="atab-tools"     onclick="switchAdmTab('tools')">Tools</button>
+  </div>
+
+  <!-- ── TAB PANELS ─────────────────────────────── -->
+  <div class="adm-panels">
+
+    <!-- OVERVIEW ─── Treasury + Balance Adjustment -->
+    <div class="adm-panel active" id="apanel-overview">
+      <div class="adm-panel-title">Platform Treasury</div>
+      <div class="treasury-grid" id="treasury-grid">
+        <div class="tr-card"><div class="tr-lbl">Total in Wallets</div><div class="tr-val" id="tr-wallets">—</div><div class="tr-sub">User available balances</div></div>
+        <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
+        <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
+        <div class="tr-card"><div class="tr-lbl">Active Markets</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Open positions</div></div>
+        <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings</div></div>
+        <div class="tr-card"><div class="tr-lbl">Pending Payouts</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
+      </div>
+      <div class="adm-divider"></div>
+      <div class="adm-panel-title">Balance Adjustment</div>
+      <div id="adj-section">
+        <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px">
+            <div class="adm-input-lbl">Search user</div>
+            <input class="f-plain adm-input" id="adj-user" type="text" placeholder="Name…" oninput="adjSearch()"/>
+            <div id="adj-results" style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;margin-top:4px;display:none;max-height:130px;overflow-y:auto"></div>
+          </div>
+          <div style="width:100px">
+            <div class="adm-input-lbl">Amount (₦)</div>
+            <input class="f-plain adm-input" id="adj-amt" type="number" placeholder="0"/>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="rc-ap" style="padding:9px 14px;font-size:11px" onclick="adjBalance('credit')">+ Credit</button>
+            <button class="rc-rj" style="padding:9px 14px;font-size:11px" onclick="adjBalance('debit')">− Debit</button>
+          </div>
+        </div>
+        <div id="adj-selected" style="font-size:10px;color:var(--gold);margin-top:6px;min-height:14px"></div>
+      </div>
     </div>
-    <div style="margin-top:12px" id="adj-section">
-      <div class="adm-sec-t" style="margin-bottom:8px;font-size:11px">Manual Balance Adjustment</div>
-      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
-        <div style="flex:1;min-width:160px">
-          <div style="font-size:10px;color:var(--sil);margin-bottom:4px">User ID or Name</div>
-          <input class="f-plain" id="adj-user" type="text" placeholder="Search user…" style="font-size:12px;padding:9px 11px" oninput="adjSearch()"/>
-          <div id="adj-results" style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;margin-top:4px;display:none;max-height:120px;overflow-y:auto"></div>
-        </div>
-        <div style="width:110px">
-          <div style="font-size:10px;color:var(--sil);margin-bottom:4px">Amount (₦)</div>
-          <input class="f-plain" id="adj-amt" type="number" placeholder="0" style="font-size:12px;padding:9px 11px"/>
-        </div>
+
+    <!-- REQUESTS ─── Pending Deposits + Withdrawals -->
+    <div class="adm-panel" id="apanel-requests">
+      <div class="adm-panel-title">Pending Deposits</div>
+      <div id="adm-deps"></div>
+      <div class="adm-divider"></div>
+      <div class="adm-panel-title">Pending Withdrawals</div>
+      <div id="adm-wits"></div>
+    </div>
+
+    <!-- TRADES ─── Live trade feed -->
+    <div class="adm-panel" id="apanel-trades">
+      <div class="adm-panel-title">Live Trades <span style="font-size:9px;font-weight:400;color:var(--sil);margin-left:6px">Last 30 · Real-time</span></div>
+      <div id="adm-trades"></div>
+    </div>
+
+    <!-- USERS ─── All users with sort + search -->
+    <div class="adm-panel" id="apanel-users">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="adm-panel-title" style="margin:0">All Users</div>
+        <button onclick="exportCSV()" style="font-size:10px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:5px 12px;cursor:pointer;font-family:var(--b)">Export CSV</button>
+      </div>
+      <input class="f-plain adm-input" id="adm-user-search" type="text" placeholder="Search by name…" style="width:100%;margin-bottom:8px" oninput="filterAdmUsers()"/>
+      <div style="display:flex;gap:6px;margin-bottom:12px" id="adm-sort-btns">
+        <button class="adm-sort-btn active" id="sort-reg"     onclick="setAdmSort('reg')">Newest</button>
+        <button class="adm-sort-btn"        id="sort-az"      onclick="setAdmSort('az')">A–Z</button>
+        <button class="adm-sort-btn"        id="sort-bal"     onclick="setAdmSort('bal')">Balance ↓</button>
+        <button class="adm-sort-btn"        id="sort-bal-asc" onclick="setAdmSort('bal-asc')">Balance ↑</button>
+      </div>
+      <div id="adm-users"></div>
+    </div>
+
+    <!-- SUPPORT ─── Tickets + Chat -->
+    <div class="adm-panel" id="apanel-support">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="adm-panel-title" style="margin:0">Support Tickets</div>
         <div style="display:flex;gap:6px">
-          <button class="rc-ap" style="padding:9px 14px;font-size:11px" onclick="adjBalance('credit')">+ Credit</button>
-          <button class="rc-rj" style="padding:9px 14px;font-size:11px" onclick="adjBalance('debit')">− Debit</button>
+          <button class="adm-sort-btn active" id="sup-filter-open"     onclick="filterSupportTab('open')">Open</button>
+          <button class="adm-sort-btn"        id="sup-filter-resolved" onclick="filterSupportTab('resolved')">Resolved</button>
+          <button class="adm-sort-btn"        id="sup-filter-all"      onclick="filterSupportTab('all')">All</button>
         </div>
       </div>
-      <div id="adj-selected" style="font-size:10px;color:var(--gold);margin-top:6px;min-height:14px"></div>
+      <div id="adm-support"></div>
     </div>
-  </div>
 
-  <!-- ADMIN SUPPORT CHAT PANEL (full-screen overlay) -->
-  <div class="adm-chat-panel" id="adm-chat-panel" style="display:none">
-    <div style="display:flex;align-items:center;gap:10px;padding:52px 18px 12px;border-bottom:1px solid var(--b1);flex-shrink:0;background:var(--void)">
-      <button onclick="closeAdmTicket()" style="background:none;border:none;color:var(--gold);font-family:var(--b);font-size:12px;font-weight:600;cursor:pointer;padding:0">← Back</button>
-      <div style="flex:1;font-size:13px;font-weight:700;color:var(--plat)" id="adm-chat-title">Ticket</div>
-      <button onclick="resolveTicket()" id="resolve-btn" style="font-size:10px;font-weight:700;font-family:var(--b);background:var(--okd);color:var(--ok);border:1px solid var(--okb);border-radius:8px;padding:5px 12px;cursor:pointer">Mark Resolved</button>
-    </div>
-    <div class="sup-msgs" id="adm-sup-messages"></div>
-    <div style="display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--b1);flex-shrink:0;background:var(--void)">
-      <input class="sup-input" id="adm-sup-input" type="text" placeholder="Type reply…" onkeydown="if(event.key==='Enter')sendAdminReply()"/>
-      <button class="sup-send-btn" onclick="sendAdminReply()">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Support Tickets</div><div id="adm-support"></div></div>
-  <div class="adm-sec"><div class="adm-sec-t">Live Trades</div><div id="adm-trades" style="max-height:300px;overflow-y:auto"></div></div>
-  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Deposits</div><div id="adm-deps"></div></div>
-  <div class="adm-sec"><div class="adm-sec-t" style="margin-top:8px">Pending Withdrawals</div><div id="adm-wits"></div></div>
-
-  <!-- FRAUD MONITOR -->
-  <div class="adm-sec" id="fraud-sec">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
-      <div class="adm-sec-t" style="margin:0">Fraud Monitor</div>
-      <button onclick="runFraudScan()" id="fraud-scan-btn" style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(239,68,68,.08);color:var(--err);border:1px solid rgba(239,68,68,.22);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Run Scan</button>
-    </div>
-    <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Detects users with unexplained wallet balances. Actions are saved permanently — dismissed or cleared users won't reappear unless their balance grows significantly.</div>
-    <div id="fraud-results"></div>
-  </div>
-  <div class="adm-sec">
-    <div class="adm-sec-t" style="margin-top:8px">Broadcast Message</div>
-    <div class="broadcast-box">
-      <div style="font-size:10px;color:var(--sil);margin-bottom:8px">Send a notification to all users simultaneously.</div>
-      <input class="f-plain" id="bc-title" type="text" placeholder="Title (e.g. System Update)" style="width:100%;margin-bottom:8px;font-size:12px;padding:9px 11px"/>
-      <textarea id="bc-body" placeholder="Write your message here…" style="width:100%;background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:10px 11px;font-family:var(--b);font-size:12px;color:var(--plat);resize:none;height:80px;outline:none"></textarea>
-      <button class="rc-ap" style="width:100%;margin-top:8px;padding:10px" onclick="sendBroadcast()">
+    <!-- TOOLS ─── Fraud Monitor + Broadcast -->
+    <div class="adm-panel" id="apanel-tools">
+      <!-- Fraud Monitor -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="adm-panel-title" style="margin:0">Fraud Monitor</div>
+        <button onclick="runFraudScan()" id="fraud-scan-btn" style="font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:rgba(239,68,68,.08);color:var(--err);border:1px solid rgba(239,68,68,.22);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--b)">Run Scan</button>
+      </div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:12px;line-height:1.6">Detects users with unexplained wallet balances. Dismissed users won't reappear unless their balance grows significantly.</div>
+      <div id="fraud-results"></div>
+      <div class="adm-divider"></div>
+      <!-- Broadcast -->
+      <div class="adm-panel-title">Broadcast Message</div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:10px">Send a notification to all users simultaneously.</div>
+      <input class="f-plain adm-input" id="bc-title" type="text" placeholder="Title (e.g. System Update)" style="width:100%;margin-bottom:8px"/>
+      <textarea id="bc-body" placeholder="Write your message…" style="width:100%;background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:10px 11px;font-family:var(--b);font-size:12px;color:var(--plat);resize:none;height:80px;outline:none;box-sizing:border-box"></textarea>
+      <button class="rc-ap" style="width:100%;margin-top:8px;padding:11px" onclick="sendBroadcast()">
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
         Send to All Users
       </button>
     </div>
   </div>
-  <div class="adm-sec" style="padding-bottom:50px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:4px">
-      <div class="adm-sec-t" style="margin:0">All Users</div>
-      <button onclick="exportCSV()" style="font-size:10px;font-weight:600;color:var(--gold);background:var(--gd);border:1px solid var(--gb);border-radius:7px;padding:5px 12px;cursor:pointer;font-family:var(--b)">Export CSV</button>
+
+  <!-- ── ADMIN SUPPORT CHAT OVERLAY ──────────────── -->
+  <div class="adm-chat-panel" id="adm-chat-panel" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;padding:52px 18px 12px;border-bottom:1px solid var(--b1);flex-shrink:0;background:var(--void)">
+      <button onclick="closeAdmTicket()" style="background:none;border:none;color:var(--gold);font-family:var(--b);font-size:12px;font-weight:600;cursor:pointer;padding:0">← Back</button>
+      <div style="flex:1;font-size:13px;font-weight:700;color:var(--plat)" id="adm-chat-title">Ticket</div>
+      <button onclick="resolveTicket()" id="resolve-btn" style="font-size:10px;font-weight:700;font-family:var(--b);background:var(--okd);color:var(--ok);border:1px solid var(--okb);border-radius:8px;padding:5px 12px;cursor:pointer">Resolve</button>
     </div>
-    <input class="f-plain" id="adm-user-search" type="text" placeholder="Search by name…" style="width:100%;margin:8px 0 6px;font-size:12px;padding:9px 11px" oninput="filterAdmUsers()"/>
-    <div style="display:flex;gap:6px;margin-bottom:10px" id="adm-sort-btns">
-      <button class="adm-sort-btn active" id="sort-reg" onclick="setAdmSort('reg')">Newest</button>
-      <button class="adm-sort-btn" id="sort-az" onclick="setAdmSort('az')">A–Z</button>
-      <button class="adm-sort-btn" id="sort-bal" onclick="setAdmSort('bal')">Balance ↓</button>
-      <button class="adm-sort-btn" id="sort-bal-asc" onclick="setAdmSort('bal-asc')">Balance ↑</button>
+    <div class="sup-msgs" id="adm-sup-messages"></div>
+    <div style="display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--b1);flex-shrink:0;background:var(--void)">
+      <input class="sup-input" id="adm-sup-input" type="text" placeholder="Type reply…" onkeydown="if(event.key==='Enter')sendAdminReply()"/>
+      <button class="sup-send-btn" onclick="sendAdminReply()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
-    <div id="adm-users"></div>
   </div>
+
 </div>
 
 <!-- USER HISTORY MODAL -->
@@ -2724,7 +2787,8 @@ async function checkAdminLogin() {
   }
 }
 function openAdminPanel() {
-  document.getElementById('admin-panel').style.display = 'block';
+  const ap=document.getElementById('admin-panel');ap.style.display='flex';
+  switchAdmTab('overview');
   // Listen for recent trades (all users, newest first)
   startAdmSupportListener();
   if (_unsubAdmTrades) _unsubAdmTrades();
@@ -2826,13 +2890,13 @@ function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
   [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmTrades,_unsubAdmSupport,_unsubAdmChat].forEach(fn=>{if(fn)fn();});
   _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmTrades=_unsubAdmSupport=_unsubAdmChat=null;
-  if (_admActiveTicket) { document.getElementById('adm-chat-panel').style.display='none'; _admActiveTicket=null; }
-  _admAllDeps=[]; _admAllWits=[];
-  // Reset scan button state
+  const cp = document.getElementById('adm-chat-panel');
+  if (cp) cp.style.display='none';
+  _admActiveTicket=null; _admCurrentTab='overview'; _pendingDepsCount=0; _pendingWitsCount=0;
   const scanBtn = document.getElementById('fraud-scan-btn');
-  if (scanBtn) { scanBtn.textContent = 'Run Scan'; scanBtn.dataset.showing = '0'; }
+  if (scanBtn) { scanBtn.textContent='Run Scan'; scanBtn.dataset.showing='0'; }
   const scanRes = document.getElementById('fraud-results');
-  if (scanRes) scanRes.innerHTML = '';
+  if (scanRes) scanRes.innerHTML='';
   if (fbAuth && fbAuth.currentUser) fbAuth.signOut().catch(()=>{});
 }
 
@@ -3089,11 +3153,17 @@ function renderAdmTrades(trades) {
   }).join('');
 }
 
+let _pendingDepsCount = 0, _pendingWitsCount = 0;
+function updateRequestsBadge() {
+  updateAdmBadge('atab-requests-badge', _pendingDepsCount + _pendingWitsCount);
+}
+
 function renderAdmDeps(deps) {
+  _pendingDepsCount = deps.length;
   const c = document.getElementById('adm-deps');
   if (!c) return;
-  if (!deps.length) { c.innerHTML = noItems('No pending deposits'); return; }
-  c.innerHTML = deps.map(d => `<div class="req-card" >
+  if (!deps.length) { c.innerHTML = noItems('No pending deposits'); }
+  else c.innerHTML = deps.map(d => `<div class="req-card">
     <div class="rc-top">
       <div><div class="rc-user">${d.userName||'—'}</div><div class="rc-date">${dateStr(d.date)}</div></div>
       <div class="rc-amt">${fmt(d.amount)}</div>
@@ -3103,13 +3173,15 @@ function renderAdmDeps(deps) {
       <button class="rc-rj" onclick="admRejectDep('${d.id}')">Reject</button>
     </div>
   </div>`).join('');
+  updateRequestsBadge();
 }
 
 function renderAdmWits(wits) {
+  _pendingWitsCount = wits.length;
   const c = document.getElementById('adm-wits');
   if (!c) return;
-  if (!wits.length) { c.innerHTML = noItems('No pending withdrawals'); return; }
-  c.innerHTML = wits.map(w => `<div class="req-card" >
+  if (!wits.length) { c.innerHTML = noItems('No pending withdrawals'); }
+  else c.innerHTML = wits.map(w => `<div class="req-card">
     <div class="rc-top">
       <div><div class="rc-user">${w.userName||'—'}</div><div class="rc-date">${dateStr(w.date)}</div></div>
       <div class="rc-amt">${fmt(w.amount)}</div>
@@ -3120,6 +3192,7 @@ function renderAdmWits(wits) {
       <button class="rc-rj" onclick="admRejectWit('${w.id}','${w.userId}',${w.amount})">Reject &amp; Refund</button>
     </div>
   </div>`).join('');
+  updateRequestsBadge();
 }
 
 // Track in-progress admin actions to prevent double-tap
@@ -3465,33 +3538,118 @@ function backToCategories() {
   showSupCategories();
 }
 
-// ── ADMIN SUPPORT ─────────────────────────────────────────────────────────
+// ══════════════════════════════════
+// ADMIN TAB NAVIGATION
+// ══════════════════════════════════
+let _admCurrentTab  = 'overview';
+let _allTickets     = [];
+let _supFilterMode  = 'open';
+
+function switchAdmTab(tab) {
+  _admCurrentTab = tab;
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('active'));
+  const btn = document.getElementById('atab-'+tab);
+  const pnl = document.getElementById('apanel-'+tab);
+  if (btn) btn.classList.add('active');
+  if (pnl) pnl.classList.add('active');
+}
+
+function updateAdmBadge(id, count) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = count > 0 ? 'flex' : 'none';
+  el.textContent   = count > 9 ? '9+' : count;
+}
+
+// ── SUPPORT TICKET MANAGEMENT ─────────────────────────────────────────────
+let _supFilter = 'open';
+
+function filterSupportTab(mode) {
+  _supFilter = mode;
+  ['open','resolved','all'].forEach(m => {
+    const btn = document.getElementById('sup-filter-'+m);
+    if (btn) btn.classList.toggle('active', m === mode);
+  });
+  renderAdmSupport(_allTickets);
+}
+
+function renderAdmSupport(tickets) {
+  _allTickets = tickets;
+  const c = document.getElementById('adm-support');
+  if (!c) return;
+
+  // Update unread badge on Support tab
+  const unread = tickets.filter(t => t.unreadAdmin && t.status === 'open').length;
+  updateAdmBadge('atab-support-badge', unread);
+
+  // Apply filter
+  const filtered = tickets.filter(t => {
+    if (_supFilter === 'open')     return t.status === 'open';
+    if (_supFilter === 'resolved') return t.status === 'resolved';
+    return true;
+  });
+
+  if (!filtered.length) {
+    c.innerHTML = `<div style="text-align:center;padding:24px;font-size:11px;color:var(--sil)">No ${_supFilter === 'all'?'':''+_supFilter+' '}tickets</div>`;
+    return;
+  }
+
+  c.innerHTML = filtered.map(t => `
+    <div class="adm-ticket-row" id="ticket-row-${t.id}">
+      ${t.unreadAdmin && t.status==='open' ? '<div class="adm-ticket-unread"></div>' : ''}
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px" onclick="openAdmTicket('${t.id}','${(t.userName||'').replace(/'/g,"\\'")}','${(t.categoryName||t.category||'').replace(/'/g,"\\'")}','${t.status}')">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:700;color:var(--plat);margin-bottom:2px">${t.userName||'Unknown'} <span style="font-size:10px;font-weight:500;color:var(--sil)">· ${t.categoryName||t.category||'General'}</span></div>
+          <div style="font-size:10px;color:var(--sil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px">${t.lastMessage||'No messages yet'}</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:9px;color:var(--dim)">
+            ${dateStr(t.lastAt||t.createdAt)}
+            <span class="sup-status-chip ${t.status}">${t.status==='resolved'?'Resolved':'Open'}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          <button onclick="event.stopPropagation();deleteTicket('${t.id}','${(t.userName||'').replace(/'/g,"\\'")}',event)" style="background:var(--errd);border:1px solid var(--errb);color:var(--err);border-radius:7px;padding:4px 8px;cursor:pointer;font-family:var(--b);font-size:9px;font-weight:700">Delete</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function deleteTicket(ticketId, userName, ev) {
+  if (ev) ev.stopPropagation();
+  if (!confirm(`Delete ticket from ${userName}? This cannot be undone.`)) return;
+  showLoader(true, 'Deleting ticket…');
+  try {
+    // Delete messages subcollection first (batch)
+    const msgs = await db.collection('support').doc(ticketId).collection('messages').get();
+    if (!msgs.empty) {
+      const batch = db.batch();
+      msgs.docs.forEach(d => batch.delete(d.ref));
+      await withTimeout(batch.commit());
+    }
+    await withTimeout(db.collection('support').doc(ticketId).delete());
+    const row = document.getElementById('ticket-row-'+ticketId);
+    if (row) row.remove();
+    toast('Ticket deleted.');
+    if (_admActiveTicket === ticketId) closeAdmTicket();
+  } catch(e) {
+    console.error(e);
+    toast('Could not delete. Try again.');
+  } finally { showLoader(false); }
+}
+
 function startAdmSupportListener() {
   if (_unsubAdmSupport) _unsubAdmSupport();
   _unsubAdmSupport = db.collection('support')
     .onSnapshot(snap => {
-      const tickets = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastAt||'').localeCompare(a.lastAt||''));
+      const tickets = snap.docs.map(d=>({id:d.id,...d.data()}))
+        .filter(t => !t.deleted)
+        .sort((a,b) => (b.lastAt||b.createdAt||'').localeCompare(a.lastAt||a.createdAt||''));
       renderAdmSupport(tickets);
     }, e => console.error('Support listener:', e));
 }
 
-function renderAdmSupport(tickets) {
-  const c = document.getElementById('adm-support');
-  if (!c) return;
-  if (!tickets.length) { c.innerHTML=noItems('No support tickets yet'); return; }
-  const open = tickets.filter(t=>t.status==='open');
-  const done = tickets.filter(t=>t.status==='resolved');
-  const renderTicket = t => `<div class="adm-ticket-row" onclick="openAdmTicket('${t.id}','${(t.userName||'').replace(/'/g,"\\'")}','${t.categoryName||t.category}','${t.status}')">
-    ${t.unreadAdmin?'<div class="adm-ticket-unread"></div>':''}
-    <div style="font-size:12px;font-weight:700;color:var(--plat);margin-bottom:2px">${t.userName||'Unknown'} <span style="font-size:10px;font-weight:500;color:var(--sil)">· ${t.categoryName||t.category}</span></div>
-    <div style="font-size:10px;color:var(--sil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.lastMessage||'No messages yet'}</div>
-    <div style="font-size:9px;color:var(--dim);margin-top:4px;display:flex;align-items:center;gap:6px">
-      ${dateStr(t.lastAt||t.createdAt)}
-      <span class="sup-status-chip ${t.status}" style="font-size:8px">${t.status==='resolved'?'Resolved':'Open'}</span>
-    </div>
-  </div>`;
-  c.innerHTML = (open.length?'<div style="font-size:10px;font-weight:600;color:var(--sil);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px">Open ('+open.length+')</div>':'')+open.map(renderTicket).join('')+(done.length?'<div style="font-size:10px;font-weight:600;color:var(--sil);letter-spacing:.07em;text-transform:uppercase;margin:12px 0 8px">Resolved ('+done.length+')</div>':'')+done.map(renderTicket).join('');
-}
+
 
 function openAdmTicket(ticketId, userName, catName, status) {
   _admActiveTicket = ticketId;
