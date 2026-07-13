@@ -1176,11 +1176,29 @@ body.dark #splash{background:var(--void)}
 
     <!-- REQUESTS ─── Pending Deposits + Withdrawals -->
     <div class="adm-panel" id="apanel-requests">
-      <div class="adm-panel-title">Pending Deposits</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="adm-panel-title" style="margin:0">Pending Deposits</div>
+        <div id="dep-count-badge" style="font-size:10px;color:var(--sil)"></div>
+      </div>
       <div id="adm-deps"></div>
       <div class="adm-divider"></div>
-      <div class="adm-panel-title">Pending Withdrawals</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="adm-panel-title" style="margin:0">Pending Withdrawals</div>
+        <div id="wit-count-badge" style="font-size:10px;color:var(--sil)"></div>
+      </div>
       <div id="adm-wits"></div>
+      <div class="adm-divider"></div>
+
+      <!-- TRANSACTION HISTORY -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="adm-panel-title" style="margin:0">Transaction History</div>
+        <div style="display:flex;gap:5px">
+          <button class="adm-sort-btn active" id="hist-all"  onclick="setHistFilter('all')">All</button>
+          <button class="adm-sort-btn" id="hist-deps"        onclick="setHistFilter('deps')">Deposits</button>
+          <button class="adm-sort-btn" id="hist-wits"        onclick="setHistFilter('wits')">Withdrawals</button>
+        </div>
+      </div>
+      <div id="adm-history"></div>
     </div>
 
     <!-- TRADES ─── Live trade feed -->
@@ -1641,6 +1659,8 @@ let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
 let _myDeps = [], _myWits = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null;
+let _unsubAdmHistDep = null, _unsubAdmHistWit = null;
+let _histDeps = [], _histWits = [], _histFilter = 'all';
 
 // ══════════════════════════════════
 // UI HELPERS
@@ -2859,10 +2879,25 @@ function openAdminPanel() {
       renderTreasury(users);
       _admAllUsers = users;
       _admFilteredUsers = users;
-      // Reset search if open
       const srch = document.getElementById('adm-user-search');
       if (srch && !srch.value) renderAdmUsers(users);
     });
+  // Full deposit history (last 60, all statuses)
+  if (_unsubAdmHistDep) _unsubAdmHistDep();
+  _unsubAdmHistDep = db.collection('deposits').limit(60)
+    .onSnapshot(snap => {
+      _histDeps = snap.docs.map(d=>({id:d.id,type:'deposit',...d.data()}))
+        .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      renderAdmHistory();
+    }, e => console.error('Hist dep error:', e));
+  // Full withdrawal history (last 60, all statuses)
+  if (_unsubAdmHistWit) _unsubAdmHistWit();
+  _unsubAdmHistWit = db.collection('withdrawals').limit(60)
+    .onSnapshot(snap => {
+      _histWits = snap.docs.map(d=>({id:d.id,type:'withdrawal',...d.data()}))
+        .sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      renderAdmHistory();
+    }, e => console.error('Hist wit error:', e));
 }
 
 let _admAllUsers = [];
@@ -2925,8 +2960,9 @@ async function adjBalance(type) {
 }
 function closeAdmin() {
   document.getElementById('admin-panel').style.display = 'none';
-  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmTrades,_unsubAdmSupport,_unsubAdmChat].forEach(fn=>{if(fn)fn();});
-  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmTrades=_unsubAdmSupport=_unsubAdmChat=null;
+  [_unsubAdmDep,_unsubAdmWit,_unsubAdmUsr,_unsubAdmTrades,_unsubAdmSupport,_unsubAdmChat,_unsubAdmHistDep,_unsubAdmHistWit].forEach(fn=>{if(fn)fn();});
+  _unsubAdmDep=_unsubAdmWit=_unsubAdmUsr=_unsubAdmTrades=_unsubAdmSupport=_unsubAdmChat=_unsubAdmHistDep=_unsubAdmHistWit=null;
+  _histDeps=[]; _histWits=[];
   const cp = document.getElementById('adm-chat-panel');
   if (cp) cp.style.display='none';
   _admActiveTicket=null; _admCurrentTab='overview'; _pendingDepsCount=0; _pendingWitsCount=0;
@@ -3211,121 +3247,212 @@ function renderAdmTrades(trades) {
 }
 
 let _pendingDepsCount = 0, _pendingWitsCount = 0;
+
 function updateRequestsBadge() {
   updateAdmBadge('atab-requests-badge', _pendingDepsCount + _pendingWitsCount);
+  const db_ = document.getElementById('dep-count-badge');
+  const wb_ = document.getElementById('wit-count-badge');
+  if (db_) db_.textContent = _pendingDepsCount > 0 ? _pendingDepsCount+' pending' : 'None';
+  if (wb_) wb_.textContent = _pendingWitsCount > 0 ? _pendingWitsCount+' pending' : 'None';
 }
 
+// ── DEP CARD ──────────────────────────────────────────────────────────────
 function renderAdmDeps(deps) {
   _pendingDepsCount = deps.length;
   const c = document.getElementById('adm-deps');
   if (!c) return;
-  if (!deps.length) { c.innerHTML = noItems('No pending deposits'); }
-  else c.innerHTML = deps.map(d => `<div class="req-card">
-    <div class="rc-top">
-      <div><div class="rc-user">${d.userName||'—'}</div><div class="rc-date">${dateStr(d.date)}</div></div>
-      <div class="rc-amt">${fmt(d.amount)}</div>
-    </div>
-    <div class="rc-acts">
-      <button class="rc-ap" onclick="admApproveDep('${d.id}','${d.userId}',${d.amount})">Approve &amp; Credit</button>
-      <button class="rc-rj" onclick="admRejectDep('${d.id}')">Reject</button>
-    </div>
-  </div>`).join('');
+  if (!deps.length) {
+    c.innerHTML = '<div style="text-align:center;padding:20px;font-size:11px;color:var(--sil);background:var(--s2);border:1px solid var(--b1);border-radius:10px">No pending deposits</div>';
+    updateRequestsBadge(); return;
+  }
+  c.innerHTML = deps.map(d => `
+    <div class="req-card" id="dep-${d.id}">
+      <div class="rc-top">
+        <div>
+          <div class="rc-user">${d.userName||'Unknown'}</div>
+          <div class="rc-date">${dateStr(d.date)}</div>
+        </div>
+        <div class="rc-amt">${fmt(d.amount)}</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button
+          class="rc-ap"
+          onclick="admApproveDep('${d.id}','${d.userId}',${d.amount},this)"
+        >✓ Approve &amp; Credit</button>
+        <button
+          class="rc-rj"
+          onclick="admRejectDep('${d.id}',this)"
+        >✕ Reject</button>
+      </div>
+    </div>`).join('');
   updateRequestsBadge();
 }
 
+// ── WIT CARD ──────────────────────────────────────────────────────────────
 function renderAdmWits(wits) {
   _pendingWitsCount = wits.length;
   const c = document.getElementById('adm-wits');
   if (!c) return;
-  if (!wits.length) { c.innerHTML = noItems('No pending withdrawals'); }
-  else c.innerHTML = wits.map(w => `<div class="req-card">
-    <div class="rc-top">
-      <div><div class="rc-user">${w.userName||'—'}</div><div class="rc-date">${dateStr(w.date)}</div></div>
-      <div class="rc-amt">${fmt(w.amount)}</div>
-    </div>
-    <div class="rc-bank"><b>Bank</b> ${w.bank||'—'}<br><b>Acct No.</b> ${w.accountNumber||'—'}<span class="rc-cpy" onclick="cpy('${w.accountNumber||''}')">Copy</span><br><b>Acct Name</b> ${w.accountName||'—'}</div>
-    <div class="rc-acts">
-      <button class="rc-ap" onclick="admApproveWit('${w.id}')">Mark Sent</button>
-      <button class="rc-rj" onclick="admRejectWit('${w.id}','${w.userId}',${w.amount})">Reject &amp; Refund</button>
-    </div>
-  </div>`).join('');
+  if (!wits.length) {
+    c.innerHTML = '<div style="text-align:center;padding:20px;font-size:11px;color:var(--sil);background:var(--s2);border:1px solid var(--b1);border-radius:10px">No pending withdrawals</div>';
+    // Update treasury pending payout
+    const el = document.getElementById('tr-pendwit');
+    if (el) el.textContent = '₦0';
+    updateRequestsBadge(); return;
+  }
+  // Update treasury pending payout total
+  const pendTotal = wits.reduce((s,w)=>s+(w.amount||0),0);
+  const el = document.getElementById('tr-pendwit');
+  if (el) el.textContent = fmt(pendTotal);
+  c.innerHTML = wits.map(w => `
+    <div class="req-card" id="wit-${w.id}">
+      <div class="rc-top">
+        <div>
+          <div class="rc-user">${w.userName||'Unknown'}</div>
+          <div class="rc-date">${dateStr(w.date)}</div>
+        </div>
+        <div class="rc-amt">${fmt(w.amount)}</div>
+      </div>
+      <div class="rc-bank">
+        <b>Bank</b> ${w.bank||'—'}<br>
+        <b>Acct No.</b> ${w.accountNumber||'—'}
+        <span class="rc-cpy" onclick="cpy('${(w.accountNumber||'').replace(/'/g,"\'")}')">Copy</span><br>
+        <b>Acct Name</b> ${w.accountName||'—'}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button
+          class="rc-ap"
+          onclick="admApproveWit('${w.id}',this)"
+        >✓ Mark Sent</button>
+        <button
+          class="rc-rj"
+          onclick="admRejectWit('${w.id}','${w.userId}',${w.amount},this)"
+        >✕ Reject &amp; Refund</button>
+      </div>
+    </div>`).join('');
   updateRequestsBadge();
 }
 
-// Track in-progress admin actions to prevent double-tap
-// Simple in-progress guard — prevents double-tap without touching the UI
-const _admInProgress = new Set();
+// ── APPROVAL ACTIONS ──────────────────────────────────────────────────────
+// Each function receives the button element directly (this) — no loader, no global Set
+// The button disables itself immediately → re-enables only on error → disappears on success
 
-async function admApproveDep(depId, userId, amount) {
-  if (_admInProgress.has(depId)) return;
-  _admInProgress.add(depId);
-  showLoader(true, 'Approving deposit…');
+async function admApproveDep(depId, userId, amount, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = 'Processing…'; }
   try {
     await withTimeout(Promise.all([
-      db.collection('deposits').doc(depId).update({status:'approved'}),
-      db.collection('users').doc(userId).update({balance: firebase.firestore.FieldValue.increment(amount)})
+      db.collection('deposits').doc(depId).update({ status: 'approved' }),
+      db.collection('users').doc(userId).update({ balance: firebase.firestore.FieldValue.increment(amount) })
     ]));
-    // Trigger referral bonus on first deposit approval
-    triggerReferralBonus(userId).catch(e => console.warn('Referral bonus failed:', e));
-    toast('₦'+Math.round(amount).toLocaleString()+' credited to user');
+    triggerReferralBonus(userId).catch(() => {});
+    toast('₦'+Math.round(amount).toLocaleString()+' credited to user.');
+    // Card disappears automatically via onSnapshot
   } catch(e) {
-    console.error(e);
-    toast('Error approving. Try again.');
-  } finally {
-    showLoader(false);
-    _admInProgress.delete(depId);
+    console.error('admApproveDep:', e);
+    toast('Failed to approve. Check connection and try again.');
+    if (btn) { btn.disabled = false; btn.textContent = '✓ Approve & Credit'; }
   }
 }
 
-async function admRejectDep(depId) {
-  if (_admInProgress.has(depId)) return;
-  _admInProgress.add(depId);
-  showLoader(true, 'Rejecting deposit…');
+async function admRejectDep(depId, btn) {
+  if (!confirm('Reject this deposit?')) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Rejecting…'; }
   try {
-    await withTimeout(db.collection('deposits').doc(depId).update({status:'rejected'}));
+    await withTimeout(db.collection('deposits').doc(depId).update({ status: 'rejected' }));
     toast('Deposit rejected.');
   } catch(e) {
-    console.error(e);
-    toast('Error. Try again.');
-  } finally {
-    showLoader(false);
-    _admInProgress.delete(depId);
+    console.error('admRejectDep:', e);
+    toast('Failed to reject. Try again.');
+    if (btn) { btn.disabled = false; btn.textContent = '✕ Reject'; }
   }
 }
 
-async function admApproveWit(witId) {
-  if (_admInProgress.has(witId)) return;
-  _admInProgress.add(witId);
-  showLoader(true, 'Marking as sent…');
+async function admApproveWit(witId, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = 'Marking…'; }
   try {
-    await withTimeout(db.collection('withdrawals').doc(witId).update({status:'approved'}));
+    await withTimeout(db.collection('withdrawals').doc(witId).update({ status: 'approved' }));
     toast('Withdrawal marked as sent.');
   } catch(e) {
-    console.error(e);
-    toast('Error. Try again.');
-  } finally {
-    showLoader(false);
-    _admInProgress.delete(witId);
+    console.error('admApproveWit:', e);
+    toast('Failed. Try again.');
+    if (btn) { btn.disabled = false; btn.textContent = '✓ Mark Sent'; }
   }
 }
 
-async function admRejectWit(witId, userId, amount) {
-  if (_admInProgress.has(witId)) return;
-  _admInProgress.add(witId);
-  showLoader(true, 'Refunding…');
+async function admRejectWit(witId, userId, amount, btn) {
+  if (!confirm('Reject this withdrawal and refund ₦'+Math.round(amount).toLocaleString()+' to user?')) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Refunding…'; }
   try {
     await withTimeout(Promise.all([
-      db.collection('withdrawals').doc(witId).update({status:'rejected'}),
-      db.collection('users').doc(userId).update({balance: firebase.firestore.FieldValue.increment(amount)})
+      db.collection('withdrawals').doc(witId).update({ status: 'rejected' }),
+      db.collection('users').doc(userId).update({ balance: firebase.firestore.FieldValue.increment(amount) })
     ]));
-    toast('Withdrawal rejected · Balance refunded to user');
+    toast('Rejected. ₦'+Math.round(amount).toLocaleString()+' refunded to user.');
   } catch(e) {
-    console.error(e);
-    toast('Error. Try again.');
-  } finally {
-    showLoader(false);
-    _admInProgress.delete(witId);
+    console.error('admRejectWit:', e);
+    toast('Failed to refund. Try again.');
+    if (btn) { btn.disabled = false; btn.textContent = '✕ Reject & Refund'; }
   }
+}
+
+// ── TRANSACTION HISTORY ───────────────────────────────────────────────────
+function setHistFilter(mode) {
+  _histFilter = mode;
+  ['all','deps','wits'].forEach(m => {
+    const btn = document.getElementById('hist-'+m);
+    if (btn) btn.classList.toggle('active', m === mode);
+  });
+  renderAdmHistory();
+}
+
+function renderAdmHistory() {
+  const c = document.getElementById('adm-history');
+  if (!c) return;
+
+  let items = [];
+  if (_histFilter === 'all' || _histFilter === 'deps') {
+    items = items.concat(_histDeps.map(d => ({...d, _label:'Deposit'})));
+  }
+  if (_histFilter === 'all' || _histFilter === 'wits') {
+    items = items.concat(_histWits.map(w => ({...w, _label:'Withdrawal'})));
+  }
+  // Sort newest first
+  items.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+
+  if (!items.length) {
+    c.innerHTML = '<div style="text-align:center;padding:20px;font-size:11px;color:var(--sil)">No history yet</div>';
+    return;
+  }
+
+  const statusStyle = {
+    approved: 'color:var(--ok);background:var(--okd);border:1px solid var(--okb)',
+    rejected: 'color:var(--err);background:var(--errd);border:1px solid var(--errb)',
+    pending:  'color:#C98A00;background:rgba(201,138,0,.08);border:1px solid rgba(201,138,0,.22)',
+  };
+
+  c.innerHTML = items.map(t => {
+    const isWit    = t.type === 'withdrawal';
+    const sts      = t.status||'pending';
+    const sStyle   = statusStyle[sts] || statusStyle.pending;
+    const icon     = isWit
+      ? '<path d="M12 5v14M5 12l7-7 7 7"/>'
+      : '<path d="M12 19V5M5 12l7 7 7-7"/>';
+    const iconClr  = isWit ? 'var(--err)' : 'var(--ok)';
+
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--b1)">
+      <div style="width:34px;height:34px;border-radius:9px;background:${isWit?'var(--errd)':'var(--okd)'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="${iconClr}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${icon}<path d="M5 ${isWit?5:19}h14"/></svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--plat)">${t.userName||'—'} <span style="font-size:10px;font-weight:400;color:var(--sil)">· ${t._label}</span></div>
+        <div style="font-size:10px;color:var(--sil)">${dateStr(t.date)}${isWit&&t.bank?' · '+t.bank:''}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat);margin-bottom:3px">${fmt(t.amount)}</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:8px;${sStyle}">${sts}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ══════════════════════════════════
