@@ -3,36 +3,31 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="theme-color" content="#F3F4FA"/>
+<meta name="theme-color" content="#0B0E1A"/>
 
 <!-- Primary SEO -->
-<title>AURO · Earn Daily Returns Through Real Trading</title>
-<meta name="description" content="Nigeria's fastest-growing digital trading platform. Earn daily returns across six high-yield trading markets — crypto, forex, derivatives, and more. 200% ROI in 60 days."/>
-<meta name="keywords" content="AURO, AURO trade, Nigerian trading platform, daily returns Nigeria, trade Nigeria, passive income Nigeria, online trading app"/>
+<title>AURO · Professional Trading Platform | Daily Returns in Nigeria</title>
+<meta name="description" content="AURO is a Nigerian digital trading platform. Deploy capital across six markets — crypto, forex, derivatives, and more. Earn daily returns for 60 days."/>
+<meta name="keywords" content="AURO, Nigerian trading platform, crypto trading Nigeria, daily returns Nigeria, forex trading Nigeria, online trading app Nigeria"/>
 <link rel="canonical" href="https://auroinvest.vercel.app/"/>
 
-<!-- Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png"/>
-<link rel="icon" type="image/png" href="/favicon.png"/>
 
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://auroinvest.vercel.app/"/>
-<meta property="og:title" content="AURO · Your Money Should Work Harder Than You Ever Will"/>
-<meta property="og:description" content="Earn daily returns across six high-yield trading markets — crypto, forex, derivatives, prediction markets, and more. 200% ROI paid daily over 60 days."/>
+<meta property="og:title" content="AURO · Professional Trading Platform"/>
+<meta property="og:description" content="Deploy capital across six trading markets and earn daily returns for 60 days. Nigeria's professional trading platform."/>
 <meta property="og:image" content="https://auroinvest.vercel.app/og-image.jpg"/>
-<meta property="og:image:width" content="1200"/>
-<meta property="og:image:height" content="630"/>
 <meta property="og:site_name" content="AURO"/>
 <meta property="og:locale" content="en_NG"/>
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="AURO · Your Money Should Work Harder Than You Ever Will"/>
-<meta name="twitter:description" content="Earn daily returns across six high-yield trading markets — crypto, forex, derivatives, prediction markets, and more. 200% ROI paid daily over 60 days."/>
+<meta name="twitter:title" content="AURO · Professional Trading Platform"/>
+<meta name="twitter:description" content="Deploy capital across six trading markets and earn daily returns for 60 days. Nigeria's professional trading platform."/>
 <meta name="twitter:image" content="https://auroinvest.vercel.app/og-image.jpg"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -40,177 +35,186 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* ── Exact palette pulled from the live app ── */
-  --void:#F3F4FA;
-  --s1:#FFFFFF;
-  --s2:#F8F9FC;
-  --b1:rgba(17,20,43,0.07);
-  --b2:rgba(17,20,43,0.13);
+  --bg:#0B0E1A;
+  --bg2:#111422;
+  --bg3:#181C2E;
+  --s1:#1E2235;
+  --b1:rgba(255,255,255,0.06);
+  --b2:rgba(255,255,255,0.11);
+  --b3:rgba(255,255,255,0.18);
   --indigo:#4338EC;
   --indigo2:#6C5CE7;
-  --gd:rgba(67,56,236,0.07);
-  --gb:rgba(67,56,236,0.18);
-  --plat:#13152E;
-  --sil:#6E7191;
-  --dim:#A7A9C0;
+  --gd:rgba(67,56,236,0.12);
+  --gb:rgba(67,56,236,0.28);
+  --plat:#EEEEF8;
+  --sil:#8890B4;
+  --dim:#555B7C;
   --ok:#0FAE6B;
   --okd:rgba(15,174,107,0.1);
-  --okb:rgba(15,174,107,0.25);
   --err:#EF4444;
-  /* tier accents, exact from app */
   --t-starter:#0D9488;
   --t-builder:#E8722A;
   --t-growth:#168F58;
   --t-elite:#7C3AED;
   --t-premium:#C98A00;
-  --r:14px;--rl:18px;--rx:22px;--rxl:28px;
+  --r:12px;--rl:16px;--rx:20px;--rxl:24px;
   --d:'Sora',sans-serif;
   --b:'Outfit',sans-serif;
   --ez:cubic-bezier(0.22,1,0.36,1)
 }
 html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--plat);font-family:var(--b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:0}
+body{background:var(--bg);color:var(--plat);font-family:var(--b);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .35s var(--ez)}
-nav.scrolled{background:rgba(243,244,250,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);padding:14px 0}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--d);font-size:21px;font-weight:800;letter-spacing:.01em;color:var(--plat);display:flex;align-items:center;gap:10px}
-.nav-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-links{display:flex;align-items:center;gap:32px}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;transition:all .3s var(--ez)}
+nav.scrolled{background:rgba(11,14,26,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);padding:14px 0}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--d);font-size:20px;font-weight:800;letter-spacing:.01em;color:#fff;display:flex;align-items:center;gap:10px}
+.nav-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center}
+.nav-links{display:flex;align-items:center;gap:30px}
 .nav-links a{font-size:13px;font-weight:500;color:var(--sil);transition:color .2s}
-.nav-links a:hover{color:var(--plat)}
-.nav-cta{background:var(--indigo);color:#fff;font-family:var(--d);font-size:13px;font-weight:700;padding:11px 22px;border-radius:10px;transition:all .2s;border:none;cursor:pointer}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--indigo);color:#fff;font-family:var(--d);font-size:13px;font-weight:700;padding:10px 22px;border-radius:9px;border:none;cursor:pointer;transition:all .2s}
 .nav-cta:hover{background:var(--indigo2);transform:translateY(-1px)}
 @media(max-width:700px){.nav-links{display:none}}
 
-section{position:relative;z-index:1}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.container{max-width:1160px;margin:0 auto;padding:0 28px}
+section{position:relative}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 70px;position:relative;overflow:hidden}
-.hero-glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(67,56,236,.10) 0%,transparent 65%);pointer-events:none}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--okd);border:1px solid var(--okb);border-radius:100px;padding:8px 17px;margin-bottom:30px;animation:fadeUp .8s .15s var(--ez) both}
-.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-.hero-eyebrow span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ok)}
-.hero-h1{font-family:var(--d);font-size:clamp(38px,7.5vw,80px);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin-bottom:22px;color:var(--plat);animation:fadeUp .8s .3s var(--ez) both}
-.hero-h1 .accent{color:transparent;background:linear-gradient(120deg,var(--indigo),var(--indigo2));-webkit-background-clip:text;background-clip:text}
-.hero-sub{font-size:clamp(15px,2.3vw,19px);color:var(--sil);font-weight:300;max-width:560px;line-height:1.7;margin:0 auto 38px;animation:fadeUp .8s .42s var(--ez) both}
-.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .52s var(--ez) both}
-.btn-primary{background:var(--indigo);color:#fff;font-family:var(--d);font-size:15px;font-weight:700;padding:16px 34px;border-radius:13px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 32px rgba(67,56,236,.28)}
-.btn-primary:hover{background:var(--indigo2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(67,56,236,.36)}
-.btn-secondary{background:#fff;color:var(--plat);font-family:var(--d);font-size:15px;font-weight:600;padding:16px 34px;border-radius:13px;border:1.5px solid var(--b2);cursor:pointer;transition:all .25s}
-.btn-secondary:hover{border-color:var(--indigo);background:var(--gd)}
-.hero-stats{display:flex;align-items:center;gap:36px;margin-top:60px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .62s var(--ez) both}
-.hero-stat-divider{width:1px;height:38px;background:var(--b2)}
-.hero-stat-val{font-family:var(--d);font-size:27px;font-weight:700;color:var(--plat)}
-.hero-stat-lbl{font-size:11px;color:var(--sil);font-weight:400;margin-top:2px;letter-spacing:.05em;text-transform:uppercase}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 28px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(67,56,236,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(67,56,236,.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 30%,transparent 100%);pointer-events:none}
+.hero-glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(67,56,236,.15) 0%,transparent 65%);pointer-events:none}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--gd);border:1px solid var(--gb);border-radius:100px;padding:8px 18px;margin-bottom:32px;animation:fadeUp .8s .1s var(--ez) both}
+.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-pill span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ok)}
+.hero-h1{font-family:var(--d);font-size:clamp(36px,6.5vw,76px);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin-bottom:24px;color:#fff;animation:fadeUp .8s .25s var(--ez) both}
+.hero-h1 em{font-style:normal;color:transparent;background:linear-gradient(125deg,#818CF8,var(--indigo2),#38BDF8);-webkit-background-clip:text;background-clip:text}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--sil);font-weight:300;max-width:540px;line-height:1.75;margin:0 auto 40px;animation:fadeUp .8s .38s var(--ez) both}
+.hero-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .48s var(--ez) both}
+.btn-primary{background:var(--indigo);color:#fff;font-family:var(--d);font-size:14px;font-weight:700;padding:15px 32px;border-radius:11px;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 10px 28px rgba(67,56,236,.32)}
+.btn-primary:hover{background:var(--indigo2);transform:translateY(-2px);box-shadow:0 14px 36px rgba(67,56,236,.42)}
+.btn-ghost{background:transparent;color:#fff;font-family:var(--d);font-size:14px;font-weight:600;padding:15px 32px;border-radius:11px;border:1.5px solid var(--b2);cursor:pointer;transition:all .25s}
+.btn-ghost:hover{border-color:var(--b3);background:var(--s1)}
+.hero-metrics{display:flex;align-items:center;gap:40px;margin-top:68px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .58s var(--ez) both}
+.hero-div{width:1px;height:36px;background:var(--b2)}
+.hero-m-val{font-family:var(--d);font-size:26px;font-weight:700;color:#fff}
+.hero-m-lbl{font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── TICKER ── */
-.ticker-section{padding:0;overflow:hidden;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);background:#fff}
-.ticker-track{display:flex;gap:0;animation:ticker 32s linear infinite;width:max-content}
+/* MARKET TICKER STRIP */
+.ticker-section{overflow:hidden;border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);background:var(--bg2);padding:0}
+.ticker-track{display:flex;animation:tickerScroll 36s linear infinite;width:max-content}
 .ticker-track:hover{animation-play-state:paused}
-.ticker-item{display:flex;align-items:center;gap:10px;padding:15px 30px;white-space:nowrap;border-right:1px solid var(--b1)}
-.ticker-avatar{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--indigo2));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--d);color:#fff;flex-shrink:0}
-.ticker-text{font-size:12.5px;color:var(--sil)}
-.ticker-text strong{color:var(--ok);font-weight:600}
-.ticker-text b{color:var(--plat);font-weight:600}
-.ticker-time{font-size:10px;color:var(--dim)}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:10px;padding:14px 28px;border-right:1px solid var(--b1);white-space:nowrap}
+.tk-sym{font-family:var(--d);font-size:12px;font-weight:700;color:#fff}
+.tk-price{font-size:12px;color:var(--sil)}
+.tk-chg{font-size:10px;font-weight:700}
+.tk-chg.up{color:var(--ok)}.tk-chg.dn{color:var(--err)}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── HOW IT WORKS ── */
-.how{padding:110px 0;background:var(--void)}
-.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
-.section-title{font-family:var(--d);font-size:clamp(27px,4.5vw,48px);font-weight:700;line-height:1.12;letter-spacing:-.01em;margin-bottom:16px;color:var(--plat)}
-.section-sub{font-size:16px;color:var(--sil);font-weight:300;max-width:480px;line-height:1.7}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:60px}
-.step{background:#fff;border:1px solid var(--b1);border-radius:var(--rxl);padding:36px 30px;position:relative;transition:all .3s var(--ez)}
-.step:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,20,43,.06);border-color:var(--gb)}
-.step-num{font-family:var(--d);font-size:56px;font-weight:800;color:var(--b2);line-height:1;margin-bottom:18px;letter-spacing:-.03em}
-.step-ico{width:46px;height:46px;border-radius:12px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+/* SECTION STYLES */
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-eyebrow::before{content:'';width:20px;height:2px;background:var(--indigo);border-radius:2px;flex-shrink:0}
+.section-title{font-family:var(--d);font-size:clamp(26px,4vw,46px);font-weight:700;line-height:1.12;letter-spacing:-.015em;margin-bottom:16px;color:#fff}
+.section-sub{font-size:15px;color:var(--sil);font-weight:300;max-width:460px;line-height:1.75}
+
+/* HOW IT WORKS */
+.how{padding:110px 0;background:var(--bg)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;margin-top:60px;background:var(--b1);border:1px solid var(--b1);border-radius:var(--rxl);overflow:hidden}
+.step{background:var(--bg2);padding:36px 30px;position:relative;transition:background .3s}
+.step:hover{background:var(--bg3)}
+.step-num{font-family:var(--d);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo);margin-bottom:22px;display:flex;align-items:center;gap:8px}
+.step-num::after{content:'';flex:1;height:1px;background:var(--b1)}
+.step-ico{width:44px;height:44px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .step-ico svg{color:var(--indigo)}
-.step-title{font-family:var(--d);font-size:18px;font-weight:600;margin-bottom:9px;color:var(--plat)}
-.step-desc{font-size:14px;color:var(--sil);line-height:1.7;font-weight:300}
+.step-title{font-family:var(--d);font-size:17px;font-weight:600;margin-bottom:10px;color:#fff}
+.step-desc{font-size:13.5px;color:var(--sil);line-height:1.72;font-weight:300}
 
-/* ── PLANS ── */
-.plans{padding:110px 0;background:#fff}
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:60px}
-.plan-card{background:var(--void);border:1px solid var(--b1);border-radius:var(--rxl);padding:30px;position:relative;overflow:hidden;transition:all .3s var(--ez);cursor:pointer}
-.plan-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(17,20,43,.08)}
-.plan-card.featured{background:linear-gradient(150deg,var(--gd),rgba(67,56,236,.03));border-color:var(--gb)}
-.plan-badge{position:absolute;top:20px;right:20px;font-family:var(--d);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:100px}
-.plan-tier{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
-.plan-name{font-family:var(--d);font-size:21px;font-weight:700;margin-bottom:6px;color:var(--plat)}
-.plan-invest{font-size:13px;color:var(--sil);margin-bottom:26px}
-.plan-return{font-family:var(--d);font-size:36px;font-weight:800;color:var(--plat);line-height:1;margin-bottom:6px}
-.plan-return span{font-size:15px;font-weight:400;color:var(--sil)}
-.plan-daily{font-size:13px;color:var(--ok);font-weight:600;margin-bottom:24px}
-.plan-divider{height:1px;background:var(--b1);margin-bottom:20px}
-.plan-meta{display:flex;gap:14px;flex-wrap:wrap}
-.plan-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sil);font-weight:500}
+/* MARKETS */
+.markets{padding:110px 0;background:var(--bg2)}
+.mkts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;margin-top:60px;background:var(--b1);border:1px solid var(--b1);border-radius:var(--rxl);overflow:hidden}
+.mkt-card{background:var(--bg2);padding:30px;transition:background .25s;position:relative}
+.mkt-card:hover{background:var(--bg3)}
+.mkt-card::before{content:'';position:absolute;top:0;left:30px;right:30px;height:1px;background:linear-gradient(90deg,transparent,var(--pline,var(--b2)),transparent)}
+.mkt-ico{font-size:22px;margin-bottom:16px}
+.mkt-tag{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.mkt-name{font-family:var(--d);font-size:15.5px;font-weight:600;margin-bottom:10px;color:#fff;line-height:1.3}
+.mkt-desc{font-size:13px;color:var(--sil);line-height:1.7;font-weight:300}
 
-/* ── TRADING PLANS ── */
-.trading-plans{padding:110px 0;background:var(--void)}
-.inv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:60px}
-.inv-card{background:#fff;border:1px solid var(--b1);border-radius:var(--rxl);padding:28px;transition:all .3s var(--ez)}
-.inv-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(17,20,43,.07)}
-.inv-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:21px}
-.inv-sector{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
-.inv-title{font-family:var(--d);font-size:16.5px;font-weight:600;margin-bottom:10px;line-height:1.3;color:var(--plat)}
-.inv-desc{font-size:13px;color:var(--sil);line-height:1.7;font-weight:300}
+/* PLANS */
+.plans{padding:110px 0;background:var(--bg)}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:56px}
+.plan-card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rxl);padding:28px;position:relative;overflow:hidden;transition:all .3s var(--ez)}
+.plan-card:hover{transform:translateY(-3px);border-color:var(--b2);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.plan-card.featured{background:linear-gradient(150deg,rgba(67,56,236,.14),rgba(108,92,231,.06));border-color:var(--gb)}
+.plan-badge{position:absolute;top:18px;right:18px;font-family:var(--d);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+.plan-tier{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.plan-name{font-family:var(--d);font-size:19px;font-weight:700;margin-bottom:6px;color:#fff}
+.plan-invest{font-size:13px;color:var(--sil);margin-bottom:24px}
+.plan-ret{font-family:var(--d);font-size:34px;font-weight:800;color:#fff;line-height:1;margin-bottom:5px}
+.plan-ret span{font-size:14px;font-weight:400;color:var(--sil)}
+.plan-daily{font-size:12.5px;color:var(--ok);font-weight:600;margin-bottom:22px}
+.plan-divider{height:1px;background:var(--b1);margin-bottom:18px}
+.plan-chips{display:flex;gap:12px;flex-wrap:wrap}
+.plan-chip{font-size:11px;color:var(--sil);font-weight:500;display:flex;align-items:center;gap:5px}
+.plan-chip svg{flex-shrink:0}
 
-/* ── REFERRAL ── */
-.referral{padding:110px 0;background:#fff;position:relative;overflow:hidden}
-.ref-box{background:linear-gradient(150deg,var(--indigo),var(--indigo2));border-radius:var(--rxl);padding:60px 48px;text-align:center;position:relative;overflow:hidden;max-width:720px;margin:0 auto;box-shadow:0 24px 60px rgba(67,56,236,.22)}
-.ref-box::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
-.ref-box::after{content:'';position:absolute;bottom:-120px;left:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.06)}
-.ref-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px;position:relative}
-.ref-box-title{font-family:var(--d);font-size:clamp(27px,4.5vw,44px);font-weight:700;line-height:1.12;margin-bottom:16px;color:#fff;position:relative}
-.ref-box-sub{font-size:15.5px;color:rgba(255,255,255,.82);margin-bottom:38px;font-weight:300;line-height:1.7;position:relative;max-width:520px;margin-left:auto;margin-right:auto}
-.ref-cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;position:relative}
-.ref-card-item{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:var(--rl);padding:18px 26px;text-align:center;backdrop-filter:blur(10px)}
-.ref-card-val{font-family:var(--d);font-size:26px;font-weight:700;color:#fff}
-.ref-card-lbl{font-size:11px;color:rgba(255,255,255,.75);margin-top:4px;font-weight:400}
-.ref-box .btn-primary{background:#fff;color:var(--indigo);box-shadow:0 10px 28px rgba(0,0,0,.15);position:relative}
-.ref-box .btn-primary:hover{background:#F8F9FC;transform:translateY(-2px)}
+/* REFERRAL */
+.referral{padding:110px 0;background:var(--bg2)}
+.ref-inner{background:linear-gradient(150deg,var(--indigo),var(--indigo2));border-radius:var(--rxl);padding:64px 52px;text-align:center;position:relative;overflow:hidden;max-width:700px;margin:0 auto;box-shadow:0 24px 64px rgba(67,56,236,.25)}
+.ref-inner::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.07)}
+.ref-inner::after{content:'';position:absolute;bottom:-100px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
+.ref-inner .section-eyebrow{color:rgba(255,255,255,.65);justify-content:center}
+.ref-inner .section-eyebrow::before{background:rgba(255,255,255,.4)}
+.ref-inner .section-title{color:#fff;margin:0 auto 14px}
+.ref-sub{font-size:15px;color:rgba(255,255,255,.78);margin-bottom:34px;font-weight:300;line-height:1.72;max-width:480px;margin-left:auto;margin-right:auto}
+.ref-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;position:relative;z-index:1}
+.ref-stat-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:18px 28px;backdrop-filter:blur(8px)}
+.ref-stat-val{font-family:var(--d);font-size:24px;font-weight:700;color:#fff}
+.ref-stat-lbl{font-size:11px;color:rgba(255,255,255,.7);margin-top:3px}
+.ref-inner .btn-primary{background:#fff;color:var(--indigo);box-shadow:0 8px 24px rgba(0,0,0,.2);position:relative;z-index:1}
+.ref-inner .btn-primary:hover{background:#F0F0FF}
 
-/* ── FAQ ── */
-.faq{padding:110px 0;background:var(--void)}
-.faq-list{max-width:720px;margin:60px auto 0;display:flex;flex-direction:column;gap:10px}
-.faq-item{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--b1);transition:border-color .2s}
+/* FAQ */
+.faq{padding:110px 0;background:var(--bg)}
+.faq-list{max-width:700px;margin:56px auto 0;display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--bg2);border-radius:var(--rl);overflow:hidden;border:1px solid var(--b1);transition:border-color .2s}
 .faq-item.open{border-color:var(--gb)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:21px 23px;cursor:pointer;font-family:var(--d);font-size:14.5px;font-weight:600;color:var(--plat);transition:background .2s}
-.faq-q:hover{background:var(--s2)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;cursor:pointer;font-family:var(--d);font-size:14px;font-weight:600;color:#fff;gap:16px;transition:background .2s}
+.faq-q:hover{background:var(--bg3)}
 .faq-q svg{flex-shrink:0;color:var(--indigo);transition:transform .3s}
 .faq-item.open .faq-q svg{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ez)}
-.faq-item.open .faq-a{max-height:300px}
-.faq-a-inner{padding:0 23px 21px;font-size:13.5px;color:var(--sil);line-height:1.75;font-weight:300;border-top:1px solid var(--b1)}
+.faq-item.open .faq-a{max-height:320px}
+.faq-a-inner{padding:0 22px 20px;font-size:13.5px;color:var(--sil);line-height:1.8;font-weight:300;border-top:1px solid var(--b1)}
 
-/* ── CTA FOOTER ── */
-.cta-section{padding:120px 24px;background:#fff;text-align:center;position:relative;overflow:hidden}
-.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(67,56,236,.08) 0%,transparent 65%);pointer-events:none}
-.cta-title{font-family:var(--d);font-size:clamp(34px,6.5vw,72px);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px;color:var(--plat)}
-.cta-title .accent{color:transparent;background:linear-gradient(120deg,var(--indigo),var(--indigo2));-webkit-background-clip:text;background-clip:text}
-.cta-sub{font-size:17px;color:var(--sil);font-weight:300;margin-bottom:38px;line-height:1.6}
-footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;background:var(--void)}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
-.footer-logo{font-family:var(--d);font-size:17px;font-weight:800;color:var(--plat)}
+/* CTA */
+.cta-section{padding:130px 28px;background:var(--bg2);text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(67,56,236,.18) 0%,transparent 65%);pointer-events:none}
+.cta-title{font-family:var(--d);font-size:clamp(30px,5.5vw,64px);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;color:#fff;position:relative}
+.cta-title em{font-style:normal;color:transparent;background:linear-gradient(125deg,#818CF8,var(--indigo2));-webkit-background-clip:text;background-clip:text}
+.cta-sub{font-size:16px;color:var(--sil);font-weight:300;margin-bottom:36px;line-height:1.65;position:relative}
+.cta-risk{font-size:11px;color:var(--dim);margin-top:18px;position:relative;line-height:1.6}
+
+/* FOOTER */
+footer{border-top:1px solid var(--b1);padding:36px 28px;background:var(--bg)}
+.footer-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:var(--d);font-size:17px;font-weight:800;color:#fff}
 .footer-note{font-size:12px;color:var(--dim)}
 
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ez),transform .8s var(--ez)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s var(--ez),transform .75s var(--ez)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-@media(max-width:600px){
-  .hero-stats{gap:18px}.hero-stat-divider{display:none}
-  .ref-box{padding:36px 22px}
-  .steps{grid-template-columns:1fr}
-  .footer-inner{flex-direction:column;gap:10px;text-align:center}
+@media(max-width:620px){
+  .hero-metrics{gap:20px}.hero-div{display:none}
+  .ref-inner{padding:38px 22px}
+  .steps,.mkts-grid{border-radius:var(--rx)}
+  .footer-inner{flex-direction:column;text-align:center}
 }
 </style>
 </head>
@@ -221,7 +225,7 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
   <div class="nav-inner">
     <div class="nav-logo">
       <div class="nav-mark">
-        <svg width="17" height="17" viewBox="0 0 320 320">
+        <svg width="16" height="16" viewBox="0 0 320 320">
           <circle cx="160" cy="160" r="138" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-dasharray="810 60" transform="rotate(-95 160 160)" opacity="0.9"/>
           <path d="M160 78 L226 248 L196 248 L181 208 L139 208 L124 248 L94 248 Z M160 122 L144 172 L176 172 Z" fill="#fff"/>
         </svg>
@@ -230,60 +234,60 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
     </div>
     <div class="nav-links">
       <a href="#how">How it works</a>
+      <a href="#markets">Markets</a>
       <a href="#plans">Plans</a>
-      <a href="#trading-plans">Trading Plans</a>
       <a href="#faq">FAQ</a>
     </div>
-    <button class="nav-cta" onclick="window.location.href='/app.html'">Start Earning</button>
+    <button class="nav-cta" onclick="window.location.href='/app.html'">Open Platform</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-grid"></div>
   <div class="hero-glow"></div>
-  <div class="hero-eyebrow">
-    <div class="hero-eyebrow-dot"></div>
-    <span>Live · Payouts running now</span>
+  <div class="hero-pill">
+    <div class="hero-pill-dot"></div>
+    <span>Platform Live · Payouts Active</span>
   </div>
   <h1 class="hero-h1">
-    Your money should<br>
-    work harder than<br>
-    <span class="accent">you ever will</span>
+    Trade six markets.<br>
+    <em>Earn every day.</em>
   </h1>
-  <p class="hero-sub">AURO puts your capital to work across six high-yield markets — crypto, forex, prediction markets, and sports trading — paying you every single day for 60 days.</p>
+  <p class="hero-sub">AURO deploys your capital across six high-yield trading markets — crypto, forex, derivatives, and more — paying fixed daily returns straight to your wallet for 60 days.</p>
   <div class="hero-actions">
-    <button class="btn-primary" id="app-link" onclick="window.location.href='/app.html'">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Start Trading Free
+    <button class="btn-primary" onclick="window.location.href='/app.html'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Start Trading
     </button>
-    <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
+    <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works</button>
   </div>
-  <div class="hero-stats">
+  <div class="hero-metrics">
     <div>
-      <div class="hero-stat-val" id="stat-users">2,400+</div>
-      <div class="hero-stat-lbl">Active traders</div>
+      <div class="hero-m-val">36</div>
+      <div class="hero-m-lbl">Trading Plans</div>
     </div>
-    <div class="hero-stat-divider"></div>
+    <div class="hero-div"></div>
     <div>
-      <div class="hero-stat-val">₦480M+</div>
-      <div class="hero-stat-lbl">Total paid out</div>
+      <div class="hero-m-val">6</div>
+      <div class="hero-m-lbl">Live Markets</div>
     </div>
-    <div class="hero-stat-divider"></div>
+    <div class="hero-div"></div>
     <div>
-      <div class="hero-stat-val">200%</div>
-      <div class="hero-stat-lbl">Trading returns</div>
+      <div class="hero-m-val">200%</div>
+      <div class="hero-m-lbl">Over 60 Days</div>
     </div>
-    <div class="hero-stat-divider"></div>
+    <div class="hero-div"></div>
     <div>
-      <div class="hero-stat-val">60</div>
-      <div class="hero-stat-lbl">Days to full return</div>
+      <div class="hero-m-val">Daily</div>
+      <div class="hero-m-lbl">Claim Cycle</div>
     </div>
   </div>
 </section>
 
-<!-- LIVE TICKER -->
+<!-- MARKET TICKER -->
 <section class="ticker-section">
-  <div class="ticker-track" id="ticker"></div>
+  <div class="ticker-track" id="lp-ticker"></div>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -291,27 +295,76 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
   <div class="container">
     <div class="reveal">
       <div class="section-eyebrow">How it works</div>
-      <h2 class="section-title">Three steps to<br>daily earnings</h2>
-      <p class="section-sub">No expertise needed. No hidden fees. Just deposit, pick a plan, and watch your returns arrive daily.</p>
+      <h2 class="section-title">Three steps to<br>daily returns</h2>
+      <p class="section-sub">No trading experience required. Fund your wallet, pick a plan, and claim your returns every day.</p>
     </div>
     <div class="steps reveal">
       <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="step-num">Step 01</div>
+        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
         <div class="step-title">Fund your wallet</div>
-        <div class="step-desc">Transfer any amount to your AURO wallet via OPay bank transfer. Minimum ₦5,000. Credited within 1–3 hours after confirmation.</div>
+        <div class="step-desc">Deposit funds to your AURO wallet using any supported payment method. Minimum ₦5,000. Your balance is credited after confirmation — no delays.</div>
       </div>
       <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div>
-        <div class="step-title">Pick your plan</div>
-        <div class="step-desc">Choose from 24 trading tiers across 6 trading markets. Each plan runs for 60 days and pays a fixed daily return directly to your wallet balance.</div>
+        <div class="step-num">Step 02</div>
+        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div>
+        <div class="step-title">Open a position</div>
+        <div class="step-desc">Choose from 36 trading plans across 6 markets. Each position runs for 60 days and pays a fixed daily return directly to your wallet balance — claim it any time.</div>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <div class="step-title">Claim every day</div>
-        <div class="step-desc">Log in daily, tap Claim, and your returns land in your wallet instantly. Withdraw to any Nigerian bank account whenever you're ready.</div>
+        <div class="step-num">Step 03</div>
+        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="step-title">Claim &amp; withdraw</div>
+        <div class="step-desc">Log in daily and tap Claim — returns land in your wallet instantly. Withdraw to any Nigerian bank account whenever your balance reaches the minimum threshold.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets" id="markets">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Trading Markets</div>
+      <h2 class="section-title">Six markets.<br>One platform.</h2>
+      <p class="section-sub">Each tier is linked to a specific trading market. Your daily return comes from the activity within that market.</p>
+    </div>
+    <div class="mkts-grid reveal">
+      <div class="mkt-card" style="--pline:var(--t-starter)">
+        <div class="mkt-ico">🚀</div>
+        <div class="mkt-tag" style="color:var(--t-starter)">Daily Trade</div>
+        <div class="mkt-name">Micro-Cap Memecoin Trading</div>
+        <div class="mkt-desc">Early-stage memecoin positions on decentralised exchanges. Short-duration momentum trades that capitalise on high-volatility micro-cap movements.</div>
+      </div>
+      <div class="mkt-card" style="--pline:var(--t-builder)">
+        <div class="mkt-ico">🪙</div>
+        <div class="mkt-tag" style="color:var(--t-builder)">Transit</div>
+        <div class="mkt-name">New Crypto Launches &amp; Airdrops</div>
+        <div class="mkt-desc">Early allocation in token generation events and strategic airdrops across emerging Layer-1 and Layer-2 ecosystems — before public listing.</div>
+      </div>
+      <div class="mkt-card" style="--pline:var(--t-growth)">
+        <div class="mkt-ico">📈</div>
+        <div class="mkt-tag" style="color:var(--t-growth)">Harvest</div>
+        <div class="mkt-name">Leveraged Crypto Futures</div>
+        <div class="mkt-desc">Algorithmic long and short positions on BTC, ETH, and high-volatility altcoin futures. Disciplined entry/exit with strict risk parameters.</div>
+      </div>
+      <div class="mkt-card" style="--pline:var(--t-elite)">
+        <div class="mkt-ico">🎯</div>
+        <div class="mkt-tag" style="color:var(--t-elite)">Skyline</div>
+        <div class="mkt-name">Prediction &amp; Event Markets</div>
+        <div class="mkt-desc">Capital deployed on event-based prediction markets — sports, macroeconomic data releases, and geopolitical outcomes — using probability-weighted modelling.</div>
+      </div>
+      <div class="mkt-card" style="--pline:var(--t-premium)">
+        <div class="mkt-ico">💹</div>
+        <div class="mkt-tag" style="color:var(--t-premium)">PowerGrid</div>
+        <div class="mkt-name">Options &amp; Forex Trading</div>
+        <div class="mkt-desc">Professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/USD. Volatility strategies and directional plays.</div>
+      </div>
+      <div class="mkt-card" style="--pline:#4338EC">
+        <div class="mkt-ico">⚽</div>
+        <div class="mkt-tag" style="color:var(--indigo)">Treasury</div>
+        <div class="mkt-name">Sports Market Arbitrage</div>
+        <div class="mkt-desc">Systematic, data-driven trading across global sports markets. Statistical arbitrage between exchanges using quantitative models — not speculation.</div>
       </div>
     </div>
   </div>
@@ -321,110 +374,61 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
 <section class="plans" id="plans">
   <div class="container">
     <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">Trading Plans</div>
-      <h2 class="section-title">Start with what you have.<br>Scale as you grow.</h2>
-      <p class="section-sub" style="margin:0 auto">24 plans across 6 tiers. Every plan returns 200% over 60 days — paid daily.</p>
+      <div class="section-eyebrow" style="justify-content:center">Trading Plans</div>
+      <h2 class="section-title">Start with what you have.</h2>
+      <p class="section-sub" style="margin:0 auto">36 plans across 6 tiers. Every plan returns 200% over 60 days — paid as a fixed daily return to your wallet.</p>
     </div>
     <div class="plans-grid reveal">
 
       <div class="plan-card">
-        <div class="plan-badge" style="background:rgba(13,148,136,.1);color:var(--t-starter)">Entry</div>
-        <div class="plan-tier" style="color:var(--t-starter)">Starter Tier · Memecoin Trading</div>
-        <div class="plan-name">Micro-Cap Memecoins</div>
-        <div class="plan-invest">Trade ₦5,000</div>
-        <div class="plan-return">₦10,000 <span>total</span></div>
-        <div class="plan-daily">+₦167 every day for 60 days</div>
+        <div class="plan-badge" style="background:rgba(13,148,136,.15);color:var(--t-starter)">Entry</div>
+        <div class="plan-tier" style="color:var(--t-starter)">Daily Trade · Memecoins</div>
+        <div class="plan-name">Starter Position</div>
+        <div class="plan-invest">Deploy ₦5,000</div>
+        <div class="plan-ret">₦10,000 <span>total return</span></div>
+        <div class="plan-daily">+₦167 per day · 60 days</div>
         <div class="plan-divider"></div>
-        <div class="plan-meta">
+        <div class="plan-chips">
           <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>60 days</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secured</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200% ROI</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>PIN secured</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200%</div>
         </div>
       </div>
 
       <div class="plan-card featured">
-        <div class="plan-badge" style="background:var(--indigo);color:#fff">Most Popular</div>
-        <div class="plan-tier" style="color:var(--t-growth)">Growth Tier · Crypto Futures</div>
-        <div class="plan-name">Leveraged Crypto Futures</div>
-        <div class="plan-invest">Trade ₦50,000</div>
-        <div class="plan-return">₦100,000 <span>total</span></div>
-        <div class="plan-daily">+₦1,667 every day for 60 days</div>
+        <div class="plan-badge" style="background:var(--indigo);color:#fff">Popular</div>
+        <div class="plan-tier" style="color:var(--t-growth)">Harvest · Crypto Futures</div>
+        <div class="plan-name">Growth Position</div>
+        <div class="plan-invest">Deploy ₦100,000</div>
+        <div class="plan-ret">₦200,000 <span>total return</span></div>
+        <div class="plan-daily">+₦3,333 per day · 60 days</div>
         <div class="plan-divider"></div>
-        <div class="plan-meta">
+        <div class="plan-chips">
           <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>60 days</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secured</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200% ROI</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>PIN secured</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200%</div>
         </div>
       </div>
 
       <div class="plan-card">
-        <div class="plan-badge" style="background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff">Private</div>
-        <div class="plan-tier" style="color:var(--indigo)">Sovereign Tier · Sports Trading</div>
-        <div class="plan-name">Sports & Prediction Markets</div>
-        <div class="plan-invest">Trade ₦500,000</div>
-        <div class="plan-return">₦1,000,000 <span>total</span></div>
-        <div class="plan-daily">+₦16,667 every day for 60 days</div>
+        <div class="plan-badge" style="background:linear-gradient(135deg,var(--indigo),var(--indigo2));color:#fff">Exclusive</div>
+        <div class="plan-tier" style="color:var(--indigo)">Treasury · Sports Arbitrage</div>
+        <div class="plan-name">Sovereign Position</div>
+        <div class="plan-invest">Deploy ₦1,000,000</div>
+        <div class="plan-ret">₦2,000,000 <span>total return</span></div>
+        <div class="plan-daily">+₦33,333 per day · 60 days</div>
         <div class="plan-divider"></div>
-        <div class="plan-meta">
+        <div class="plan-chips">
           <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>60 days</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secured</div>
-          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200% ROI</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>PIN secured</div>
+          <div class="plan-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>200%</div>
         </div>
       </div>
 
     </div>
-    <div style="text-align:center;margin-top:40px" class="reveal">
-      <p style="color:var(--sil);font-size:14px;margin-bottom:20px">+ 21 more plans across all tiers. Something for every budget.</p>
-      <button class="btn-primary" onclick="window.location.href='/app.html'">View All 24 Plans</button>
-    </div>
-  </div>
-</section>
-
-<!-- TRADING MARKETS -->
-<section class="trading-plans" id="trading-plans">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">Where your money goes</div>
-      <h2 class="section-title">Six markets.<br>Daily returns.</h2>
-      <p class="section-sub">Every naira you contribute is actively traded across high-yield markets — crypto, forex, derivatives, and sports — generating consistent daily revenue that flows back to you.</p>
-    </div>
-    <div class="inv-grid reveal">
-      <div class="inv-card">
-        <div class="inv-icon" style="background:rgba(13,148,136,.1)">🚀</div>
-        <div class="inv-sector" style="color:var(--t-starter)">Micro-Cap Memecoins</div>
-        <div class="inv-title">Early-Stage Memecoin Trading</div>
-        <div class="inv-desc">Capital is rotated across micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements. Our on-chain analysts identify momentum early and lock in gains daily.</div>
-      </div>
-      <div class="inv-card">
-        <div class="inv-icon" style="background:rgba(232,114,42,.1)">🪙</div>
-        <div class="inv-sector" style="color:var(--t-builder)">New Crypto Launches & Airdrops</div>
-        <div class="inv-title">IDO & Token Generation Events</div>
-        <div class="inv-desc">Capital secures early allocation in new token launches — IDOs and strategic airdrops across emerging Layer-1 and Layer-2 ecosystems — before public listing, where the highest percentage gains are captured and distributed daily.</div>
-      </div>
-      <div class="inv-card">
-        <div class="inv-icon" style="background:rgba(22,143,88,.1)">📈</div>
-        <div class="inv-sector" style="color:var(--t-growth)">Leveraged Crypto Futures</div>
-        <div class="inv-title">Algorithmic Futures Trading</div>
-        <div class="inv-desc">Disciplined long and short positions on BTC, ETH, and high-volatility altcoin futures. Our trading desk uses algorithmic entry/exit signals and tight risk management to convert market volatility directly into daily payouts.</div>
-      </div>
-      <div class="inv-card">
-        <div class="inv-icon" style="background:rgba(124,58,237,.1)">🎯</div>
-        <div class="inv-sector" style="color:var(--t-elite)">Prediction Markets</div>
-        <div class="inv-title">Event-Based Market Trading</div>
-        <div class="inv-desc">Capital deployed across prediction markets — staking on elections, sports outcomes, and macroeconomic data releases. Superior probability modelling and research creates the information edge that turns event outcomes into daily compounding returns.</div>
-      </div>
-      <div class="inv-card">
-        <div class="inv-icon" style="background:rgba(201,138,0,.1)">💹</div>
-        <div class="inv-sector" style="color:var(--t-premium)">Options & Forex Trading</div>
-        <div class="inv-title">Derivatives & Currency Markets</div>
-        <div class="inv-desc">Professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Volatility strategies and high-conviction directional plays produce consistent premium income paid daily.</div>
-      </div>
-      <div class="inv-card">
-        <div class="inv-icon" style="background:var(--gd)">⚽</div>
-        <div class="inv-sector" style="color:var(--indigo)">Sports Trading</div>
-        <div class="inv-title">Quantitative Sports Markets</div>
-        <div class="inv-desc">Systematic data-driven trading across global football, basketball, and combat sports markets — not gambling, but statistical arbitrage between bookmakers and exchanges using quantitative models that generate an edge across hundreds of events daily.</div>
-      </div>
+    <div style="text-align:center;margin-top:36px" class="reveal">
+      <p style="color:var(--sil);font-size:14px;margin-bottom:20px">+ 33 more plans across all tiers. View the full range inside the platform.</p>
+      <button class="btn-primary" onclick="window.location.href='/app.html'">View All 36 Plans</button>
     </div>
   </div>
 </section>
@@ -432,25 +436,16 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
 <!-- REFERRAL -->
 <section class="referral" id="referral">
   <div class="container">
-    <div class="ref-box reveal">
-      <div class="ref-eyebrow">Referral Programme</div>
-      <h2 class="ref-box-title">Earn ₦2,000<br>for every friend you bring</h2>
-      <p class="ref-box-sub">Share your unique referral code. When a friend signs up and makes their first deposit, you both receive ₦2,000 credited to your wallets instantly. No limit on how many you can refer.</p>
-      <div class="ref-cards">
-        <div class="ref-card-item">
-          <div class="ref-card-val">₦2,000</div>
-          <div class="ref-card-lbl">You earn</div>
-        </div>
-        <div class="ref-card-item">
-          <div class="ref-card-val">₦2,000</div>
-          <div class="ref-card-lbl">Your friend earns</div>
-        </div>
-        <div class="ref-card-item">
-          <div class="ref-card-val">∞</div>
-          <div class="ref-card-lbl">No limit</div>
-        </div>
+    <div class="ref-inner reveal">
+      <div class="section-eyebrow">Referral Programme</div>
+      <h2 class="section-title">Earn ₦2,000<br>per referral</h2>
+      <p class="ref-sub">Share your unique referral code. When a friend signs up and makes their first deposit, you both receive ₦2,000 credited to your wallets — with no limit on how many people you can refer.</p>
+      <div class="ref-stats">
+        <div class="ref-stat-box"><div class="ref-stat-val">₦2,000</div><div class="ref-stat-lbl">You earn</div></div>
+        <div class="ref-stat-box"><div class="ref-stat-val">₦2,000</div><div class="ref-stat-lbl">Friend earns</div></div>
+        <div class="ref-stat-box"><div class="ref-stat-val">∞</div><div class="ref-stat-lbl">No cap</div></div>
       </div>
-      <button class="btn-primary" onclick="window.location.href='/app.html'">Get Your Referral Code</button>
+      <button class="btn-primary" onclick="window.location.href='/app.html'">Get Your Code</button>
     </div>
   </div>
 </section>
@@ -459,133 +454,117 @@ footer{border-top:1px solid var(--b1);padding:32px 24px;text-align:center;backgr
 <section class="faq" id="faq">
   <div class="container">
     <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">FAQ</div>
+      <div class="section-eyebrow" style="justify-content:center">FAQ</div>
       <h2 class="section-title">Questions answered</h2>
     </div>
     <div class="faq-list reveal">
+
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>Is my capital safe?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <span>What is AURO and how does it work?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">AURO deploys capital across six high-yield trading markets — crypto, forex, derivatives, prediction markets, and sports trading. All trading activities carry inherent risk and returns are not guaranteed. You should only commit capital you can afford to commit for the full 60-day duration. By participating, you acknowledge and accept these risks in full as described in our Terms of Service.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">AURO is a digital trading platform that deploys user capital across six high-yield trading markets — including crypto, forex, derivatives, prediction markets, and sports arbitrage. When you open a position, your capital is allocated to the corresponding market and you receive a fixed daily return for 60 days, which you claim manually each day.</div></div>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>How does the daily claim work?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Each plan pays a fixed daily return for 60 days. You must log in and tap Claim every day — any day you miss is permanently forfeited with no compensation. We strongly recommend enabling daily reminders in your profile settings. Claims are credited to your wallet instantly and are withdrawable at any time.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>What markets does AURO trade in?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">AURO operates across six trading markets: micro-cap memecoin trading on decentralised exchanges, new crypto token launches and airdrops, leveraged cryptocurrency futures on major derivatives platforms, prediction markets, professional options and forex trading on major currency pairs, and systematic data-driven sports market arbitrage. Each tier is linked to a specific market.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>How do I withdraw my earnings?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Go to the Withdraw page in the app, enter your amount and Nigerian bank account details. Withdrawals are processed manually within 1–3 business days. We support all major banks including GTB, Access, Zenith, UBA, OPay, PalmPay, and Kuda. Minimum withdrawal is ₦1,000.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>What is the minimum and maximum trade?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">The minimum trade is ₦5,000 on the Starter tier. The maximum single deposit is ₦1,000,000. You can hold multiple active trading positions simultaneously across different tiers, with no limit on your total combined positions on the platform.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>Can I trade multiple plans at once?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. You can hold as many active positions as your wallet balance allows across any combination of tiers. Multiple trades in the same plan automatically merge into one consolidated claim card showing your combined daily return — keeping your dashboard clean and easy to manage.</div></div>
-      </div>
+
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
           <span>How do I deposit funds?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Select your deposit amount in the app (minimum ₦5,000), then transfer that exact amount to AURO's OPay account displayed on the payment page. Once transferred, tap "I Have Made This Payment" to notify our team. Your wallet is credited within 1–3 hours after confirmation. Do not submit a deposit request without actually completing the bank transfer.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Open the Deposit section in the app and enter your desired amount (minimum ₦5,000). Follow the payment instructions displayed on screen to complete the transfer. Once payment is confirmed by our team, your wallet balance is credited — typically within 1–3 hours during business hours.</div></div>
       </div>
+
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>How do I contact customer support?</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <span>How does the daily claim work?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">You can reach our support team through the in-app live chat available in your profile settings, or by emailing support@auro.app. Support is available Monday to Saturday, 9am–8pm WAT. Response times are typically within 2–4 hours during business hours. For urgent deposit or withdrawal issues, use the in-app chat for fastest response.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Each position pays a fixed daily return for 60 days. You must log in and tap Claim each day — any day you miss is permanently forfeited with no compensation. Claims are credited to your wallet instantly and are withdrawable at any time. We recommend enabling daily reminders in your device settings.</div></div>
       </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I withdraw my earnings?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Go to the Withdraw page in the app and enter your amount and Nigerian bank account details. Minimum withdrawal is ₦15,000. All major Nigerian banks are supported. Withdrawals are processed manually — allow 1–3 business days from the time of submission.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What are the position limits?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The minimum single position is ₦5,000 on the Starter tier. The maximum is ₦1,000,000. You can hold multiple simultaneous positions across different tiers with no cap on total combined positions — as long as your wallet balance covers each one.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I open multiple positions at once?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. You can hold positions across any combination of tiers simultaneously. Multiple positions in the same plan consolidate into a single claim card showing your combined daily return. Each day you claim once per plan, covering all positions in that tier together.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What are the risks involved?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">All trading activities carry inherent risk. Returns are not guaranteed and past performance is not a reliable indicator of future results. You should only commit capital you can afford to lock in for the full 60-day position duration. By participating, you acknowledge and accept these risks as described in the Terms of Service.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I contact support?</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Use the in-app support chat — open the app, tap your avatar, then select Customer Support. Choose your issue category and our team will respond directly in the chat. Support hours are Monday to Saturday, 9AM–8PM WAT. AURO will never ask for your PIN or password through any channel.</div></div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<!-- CTA -->
 <section class="cta-section">
   <div class="cta-glow"></div>
-  <h2 class="cta-title">The best time<br>to start was <span class="accent">yesterday.</span><br>The second best is now.</h2>
-  <p class="cta-sub">Join thousands of Nigerians earning daily returns on AURO.<br>It takes less than 3 minutes to create your account.</p>
-  <button class="btn-primary" style="font-size:17px;padding:18px 42px" onclick="window.location.href='/app.html'">
+  <h2 class="cta-title">Ready to put your<br>capital to <em>work?</em></h2>
+  <p class="cta-sub">Create your account in under 3 minutes.<br>No trading experience required.</p>
+  <button class="btn-primary" style="font-size:16px;padding:17px 40px;margin:0 auto" onclick="window.location.href='/app.html'">
     Create Free Account
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </button>
-  <p style="margin-top:16px;font-size:12px;color:var(--dim)">No hidden fees · Withdraw anytime · 200% ROI in 60 days</p>
+  <p class="cta-risk">All trading carries risk. Commit only what you can afford to lock in for 60 days.<br>Past performance does not guarantee future returns.</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner container">
-    <div class="footer-logo">AURO<sup style="font-size:8px;font-weight:400">®</sup></div>
+    <div class="footer-logo">AURO<sup style="font-size:8px;font-weight:400;vertical-align:super">®</sup></div>
     <div class="footer-note">© 2025 AURO. All rights reserved. Trade responsibly.</div>
     <div style="display:flex;gap:20px">
       <a href="#" style="font-size:12px;color:var(--dim)">Terms</a>
       <a href="#" style="font-size:12px;color:var(--dim)">Privacy</a>
-      <a href="#" style="font-size:12px;color:var(--dim)">Support</a>
+      <a href="/app.html" style="font-size:12px;color:var(--dim)">Platform</a>
     </div>
   </div>
 </footer>
 
 <script>
+// Nav scroll
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-const tickerData = [
-  {name:'Chisom O.',init:'CO',action:'just claimed',amount:'₦12,500',time:'2s ago'},
-  {name:'Emeka B.',init:'EB',action:'just started a trade',amount:'₦50,000',time:'8s ago'},
-  {name:'Fatima A.',init:'FA',action:'just claimed',amount:'₦3,333',time:'15s ago'},
-  {name:'Tunde K.',init:'TK',action:'just withdrew',amount:'₦85,000',time:'22s ago'},
-  {name:'Ngozi M.',init:'NM',action:'just claimed',amount:'₦16,667',time:'31s ago'},
-  {name:'Ibrahim S.',init:'IS',action:'just started a trade',amount:'₦100,000',time:'44s ago'},
-  {name:'Adaeze C.',init:'AC',action:'just claimed',amount:'₦8,333',time:'1m ago'},
-  {name:'Segun F.',init:'SF',action:'just claimed',amount:'₦25,000',time:'1m ago'},
-  {name:'Kemi R.',init:'KR',action:'just started a trade',amount:'₦25,000',time:'2m ago'},
-  {name:'Olumide P.',init:'OP',action:'just claimed',amount:'₦1,667',time:'2m ago'},
-  {name:'Blessing N.',init:'BN',action:'just withdrew',amount:'₦200,000',time:'3m ago'},
-  {name:'Ahmed D.',init:'AD',action:'just claimed',amount:'₦5,000',time:'4m ago'},
-];
-
-function buildTicker() {
-  const track = document.getElementById('ticker');
-  const double = [...tickerData, ...tickerData];
-  track.innerHTML = double.map(d => `
-    <div class="ticker-item">
-      <div class="ticker-avatar">${d.init}</div>
-      <div class="ticker-text"><b>${d.name}</b> ${d.action} <strong>${d.amount}</strong></div>
-      <div class="ticker-time">${d.time}</div>
-    </div>
-  `).join('');
-}
-buildTicker();
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, {threshold: 0.1});
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+// FAQ accordion
 function toggleFaq(el) {
   const item = el.parentElement;
   const isOpen = item.classList.contains('open');
@@ -593,27 +572,53 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-function animateCounter(el, target, prefix='', suffix='') {
-  let start = 0;
-  const duration = 2000;
-  const step = timestamp => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = prefix + Math.floor(eased * target).toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+// Market price ticker
+const TICKER_PAIRS = [
+  {sym:'BTC/USD', base:104200, chg:2.34, up:true},
+  {sym:'ETH/USD', base:3820,   chg:1.82, up:true},
+  {sym:'BNB/USD', base:712,    chg:0.94, up:true},
+  {sym:'SOL/USD', base:198,    chg:3.21, up:true},
+  {sym:'XRP/USD', base:0.621,  chg:0.47, up:false},
+  {sym:'EUR/USD', base:1.0842, chg:0.12, up:false},
+  {sym:'GBP/USD', base:1.2731, chg:0.08, up:true},
+  {sym:'USD/NGN', base:1583,   chg:0.15, up:false},
+  {sym:'DOGE/USD',base:0.198,  chg:1.54, up:true},
+  {sym:'ADA/USD', base:0.889,  chg:2.11, up:false},
+];
+
+function fmtLPPrice(p, sym) {
+  if (sym==='USD/NGN') return '₦'+p.toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (p >= 10000) return '$'+p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if (p >= 100)   return '$'+p.toFixed(2);
+  if (p >= 1)     return '$'+p.toFixed(4);
+  return '$'+p.toFixed(6);
 }
-const statsObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateCounter(document.getElementById('stat-users'), 2400, '', '+');
-      statsObserver.disconnect();
-    }
+
+let prices = TICKER_PAIRS.map(t => ({...t, price: t.base}));
+
+function renderLPTicker() {
+  const track = document.getElementById('lp-ticker');
+  const items = prices.map(t =>
+    `<div class="ticker-item">
+      <span class="tk-sym">${t.sym}</span>
+      <span class="tk-price">${fmtLPPrice(t.price, t.sym)}</span>
+      <span class="tk-chg ${t.up?'up':'dn'}">${t.up?'▲':'▼'}${Math.abs(t.chg).toFixed(2)}%</span>
+    </div>`
+  ).join('');
+  track.innerHTML = items + items;
+}
+renderLPTicker();
+
+// Micro-fluctuate prices to keep ticker lively
+setInterval(() => {
+  prices = prices.map(t => {
+    const nudge = t.price * (Math.random()-0.5)*0.0004;
+    const newPrice = Math.max(0.0001, t.price + nudge);
+    const newChg = +(t.chg + (Math.random()-0.5)*0.04).toFixed(2);
+    return {...t, price: newPrice, chg: Math.abs(newChg), up: newChg >= 0};
   });
-}, {threshold: 0.5});
-statsObserver.observe(document.getElementById('stat-users'));
+  renderLPTicker();
+}, 3500);
 </script>
 </body>
 </html>
