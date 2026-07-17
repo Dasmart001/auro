@@ -1150,7 +1150,7 @@ body.dark #splash{background:var(--void)}
         <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
         <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
         <div class="tr-card"><div class="tr-lbl">Active Markets</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Open positions</div></div>
-        <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time earnings</div></div>
+        <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">Withdrawals sent to users</div></div>
         <div class="tr-card"><div class="tr-lbl">Pending Payouts</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
       </div>
       <div class="adm-divider"></div>
@@ -1660,7 +1660,7 @@ function simToday(u) {
 let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
 let _myDeps = [], _myWits = [];
-let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null;
+let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null, _unsubAdmPaidWit = null;
 let _unsubAdmHistDep = null, _unsubAdmHistWit = null;
 let _histDeps = [], _histWits = [], _histFilter = 'all';
 
@@ -2946,6 +2946,14 @@ function openAdminPanel() {
       const el = document.getElementById('tr-pendwit');
       if (el) el.textContent = fmt(pendTotal);
     });
+  // Listen for approved (sent) withdrawals — this is the real "Total Paid Out" figure
+  if (_unsubAdmPaidWit) _unsubAdmPaidWit();
+  _unsubAdmPaidWit = db.collection('withdrawals').where('status','==','approved')
+    .onSnapshot(snap => {
+      const totalPaidOut = snap.docs.reduce((s,d) => s + (d.data().amount||0), 0);
+      const el = document.getElementById('tr-paid');
+      if (el) el.textContent = fmt(totalPaidOut);
+    }, e => console.error('Paid-out listener error:', e));
   // All users — also powers the treasury
   if (_unsubAdmUsr) _unsubAdmUsr();
   _unsubAdmUsr = db.collection('users')
@@ -2982,7 +2990,6 @@ let _adjSelectedUser = null;
 function renderTreasury(users) {
   const totalWallets  = users.reduce((s,u) => s + (u.balance||0), 0);
   const totalInvested = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).reduce((si,i)=>si+i.invest,0), 0);
-  const totalPaid     = users.reduce((s,u) => s + (u.totalEarned||0), 0);
   const activePlans   = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).length, 0);
 
   const el = id => document.getElementById(id);
@@ -2990,7 +2997,7 @@ function renderTreasury(users) {
   if (el('tr-invested')) el('tr-invested').textContent = fmt(totalInvested);
   if (el('tr-users'))    el('tr-users').textContent    = users.length.toLocaleString('en-NG');
   if (el('tr-plans'))    el('tr-plans').textContent    = activePlans.toLocaleString('en-NG');
-  if (el('tr-paid'))     el('tr-paid').textContent     = fmt(totalPaid);
+  // tr-paid is populated by the dedicated approved-withdrawals listener, not here
 }
 
 function adjSearch() {
