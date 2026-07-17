@@ -767,7 +767,7 @@ body.dark #splash{background:var(--void)}
         <path d="M0,44 C50,40 80,30 120,22 C160,14 180,26 220,16 C260,6 290,18 330,10 C360,4 375,8 390,5" stroke="rgba(255,255,255,.4)" stroke-width="1.5" fill="none"/>
       </svg>
       <div class="bc-eye">
-        <div class="pulse"></div>Available Balance
+        <div class="pulse"></div>Portfolio Value
         <button class="eye-btn" id="eye-btn" onclick="toggleBal()" aria-label="Toggle balance">
           <svg id="eye-ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
@@ -775,7 +775,7 @@ body.dark #splash{background:var(--void)}
       <div class="bc-num" id="bc-num-wrap"><span class="cu">₦</span><span id="h-bal">0</span></div>
       <div class="bc-today">
         <div class="bc-today-chip"><svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span id="h-today-earn">₦0 today</span></div>
-        <div class="bc-today-sub" id="bc-sub-text">Deposit to start trading</div>
+        <div class="bc-today-sub" id="bc-sub-text">Fund wallet to open positions</div>
       </div>
       <div class="bc-acts">
         <button class="ba ba-g" onclick="go('p-plans','n-plans')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Trade</button>
@@ -786,15 +786,15 @@ body.dark #splash{background:var(--void)}
 
     <!-- PERFORMANCE STRIP -->
     <div class="perf-strip">
-      <div class="pf-tile" style="--pft:var(--gb);--pfc:var(--gold)"><div class="pf-val" id="h-invested">₦0</div><div class="pf-lbl">In Trades</div></div>
-      <div class="pf-tile" style="--pft:var(--okb);--pfc:var(--ok)"><div class="pf-val" id="h-earned">₦0</div><div class="pf-lbl">Total Earned</div></div>
-      <div class="pf-tile" style="--pft:rgba(124,58,237,.3);--pfc:#7C3AED"><div class="pf-val" id="h-active">0</div><div class="pf-lbl">Open Trades</div></div>
+      <div class="pf-tile" style="--pft:var(--gb);--pfc:var(--gold)"><div class="pf-val" id="h-invested">₦0</div><div class="pf-lbl">Deployed Capital</div></div>
+      <div class="pf-tile" style="--pft:var(--okb);--pfc:var(--ok)"><div class="pf-val" id="h-earned">₦0</div><div class="pf-lbl">Total Realised</div></div>
+      <div class="pf-tile" style="--pft:rgba(124,58,237,.3);--pfc:#7C3AED"><div class="pf-val" id="h-active">0</div><div class="pf-lbl">Active Positions</div></div>
     </div>
 
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
-      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Ready to Claim</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
-      <button onclick="go('p-claim','n-claim')" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Claim Now</button>
+      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Yield</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
+      <button onclick="go('p-claim','n-claim')" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
     </div>
 
     <!-- ACTIVE POSITIONS -->
@@ -823,7 +823,7 @@ body.dark #splash{background:var(--void)}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Markets</div><div class="ph-s">36 markets · 200% returns · Daily claims · PIN secured</div></div>
+    <div class="ph"><div class="ph-t">Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">36 markets · Projected 200% yield · Daily settlement · PIN secured</div></div>
     <div class="plan-wrap" id="plans-c"></div>
   </div>
 
@@ -833,16 +833,16 @@ body.dark #splash{background:var(--void)}
 
     <!-- CLAIM SUMMARY HEADER -->
     <div style="padding:0 20px 16px">
-      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Daily Returns</div>
+      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
       <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
-      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Available across all positions</div>
+      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
     </div>
 
-    <!-- CLAIM ALL BUTTON (shown when multiple claimable) -->
+    <!-- REALISE ALL BUTTON (shown when multiple claimable) -->
     <div id="claim-all-wrap" style="display:none;padding:0 20px 16px">
       <button id="claim-all-btn" onclick="claimAll()" style="width:100%;padding:14px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-family:var(--d);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        Claim All Returns
+        Realise All Returns
       </button>
     </div>
 
@@ -984,7 +984,7 @@ body.dark #splash{background:var(--void)}
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
     <div class="ph"><div class="ph-t">Withdraw</div><div class="ph-s">Send your earnings to any Nigerian bank account.</div></div>
     <div style="padding:0 16px">
-      <div class="avail"><div><div class="av-lbl">Available Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
+      <div class="avail"><div><div class="av-lbl">Withdrawable Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
       <label class="fl">Withdrawal Amount</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
       <div class="qrow">
@@ -1038,14 +1038,15 @@ body.dark #splash{background:var(--void)}
       <svg class="pch-svg" viewBox="0 0 390 60" preserveAspectRatio="none" fill="none">
         <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4338EC" stop-opacity=".2"/><stop offset="100%" stop-color="#4338EC" stop-opacity="0"/></linearGradient></defs>
         <line x1="0" y1="15" x2="390" y2="15" stroke="rgba(17,20,43,.07)"/><line x1="0" y1="30" x2="390" y2="30" stroke="rgba(17,20,43,.07)"/><line x1="0" y1="45" x2="390" y2="45" stroke="rgba(17,20,43,.07)"/>
-        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5 L390,60 L0,60Z" fill="url(#cg)"/>
-        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5" stroke="var(--gold)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <circle cx="390" cy="5" r="3" fill="var(--gold)"/>
+        <path id="pch-fill" d="M0,60 L390,60Z" fill="url(#cg)"/>
+        <path id="pch-line" d="M0,60 L390,60" stroke="var(--gold)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle id="pch-dot" cx="390" cy="60" r="3" fill="var(--gold)"/>
       </svg>
+      <div id="pch-empty-note" style="display:none;text-align:center;font-size:10px;color:var(--sil);padding:6px 0 2px">No realised returns yet — chart fills in as you realise daily yield</div>
       <div class="pch-figs">
-        <div><div class="pch-lbl">In Trades</div><div class="pch-val" id="pf-inv">₦0</div></div>
-        <div style="text-align:center"><div class="pch-lbl">Total Return</div><div class="pch-val g" id="pf-exp">₦0</div></div>
-        <div style="text-align:right"><div class="pch-lbl">Claimed</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
+        <div><div class="pch-lbl">Deployed</div><div class="pch-val" id="pf-inv">₦0</div></div>
+        <div style="text-align:center"><div class="pch-lbl">Projected Return</div><div class="pch-val g" id="pf-exp">₦0</div></div>
+        <div style="text-align:right"><div class="pch-lbl">Realised</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
       </div>
     </div>
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Markets</button></div></div>
@@ -1061,8 +1062,8 @@ body.dark #splash{background:var(--void)}
       <div class="prof-since" id="prof-since">Member</div>
     </div>
     <div class="prof-stats">
-      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">In Trades</div></div>
-      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
+      <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">Deployed</div></div>
+      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Realised</div></div>
       <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Markets</div></div>
     </div>
     <div class="prof-sec">
@@ -1094,7 +1095,7 @@ body.dark #splash{background:var(--void)}
 <nav class="bnav">
   <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-plans" onclick="go('p-plans','n-plans')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="ni-lbl">Markets</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Claim</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Positions</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-deposit" onclick="go('p-deposit','n-deposit')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg></div><div class="ni-lbl">Deposit</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-withdraw" onclick="go('p-withdraw','n-withdraw')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg></div><div class="ni-lbl">Withdraw</div><div class="ni-dot"></div></div>
 </nav>
@@ -1289,19 +1290,20 @@ body.dark #splash{background:var(--void)}
 <div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
   <div class="msheet">
     <div class="m-handle"></div>
+    <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:4px">Order Ticket</div>
     <div class="m-title" id="m-t">Open Position</div>
     <div class="m-sub" id="m-s">Review details before confirming.</div>
     <div class="m-prev">
-      <div><div class="mp-lbl">Capital Deployed</div><div class="mp-val" id="m-inv">—</div></div>
+      <div><div class="mp-lbl">Allocation</div><div class="mp-val" id="m-inv">—</div></div>
       <div class="mp-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      <div style="text-align:right"><div class="mp-lbl">Total Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
+      <div style="text-align:right"><div class="mp-lbl">Projected Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
     </div>
-    <div class="md-row"><span>Daily claim</span><strong class="g" id="m-daily">—</strong></div>
-    <div class="md-row"><span>Duration</span><strong>60 days · must claim daily</strong></div>
-    <div class="md-row"><span>ROI</span><strong class="g">200%</strong></div>
+    <div class="md-row"><span>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
+    <div class="md-row"><span>Duration</span><strong>60 days · must realise daily</strong></div>
+    <div class="md-row"><span>Projected ROI</span><strong class="g">200%</strong></div>
     <div class="md-row"><span>Your balance</span><strong id="m-bal">—</strong></div>
     <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
-    <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Miss a day = that day's earnings are permanently forfeited</div>
+    <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Returns are projected, not guaranteed. Miss a day and that day's yield is permanently forfeited.</div>
     <div class="pin-sec">
       <label class="pin-lbl">Enter your 4-digit Trade PIN</label>
       <div class="pin-row">
@@ -1311,7 +1313,7 @@ body.dark #splash{background:var(--void)}
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="p4" autocomplete="off"/>
       </div>
     </div>
-    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Open Position</button>
+    <button class="bb" onclick="confirmInv()" style="margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Execute Position</button>
     <button onclick="closeM('inv-modal')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer">Cancel</button>
   </div>
 </div>
@@ -2218,7 +2220,24 @@ const TIER_INFO = {
   }
 };
 
+// Reflects the real daily-settlement cycle (UTC+1 day boundary), not fabricated market hours.
+function setMarketStatusChip() {
+  const chip = document.getElementById('mkt-status-chip');
+  if (!chip) return;
+  const now = new Date();
+  const lagosHour = (now.getUTCHours() + 1) % 24; // WAT = UTC+1
+  const settling = lagosHour >= 0 && lagosHour < 1; // brief daily settlement window at day rollover
+  if (settling) {
+    chip.textContent = 'Settling';
+    chip.style.background = 'var(--gd)'; chip.style.color = 'var(--gold)';
+  } else {
+    chip.textContent = 'Active';
+    chip.style.background = 'var(--okd)'; chip.style.color = 'var(--ok)';
+  }
+}
+
 function renderPlans() {
+  setMarketStatusChip();
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
     const info = TIER_INFO[p.tier];
@@ -2246,7 +2265,7 @@ function renderPlans() {
         <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
         <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
       </div>
-      <div class="pi-daily">Daily Returns: <strong>${fmt(p.daily)}</strong> for 60 days</div>
+      <div class="pi-daily">Daily Yield Target: <strong>${fmt(p.daily)}</strong> for 60 days</div>
       <button class="pi-cta" style="${bs}">Open Position — ${fmt(p.invest)}</button>
     </div>`;
   }).join('');
@@ -2280,18 +2299,18 @@ function renderClaims() {
 
   document.getElementById('claim-total-val').textContent = fmt(totalClaimable);
   document.getElementById('claim-total-sub').textContent = claimable.length
-    ? `${claimable.length} position${claimable.length!==1?'s':''} ready to claim`
-    : claimed.length === active.length ? 'All claimed today · Come back tomorrow' : 'No returns available right now';
+    ? `${claimable.length} position${claimable.length!==1?'s':''} ready to realise`
+    : claimed.length === active.length ? 'All realised today · Resets tomorrow' : 'No unrealised yield right now';
 
-  // Show claim-all button only when 2+ positions claimable
+  // Show realise-all button only when 2+ positions claimable
   const wrap = document.getElementById('claim-all-wrap');
   const allBtn = document.getElementById('claim-all-btn');
   if (wrap && allBtn) {
     wrap.style.display = claimable.length >= 2 ? 'block' : 'none';
-    if (claimable.length >= 2) allBtn.textContent = `Claim All — ${fmt(totalClaimable)}`;
+    if (claimable.length >= 2) allBtn.textContent = `Realise All — ${fmt(totalClaimable)}`;
   }
 
-  // Render each position as a card
+  // Render each position as a broker-style card: entry value, current value, unrealised gain %
   c.innerHTML = active.map(inv => {
     const t   = TC[inv.tier] || TC.Starter;
     const day = dayElapsed(inv);
@@ -2299,14 +2318,20 @@ function renderClaims() {
     const claimedCount = (inv.claimed||[]).length;
     const isClaimed = hasClaimed(inv);
     const canC = canClaim(inv);
+    const daysLeft = Math.max(0, 60 - day);
+
+    const entryVal   = inv.invest;
+    const realisedSoFar = inv.totalClaimed || (claimedCount * inv.daily);
+    const currentVal = entryVal + realisedSoFar;
+    const gainPct = entryVal > 0 ? ((realisedSoFar/entryVal)*100).toFixed(1) : '0.0';
 
     let actionEl = '';
     if (isClaimed) {
-      actionEl = `<div class="pcc-claimed-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Claimed today · Returns in wallet</div>`;
+      actionEl = `<div class="pcc-claimed-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Realised today · In wallet</div>`;
     } else if (canC) {
       actionEl = `<button class="pcc-claim-btn" id="claim-btn-${inv.id}" style="background:${t.r};color:#fff" onclick="doClaimSingle('${inv.id}',this)">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        Claim ${fmt(inv.daily)}
+        Realise ${fmt(inv.daily)}
       </button>`;
     } else {
       actionEl = `<div class="pcc-wait-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Opens tomorrow · Day ${Math.min(day+1,60)} of 60</div>`;
@@ -2323,16 +2348,16 @@ function renderClaims() {
           <div class="pcc-name">${inv.name}</div>
           <div class="pcc-ref">${inv.ref ? 'Ref: '+inv.ref : 'Started '+inv.startDate}</div>
         </div>
-        <div class="pcc-day-chip" style="background:${t.pb};color:${t.r};border:1px solid ${t.pbd}">Day ${day}/60</div>
+        <div class="pcc-day-chip" style="background:${t.pb};color:${t.r};border:1px solid ${t.pbd}">${daysLeft}d left</div>
       </div>
       <div class="pcc-stats">
-        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.daily)}</div><div class="pcc-stat-lbl">Per Day</div></div>
-        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.invest)}</div><div class="pcc-stat-lbl">Allocated</div></div>
-        <div class="pcc-stat"><div class="pcc-stat-val" style="color:var(--ok)">${claimedCount}/60</div><div class="pcc-stat-lbl">Days Claimed</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(entryVal)}</div><div class="pcc-stat-lbl">Entry Value</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(currentVal)}</div><div class="pcc-stat-lbl">Current Value</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val" style="color:var(--ok)">+${gainPct}%</div><div class="pcc-stat-lbl">Unrealised Gain</div></div>
       </div>
       <div class="pcc-progress">
         <div class="pcc-prog-bar"><div class="pcc-prog-fill" style="width:${pct}%;background:${t.r}"></div></div>
-        <div class="pcc-prog-labels"><span>${claimedCount} days claimed</span><span>${60-claimedCount} remaining</span></div>
+        <div class="pcc-prog-labels"><span>${claimedCount} days realised</span><span>${daysLeft} remaining</span></div>
       </div>
       ${actionEl}
     </div>`;
@@ -2469,12 +2494,63 @@ function shareRefCode() {
   }
 }
 
+// Build the portfolio chart strictly from real claim history — cumulative realised
+// returns over time. No simulated/fabricated data points.
+function renderPortfolioChart(invs) {
+  const line = document.getElementById('pch-line');
+  const fill = document.getElementById('pch-fill');
+  const dot  = document.getElementById('pch-dot');
+  const note = document.getElementById('pch-empty-note');
+  if (!line || !fill || !dot) return;
+
+  // Gather every realised claim event across all positions: {date, amount}
+  const events = [];
+  invs.forEach(inv => {
+    (inv.claimed||[]).forEach(dateKey => events.push({ date: dateKey, amount: inv.daily }));
+  });
+
+  if (!events.length) {
+    line.setAttribute('d','M0,60 L390,60');
+    fill.setAttribute('d','M0,60 L390,60Z');
+    dot.setAttribute('cx','390'); dot.setAttribute('cy','60');
+    if (note) note.style.display = 'block';
+    return;
+  }
+  if (note) note.style.display = 'none';
+
+  events.sort((a,b) => a.date.localeCompare(b.date));
+  // Cumulative sum by unique date
+  const byDate = {};
+  events.forEach(e => { byDate[e.date] = (byDate[e.date]||0) + e.amount; });
+  const dates = Object.keys(byDate).sort();
+  let running = 0;
+  const series = dates.map(d => { running += byDate[d]; return running; });
+
+  const maxVal = Math.max(...series, 1);
+  const W = 390, H = 60, PAD = 4;
+  const n = series.length;
+  const pts = series.map((v,i) => {
+    const x = n === 1 ? W : (i/(n-1))*W;
+    const y = H - PAD - ((v/maxVal)*(H-PAD*2));
+    return [Math.round(x*10)/10, Math.round(y*10)/10];
+  });
+
+  const linePath = 'M' + pts.map(p => p.join(',')).join(' L');
+  const fillPath = linePath + ` L${W},${H} L0,${H}Z`;
+
+  line.setAttribute('d', linePath);
+  fill.setAttribute('d', fillPath);
+  const last = pts[pts.length-1];
+  dot.setAttribute('cx', last[0]); dot.setAttribute('cy', last[1]);
+}
+
 function renderPortfolio() {
   if (!_user) return;
   const invs = _user.investments||[];
   document.getElementById('pf-inv').textContent = fmt(invs.reduce((s,i)=>s+i.invest, 0));
   document.getElementById('pf-exp').textContent = fmt(invs.reduce((s,i)=>s+i.total, 0));
   document.getElementById('pf-cl').textContent  = fmt(invs.reduce((s,i)=>s+(i.totalClaimed||0), 0));
+  renderPortfolioChart(invs);
   const c = document.getElementById('port-c');
   if (!invs.length) {
     c.innerHTML = emptyHTML(
@@ -2496,7 +2572,7 @@ function renderPortfolio() {
         <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
       <div class="pc-amts">
-        <div><div class="pc-al">In Trades</div><div class="pc-av">${fmt(inv.invest)}</div></div>
+        <div><div class="pc-al">Deployed</div><div class="pc-av">${fmt(inv.invest)}</div></div>
         <div><div class="pc-al">Total Return</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
         <div><div class="pc-al">Claimed</div><div class="pc-av ok">${fmt(inv.totalClaimed||0)}</div></div>
       </div>
