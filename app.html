@@ -1066,11 +1066,24 @@ body.dark #splash{background:var(--void)}
       <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Realised</div></div>
       <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Markets</div></div>
     </div>
-    <div class="prof-sec">
-      <div class="prof-sec-title">Referral</div>
-      <div class="prof-row"><span class="prof-row-lbl">Your Code</span><span class="prof-row-val" id="prof-refcode" style="color:var(--gold);letter-spacing:.08em">—</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">People Referred</span><span class="prof-row-val" id="prof-refcount">0</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">Referral Earnings</span><span class="prof-row-val ok" id="prof-refearned">₦0</span></div>
+    <div class="prof-sec" style="background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.02));border-color:var(--gb);padding:18px;border-radius:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div style="font-family:var(--d);font-size:15px;font-weight:600;color:var(--plat)">Refer &amp; Earn</div>
+      </div>
+      <div style="font-size:11px;color:var(--sil);line-height:1.55;margin-bottom:14px">Share your code — when a friend makes their first deposit, you both get <strong style="color:var(--gold)">₦2,000</strong>.</div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin-bottom:12px">
+        <div style="flex:1;font-family:var(--d);font-size:15px;font-weight:700;letter-spacing:.1em;color:var(--plat)" id="prof-ref-code-big">—</div>
+        <button onclick="copyRefCode()" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">Copy</button>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px">
+        <div style="flex:1;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px;text-align:center"><div style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--plat)" id="prof-refcount">0</div><div style="font-size:8.5px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Referrals</div></div>
+        <div style="flex:1;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px;text-align:center"><div style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--ok)" id="prof-refearned">₦0</div><div style="font-size:8.5px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Earned</div></div>
+      </div>
+      <button onclick="shareRefCode()" style="width:100%;padding:12px;background:var(--plat);color:var(--void);border:none;border-radius:10px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Share My Referral Link
+      </button>
     </div>
     <div class="prof-sec">
       <div class="prof-sec-title">Account</div>
@@ -1108,8 +1121,6 @@ body.dark #splash{background:var(--void)}
     <div class="um-meta" id="um-meta">Member</div>
     <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
-    <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
-    <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
     <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
     <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
   </div>
@@ -1288,22 +1299,41 @@ body.dark #splash{background:var(--void)}
 
 <!-- INVEST MODAL -->
 <div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
-  <div class="msheet">
+  <div class="msheet" style="padding-top:0">
     <div class="m-handle"></div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil);margin-bottom:4px">Order Ticket</div>
-    <div class="m-title" id="m-t">Open Position</div>
-    <div class="m-sub" id="m-s">Review details before confirming.</div>
-    <div class="m-prev">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:38px;height:38px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.5 8.5L13 14l-4-4-4.5 4.5"/></svg>
+      </div>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil)">Order Ticket</div>
+        <div class="m-title" id="m-t" style="margin-bottom:0">Open Position</div>
+      </div>
+    </div>
+    <div class="m-sub" id="m-s" style="margin-top:-8px">Review details before confirming.</div>
+
+    <div class="m-prev" style="background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.02));border-color:var(--gb)">
       <div><div class="mp-lbl">Allocation</div><div class="mp-val" id="m-inv">—</div></div>
-      <div class="mp-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="mp-arr" style="width:30px;height:30px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       <div style="text-align:right"><div class="mp-lbl">Projected Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
     </div>
-    <div class="md-row"><span>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
-    <div class="md-row"><span>Duration</span><strong>60 days · must realise daily</strong></div>
-    <div class="md-row"><span>Projected ROI</span><strong class="g">200%</strong></div>
-    <div class="md-row"><span>Your balance</span><strong id="m-bal">—</strong></div>
-    <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
+
+    <!-- receipt-style perforated divider -->
+    <div style="position:relative;height:1px;margin:2px 0 10px;border-top:1px dashed var(--b2)">
+      <div style="position:absolute;left:-22px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--void)"></div>
+      <div style="position:absolute;right:-22px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--void)"></div>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:2px 12px;margin-bottom:12px">
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Duration</span><strong>60 days · daily</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>Projected ROI</span><strong class="g">200%</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Your balance</span><strong id="m-bal">—</strong></div>
+      <div class="md-row" style="border-bottom:none"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Balance after</span><strong id="m-after">—</strong></div>
+    </div>
+
     <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Returns are projected, not guaranteed. Miss a day and that day's yield is permanently forfeited.</div>
+
     <div class="pin-sec">
       <label class="pin-lbl">Enter your 4-digit Trade PIN</label>
       <div class="pin-row">
@@ -1508,26 +1538,49 @@ body.dark #splash{background:var(--void)}
 
 <!-- PIN CHANGE MODAL -->
 <div class="overlay" id="pin-modal" onclick="mClose(event,'pin-modal')">
-  <div class="msheet">
+  <div class="msheet" style="padding-top:0">
     <div class="m-handle"></div>
-    <div class="m-title">Change Trade PIN</div>
-    <div class="m-sub">Enter your current PIN, then set a new one.</div>
-    <div style="margin-bottom:14px">
-      <label class="pin-lbl">Current PIN</label>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:38px;height:38px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div>
+        <div class="m-title" style="margin-bottom:0">Change Trade PIN</div>
+        <div class="m-sub" style="margin-bottom:0">Secures every position you open.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+        <label class="pin-lbl" style="margin-bottom:0">Current PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp1" autocomplete="off" oninput="pa(this,'cp2')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp2" autocomplete="off" oninput="pa(this,'cp3')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp3" autocomplete="off" oninput="pa(this,'cp4')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp4" autocomplete="off"/>
       </div>
-      <label class="pin-lbl" style="margin-top:14px">New PIN</label>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+        <label class="pin-lbl" style="margin-bottom:0">New PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1" autocomplete="off" oninput="pa(this,'np2')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2" autocomplete="off" oninput="pa(this,'np3')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np3" autocomplete="off" oninput="pa(this,'np4')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np4" autocomplete="off"/>
       </div>
-      <label class="pin-lbl" style="margin-top:14px">Confirm New PIN</label>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+        <label class="pin-lbl" style="margin-bottom:0">Confirm New PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1b" autocomplete="off" oninput="pa(this,'np2b')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2b" autocomplete="off" oninput="pa(this,'np3b')"/>
@@ -4104,7 +4157,7 @@ async function renderProfile() {
   if (el('prof-avatar')) el('prof-avatar').textContent = initials;
   if (el('prof-name'))   el('prof-name').textContent = _user.name || '—';
   if (el('prof-since'))  el('prof-since').textContent = 'Member since ' + ((_user.createdAt||'').slice(0,10) || 'N/A');
-  if (el('prof-refcode')) el('prof-refcode').textContent = _user.refCode || '—';
+  if (el('prof-ref-code-big')) el('prof-ref-code-big').textContent = _user.refCode || '—';
 
   const invs = _user.investments||[];
   const totalInvested = invs.reduce((s,i)=>s+i.invest,0);
