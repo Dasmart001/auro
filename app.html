@@ -371,7 +371,7 @@ body::after{display:none}
 .ni-ico{width:20px;height:20px;display:flex;align-items:center;justify-content:center;position:relative}
 .ni-ico svg{width:19px;height:19px;color:var(--sil);transition:color .2s}
 .ni.active .ni-ico svg{color:var(--gold)}
-.ni-lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sil);transition:color .2s}
+.ni-lbl{font-size:8px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--sil);transition:color .2s;white-space:nowrap}
 .ni.active .ni-lbl{color:var(--gold)}
 .ni-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;margin-top:1px;transition:opacity .2s}
 .ni.active .ni-dot{opacity:1}
@@ -673,10 +673,65 @@ body.dark #splash{background:var(--void)}
 .adm-input-lbl{font-size:10px;color:var(--sil);margin-bottom:4px}
 .adm-input{font-size:12px;padding:9px 11px}
 
-.pi-sparkline-wrap{position:relative;margin:10px 0 8px;height:40px}
-.pi-sparkline{width:100%;height:40px;display:block}
-.pi-mkt-status{position:absolute;top:4px;right:0;display:flex;align-items:center;gap:4px;font-size:9px;font-weight:600;color:var(--ok);letter-spacing:.04em;text-transform:uppercase}
-.pi-mkt-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);animation:pls 2.2s ease infinite}
+/* ── EARN TAB ───────────────────── */
+.earn-pills{display:flex;gap:8px;padding:0 22px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.earn-pills::-webkit-scrollbar{display:none}
+.earn-pill{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:20px;border:1px solid var(--b1);background:var(--s1);font-size:12px;font-weight:600;color:var(--sil);cursor:pointer;transition:all .2s;white-space:nowrap}
+.earn-pill.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.earn-sec{display:none;padding:0 16px 16px}
+.earn-sec.active{display:block}
+.game-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rx);padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
+.game-icn{width:34px;height:34px;border-radius:10px;background:var(--gd);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.game-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.game-head-t{font-family:var(--d);font-size:15px;font-weight:700;color:var(--plat)}
+.game-head-s{font-size:10px;color:var(--sil)}
+.stake-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.stake-chip{flex:1;min-width:64px;text-align:center;padding:9px 6px;border-radius:10px;border:1.5px solid var(--b1);background:var(--s2);font-size:12px;font-weight:700;color:var(--plat);cursor:pointer;transition:all .18s}
+.stake-chip.sel{border-color:var(--gold);background:var(--gd);color:var(--gold)}
+.stake-input{width:100%;background:var(--s2);border:1.5px solid var(--b1);border-radius:11px;padding:12px 14px;font-family:var(--d);font-size:15px;font-weight:700;color:var(--plat);outline:none;margin-bottom:10px}
+.stake-input:focus{border-color:var(--gb)}
+.stake-input::placeholder{font-family:var(--b);font-weight:400;color:var(--dim);font-size:12px}
+.game-btn{width:100%;padding:14px;border:none;border-radius:12px;background:var(--gold);color:#fff;font-family:var(--d);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.game-btn:hover{background:var(--gold2)}
+.game-btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* Coin flip */
+.cf-stage{display:flex;align-items:center;justify-content:center;padding:26px 0 30px;perspective:800px}
+.cf-coin{width:110px;height:110px;position:relative;transform-style:preserve-3d;transition:transform 2.1s cubic-bezier(.15,.85,.25,1)}
+.cf-face{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:14px;font-weight:800;color:#fff;backface-visibility:hidden;letter-spacing:.05em;box-shadow:inset 0 -8px 16px rgba(0,0,0,.25),0 8px 20px rgba(67,56,236,.3)}
+.cf-face.heads{background:linear-gradient(135deg,var(--gold),var(--gold2))}
+.cf-face.tails{background:linear-gradient(135deg,#232649,#3A3D5C);transform:rotateY(180deg)}
+.cf-choice-row{display:flex;gap:10px;margin-bottom:14px}
+.cf-choice{flex:1;padding:12px;border-radius:12px;border:1.5px solid var(--b1);background:var(--s2);text-align:center;font-size:13px;font-weight:700;color:var(--sil);cursor:pointer;transition:all .2s}
+.cf-choice.sel{border-color:var(--gold);background:var(--gd);color:var(--gold)}
+
+/* Predictions */
+.pm-asset-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pm-asset-row::-webkit-scrollbar{display:none}
+.pm-asset{flex-shrink:0;padding:8px 15px;border-radius:20px;border:1.5px solid var(--b1);background:var(--s2);font-size:12px;font-weight:700;color:var(--plat);cursor:pointer;transition:all .18s}
+.pm-asset.sel{border-color:var(--gold);background:var(--gd);color:var(--gold)}
+.pm-price-big{font-family:var(--d);font-size:30px;font-weight:800;color:var(--plat);letter-spacing:-.02em}
+.pm-dir-row{display:flex;gap:10px;margin-bottom:14px}
+.pm-dir{flex:1;padding:16px 8px;border-radius:12px;border:1.5px solid var(--b1);background:var(--s2);text-align:center;cursor:pointer;transition:all .2s;color:var(--sil)}
+.pm-dir.up.sel{background:var(--okd);border-color:var(--okb);color:var(--ok)}
+.pm-dir.down.sel{background:var(--errd);border-color:var(--errb);color:var(--err)}
+.pm-timer{font-family:var(--d);font-size:22px;font-weight:800;color:var(--gold)}
+.pm-live-card{background:var(--s2);border:1px solid var(--b1);border-radius:14px;padding:14px}
+
+/* Aviator */
+.av-history{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.av-history::-webkit-scrollbar{display:none}
+.av-hist-chip{flex-shrink:0;padding:5px 9px;border-radius:8px;font-size:10px;font-weight:700}
+.av-hist-chip.win{background:var(--okd);color:var(--ok)}
+.av-hist-chip.loss{background:var(--errd);color:var(--err)}
+.av-stage{background:linear-gradient(180deg,#13152E,#1E2142);border-radius:16px;height:210px;position:relative;overflow:hidden;margin-bottom:14px}
+.av-status-chip{position:absolute;top:12px;left:12px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;z-index:2}
+.av-mult{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--d);font-size:36px;font-weight:800;color:#fff;z-index:2;transition:color .2s}
+.av-mult.crashed{color:#FF6B6B}
+.av-path{position:absolute;inset:0;width:100%;height:100%}
+
+/* Markets teaser card inside Earn */
+.earn-mkt-teaser{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#fff}
 </style>
 </head>
 <body>
@@ -783,7 +838,7 @@ body.dark #splash{background:var(--void)}
         <div class="bc-today-sub" id="bc-sub-text">Fund wallet to open positions</div>
       </div>
       <div class="bc-acts">
-        <button class="ba ba-g" onclick="go('p-plans','n-plans')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Trade</button>
+        <button class="ba ba-g" onclick="go('p-plans','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Trade</button>
         <button class="ba ba-g2" onclick="go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>Deposit</button>
         <button class="ba ba-o" onclick="go('p-withdraw','n-withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
       </div>
@@ -791,15 +846,15 @@ body.dark #splash{background:var(--void)}
 
     <!-- PERFORMANCE STRIP -->
     <div class="perf-strip">
-      <div class="pf-tile" style="--pft:var(--gb);--pfc:var(--gold)"><div class="pf-val" id="h-invested">₦0</div><div class="pf-lbl">Deployed</div></div>
-      <div class="pf-tile" style="--pft:var(--okb);--pfc:var(--ok)"><div class="pf-val" id="h-earned">₦0</div><div class="pf-lbl">Realised</div></div>
-      <div class="pf-tile" style="--pft:rgba(124,58,237,.3);--pfc:#7C3AED"><div class="pf-val" id="h-active">0</div><div class="pf-lbl">Positions</div></div>
+      <div class="pf-tile" style="--pft:var(--gb);--pfc:var(--gold)"><div class="pf-val" id="h-invested">₦0</div><div class="pf-lbl">Deployed Capital</div></div>
+      <div class="pf-tile" style="--pft:var(--okb);--pfc:var(--ok)"><div class="pf-val" id="h-earned">₦0</div><div class="pf-lbl">Total Realised</div></div>
+      <div class="pf-tile" style="--pft:rgba(124,58,237,.3);--pfc:#7C3AED"><div class="pf-val" id="h-active">0</div><div class="pf-lbl">Active Positions</div></div>
     </div>
 
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
-      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Ready to Claim</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
-      <button onclick="go('p-claim','n-claim')" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Now</button>
+      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Yield</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
+      <button onclick="go('p-claim','n-claim')" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
     </div>
 
     <!-- ACTIVE POSITIONS -->
@@ -827,9 +882,136 @@ body.dark #splash{background:var(--void)}
 
   <!-- PLANS -->
   <div class="page" id="p-plans">
-    <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
-    <div class="ph"><div class="ph-t">Markets</div><div class="ph-s">36 markets · Daily yield targets · PIN secured</div></div>
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="ph"><div class="ph-t">Yield Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">36 markets · Projected 200% yield · Daily settlement · PIN secured</div></div>
     <div class="plan-wrap" id="plans-c"></div>
+  </div>
+
+  <!-- EARN -->
+  <div class="page" id="p-earn">
+    <div class="tb">
+      <div class="logo">AURO<sup>®</sup></div>
+      <div class="tb-r"><div style="background:var(--gd);border:1px solid var(--gb);border-radius:20px;padding:8px 14px;font-family:var(--d);font-size:12px;font-weight:800;color:var(--gold)" id="earn-bal">₦0</div></div>
+    </div>
+    <div class="ph"><div class="ph-t">Earn</div><div class="ph-s">Fast markets &amp; instant games · Play responsibly</div></div>
+
+    <div class="earn-pills">
+      <div class="earn-pill active" data-tab="pred" onclick="switchEarnTab('pred')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Predictions</div>
+      <div class="earn-pill" data-tab="aviator" onclick="switchEarnTab('aviator')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Aviator</div>
+      <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg> Coin Flip</div>
+      <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> 200% Markets</div>
+    </div>
+
+    <!-- PREDICTIONS -->
+    <div class="earn-sec active" id="earn-pred">
+      <div class="game-card">
+        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="game-head-t">Crypto Flash Prediction</div><div class="game-head-s">60-second rounds · Call the next move</div></div></div>
+
+        <div class="pm-asset-row" id="pm-assets">
+          <div class="pm-asset sel" data-a="BTC" onclick="pmPickAsset('BTC')">₿ BTC</div>
+          <div class="pm-asset" data-a="ETH" onclick="pmPickAsset('ETH')">Ξ ETH</div>
+          <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')">◎ SOL</div>
+        </div>
+
+        <div id="pm-idle">
+          <div style="text-align:center;padding:2px 0 16px">
+            <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Live Price</div>
+            <div class="pm-price-big" id="pm-price">—</div>
+          </div>
+          <div class="pm-dir-row">
+            <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+              <div style="font-weight:700;font-size:13px">Up</div>
+            </div>
+            <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 18l-9.5-9.5-5 5L1 6"/><path d="M17 18h6v-6"/></svg>
+              <div style="font-weight:700;font-size:13px">Down</div>
+            </div>
+          </div>
+          <div class="stake-row" id="pm-stakes">
+            <div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div>
+            <div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div>
+            <div class="stake-chip" data-v="1000" onclick="pmSetStake(1000)">₦1,000</div>
+            <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
+          </div>
+          <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Correct call pays <strong style="color:var(--ok)">1.85×</strong> · Round settles in 60 seconds</div>
+          <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
+        </div>
+
+        <div id="pm-live" style="display:none">
+          <div class="pm-live-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Your Call</div><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div></div>
+              <div class="pm-timer" id="pm-timer">60s</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
+              <span>Entry Price</span><strong id="pm-entry" style="color:var(--plat)">—</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil)">
+              <span>Current Price</span><strong id="pm-current" style="color:var(--plat)">—</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card" id="pm-history-card" style="display:none">
+        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Recent Calls</div>
+        <div id="pm-history"></div>
+      </div>
+    </div>
+
+    <!-- AVIATOR -->
+    <div class="earn-sec" id="earn-aviator">
+      <div class="game-card">
+        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div><div><div class="game-head-t">Aviator</div><div class="game-head-s">Cash out before it flies away</div></div></div>
+        <div class="av-history" id="av-history"></div>
+        <div class="av-stage" id="av-stage">
+          <div class="av-status-chip" id="av-status">Ready</div>
+          <div class="av-mult" id="av-mult">1.00×</div>
+          <svg class="av-path" viewBox="0 0 300 220" preserveAspectRatio="none"><path id="av-curve" d="M0,220 L0,220" stroke="#4338EC" stroke-width="3" fill="none"/></svg>
+        </div>
+        <div class="stake-row" id="av-stakes">
+          <div class="stake-chip sel" data-v="100" onclick="avSetStake(100)">₦100</div>
+          <div class="stake-chip" data-v="500" onclick="avSetStake(500)">₦500</div>
+          <div class="stake-chip" data-v="1000" onclick="avSetStake(1000)">₦1,000</div>
+          <div class="stake-chip" data-v="5000" onclick="avSetStake(5000)">₦5,000</div>
+        </div>
+        <input class="stake-input" id="av-custom" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(this.value)"/>
+        <button class="game-btn" id="av-btn" onclick="avStart()">Place Bet — ₦100</button>
+      </div>
+    </div>
+
+    <!-- COIN FLIP -->
+    <div class="earn-sec" id="earn-coinflip">
+      <div class="game-card">
+        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg></div><div><div class="game-head-t">Coin Flip</div><div class="game-head-s">Call it. Double your stake instantly.</div></div></div>
+        <div class="cf-stage"><div class="cf-coin" id="cf-coin"><div class="cf-face heads">HEADS</div><div class="cf-face tails">TAILS</div></div></div>
+        <div class="cf-choice-row">
+          <div class="cf-choice sel" id="cf-heads" onclick="cfPick('heads')">Heads</div>
+          <div class="cf-choice" id="cf-tails" onclick="cfPick('tails')">Tails</div>
+        </div>
+        <div class="stake-row" id="cf-stakes">
+          <div class="stake-chip sel" data-v="100" onclick="cfSetStake(100)">₦100</div>
+          <div class="stake-chip" data-v="200" onclick="cfSetStake(200)">₦200</div>
+          <div class="stake-chip" data-v="500" onclick="cfSetStake(500)">₦500</div>
+          <div class="stake-chip" data-v="1000" onclick="cfSetStake(1000)">₦1,000</div>
+        </div>
+        <input class="stake-input" id="cf-custom" type="number" placeholder="Custom stake (₦)" oninput="cfCustomStake(this.value)"/>
+        <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Payout on win: <strong style="color:var(--ok)" id="cf-payout-preview">₦196</strong> · 1.96×</div>
+        <button class="game-btn" id="cf-flip-btn" onclick="cfFlip()">Flip for ₦100</button>
+      </div>
+    </div>
+
+    <!-- 200% MARKETS TEASER -->
+    <div class="earn-sec" id="earn-markets">
+      <div class="game-card earn-mkt-teaser">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Markets</div>
+        <div style="font-family:var(--d);font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3">Up to 200% ROI over 60 days</div>
+        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 36 markets in 6 tiers. PIN secured.</div>
+        <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
+      </div>
+    </div>
   </div>
 
   <!-- CLAIM -->
@@ -838,16 +1020,16 @@ body.dark #splash{background:var(--void)}
 
     <!-- CLAIM SUMMARY HEADER -->
     <div style="padding:0 20px 16px">
-      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Open Positions</div>
+      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
       <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
-      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Unrealised yield across open positions</div>
+      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
     </div>
 
-    <!-- CLAIM ALL BUTTON (shown when multiple claimable) -->
+    <!-- REALISE ALL BUTTON (shown when multiple claimable) -->
     <div id="claim-all-wrap" style="display:none;padding:0 20px 16px">
       <button id="claim-all-btn" onclick="claimAll()" style="width:100%;padding:14px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-family:var(--d);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        Realise All Yields
+        Realise All Returns
       </button>
     </div>
 
@@ -989,7 +1171,7 @@ body.dark #splash{background:var(--void)}
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
     <div class="ph"><div class="ph-t">Withdraw</div><div class="ph-s">Send your earnings to any Nigerian bank account.</div></div>
     <div style="padding:0 16px">
-      <div class="avail"><div><div class="av-lbl">Portfolio Value</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
+      <div class="avail"><div><div class="av-lbl">Withdrawable Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
       <label class="fl">Withdrawal Amount</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
       <div class="qrow">
@@ -1043,17 +1225,18 @@ body.dark #splash{background:var(--void)}
       <svg class="pch-svg" viewBox="0 0 390 60" preserveAspectRatio="none" fill="none">
         <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4338EC" stop-opacity=".2"/><stop offset="100%" stop-color="#4338EC" stop-opacity="0"/></linearGradient></defs>
         <line x1="0" y1="15" x2="390" y2="15" stroke="rgba(17,20,43,.07)"/><line x1="0" y1="30" x2="390" y2="30" stroke="rgba(17,20,43,.07)"/><line x1="0" y1="45" x2="390" y2="45" stroke="rgba(17,20,43,.07)"/>
-        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5 L390,60 L0,60Z" fill="url(#cg)"/>
-        <path d="M0,58 L70,52 L140,44 L200,34 L260,24 L320,14 L380,7 L390,5" stroke="var(--gold)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <circle cx="390" cy="5" r="3" fill="var(--gold)"/>
+        <path id="pch-fill" d="M0,60 L390,60Z" fill="url(#cg)"/>
+        <path id="pch-line" d="M0,60 L390,60" stroke="var(--gold)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle id="pch-dot" cx="390" cy="60" r="3" fill="var(--gold)"/>
       </svg>
+      <div id="pch-empty-note" style="display:none;text-align:center;font-size:10px;color:var(--sil);padding:6px 0 2px">No realised returns yet — chart fills in as you realise daily yield</div>
       <div class="pch-figs">
-        <div><div class="pch-lbl">Deployed Capital</div><div class="pch-val" id="pf-inv">₦0</div></div>
-        <div style="text-align:center"><div class="pch-lbl">Projected Yield</div><div class="pch-val g" id="pf-exp">₦0</div></div>
+        <div><div class="pch-lbl">Deployed</div><div class="pch-val" id="pf-inv">₦0</div></div>
+        <div style="text-align:center"><div class="pch-lbl">Projected Return</div><div class="pch-val g" id="pf-exp">₦0</div></div>
         <div style="text-align:right"><div class="pch-lbl">Realised</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
       </div>
     </div>
-    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-plans')">Browse Markets</button></div></div>
+    <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-earn')">Browse Markets</button></div></div>
   </div>
 
   <!-- PROFILE -->
@@ -1067,14 +1250,27 @@ body.dark #splash{background:var(--void)}
     </div>
     <div class="prof-stats">
       <div class="prof-stat"><div class="prof-stat-val" id="prof-invested">₦0</div><div class="prof-stat-lbl">Deployed</div></div>
-      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Earned</div></div>
+      <div class="prof-stat"><div class="prof-stat-val ok" id="prof-earned">₦0</div><div class="prof-stat-lbl">Realised</div></div>
       <div class="prof-stat"><div class="prof-stat-val" id="prof-plans">0</div><div class="prof-stat-lbl">Markets</div></div>
     </div>
-    <div class="prof-sec">
-      <div class="prof-sec-title">Referral</div>
-      <div class="prof-row"><span class="prof-row-lbl">Your Code</span><span class="prof-row-val" id="prof-refcode" style="color:var(--gold);letter-spacing:.08em">—</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">People Referred</span><span class="prof-row-val" id="prof-refcount">0</span></div>
-      <div class="prof-row"><span class="prof-row-lbl">Referral Earnings</span><span class="prof-row-val ok" id="prof-refearned">₦0</span></div>
+    <div class="prof-sec" style="background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.02));border-color:var(--gb);padding:18px;border-radius:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div style="font-family:var(--d);font-size:15px;font-weight:600;color:var(--plat)">Refer &amp; Earn</div>
+      </div>
+      <div style="font-size:11px;color:var(--sil);line-height:1.55;margin-bottom:14px">Share your code — when a friend makes their first deposit, you both get <strong style="color:var(--gold)">₦2,000</strong>.</div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin-bottom:12px">
+        <div style="flex:1;font-family:var(--d);font-size:15px;font-weight:700;letter-spacing:.1em;color:var(--plat)" id="prof-ref-code-big">—</div>
+        <button onclick="copyRefCode()" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">Copy</button>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px">
+        <div style="flex:1;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px;text-align:center"><div style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--plat)" id="prof-refcount">0</div><div style="font-size:8.5px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Referrals</div></div>
+        <div style="flex:1;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px;text-align:center"><div style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--ok)" id="prof-refearned">₦0</div><div style="font-size:8.5px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Earned</div></div>
+      </div>
+      <button onclick="shareRefCode()" style="width:100%;padding:12px;background:var(--plat);color:var(--void);border:none;border-radius:10px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Share My Referral Link
+      </button>
     </div>
     <div class="prof-sec">
       <div class="prof-sec-title">Account</div>
@@ -1098,7 +1294,7 @@ body.dark #splash{background:var(--void)}
 <!-- BOTTOM NAV -->
 <nav class="bnav">
   <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-plans" onclick="go('p-plans','n-plans')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="ni-lbl">Markets</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-earn" onclick="go('p-earn','n-earn')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><div class="ni-lbl">Earn</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Positions</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-deposit" onclick="go('p-deposit','n-deposit')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg></div><div class="ni-lbl">Deposit</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-withdraw" onclick="go('p-withdraw','n-withdraw')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg></div><div class="ni-lbl">Withdraw</div><div class="ni-dot"></div></div>
@@ -1112,8 +1308,6 @@ body.dark #splash{background:var(--void)}
     <div class="um-meta" id="um-meta">Member</div>
     <div class="um-item" onclick="closeUserMenu();go('p-profile','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My Profile</div>
     <div class="um-item" onclick="closeUserMenu();go('p-portfolio','n-none')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>My Portfolio</div>
-    <div class="um-item" onclick="closeUserMenu();openPinChange()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Change PIN</div>
-    <div class="um-item" onclick="closeUserMenu();openTos()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Terms of Service</div>
     <div class="um-item" onclick="closeUserMenu();openSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Customer Support</div>
     <div class="um-item danger" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign Out</div>
   </div>
@@ -1154,7 +1348,7 @@ body.dark #splash{background:var(--void)}
         <div class="tr-card"><div class="tr-lbl">In Trades</div><div class="tr-val gold" id="tr-invested">—</div><div class="tr-sub">Capital in active trades</div></div>
         <div class="tr-card"><div class="tr-lbl">Total Users</div><div class="tr-val" id="tr-users">—</div><div class="tr-sub">Registered accounts</div></div>
         <div class="tr-card"><div class="tr-lbl">Active Markets</div><div class="tr-val gold" id="tr-plans">—</div><div class="tr-sub">Open positions</div></div>
-        <div class="tr-card"><div class="tr-lbl">Total Realised</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">All-time realised yield</div></div>
+        <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">Withdrawals sent to users</div></div>
         <div class="tr-card"><div class="tr-lbl">Pending Payouts</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
       </div>
       <div class="adm-divider"></div>
@@ -1292,21 +1486,41 @@ body.dark #splash{background:var(--void)}
 
 <!-- INVEST MODAL -->
 <div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
-  <div class="msheet">
+  <div class="msheet" style="padding-top:0">
     <div class="m-handle"></div>
-    <div class="m-title" id="m-t">Open Position</div>
-    <div class="m-sub" id="m-s">Review your order before execution. Returns are market-dependent and not guaranteed.</div>
-    <div class="m-prev">
-      <div><div class="mp-lbl">Allocation</div><div class="mp-val" id="m-inv">—</div></div>
-      <div class="mp-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      <div style="text-align:right"><div class="mp-lbl">Projected Yield</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:38px;height:38px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.5 8.5L13 14l-4-4-4.5 4.5"/></svg>
+      </div>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sil)">Order Ticket</div>
+        <div class="m-title" id="m-t" style="margin-bottom:0">Open Position</div>
+      </div>
     </div>
-    <div class="md-row"><span>Daily claim</span><strong class="g" id="m-daily">—</strong></div>
-    <div class="md-row"><span>Duration</span><strong>60 days · must claim daily</strong></div>
-    <div class="md-row"><span>ROI</span><strong class="g">200%</strong></div>
-    <div class="md-row"><span>Your balance</span><strong id="m-bal">—</strong></div>
-    <div class="md-row"><span>Balance after</span><strong id="m-after">—</strong></div>
-    <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Miss a day = that day's earnings are permanently forfeited</div>
+    <div class="m-sub" id="m-s" style="margin-top:-8px">Review details before confirming.</div>
+
+    <div class="m-prev" style="background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.02));border-color:var(--gb)">
+      <div><div class="mp-lbl">Allocation</div><div class="mp-val" id="m-inv">—</div></div>
+      <div class="mp-arr" style="width:30px;height:30px;border-radius:50%;background:var(--s1);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div style="text-align:right"><div class="mp-lbl">Projected Return</div><div class="mp-val" id="m-ret" style="color:var(--gold)">—</div></div>
+    </div>
+
+    <!-- receipt-style perforated divider -->
+    <div style="position:relative;height:1px;margin:2px 0 10px;border-top:1px dashed var(--b2)">
+      <div style="position:absolute;left:-22px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--void)"></div>
+      <div style="position:absolute;right:-22px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--void)"></div>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:2px 12px;margin-bottom:12px">
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Duration</span><strong>60 days · daily</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>Projected ROI</span><strong class="g">200%</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Your balance</span><strong id="m-bal">—</strong></div>
+      <div class="md-row" style="border-bottom:none"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Balance after</span><strong id="m-after">—</strong></div>
+    </div>
+
+    <div style="background:var(--errd);border:1px solid var(--errb);border-radius:8px;padding:8px 11px;margin-top:6px;font-size:11px;color:var(--err)">⚠ Returns are projected, not guaranteed. Miss a day and that day's yield is permanently forfeited.</div>
+
     <div class="pin-sec">
       <label class="pin-lbl">Enter your 4-digit Trade PIN</label>
       <div class="pin-row">
@@ -1511,26 +1725,49 @@ body.dark #splash{background:var(--void)}
 
 <!-- PIN CHANGE MODAL -->
 <div class="overlay" id="pin-modal" onclick="mClose(event,'pin-modal')">
-  <div class="msheet">
+  <div class="msheet" style="padding-top:0">
     <div class="m-handle"></div>
-    <div class="m-title">Change Trade PIN</div>
-    <div class="m-sub">Enter your current PIN, then set a new one.</div>
-    <div style="margin-bottom:14px">
-      <label class="pin-lbl">Current PIN</label>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:38px;height:38px;border-radius:11px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div>
+        <div class="m-title" style="margin-bottom:0">Change Trade PIN</div>
+        <div class="m-sub" style="margin-bottom:0">Secures every position you open.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+        <label class="pin-lbl" style="margin-bottom:0">Current PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp1" autocomplete="off" oninput="pa(this,'cp2')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp2" autocomplete="off" oninput="pa(this,'cp3')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp3" autocomplete="off" oninput="pa(this,'cp4')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="cp4" autocomplete="off"/>
       </div>
-      <label class="pin-lbl" style="margin-top:14px">New PIN</label>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+        <label class="pin-lbl" style="margin-bottom:0">New PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1" autocomplete="off" oninput="pa(this,'np2')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2" autocomplete="off" oninput="pa(this,'np3')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np3" autocomplete="off" oninput="pa(this,'np4')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np4" autocomplete="off"/>
       </div>
-      <label class="pin-lbl" style="margin-top:14px">Confirm New PIN</label>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 14px 4px;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--gd);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+        <label class="pin-lbl" style="margin-bottom:0">Confirm New PIN</label>
+      </div>
       <div class="pin-row">
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np1b" autocomplete="off" oninput="pa(this,'np2b')"/>
         <input class="pin-f" type="tel" inputmode="numeric" maxlength="1" id="np2b" autocomplete="off" oninput="pa(this,'np3b')"/>
@@ -1663,7 +1900,7 @@ function simToday(u) {
 let _user = null;
 let _unsubUser = null, _unsubDep = null, _unsubWit = null;
 let _myDeps = [], _myWits = [];
-let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null;
+let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null, _unsubAdmPaidWit = null;
 let _unsubAdmHistDep = null, _unsubAdmHistWit = null;
 let _histDeps = [], _histWits = [], _histFilter = 'all';
 
@@ -1699,6 +1936,7 @@ function go(pid, nid) {
       qr.setAttribute('data-loaded', '1');
     }
   }
+  if (pid === 'p-earn' && typeof initEarnPage === 'function') initEarnPage();
 }
 function openUserMenu() { document.getElementById('user-menu').classList.add('open'); }
 function closeUserMenu() { document.getElementById('user-menu').classList.remove('open'); }
@@ -1987,7 +2225,7 @@ async function confirmInv() {
       startDate: newInv.startDate, date: nowISO(), status: 'active'
     }).catch(e => console.warn('Trade log failed:', e));
     closeM('inv-modal');
-    toast('Position executed · Ref: '+ref);
+    toast('Position opened · Ref: '+ref);
   } catch(e) { console.error(e); toast('Error opening position. Check your connection.'); }
   finally { showLoader(false); }
 }
@@ -2223,7 +2461,24 @@ const TIER_INFO = {
   }
 };
 
+// Reflects the real daily-settlement cycle (UTC+1 day boundary), not fabricated market hours.
+function setMarketStatusChip() {
+  const chip = document.getElementById('mkt-status-chip');
+  if (!chip) return;
+  const now = new Date();
+  const lagosHour = (now.getUTCHours() + 1) % 24; // WAT = UTC+1
+  const settling = lagosHour >= 0 && lagosHour < 1; // brief daily settlement window at day rollover
+  if (settling) {
+    chip.textContent = 'Settling';
+    chip.style.background = 'var(--gd)'; chip.style.color = 'var(--gold)';
+  } else {
+    chip.textContent = 'Active';
+    chip.style.background = 'var(--okd)'; chip.style.color = 'var(--ok)';
+  }
+}
+
 function renderPlans() {
+  setMarketStatusChip();
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
     const info = TIER_INFO[p.tier];
@@ -2251,15 +2506,8 @@ function renderPlans() {
         <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
         <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
       </div>
-      <div class="pi-sparkline-wrap">
-          <svg class="pi-sparkline" viewBox="0 0 80 40" fill="none" preserveAspectRatio="none">
-            <defs><linearGradient id="sg-${p.tier}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${t.r}" stop-opacity=".18"/><stop offset="100%" stop-color="${t.r}" stop-opacity="0"/></linearGradient></defs>
-            ${(()=>{const paths={Starter:'M0,30 C8,28 12,20 20,22 C28,24 32,14 40,12 C48,10 52,18 60,16 C68,14 72,8 80,6',Builder:'M0,28 C8,32 12,24 20,26 C28,28 32,18 40,20 C48,22 52,12 60,10 C68,8 72,16 80,14',Growth:'M0,32 C8,26 12,22 20,18 C28,14 32,20 40,16 C48,12 52,8 60,10 C68,12 72,6 80,4',Elite:'M0,26 C8,30 12,22 20,24 C28,26 32,16 40,14 C48,12 52,20 60,18 C68,10 72,8 80,6',Premium:'M0,30 C8,24 12,18 20,20 C28,22 32,12 40,10 C48,14 52,8 60,12 C68,6 72,10 80,8',Sovereign:'M0,28 C8,22 12,16 20,14 C28,12 32,18 40,10 C48,8 52,12 60,8 C68,6 72,4 80,2'};const p2=paths[p.tier]||paths.Starter;return `<path d="${p2} L80,40 L0,40 Z" fill="url(#sg-${p.tier})"/><path d="${p2}" stroke="${t.r}" stroke-width="1.5" fill="none"/>`;})()}
-          </svg>
-          <div class="pi-mkt-status"><div class="pi-mkt-dot"></div>Market Active</div>
-        </div>
-        <div class="pi-daily">Daily Yield Target: <strong>${fmt(p.daily)}</strong> for 60 days</div>
-      <button class="pi-cta" style="${bs}">Open Position · ${fmt(p.invest)}</button>
+      <div class="pi-daily">Daily Yield Target: <strong>${fmt(p.daily)}</strong> for 60 days</div>
+      <button class="pi-cta" style="${bs}">Open Position — ${fmt(p.invest)}</button>
     </div>`;
   }).join('');
 }
@@ -2276,7 +2524,7 @@ function renderClaims() {
       <div style="font-size:40px;margin-bottom:12px">📊</div>
       <div style="font-size:14px;font-weight:700;color:var(--plat);margin-bottom:6px">No Active Positions</div>
       <div style="font-size:12px;color:var(--sil);margin-bottom:20px">Open a market position to start earning daily returns.</div>
-      <button onclick="go('p-plans','n-plans')" style="background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-family:var(--b);font-size:13px;font-weight:700;cursor:pointer">Browse Markets</button>
+      <button onclick="go('p-plans','n-earn')" style="background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-family:var(--b);font-size:13px;font-weight:700;cursor:pointer">Browse Markets</button>
     </div>`;
     document.getElementById('claim-total-val').textContent = '₦0';
     document.getElementById('claim-total-sub').textContent = 'No active positions';
@@ -2292,18 +2540,18 @@ function renderClaims() {
 
   document.getElementById('claim-total-val').textContent = fmt(totalClaimable);
   document.getElementById('claim-total-sub').textContent = claimable.length
-    ? `${claimable.length} position${claimable.length!==1?'s':''} ready to claim`
-    : claimed.length === active.length ? 'All claimed today · Come back tomorrow' : 'No returns available right now';
+    ? `${claimable.length} position${claimable.length!==1?'s':''} ready to realise`
+    : claimed.length === active.length ? 'All realised today · Resets tomorrow' : 'No unrealised yield right now';
 
-  // Show claim-all button only when 2+ positions claimable
+  // Show realise-all button only when 2+ positions claimable
   const wrap = document.getElementById('claim-all-wrap');
   const allBtn = document.getElementById('claim-all-btn');
   if (wrap && allBtn) {
     wrap.style.display = claimable.length >= 2 ? 'block' : 'none';
-    if (claimable.length >= 2) allBtn.textContent = `Realise All Yields — ${fmt(totalClaimable)}`;
+    if (claimable.length >= 2) allBtn.textContent = `Realise All — ${fmt(totalClaimable)}`;
   }
 
-  // Render each position as a card
+  // Render each position as a broker-style card: entry value, current value, unrealised gain %
   c.innerHTML = active.map(inv => {
     const t   = TC[inv.tier] || TC.Starter;
     const day = dayElapsed(inv);
@@ -2311,17 +2559,23 @@ function renderClaims() {
     const claimedCount = (inv.claimed||[]).length;
     const isClaimed = hasClaimed(inv);
     const canC = canClaim(inv);
+    const daysLeft = Math.max(0, 60 - day);
+
+    const entryVal   = inv.invest;
+    const realisedSoFar = inv.totalClaimed || (claimedCount * inv.daily);
+    const currentVal = entryVal + realisedSoFar;
+    const gainPct = entryVal > 0 ? ((realisedSoFar/entryVal)*100).toFixed(1) : '0.0';
 
     let actionEl = '';
     if (isClaimed) {
-      actionEl = `<div class="pcc-claimed-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Yield realised today · Added to portfolio</div>`;
+      actionEl = `<div class="pcc-claimed-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Realised today · In wallet</div>`;
     } else if (canC) {
       actionEl = `<button class="pcc-claim-btn" id="claim-btn-${inv.id}" style="background:${t.r};color:#fff" onclick="doClaimSingle('${inv.id}',this)">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         Realise ${fmt(inv.daily)}
       </button>`;
     } else {
-      actionEl = `<div class="pcc-wait-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Unrealised · Opens Day ${Math.min(day+1,60)}</div>`;
+      actionEl = `<div class="pcc-wait-state"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Opens tomorrow · Day ${Math.min(day+1,60)} of 60</div>`;
     }
 
     const claimableStyle = canC ? `--pcc:${t.r};--pcs:${t.glow}` : '';
@@ -2335,21 +2589,362 @@ function renderClaims() {
           <div class="pcc-name">${inv.name}</div>
           <div class="pcc-ref">${inv.ref ? 'Ref: '+inv.ref : 'Started '+inv.startDate}</div>
         </div>
-        <div class="pcc-day-chip" style="background:${t.pb};color:${t.r};border:1px solid ${t.pbd}">Day ${day}/60</div>
+        <div class="pcc-day-chip" style="background:${t.pb};color:${t.r};border:1px solid ${t.pbd}">${daysLeft}d left</div>
       </div>
       <div class="pcc-stats">
-        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.daily)}</div><div class="pcc-stat-lbl">Daily Target</div></div>
-        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(inv.invest)}</div><div class="pcc-stat-lbl">Entry Value</div></div>
-        <div class="pcc-stat"><div class="pcc-stat-val" style="color:var(--ok)">${claimedCount}/60</div><div class="pcc-stat-lbl">Days Realised</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(entryVal)}</div><div class="pcc-stat-lbl">Entry Value</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val">${fmt(currentVal)}</div><div class="pcc-stat-lbl">Current Value</div></div>
+        <div class="pcc-stat"><div class="pcc-stat-val" style="color:var(--ok)">+${gainPct}%</div><div class="pcc-stat-lbl">Unrealised Gain</div></div>
       </div>
       <div class="pcc-progress">
         <div class="pcc-prog-bar"><div class="pcc-prog-fill" style="width:${pct}%;background:${t.r}"></div></div>
-        <div class="pcc-prog-labels"><span>${claimedCount} days realised</span><span>${60-claimedCount} remaining</span></div>
+        <div class="pcc-prog-labels"><span>${claimedCount} days realised</span><span>${daysLeft} remaining</span></div>
       </div>
       ${actionEl}
     </div>`;
   }).join('');
 }
+// ══════════════════════════════════
+// EARN TAB — Predictions · Aviator · Coin Flip
+// ══════════════════════════════════
+function switchEarnTab(tab) {
+  document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
+  document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
+  if (tab === 'pred' && !_pm.active) pmFetchPrice();
+}
+function renderEarn() {
+  const b = document.getElementById('earn-bal');
+  if (b && _user) b.textContent = fmt(_user.balance || 0);
+  // Keep the three game buttons' enabled/disabled state in sync with the
+  // live balance (e.g. after a deposit or a win/loss elsewhere resolves).
+  pmUpdateBtn(); cfUpdatePreview(); avUpdateBtn();
+}
+function initEarnPage() {
+  cfUpdatePreview();
+  avUpdateBtn();
+  pmUpdateBtn();
+  if (!_pm.active) pmFetchPrice();
+  pmRenderHistory();
+  avRenderHistory();
+}
+async function walletDebit(amount) {
+  await withTimeout(db.collection('users').doc(_user.id).update({
+    balance: firebase.firestore.FieldValue.increment(-amount)
+  }));
+}
+async function walletCredit(amount) {
+  await withTimeout(db.collection('users').doc(_user.id).update({
+    balance: firebase.firestore.FieldValue.increment(amount)
+  }));
+}
+
+// ── COIN FLIP ──────────────────────
+let _cf = { choice: 'heads', stake: 100, flipping: false };
+function cfPick(c) {
+  if (_cf.flipping) return;
+  _cf.choice = c;
+  document.getElementById('cf-heads').classList.toggle('sel', c === 'heads');
+  document.getElementById('cf-tails').classList.toggle('sel', c === 'tails');
+}
+function cfSetStake(v) {
+  if (_cf.flipping) return;
+  _cf.stake = v;
+  document.querySelectorAll('#cf-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
+  const c = document.getElementById('cf-custom'); if (c) c.value = '';
+  cfUpdatePreview();
+}
+function cfCustomStake(v) {
+  if (_cf.flipping) return;
+  _cf.stake = parseInt(v) || 0;
+  document.querySelectorAll('#cf-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
+  cfUpdatePreview();
+}
+function cfUpdatePreview() {
+  const btn = document.getElementById('cf-flip-btn');
+  const short = _user && (_cf.stake || 0) > _user.balance;
+  if (btn && !_cf.flipping) { btn.disabled = !!short; btn.textContent = short ? 'Insufficient balance' : 'Flip for ' + fmt(_cf.stake || 0); }
+  const pv = document.getElementById('cf-payout-preview');
+  if (pv) pv.textContent = fmt(Math.round((_cf.stake || 0) * 1.96));
+}
+async function cfFlip() {
+  if (_cf.flipping) return;
+  if (!_user) { toast('Please sign in first'); return; }
+  const stake = _cf.stake;
+  if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
+  if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
+  const btn = document.getElementById('cf-flip-btn');
+  _cf.flipping = true;
+  if (btn) { btn.disabled = true; btn.textContent = 'Flipping…'; }
+  try { await walletDebit(stake); }
+  catch (e) { toast('Connection error'); _cf.flipping = false; if (btn) { btn.disabled = false; cfUpdatePreview(); } return; }
+
+  const result = Math.random() < 0.5 ? 'heads' : 'tails';
+  const won = result === _cf.choice;
+  const coin = document.getElementById('cf-coin');
+  const spins = 5 + Math.floor(Math.random() * 3);
+  const finalDeg = spins * 360 + (result === 'tails' ? 180 : 0);
+  if (coin) coin.style.transform = `rotateY(${finalDeg}deg)`;
+
+  setTimeout(async () => {
+    if (won) {
+      const payout = Math.round(stake * 1.96);
+      try { await walletCredit(payout); } catch (e) {}
+      toast(`🎉 It's ${result}! You won ${fmt(payout)}`);
+    } else {
+      toast(`It's ${result}. Better luck next flip.`);
+    }
+    if (coin) {
+      coin.style.transition = 'none';
+      coin.style.transform = `rotateY(${result === 'tails' ? 180 : 0}deg)`;
+      void coin.offsetWidth;
+      coin.style.transition = '';
+    }
+    _cf.flipping = false;
+    if (btn) { btn.disabled = false; cfUpdatePreview(); }
+  }, 2200);
+}
+
+// ── CRYPTO FLASH PREDICTIONS ───────
+const PM_SYMS = { BTC: 'BTCUSDT', ETH: 'ETHUSDT', SOL: 'SOLUSDT' };
+let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null };
+let _pmHistory = [];
+function pmPickAsset(a) {
+  if (_pm.active) { toast('Wait for the current round to settle'); return; }
+  _pm.asset = a;
+  document.querySelectorAll('#pm-assets .pm-asset').forEach(el => el.classList.toggle('sel', el.dataset.a === a));
+  pmFetchPrice();
+}
+function pmPickDir(d) {
+  if (_pm.active) return;
+  _pm.dir = d;
+  document.getElementById('pm-up').classList.toggle('sel', d === 'up');
+  document.getElementById('pm-down').classList.toggle('sel', d === 'down');
+}
+function pmSetStake(v) {
+  if (_pm.active) return;
+  _pm.stake = v;
+  document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
+  const c = document.getElementById('pm-custom'); if (c) c.value = '';
+  pmUpdateBtn();
+}
+function pmCustomStake(v) {
+  if (_pm.active) return;
+  _pm.stake = parseInt(v) || 0;
+  document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
+  pmUpdateBtn();
+}
+function pmUpdateBtn() {
+  const btn = document.getElementById('pm-btn');
+  if (!btn || _pm.active) return;
+  const short = _user && (_pm.stake || 0) > _user.balance;
+  btn.disabled = !!short;
+  btn.textContent = short ? 'Insufficient balance' : 'Predict for ' + fmt(_pm.stake || 0);
+}
+async function pmFetchPrice() {
+  const el = document.getElementById('pm-price');
+  try {
+    const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=' + PM_SYMS[_pm.asset]);
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    const p = parseFloat(d.price);
+    if (!p || p <= 0) throw new Error('bad price');
+    if (el && !_pm.active) el.textContent = '$' + p.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    return p;
+  } catch (e) {
+    // Binance can be unreachable (regional blocks, flaky networks). Fall back
+    // to the ticker's own price cache, which already pulls from three
+    // independent providers — same pair, no extra network round trip.
+    const pair = _pm.asset + '/USD';
+    const cached = _dispPrices?.[pair]?.price || _realPrices?.[pair]?.price;
+    if (cached) {
+      if (el && !_pm.active) el.textContent = '$' + cached.toLocaleString('en-US', { maximumFractionDigits: 2 });
+      return cached;
+    }
+    if (el && !_pm.active) el.textContent = 'Price unavailable';
+    return null;
+  }
+}
+async function pmPlaceBet() {
+  if (!_user) { toast('Please sign in first'); return; }
+  if (_pm.active) { toast('A round is already in progress'); return; }
+  if (!_pm.dir) { toast('Choose Up or Down first'); return; }
+  const stake = _pm.stake;
+  if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
+  if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
+  const entryPrice = await pmFetchPrice();
+  if (!entryPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
+  try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
+
+  _pm.active = { asset: _pm.asset, dir: _pm.dir, stake, entryPrice, endsAt: Date.now() + 60000 };
+  document.getElementById('pm-idle').style.display = 'none';
+  document.getElementById('pm-live').style.display = 'block';
+  const ld = document.getElementById('pm-live-dir');
+  ld.textContent = _pm.asset + ' · ' + (_pm.dir === 'up' ? '▲ Up' : '▼ Down');
+  ld.style.color = _pm.dir === 'up' ? 'var(--ok)' : 'var(--err)';
+  document.getElementById('pm-entry').textContent = '$' + entryPrice.toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+  clearInterval(_pm.priceTimer);
+  _pm.priceTimer = setInterval(pmTick, 1000);
+  pmTick();
+}
+async function pmTick() {
+  const a = _pm.active; if (!a) return;
+  const left = Math.max(0, Math.round((a.endsAt - Date.now()) / 1000));
+  const t = document.getElementById('pm-timer'); if (t) t.textContent = left + 's';
+  const cur = await pmFetchPrice();
+  if (cur) {
+    const c = document.getElementById('pm-current');
+    if (c) { c.textContent = '$' + cur.toLocaleString('en-US', { maximumFractionDigits: 2 }); c.style.color = cur >= a.entryPrice ? 'var(--ok)' : 'var(--err)'; }
+  }
+  if (left <= 0) pmSettle();
+}
+async function pmSettle() {
+  const a = _pm.active; if (!a) return;
+  clearInterval(_pm.priceTimer);
+  const exitPrice = (await pmFetchPrice()) || a.entryPrice;
+  const wentUp = exitPrice > a.entryPrice;
+  const flat = exitPrice === a.entryPrice;
+  const won = !flat && ((a.dir === 'up' && wentUp) || (a.dir === 'down' && !wentUp));
+
+  if (flat) {
+    try { await walletCredit(a.stake); } catch (e) {}
+    toast('Price unchanged — stake refunded');
+  } else if (won) {
+    const payout = Math.round(a.stake * 1.85);
+    try { await walletCredit(payout); } catch (e) {}
+    toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
+  } else {
+    toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.dir} call missed`);
+  }
+
+  _pmHistory.unshift({ asset: a.asset, dir: a.dir, won: flat ? null : won, stake: a.stake });
+  _pmHistory = _pmHistory.slice(0, 8);
+  pmRenderHistory();
+
+  _pm.active = null;
+  document.getElementById('pm-idle').style.display = 'block';
+  document.getElementById('pm-live').style.display = 'none';
+  pmUpdateBtn();
+  pmFetchPrice();
+}
+function pmRenderHistory() {
+  const c = document.getElementById('pm-history-card');
+  const h = document.getElementById('pm-history');
+  if (!c || !h) return;
+  if (!_pmHistory.length) { c.style.display = 'none'; return; }
+  c.style.display = 'block';
+  h.innerHTML = _pmHistory.map(x => `<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b1);font-size:12px">
+    <span>${x.asset} · ${x.dir === 'up' ? '▲ Up' : '▼ Down'} · ${fmt(x.stake)}</span>
+    <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
+  </div>`).join('');
+}
+// Background price refresh while browsing Predictions with no active round
+setInterval(() => {
+  const pg = document.getElementById('p-earn');
+  const sec = document.getElementById('earn-pred');
+  if (pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active) pmFetchPrice();
+}, 4000);
+
+// ── AVIATOR ─────────────────────────
+let _av = { stake: 100, running: false, crashPoint: 1, mult: 1, raf: null, cashedOut: false, startTime: 0 };
+let _avHistory = [];
+function avSetStake(v) {
+  if (_av.running) return;
+  _av.stake = v;
+  document.querySelectorAll('#av-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
+  const c = document.getElementById('av-custom'); if (c) c.value = '';
+  avUpdateBtn();
+}
+function avCustomStake(v) {
+  if (_av.running) return;
+  _av.stake = parseInt(v) || 0;
+  document.querySelectorAll('#av-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
+  avUpdateBtn();
+}
+function avUpdateBtn() {
+  const btn = document.getElementById('av-btn');
+  if (!btn || _av.running) return;
+  const short = _user && (_av.stake || 0) > _user.balance;
+  btn.disabled = !!short;
+  btn.textContent = short ? 'Insufficient balance' : 'Place Bet — ' + fmt(_av.stake || 0);
+}
+function avGenCrash() {
+  // ~4% house edge, heavy-tailed distribution, floor 1.00x, cap 50x
+  const r = Math.max(Math.random(), 0.0001);
+  return Math.max(1.00, Math.min(0.96 / r, 50));
+}
+async function avStart() {
+  if (_av.running) return;
+  if (!_user) { toast('Please sign in first'); return; }
+  const stake = _av.stake;
+  if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
+  if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
+  try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
+
+  _av.running = true; _av.cashedOut = false; _av.mult = 1;
+  _av.crashPoint = avGenCrash();
+  _av.startTime = performance.now();
+  document.getElementById('av-status').textContent = 'Flying';
+  document.getElementById('av-mult').classList.remove('crashed');
+  const btn = document.getElementById('av-btn');
+  btn.textContent = 'Cash Out — ' + fmt(stake);
+  btn.onclick = avCashOut;
+  avLoop();
+}
+function avLoop() {
+  const el = document.getElementById('av-mult');
+  const curve = document.getElementById('av-curve');
+  const t = (performance.now() - _av.startTime) / 1000;
+  _av.mult = Math.min(1 + t * t * 0.18 + t * 0.35, _av.crashPoint);
+  if (el) el.textContent = _av.mult.toFixed(2) + '×';
+  if (curve) {
+    const x = Math.min(t * 40, 300);
+    const y = Math.max(220 - (_av.mult - 1) * 40, 10);
+    curve.setAttribute('d', `M0,220 Q${x * 0.6},${220 - ((_av.mult - 1) * 15)} ${x},${y}`);
+  }
+  if (_av.mult >= _av.crashPoint) { avCrash(); return; }
+  _av.raf = requestAnimationFrame(avLoop);
+}
+function avCrash() {
+  _av.running = false;
+  cancelAnimationFrame(_av.raf);
+  document.getElementById('av-status').textContent = 'Crashed';
+  document.getElementById('av-mult').classList.add('crashed');
+  if (!_av.cashedOut) {
+    toast(`💥 Crashed at ${_av.crashPoint.toFixed(2)}× · You lost ${fmt(_av.stake)}`);
+    _avHistory.unshift({ mult: _av.crashPoint, won: false });
+    avRenderHistory();
+  }
+  setTimeout(avReset, 1600);
+}
+async function avCashOut() {
+  if (!_av.running || _av.cashedOut) return;
+  _av.cashedOut = true;
+  cancelAnimationFrame(_av.raf);
+  const mult = _av.mult;
+  const payout = Math.round(_av.stake * mult);
+  try { await walletCredit(payout); } catch (e) {}
+  toast(`✅ Cashed out at ${mult.toFixed(2)}× · You won ${fmt(payout)}`);
+  document.getElementById('av-status').textContent = 'Cashed Out';
+  _av.running = false;
+  _avHistory.unshift({ mult, won: true });
+  avRenderHistory();
+  setTimeout(avReset, 1200);
+}
+function avReset() {
+  _av.mult = 1; _av.cashedOut = false;
+  const el = document.getElementById('av-mult'); if (el) { el.textContent = '1.00×'; el.classList.remove('crashed'); }
+  const curve = document.getElementById('av-curve'); if (curve) curve.setAttribute('d', 'M0,220 L0,220');
+  const st = document.getElementById('av-status'); if (st) st.textContent = 'Ready';
+  const btn = document.getElementById('av-btn');
+  if (btn) { btn.onclick = avStart; avUpdateBtn(); }
+}
+function avRenderHistory() {
+  const h = document.getElementById('av-history'); if (!h) return;
+  _avHistory = _avHistory.slice(0, 10);
+  h.innerHTML = _avHistory.map(x => `<div class="av-hist-chip ${x.won ? 'win' : 'loss'}">${x.mult.toFixed(2)}×</div>`).join('');
+}
+
 // ══════════════════════════════════
 // RENDER — HOME
 // ══════════════════════════════════
@@ -2416,8 +3011,8 @@ function renderHome() {
   // Today chip
   const todayEl = el('h-today-earn');
   const subEl   = el('bc-sub-text');
-  if (todayEl) todayEl.textContent = todC>0?fmt(todC)+' claimable':tEarn>0?fmt(tEarn)+' realised':'₦0 today';
-  if (subEl)   subEl.textContent   = tInv>0?actC+' active position'+(actC!==1?'s':''):'Fund wallet to open positions';
+  if (todayEl) todayEl.textContent = todC>0?fmt(todC)+' claimable':tEarn>0?fmt(tEarn)+' earned':'₦0 today';
+  if (subEl)   subEl.textContent   = tInv>0?actC+' active position'+(actC!==1?'s':''):'Deposit to start trading';
 
   // Claimable banner
   const banner  = el('claim-banner');
@@ -2435,8 +3030,8 @@ function renderHome() {
     posEl.innerHTML = `<div style="text-align:center;padding:24px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:14px">
       <div style="font-size:28px;margin-bottom:8px">📊</div>
       <div style="font-size:13px;font-weight:600;color:var(--plat);margin-bottom:4px">No open positions</div>
-      <div style="font-size:11px;color:var(--sil);margin-bottom:14px">Browse available markets and open your first position.</div>
-      <button onclick="go('p-plans','n-plans')" style="background:var(--gold);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer">Browse Markets</button>
+      <div style="font-size:11px;color:var(--sil);margin-bottom:14px">Browse our markets and open your first trade</div>
+      <button onclick="go('p-plans','n-earn')" style="background:var(--gold);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-family:var(--b);font-size:12px;font-weight:700;cursor:pointer">Browse Markets</button>
     </div>`;
     return;
   }
@@ -2481,107 +3076,93 @@ function shareRefCode() {
   }
 }
 
-function buildPortfolioChart(invs) {
-  // Build a simple cumulative realised returns SVG line chart
-  const totalRealised = invs.reduce((s,i)=>s+(i.totalClaimed||0),0);
-  if (totalRealised === 0) return '';
+// Build the portfolio chart strictly from real claim history — cumulative realised
+// returns over time. No simulated/fabricated data points.
+function renderPortfolioChart(invs) {
+  const line = document.getElementById('pch-line');
+  const fill = document.getElementById('pch-fill');
+  const dot  = document.getElementById('pch-dot');
+  const note = document.getElementById('pch-empty-note');
+  if (!line || !fill || !dot) return;
 
-  // Collect all claim keys across all investments, build day-by-day cumulative
-  const dailyMap = {};
+  // Gather every realised claim event across all positions: {date, amount}
+  const events = [];
   invs.forEach(inv => {
-    (inv.claimed||[]).forEach(key => {
-      const day = key.split('_d')[0]; // date string
-      dailyMap[day] = (dailyMap[day]||0) + inv.daily;
-    });
+    (inv.claimed||[]).forEach(dateKey => events.push({ date: dateKey, amount: inv.daily }));
   });
-  const days = Object.keys(dailyMap).sort();
-  if (days.length < 2) return '';
 
-  let cum = 0;
-  const points = days.map(d => { cum += dailyMap[d]; return cum; });
-  const maxVal = Math.max(...points);
-  const W = 300, H = 60, PAD = 4;
-  const xs = points.map((_,i) => PAD + (i/(points.length-1))*(W-PAD*2));
-  const ys = points.map(v => H - PAD - (v/maxVal)*(H-PAD*2));
-  const d  = xs.map((x,i) => `${i===0?'M':'L'}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(' ');
-  const area = d + ` L${xs[xs.length-1].toFixed(1)},${H} L${PAD},${H} Z`;
+  if (!events.length) {
+    line.setAttribute('d','M0,60 L390,60');
+    fill.setAttribute('d','M0,60 L390,60Z');
+    dot.setAttribute('cx','390'); dot.setAttribute('cy','60');
+    if (note) note.style.display = 'block';
+    return;
+  }
+  if (note) note.style.display = 'none';
 
-  return `<div style="margin:0 16px 14px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <div>
-        <div style="font-size:10px;color:var(--sil);letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px">Cumulative Yield</div>
-        <div style="font-family:var(--d);font-size:20px;font-weight:700;color:var(--ok)">${fmt(totalRealised)}</div>
-      </div>
-      <div style="font-size:10px;font-weight:700;color:var(--ok);background:var(--okd);border:1px solid var(--okb);padding:4px 10px;border-radius:20px">${days.length} active days</div>
-    </div>
-    <svg viewBox="0 0 ${W} ${H}" width="100%" height="60" preserveAspectRatio="none">
-      <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0FAE6B" stop-opacity=".22"/><stop offset="100%" stop-color="#0FAE6B" stop-opacity="0"/></linearGradient></defs>
-      <path d="${area}" fill="url(#cg)"/>
-      <path d="${d}" stroke="#0FAE6B" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>`;
+  events.sort((a,b) => a.date.localeCompare(b.date));
+  // Cumulative sum by unique date
+  const byDate = {};
+  events.forEach(e => { byDate[e.date] = (byDate[e.date]||0) + e.amount; });
+  const dates = Object.keys(byDate).sort();
+  let running = 0;
+  const series = dates.map(d => { running += byDate[d]; return running; });
+
+  const maxVal = Math.max(...series, 1);
+  const W = 390, H = 60, PAD = 4;
+  const n = series.length;
+  const pts = series.map((v,i) => {
+    const x = n === 1 ? W : (i/(n-1))*W;
+    const y = H - PAD - ((v/maxVal)*(H-PAD*2));
+    return [Math.round(x*10)/10, Math.round(y*10)/10];
+  });
+
+  const linePath = 'M' + pts.map(p => p.join(',')).join(' L');
+  const fillPath = linePath + ` L${W},${H} L0,${H}Z`;
+
+  line.setAttribute('d', linePath);
+  fill.setAttribute('d', fillPath);
+  const last = pts[pts.length-1];
+  dot.setAttribute('cx', last[0]); dot.setAttribute('cy', last[1]);
 }
 
 function renderPortfolio() {
   if (!_user) return;
-  const invs  = _user.investments||[];
-  const tDep  = invs.reduce((s,i)=>s+i.invest, 0);
-  const tProj = invs.reduce((s,i)=>s+i.total, 0);
-  const tReal = invs.reduce((s,i)=>s+(i.totalClaimed||0), 0);
-  document.getElementById('pf-inv').textContent = fmt(tDep);
-  document.getElementById('pf-exp').textContent = fmt(tProj);
-  document.getElementById('pf-cl').textContent  = fmt(tReal);
-
+  const invs = _user.investments||[];
+  document.getElementById('pf-inv').textContent = fmt(invs.reduce((s,i)=>s+i.invest, 0));
+  document.getElementById('pf-exp').textContent = fmt(invs.reduce((s,i)=>s+i.total, 0));
+  document.getElementById('pf-cl').textContent  = fmt(invs.reduce((s,i)=>s+(i.totalClaimed||0), 0));
+  renderPortfolioChart(invs);
   const c = document.getElementById('port-c');
   if (!invs.length) {
     c.innerHTML = emptyHTML(
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
-      'No Positions Yet','Open a position in any market to start building your portfolio.','Browse Markets',"go('p-plans','n-plans')"
+      'Portfolio Empty','No trades yet.','Browse Markets',"go('p-plans','n-earn')"
     ); return;
   }
-
-  // Chart first
-  const chart = buildPortfolioChart(invs);
-
-  // Cards
-  const cards = [...invs].reverse().map(inv => {
-    const t       = TC[inv.tier]||TC.Starter;
-    const claimed = (inv.claimed||[]).length;
-    const pct     = Math.round((claimed/60)*100);
-    const day     = dayElapsed(inv);
-    const done    = !isActive(inv);
-    const realised= inv.totalClaimed||0;
-    const pnlPct  = tDep > 0 ? ((realised/inv.invest)*100).toFixed(1) : '0.0';
-    const daysLeft= Math.max(0, 60-day);
+  c.innerHTML = [...invs].reverse().map(inv => {
+    const t = TC[inv.tier]||TC.Starter;
+    const pct = Math.round(((inv.claimed||[]).length/60)*100);
+    const day = dayElapsed(inv);
+    const done = !isActive(inv);
     return `<div class="pcard">
       <div class="pc-top">
         <div class="pc-left">
           <div class="pc-mark" style="color:${t.r};background:${t.pb};border-color:${t.pbd}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div>
-            <div class="pc-name">${inv.name}</div>
-            <div class="pc-date">Opened ${inv.startDate}${inv.ref?' · '+inv.ref:''}</div>
-          </div>
+          <div><div class="pc-name">${inv.name}</div><div class="pc-date">Started ${inv.startDate}${inv.ref?' · Ref: '+inv.ref:''}</div></div>
         </div>
-        <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Closed':'Active'}</div>
+        <div class="pc-stat ${done?'s-done':'s-act'}">${done?'Completed':'Active'}</div>
       </div>
       <div class="pc-amts">
-        <div><div class="pc-al">Entry Value</div><div class="pc-av">${fmt(inv.invest)}</div></div>
-        <div><div class="pc-al">Projected Yield</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
-        <div><div class="pc-al">Realised</div><div class="pc-av ok">${fmt(realised)}</div></div>
+        <div><div class="pc-al">Deployed</div><div class="pc-av">${fmt(inv.invest)}</div></div>
+        <div><div class="pc-al">Total Return</div><div class="pc-av g" style="color:${t.r}">${fmt(inv.total)}</div></div>
+        <div><div class="pc-al">Claimed</div><div class="pc-av ok">${fmt(inv.totalClaimed||0)}</div></div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--sil);margin-bottom:7px">
-        <span>Daily target: ${fmt(inv.daily)} · ${claimed}/60 days</span>
-        <span style="color:var(--ok);font-weight:600">+${pnlPct}% P&L</span>
-      </div>
+      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Daily: ${fmt(inv.daily)} · ${(inv.claimed||[]).length}/60 · ${missedDays(inv)} missed</div>
       <div class="pc-bar"><div class="pc-bar-f" style="width:${pct}%"></div></div>
-      <div class="pc-bm">
-        <span>${pct}% complete · ${fmt(realised)} of ${fmt(inv.total)} realised</span>
-        <span>${daysLeft > 0 ? daysLeft+' days left' : 'Position closed'}</span>
-      </div>
+      <div class="pc-bm"><span>${pct}% complete · ROI progress: ${Math.round(((inv.totalClaimed||0)/inv.total)*100)}%</span><span>${Math.max(0,60-day)} days left</span></div>
     </div>`;
   }).join('');
-
-  c.innerHTML = chart + cards;
 }
 
 // ══════════════════════════════════
@@ -2603,17 +3184,17 @@ function relTime(iso) {
 function buildNotifFeed() {
   const items = [];
   (_myDeps||[]).forEach(d => {
-    if (d.status==='approved') items.push({time:d.date, color:'#0FAE6B', title:'Funds Credited', desc:fmt(d.amount)+' added to your portfolio.', icon:'<path d="M12 19V5M5 12l7-7 7 7"/>'});
+    if (d.status==='approved') items.push({time:d.date, color:'#0FAE6B', title:'Deposit Successful', desc:fmt(d.amount)+' was added to your balance.', icon:'<path d="M12 19V5M5 12l7-7 7 7"/>'});
     else if (d.status==='pending') items.push({time:d.date, color:'#C98A00', title:'Deposit Pending', desc:fmt(d.amount)+' is awaiting confirmation.', icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'});
     else if (d.status==='rejected') items.push({time:d.date, color:'#EF4444', title:'Deposit Rejected', desc:fmt(d.amount)+' could not be confirmed.', icon:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'});
   });
   (_myWits||[]).forEach(w => {
     if (w.status==='pending') items.push({time:w.date, color:'#C98A00', title:'Withdrawal Requested', desc:fmt(w.amount)+' to '+w.bank+' is being processed.', icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'});
-    else if (w.status==='approved') items.push({time:w.date, color:'#0FAE6B', title:'Withdrawal Settled', desc:fmt(w.amount)+' sent to your '+w.bank+' account.', icon:'<path d="M5 12h14M13 6l6 6-6 6"/>'});
+    else if (w.status==='approved') items.push({time:w.date, color:'#0FAE6B', title:'Withdrawal Sent', desc:fmt(w.amount)+' was sent to your '+w.bank+' account.', icon:'<path d="M5 12h14M13 6l6 6-6 6"/>'});
     else if (w.status==='rejected') items.push({time:w.date, color:'#EF4444', title:'Withdrawal Rejected', desc:fmt(w.amount)+' was refunded to your balance.', icon:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'});
   });
   (_user&&_user.investments||[]).forEach(inv => {
-    items.push({time:inv.startDate, color:'#4338EC', title:'Position Opened', desc:fmt(inv.invest)+' deployed in your '+inv.tier+' market.', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'});
+    items.push({time:inv.startDate, color:'#4338EC', title:'Trade Started', desc:fmt(inv.invest)+' trade started in your '+inv.tier+' plan.', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>'});
   });
   items.sort((a,b)=>(b.time||'').localeCompare(a.time||''));
   return items;
@@ -2626,7 +3207,7 @@ function renderNotifications() {
       <div class="notif-ico" style="color:${n.color};background:${n.color}18;border-color:${n.color}40"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${n.icon}</svg></div>
       <div><div class="ntit">${n.title}</div><div class="ndesc">${n.desc}</div><div class="ntime">${relTime(n.time)}</div></div>
     </div>`).join('') :
-    `<div class="notif"><div class="notif-ico" style="color:var(--gold);background:var(--gd)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Fund your wallet to open your first position.</div><div class="ntime">Just now</div></div></div>`;
+    `<div class="notif"><div class="notif-ico" style="color:var(--gold);background:var(--gd)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ntit">Welcome to AURO</div><div class="ndesc">Your account is active. Deposit funds to start trading and earning daily returns.</div><div class="ntime">Just now</div></div></div>`;
   updateNotifDot(items);
 }
 function updateNotifDot(items) {
@@ -2824,7 +3405,7 @@ async function doClaimSingle(invId, btn) {
       balance:     firebase.firestore.FieldValue.increment(inv.daily),
       totalEarned: firebase.firestore.FieldValue.increment(inv.daily)
     }));
-    toast(fmt(inv.daily)+' realised and added to your portfolio.');
+    toast(fmt(inv.daily)+' claimed and added to your balance');
   } catch(e) { console.error(e); toast('Could not claim. Check your connection.'); }
   finally { showLoader(false); }
 }
@@ -2848,7 +3429,7 @@ async function claimAll() {
       balance:     firebase.firestore.FieldValue.increment(total),
       totalEarned: firebase.firestore.FieldValue.increment(total)
     }));
-    toast(fmt(total)+' realised across all positions.');
+    toast(fmt(total)+' claimed across all positions');
   } catch(e) { console.error(e); toast('Could not claim. Try again.'); }
   finally { showLoader(false); if (btn) { btn.disabled=false; btn.style.opacity='1'; } }
 }
@@ -2856,6 +3437,7 @@ async function claimAll() {
 function rAll() {
   if (!_user) return;
   renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderNotifications(); renderProfile();
+  if (typeof renderEarn === 'function') renderEarn();
   scheduleDailyReminder();
 }
 
@@ -2947,6 +3529,14 @@ function openAdminPanel() {
       const el = document.getElementById('tr-pendwit');
       if (el) el.textContent = fmt(pendTotal);
     });
+  // Listen for approved (sent) withdrawals — this is the real "Total Paid Out" figure
+  if (_unsubAdmPaidWit) _unsubAdmPaidWit();
+  _unsubAdmPaidWit = db.collection('withdrawals').where('status','==','approved')
+    .onSnapshot(snap => {
+      const totalPaidOut = snap.docs.reduce((s,d) => s + (d.data().amount||0), 0);
+      const el = document.getElementById('tr-paid');
+      if (el) el.textContent = fmt(totalPaidOut);
+    }, e => console.error('Paid-out listener error:', e));
   // All users — also powers the treasury
   if (_unsubAdmUsr) _unsubAdmUsr();
   _unsubAdmUsr = db.collection('users')
@@ -2983,7 +3573,6 @@ let _adjSelectedUser = null;
 function renderTreasury(users) {
   const totalWallets  = users.reduce((s,u) => s + (u.balance||0), 0);
   const totalInvested = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).reduce((si,i)=>si+i.invest,0), 0);
-  const totalPaid     = users.reduce((s,u) => s + (u.totalEarned||0), 0);
   const activePlans   = users.reduce((s,u) => s + (u.investments||[]).filter(i=>isActive(i)).length, 0);
 
   const el = id => document.getElementById(id);
@@ -2991,7 +3580,7 @@ function renderTreasury(users) {
   if (el('tr-invested')) el('tr-invested').textContent = fmt(totalInvested);
   if (el('tr-users'))    el('tr-users').textContent    = users.length.toLocaleString('en-NG');
   if (el('tr-plans'))    el('tr-plans').textContent    = activePlans.toLocaleString('en-NG');
-  if (el('tr-paid'))     el('tr-paid').textContent     = fmt(totalPaid);
+  // tr-paid is populated by the dedicated approved-withdrawals listener, not here
 }
 
 function adjSearch() {
@@ -3122,7 +3711,7 @@ async function runFraudScan() {
           <div class="fraud-row"><span>Total Deposits</span><strong>${fmt(deps)}</strong></div>
           <div class="fraud-row"><span>Claimed Earnings</span><strong>${fmt(earned)}</strong></div>
           <div class="fraud-row"><span>Total Withdrawn</span><strong style="color:var(--err)">−${fmt(wits)}</strong></div>
-          <div class="fraud-row"><span>Deployed Capital</span><strong style="color:var(--err)">−${fmt(invested)}</strong></div>
+          <div class="fraud-row"><span>In Trades</span><strong style="color:var(--err)">−${fmt(invested)}</strong></div>
           <div class="fraud-row"><span>Expected Balance</span><strong>${fmt(Math.max(0,expected))}</strong></div>
           <div class="fraud-row"><span>Actual Balance</span><strong style="color:var(--err)">${fmt(u.balance||0)}</strong></div>
           <div class="fraud-disc">
@@ -3215,7 +3804,7 @@ function adjFromRow(uid, name, balance) {
 }
 
 async function editTotalEarned(uid, name, current) {
-  const input = prompt(`Edit Total Realised for ${name}\n\nCurrent: ₦${Math.round(current).toLocaleString('en-NG')}\n\nEnter new value (numbers only):`);
+  const input = prompt(`Edit Total Earned for ${name}\n\nCurrent: ₦${Math.round(current).toLocaleString('en-NG')}\n\nEnter new value (numbers only):`);
   if (input === null) return; // cancelled
   const val = parseFloat(input.replace(/[^0-9.]/g,''));
   if (isNaN(val) || val < 0) { toast('Invalid amount entered.'); return; }
@@ -3226,7 +3815,7 @@ async function editTotalEarned(uid, name, current) {
     const u = _admAllUsers.find(u => u.id === uid);
     if (u) u.totalEarned = val;
     renderTreasury(_admAllUsers);
-    toast(`${name}'s Total Realised updated to ${fmt(val)}`);
+    toast(`${name}'s Total Earned updated to ${fmt(val)}`);
   } catch(e) {
     console.error(e);
     toast('Error updating. Try again.');
@@ -3277,13 +3866,13 @@ function renderAdmUsers(users) {
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div>
           <div class="au-name">${u.name||'(unnamed)'}${banned}</div>
-          <div class="au-info">Portfolio: <strong style="color:var(--gold)">${fmt(u.balance||0)}</strong> · Deployed: ${fmt(totalIn)} · ${act} active</div>
+          <div class="au-info">Balance: <strong style="color:var(--gold)">${fmt(u.balance||0)}</strong> · In Trades: ${fmt(totalIn)} · ${act} active</div>
         </div>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="au-expand">
         <div class="au-expand-row"><span>Joined</span><strong>${joined}</strong></div>
-        <div class="au-expand-row"><span>Total Realised</span><strong>${fmt(earned)}</strong></div>
+        <div class="au-expand-row"><span>Total Earned</span><strong>${fmt(earned)}</strong></div>
         <div class="au-expand-row"><span>Active Trades</span><strong>${act}</strong></div>
         <div class="au-expand-row"><span>Referral Code</span><strong>${u.refCode||'—'}</strong></div>
         <div class="au-expand-row"><span>Status</span><strong style="color:${u.banned?'var(--err)':'var(--ok)'}">${u.banned?'Banned':'Active'}</strong></div>
@@ -4098,7 +4687,7 @@ async function renderProfile() {
   if (el('prof-avatar')) el('prof-avatar').textContent = initials;
   if (el('prof-name'))   el('prof-name').textContent = _user.name || '—';
   if (el('prof-since'))  el('prof-since').textContent = 'Member since ' + ((_user.createdAt||'').slice(0,10) || 'N/A');
-  if (el('prof-refcode')) el('prof-refcode').textContent = _user.refCode || '—';
+  if (el('prof-ref-code-big')) el('prof-ref-code-big').textContent = _user.refCode || '—';
 
   const invs = _user.investments||[];
   const totalInvested = invs.reduce((s,i)=>s+i.invest,0);
@@ -4203,7 +4792,7 @@ async function sendBroadcast() {
 // ══════════════════════════════════
 function exportCSV() {
   if (!_admAllUsers.length) { toast('No user data loaded yet'); return; }
-  const rows = [['Name','Balance','In Trades','Total Realised','Active Markets','Referral Code','Joined']];
+  const rows = [['Name','Balance','In Trades','Total Earned','Active Markets','Referral Code','Joined']];
   _admAllUsers.forEach(u => {
     const invs = u.investments||[];
     const totalInv = invs.reduce((s,i)=>s+i.invest,0);
@@ -4238,7 +4827,7 @@ function showUserHistory(userId) {
   const invs  = u.investments||[];
   document.getElementById('hist-name').textContent = u.name;
   document.getElementById('hist-meta').textContent =
-    `Balance: ${fmt(u.balance||0)} · Deployed: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Realised: ${fmt(u.totalEarned||0)}`;
+    `Balance: ${fmt(u.balance||0)} · In Trades: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
   document.getElementById('hist-body').innerHTML = invs.length ? [...invs].reverse().map(inv => {
     const t = TC[inv.tier]||TC.Starter;
     const done = inv.status==='completed';
