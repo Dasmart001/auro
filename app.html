@@ -129,6 +129,21 @@ body::after{display:none}
 .ba-o{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.26)}.ba-o:hover{background:rgba(255,255,255,.2)}
 
 /* STATS */
+.qa-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 20px}
+.qa-item{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer}
+.qa-item:active{opacity:.7}
+.qa-ico{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.qa-lbl{font-size:10.5px;font-weight:600;color:var(--plat)}
+.lm-row{display:flex;gap:10px;padding:0 16px 20px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.lm-row::-webkit-scrollbar{display:none}
+.lm-card{flex-shrink:0;width:132px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:13px;cursor:pointer;transition:transform .15s}
+.lm-card:active{transform:scale(.96)}
+.lm-top{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.lm-ico{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:8.5px;font-weight:800;color:#fff;flex-shrink:0}
+.lm-sym{font-size:11.5px;font-weight:700;color:var(--plat)}
+.lm-px{font-family:var(--d);font-size:14px;font-weight:700;color:var(--plat);margin-bottom:3px}
+.lm-chg{font-size:10px;font-weight:700}
+.lm-chg.up{color:var(--ok)}.lm-chg.dn{color:var(--err)}
 .perf-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 14px}
 .pf-tile{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:12px;text-align:center;position:relative;overflow:hidden}
 .pf-tile::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:var(--pft,var(--gb));border-radius:2px}
@@ -313,6 +328,21 @@ body::after{display:none}
 .pch-val{font-family:var(--d);font-size:16px;font-weight:600;letter-spacing:-.02em}
 .pch-val.g{color:var(--gold)}.pch-val.ok{color:var(--ok)}
 .pcards{padding:0 16px}
+.pnl-card{margin:0 16px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:18px}
+.pnl-lbl{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
+.pnl-val{font-family:var(--d);font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--plat);margin-bottom:14px}
+.pnl-val.pos{color:var(--ok)}.pnl-val.neg{color:var(--err)}
+.pnl-figs{display:flex;justify-content:space-between;border-top:1px solid var(--b1);padding-top:12px}
+.pnl-fig-lbl{font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.pnl-fig-val{font-family:var(--d);font-size:14px;font-weight:700;color:var(--plat)}
+.pnl-fig-val.pos{color:var(--ok)}.pnl-fig-val.neg{color:var(--err)}
+.ea-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.ea-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ea-mid{flex:1;min-width:0}
+.ea-t{font-size:12.5px;font-weight:600;color:var(--plat)}
+.ea-s{font-size:10px;color:var(--sil);margin-top:1px}
+.ea-pnl{font-family:var(--d);font-size:13px;font-weight:700;text-align:right;flex-shrink:0}
+.ea-pnl.pos{color:var(--ok)}.ea-pnl.neg{color:var(--err)}.ea-pnl.flat{color:var(--sil)}
 .pcard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;margin-bottom:11px}
 .pc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .pc-left{display:flex;align-items:center;gap:10px}
@@ -676,8 +706,8 @@ body.dark #splash{background:var(--void)}
 /* ── EARN TAB ───────────────────── */
 .earn-pills{display:flex;gap:8px;padding:0 22px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .earn-pills::-webkit-scrollbar{display:none}
-.earn-pill{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:20px;border:1px solid var(--b1);background:var(--s1);font-size:12px;font-weight:600;color:var(--sil);cursor:pointer;transition:all .2s;white-space:nowrap}
-.earn-pill.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.earn-pill,.mkt-pill{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:20px;border:1px solid var(--b1);background:var(--s1);font-size:12px;font-weight:600;color:var(--sil);cursor:pointer;transition:all .2s;white-space:nowrap}
+.earn-pill.active,.mkt-pill.active{background:var(--gold);color:#fff;border-color:var(--gold)}
 .earn-sec{display:none;padding:0 16px 16px}
 .earn-sec.active{display:block}
 .game-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rx);padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
@@ -838,11 +868,22 @@ body.dark #splash{background:var(--void)}
         <div class="bc-today-sub" id="bc-sub-text">Fund wallet to open positions</div>
       </div>
       <div class="bc-acts">
-        <button class="ba ba-g" onclick="go('p-plans','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg>Trade</button>
-        <button class="ba ba-g2" onclick="go('p-deposit','n-deposit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>Deposit</button>
-        <button class="ba ba-o" onclick="go('p-withdraw','n-withdraw')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
+        <button class="ba ba-g" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Earn</button>
+        <button class="ba ba-o" onclick="go('p-wallet','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/><path d="M16 12h3"/></svg>Wallet</button>
       </div>
     </div>
+
+    <!-- QUICK ACCESS -->
+    <div class="qa-row">
+      <div class="qa-item" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('pred'),50)"><div class="qa-ico" style="background:var(--gd);color:var(--gold)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="qa-lbl">Predict</div></div>
+      <div class="qa-item" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('aviator'),50)"><div class="qa-ico" style="background:var(--okd);color:var(--ok)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div><div class="qa-lbl">Games</div></div>
+      <div class="qa-item" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('markets'),50)"><div class="qa-ico" style="background:rgba(124,58,237,.14);color:#7C3AED"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg></div><div class="qa-lbl">Yield</div></div>
+      <div class="qa-item" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('refer'),50)"><div class="qa-ico" style="background:rgba(232,114,42,.14);color:#E8722A"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div class="qa-lbl">Refer</div></div>
+    </div>
+
+    <!-- LIVE MARKETS -->
+    <div class="sh"><h2>Live Markets</h2><div class="sh-a" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('pred'),50)">Predict now</div></div>
+    <div class="lm-row" id="home-lm-row"></div>
 
     <!-- PERFORMANCE STRIP -->
     <div class="perf-strip">
@@ -854,37 +895,42 @@ body.dark #splash{background:var(--void)}
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
       <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Yield</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
-      <button onclick="go('p-claim','n-claim')" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
+      <button onclick="openMyPositions()" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
     </div>
 
     <!-- ACTIVE POSITIONS -->
-    <div class="sh"><h2>Active Positions</h2><div class="sh-a" onclick="go('p-portfolio','n-none')">View all</div></div>
-    <div class="positions" id="h-pos"></div>
-
-    <!-- REFERRAL SECTION -->
-    <div class="ref-home" id="home-ref-section">
-      <div class="ref-home-title">🤝 Refer &amp; Earn</div>
-      <div class="ref-home-desc">Share your code. When your friend makes their first deposit, you both earn <strong>₦2,000</strong> instantly.</div>
-      <div class="ref-code-row">
-        <div class="ref-code-val" id="home-ref-code">—</div>
-        <button class="ref-copy-btn" onclick="copyRefCode()">Copy Code</button>
-      </div>
-      <div class="ref-stats-row">
-        <div class="ref-stat"><div class="ref-stat-val" id="home-ref-count">0</div><div class="ref-stat-lbl">Referrals</div></div>
-        <div class="ref-stat"><div class="ref-stat-val" id="home-ref-earned">₦0</div><div class="ref-stat-lbl">Earned</div></div>
-      </div>
-      <button class="ref-share-btn" onclick="shareRefCode()">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-        Share My Referral Link
-      </button>
-    </div>
+    <div class="sh"><h2>Active Positions</h2><div class="sh-a" onclick="go('p-portfolio','n-portfolio')">View all</div></div>
+    <div class="positions" id="h-pos" style="padding-bottom:100px"></div>
   </div>
 
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
     <div class="ph"><div class="ph-t">Yield Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">36 markets · Projected 200% yield · Daily settlement · PIN secured</div></div>
-    <div class="plan-wrap" id="plans-c"></div>
+
+    <div class="earn-pills" style="margin:0 16px 16px;padding:0">
+      <div class="mkt-pill active" id="mkt-tab-browse" onclick="switchPlansTab('browse')">Browse Markets</div>
+      <div class="mkt-pill" id="mkt-tab-positions" onclick="switchPlansTab('positions')">My Positions<div class="cbadge" id="claim-dot-2" style="position:static;display:inline-block;margin-left:5px;transform:none"></div></div>
+    </div>
+
+    <div id="mkt-sec-browse">
+      <div class="plan-wrap" id="plans-c"></div>
+    </div>
+
+    <div id="mkt-sec-positions" style="display:none">
+      <div style="padding:0 20px 16px">
+        <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
+        <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
+        <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
+      </div>
+      <div id="claim-all-wrap" style="display:none;padding:0 20px 16px">
+        <button id="claim-all-btn" onclick="claimAll()" style="width:100%;padding:14px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-family:var(--d);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Realise All Returns
+        </button>
+      </div>
+      <div style="padding:0 16px 100px" id="claim-c"></div>
+    </div>
   </div>
 
   <!-- EARN -->
@@ -900,6 +946,7 @@ body.dark #splash{background:var(--void)}
       <div class="earn-pill" data-tab="aviator" onclick="switchEarnTab('aviator')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Aviator</div>
       <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg> Coin Flip</div>
       <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> 200% Markets</div>
+      <div class="earn-pill" data-tab="refer" onclick="switchEarnTab('refer')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Refer &amp; Earn</div>
     </div>
 
     <!-- PREDICTIONS -->
@@ -1012,34 +1059,54 @@ body.dark #splash{background:var(--void)}
         <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
       </div>
     </div>
+
+    <!-- REFER & EARN -->
+    <div class="earn-sec" id="earn-refer">
+      <div class="ref-home" style="margin:0">
+        <div class="ref-home-title">Refer &amp; Earn</div>
+        <div class="ref-home-desc">Share your code. When your friend makes their first deposit, you both earn <strong>₦2,000</strong> instantly.</div>
+        <div class="ref-code-row">
+          <div class="ref-code-val" id="earn-ref-code">—</div>
+          <button class="ref-copy-btn" onclick="copyRefCode()">Copy Code</button>
+        </div>
+        <div class="ref-stats-row">
+          <div class="ref-stat"><div class="ref-stat-val" id="earn-ref-count">0</div><div class="ref-stat-lbl">Referrals</div></div>
+          <div class="ref-stat"><div class="ref-stat-val" id="earn-ref-earned">₦0</div><div class="ref-stat-lbl">Earned</div></div>
+        </div>
+        <button class="ref-share-btn" onclick="shareRefCode()">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share My Referral Link
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- CLAIM -->
-  <div class="page" id="p-claim">
+  <!-- WALLET -->
+  <div class="page" id="p-wallet">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
+    <div class="ph"><div class="ph-t">Wallet</div><div class="ph-s">Fund your account or withdraw your earnings.</div></div>
 
-    <!-- CLAIM SUMMARY HEADER -->
-    <div style="padding:0 20px 16px">
-      <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
-      <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
-      <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
+    <div class="bc" style="padding:20px 22px">
+      <div class="bc-eye">
+        <div class="pulse"></div>NGN Wallet Balance
+        <button class="eye-btn" id="eye-btn-w" onclick="toggleBal()" aria-label="Toggle balance">
+          <svg id="eye-ico-w" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="bc-num" id="bc-num-wrap-w"><span class="cu">₦</span><span id="w-bal">0</span></div>
+      <div class="bc-acts" style="margin-top:16px">
+        <button class="ba ba-g" onclick="go('p-deposit','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>Deposit</button>
+        <button class="ba ba-o" onclick="go('p-withdraw','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg>Withdraw</button>
+      </div>
     </div>
 
-    <!-- REALISE ALL BUTTON (shown when multiple claimable) -->
-    <div id="claim-all-wrap" style="display:none;padding:0 20px 16px">
-      <button id="claim-all-btn" onclick="claimAll()" style="width:100%;padding:14px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-family:var(--d);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        Realise All Returns
-      </button>
-    </div>
-
-    <!-- POSITION CLAIM CARDS -->
-    <div style="padding:0 16px 100px" id="claim-c"></div>
+    <div class="sh"><h2>Transaction History</h2></div>
+    <div id="wallet-hist" style="padding:0 16px 100px"></div>
   </div>
 
   <!-- DEPOSIT -->
   <div class="page" id="p-deposit">
-    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-wallet','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
 
     <!-- ═══ STEP 1: AMOUNT SELECTION ═══ -->
     <div id="dep-step-1">
@@ -1168,7 +1235,7 @@ body.dark #splash{background:var(--void)}
 
   <!-- WITHDRAW -->
   <div class="page" id="p-withdraw">
-    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-wallet','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
     <div class="ph"><div class="ph-t">Withdraw</div><div class="ph-s">Send your earnings to any Nigerian bank account.</div></div>
     <div style="padding:0 16px">
       <div class="avail"><div><div class="av-lbl">Withdrawable Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
@@ -1219,8 +1286,20 @@ body.dark #splash{background:var(--void)}
 
   <!-- PORTFOLIO -->
   <div class="page" id="p-portfolio">
-    <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-home','n-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Portfolio</div><div class="ph-s">All positions and performance.</div></div>
+    <div class="tb"><div class="logo">AURO<sup>®</sup></div></div>
+    <div class="ph"><div class="ph-t">Portfolio</div><div class="ph-s">Every position and every trade, in one place.</div></div>
+
+    <!-- TOTAL P&L -->
+    <div class="pnl-card">
+      <div class="pnl-lbl">Total Profit &amp; Loss</div>
+      <div class="pnl-val" id="pnl-val">₦0</div>
+      <div class="pnl-figs">
+        <div><div class="pnl-fig-lbl">Yield Realised</div><div class="pnl-fig-val g" id="pnl-yield">₦0</div></div>
+        <div><div class="pnl-fig-lbl">Games Net</div><div class="pnl-fig-val" id="pnl-games">₦0</div></div>
+        <div><div class="pnl-fig-lbl">Referrals</div><div class="pnl-fig-val g" id="pnl-ref">₦0</div></div>
+      </div>
+    </div>
+
     <div class="port-chart">
       <svg class="pch-svg" viewBox="0 0 390 60" preserveAspectRatio="none" fill="none">
         <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4338EC" stop-opacity=".2"/><stop offset="100%" stop-color="#4338EC" stop-opacity="0"/></linearGradient></defs>
@@ -1236,7 +1315,12 @@ body.dark #splash{background:var(--void)}
         <div style="text-align:right"><div class="pch-lbl">Realised</div><div class="pch-val ok" id="pf-cl">₦0</div></div>
       </div>
     </div>
+
+    <div class="sh"><h2>Yield Positions</h2></div>
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-earn')">Browse Markets</button></div></div>
+
+    <div class="sh"><h2>Earn Activity</h2><div class="sh-a" onclick="go('p-earn','n-earn')">Go to Earn</div></div>
+    <div class="pcards" id="earn-activity-c" style="padding-bottom:100px"></div>
   </div>
 
   <!-- PROFILE -->
@@ -1294,10 +1378,9 @@ body.dark #splash{background:var(--void)}
 <!-- BOTTOM NAV -->
 <nav class="bnav">
   <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-earn" onclick="go('p-earn','n-earn')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><div class="ni-lbl">Earn</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-claim" onclick="go('p-claim','n-claim')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Positions</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-deposit" onclick="go('p-deposit','n-deposit')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M19 12l-7 7-7-7"/><path d="M5 19h14"/></svg></div><div class="ni-lbl">Deposit</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-withdraw" onclick="go('p-withdraw','n-withdraw')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/><path d="M5 5h14"/></svg></div><div class="ni-lbl">Withdraw</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-earn" onclick="go('p-earn','n-earn')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Earn</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-portfolio" onclick="go('p-portfolio','n-portfolio')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="ni-lbl">Portfolio</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-wallet" onclick="go('p-wallet','n-wallet')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/><path d="M16 12h3"/><path d="M3 9h18"/></svg></div><div class="ni-lbl">Wallet</div><div class="ni-dot"></div></div>
 </nav>
 
 <!-- USER MENU -->
@@ -2113,6 +2196,7 @@ function startListening(uid) {
       _myDeps = deps;
       renderDepHistory(deps);
       renderNotifications();
+      if (typeof renderWallet === 'function') renderWallet();
     }, e => console.error('Dep listener error:', e));
 
   // Withdrawals
@@ -2123,6 +2207,7 @@ function startListening(uid) {
       _myWits = wits;
       renderWitHistory(wits);
       renderNotifications();
+      if (typeof renderWallet === 'function') renderWallet();
     }, e => console.error('Wit listener error:', e));
 }
 
@@ -2135,8 +2220,6 @@ function updateUserUI() {
   if (el('um-name')) el('um-name').textContent = _user.name;
   if (el('um-meta')) el('um-meta').textContent = 'Member since ' + new Date(_user.createdAt).toLocaleDateString('en-NG',{month:'short',year:'numeric'});
   if (el('w-avail')) el('w-avail').textContent = fmt(_user.balance);
-  // Referral code
-  if (el('home-ref-code')) el('home-ref-code').textContent = _user.refCode || '—';
 }
 
 // ══════════════════════════════════
@@ -2157,7 +2240,10 @@ function missedDays(inv) { return Math.max(0, (dayElapsed(inv)-1) - (inv.claimed
 
 function updDot() {
   const has = _user && (_user.investments||[]).some(i => canClaim(i));
-  document.getElementById('claim-dot').style.display = has ? 'block' : 'none';
+  const d1 = document.getElementById('claim-dot');
+  const d2 = document.getElementById('claim-dot-2');
+  if (d1) d1.style.display = has ? 'block' : 'none';
+  if (d2) d2.style.display = has ? 'inline-block' : 'none';
 }
 
 // ══════════════════════════════════
@@ -2430,6 +2516,31 @@ function renderWitHistory(wits) {
     return `<div class="hist-item"><div><div class="hi-amt">${fmt(w.amount)}</div><div class="hi-sub">${dateStr(w.date)} · ${w.bank}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
   }).join('');
 }
+function renderWallet() {
+  if (!_user) return;
+  const b = document.getElementById('w-bal');
+  if (b) { const wrap = document.getElementById('bc-num-wrap-w'); if (wrap) wrap.classList.toggle('blurred', _balHidden); if (!_balHidden) b.textContent = Math.round(_user.balance||0).toLocaleString('en-NG'); }
+  const c = document.getElementById('wallet-hist');
+  if (!c) return;
+  const deps = (_myDeps||[]).map(d => ({ ...d, kind:'deposit' }));
+  const wits = (_myWits||[]).map(w => ({ ...w, kind:'withdraw' }));
+  const all = [...deps, ...wits].sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  if (!all.length) { c.innerHTML = '<div style="font-size:11px;color:var(--sil);text-align:center;padding:24px 0">No transactions yet — fund your wallet to get started.</div>'; return; }
+  c.innerHTML = all.map(t => {
+    const isDep = t.kind==='deposit';
+    const cls = t.status==='approved'?'hi-a':t.status==='rejected'?'hi-r':'hi-p';
+    const lbl = t.status==='approved'?(isDep?'Approved':'Sent'):t.status==='rejected'?'Rejected':(isDep?'Pending':'Processing');
+    return `<div class="hist-item">
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${isDep?'var(--okd)':'var(--gd)'};color:${isDep?'var(--ok)':'var(--gold)'}">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${isDep?'<path d="M12 19V5M5 12l7 7 7-7"/>':'<path d="M12 5v14M5 12l7-7 7 7"/>'}</svg>
+        </div>
+        <div><div class="hi-amt">${isDep?'+':'-'}${fmt(t.amount)}</div><div class="hi-sub">${isDep?'Deposit':'Withdrawal'} · ${dateStr(t.date)}</div></div>
+      </div>
+      <div class="hi-badge ${cls}">${lbl}</div>
+    </div>`;
+  }).join('');
+}
 
 // ══════════════════════════════════
 // RENDER — PLANS
@@ -2612,6 +2723,18 @@ function switchEarnTab(tab) {
   document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
   if (tab === 'pred' && !_pm.active) pmFetchPrice();
 }
+function switchPlansTab(tab) {
+  document.getElementById('mkt-tab-browse').classList.toggle('active', tab==='browse');
+  document.getElementById('mkt-tab-positions').classList.toggle('active', tab==='positions');
+  document.getElementById('mkt-sec-browse').style.display = tab==='browse' ? '' : 'none';
+  document.getElementById('mkt-sec-positions').style.display = tab==='positions' ? '' : 'none';
+}
+// Jumps straight into Yield Markets with the Positions tab pre-selected —
+// used by the home page claim banner and position preview cards.
+function openMyPositions() {
+  go('p-plans','n-earn');
+  setTimeout(() => switchPlansTab('positions'), 50);
+}
 function renderEarn() {
   const b = document.getElementById('earn-bal');
   if (b && _user) b.textContent = fmt(_user.balance || 0);
@@ -2636,6 +2759,20 @@ async function walletCredit(amount) {
   await withTimeout(db.collection('users').doc(_user.id).update({
     balance: firebase.firestore.FieldValue.increment(amount)
   }));
+}
+// Persistent, cross-session record of every Earn outcome (Predict / Aviator / Coin
+// Flip / Referral). This is what powers the unified Portfolio + P&L view — without
+// it, game results only ever lived in local JS variables and vanished on reload.
+async function logEarn(userId, entry) {
+  try {
+    await db.collection('users').doc(userId).update({
+      earnLedger: firebase.firestore.FieldValue.arrayUnion({
+        id: 'el_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+        ts: nowISO(),
+        ...entry
+      })
+    });
+  } catch (e) { console.error('logEarn error', e); }
 }
 
 // ── COIN FLIP ──────────────────────
@@ -2690,8 +2827,10 @@ async function cfFlip() {
       const payout = Math.round(stake * 1.96);
       try { await walletCredit(payout); } catch (e) {}
       toast(`🎉 It's ${result}! You won ${fmt(payout)}`);
+      logEarn(_user.id, { type:'coinflip', stake, payout, pnl:payout-stake, meta:{ choice:_cf.choice, result } });
     } else {
       toast(`It's ${result}. Better luck next flip.`);
+      logEarn(_user.id, { type:'coinflip', stake, payout:0, pnl:-stake, meta:{ choice:_cf.choice, result } });
     }
     if (coin) {
       coin.style.transition = 'none';
@@ -2809,12 +2948,15 @@ async function pmSettle() {
   if (flat) {
     try { await walletCredit(a.stake); } catch (e) {}
     toast('Price unchanged — stake refunded');
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.dir, result:'push' } });
   } else if (won) {
     const payout = Math.round(a.stake * 1.85);
     try { await walletCredit(payout); } catch (e) {}
     toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.dir, result:'win' } });
   } else {
     toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.dir} call missed`);
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.dir, result:'loss' } });
   }
 
   _pmHistory.unshift({ asset: a.asset, dir: a.dir, won: flat ? null : won, stake: a.stake });
@@ -2914,6 +3056,7 @@ function avCrash() {
     toast(`💥 Crashed at ${_av.crashPoint.toFixed(2)}× · You lost ${fmt(_av.stake)}`);
     _avHistory.unshift({ mult: _av.crashPoint, won: false });
     avRenderHistory();
+    logEarn(_user.id, { type:'aviator', stake:_av.stake, payout:0, pnl:-_av.stake, meta:{ crashPoint:_av.crashPoint, result:'loss' } });
   }
   setTimeout(avReset, 1600);
 }
@@ -2929,6 +3072,7 @@ async function avCashOut() {
   _av.running = false;
   _avHistory.unshift({ mult, won: true });
   avRenderHistory();
+  logEarn(_user.id, { type:'aviator', stake:_av.stake, payout, pnl:payout-_av.stake, meta:{ cashedOutAt:mult, result:'win' } });
   setTimeout(avReset, 1200);
 }
 function avReset() {
@@ -2951,14 +3095,17 @@ function avRenderHistory() {
 let _balHidden = false;
 function toggleBal() {
   _balHidden = !_balHidden;
-  const ic = document.getElementById('eye-ico');
-  if (ic) ic.innerHTML = _balHidden
+  const eyeSVG = _balHidden
     ? '<path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 002.8 2.8"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.5 13.5 0 0 0 1 12s4 7 11 7a9.93 9.93 0 0 0 5-1.34"/>'
     : '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/>';
-  // Blur the number instead of replacing with dots
-  const numWrap = document.getElementById('bc-num-wrap');
-  if (numWrap) numWrap.classList.toggle('blurred', _balHidden);
-  if (!_balHidden) animCount(document.getElementById('h-bal'), _user?.balance||0, 600);
+  // Home and Wallet each show their own balance hero — keep both in sync.
+  [['eye-ico','bc-num-wrap','h-bal'], ['eye-ico-w','bc-num-wrap-w','w-bal']].forEach(([icoId,wrapId,numId]) => {
+    const ic = document.getElementById(icoId);
+    if (ic) ic.innerHTML = eyeSVG;
+    const numWrap = document.getElementById(wrapId);
+    if (numWrap) numWrap.classList.toggle('blurred', _balHidden);
+    if (!_balHidden) animCount(document.getElementById(numId), _user?.balance||0, 600);
+  });
 }
 
 function renderHome() {
@@ -2975,21 +3122,7 @@ function renderHome() {
   const greetSub = document.getElementById('home-greet-sub');
   if (greetSub) greetSub.textContent = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
 
-  // Referral card
-  const refCode = _user.refCode||'—';
-  const rcEl = document.getElementById('home-ref-code');
-  if (rcEl) rcEl.textContent = refCode;
-  // Load referral stats async
-  if (_user.refCode) {
-    db.collection('users').where('referredBy','==',_user.refCode).get().then(snap => {
-      const count = snap.size;
-      const earned = count * 2000;
-      const cntEl = document.getElementById('home-ref-count');
-      const ernEl = document.getElementById('home-ref-earned');
-      if (cntEl) cntEl.textContent = count;
-      if (ernEl) ernEl.textContent = fmt(earned);
-    }).catch(()=>{});
-  }
+  // Referral card now lives in the Earn tab — see renderReferral()
 
   // Balance (blur if hidden, else animate)
   const numWrap = document.getElementById('bc-num-wrap');
@@ -3040,7 +3173,7 @@ function renderHome() {
     const day = dayElapsed(inv);
     const pct = Math.round((day/60)*100);
     const can = canClaim(inv);
-    return `<div class="pos-item" onclick="go('p-claim','n-claim')">
+    return `<div class="pos-item" onclick="openMyPositions()">
       <div class="pos-mark" style="background:${t.pb};color:${t.r}">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg>
       </div>
@@ -3063,6 +3196,21 @@ function copyRefCode() {
   const code = _user?.refCode||'';
   if (!code) return;
   cpy(code);
+}
+// Populates the Refer & Earn panel inside the Earn hub.
+function renderReferral() {
+  if (!_user) return;
+  const rcEl = document.getElementById('earn-ref-code');
+  if (rcEl) rcEl.textContent = _user.refCode || '—';
+  if (!_user.refCode) return;
+  db.collection('users').where('referredBy','==',_user.refCode).get().then(snap => {
+    const count = snap.size;
+    const earned = count * 2000;
+    const cntEl = document.getElementById('earn-ref-count');
+    const ernEl = document.getElementById('earn-ref-earned');
+    if (cntEl) cntEl.textContent = count;
+    if (ernEl) ernEl.textContent = fmt(earned);
+  }).catch(()=>{});
 }
 
 function shareRefCode() {
@@ -3163,6 +3311,57 @@ function renderPortfolio() {
       <div class="pc-bm"><span>${pct}% complete · ROI progress: ${Math.round(((inv.totalClaimed||0)/inv.total)*100)}%</span><span>${Math.max(0,60-day)} days left</span></div>
     </div>`;
   }).join('');
+
+  // ── Unified P&L across every Earn activity ──
+  const ledger = _user.earnLedger || [];
+  const yieldRealised = invs.reduce((s,i)=>s+(i.totalClaimed||0), 0);
+  const gamesNet = ledger.filter(e => e.type==='predict'||e.type==='aviator'||e.type==='coinflip').reduce((s,e)=>s+(e.pnl||0), 0);
+  const refEarned = ledger.filter(e => e.type==='referral').reduce((s,e)=>s+(e.pnl||0), 0);
+  const totalPnl = yieldRealised + gamesNet + refEarned;
+
+  const pnlValEl = document.getElementById('pnl-val');
+  if (pnlValEl) {
+    pnlValEl.textContent = (totalPnl>=0?'+':'-') + fmt(Math.abs(totalPnl));
+    pnlValEl.className = 'pnl-val ' + (totalPnl>0?'pos':totalPnl<0?'neg':'');
+  }
+  const setFig = (id,val,signed) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = (signed ? (val>=0?'+':'-') : '') + fmt(Math.abs(val));
+    el.className = 'pnl-fig-val' + (signed ? (val>0?' pos':val<0?' neg':'') : '');
+  };
+  setFig('pnl-yield', yieldRealised, false);
+  setFig('pnl-games', gamesNet, true);
+  setFig('pnl-ref', refEarned, false);
+
+  // ── Earn Activity feed (predict / aviator / coinflip / referral) ──
+  const ec = document.getElementById('earn-activity-c');
+  if (ec) {
+    const recent = [...ledger].sort((a,b)=>(b.ts||'').localeCompare(a.ts||'')).slice(0,25);
+    if (!recent.length) {
+      ec.innerHTML = '<div style="text-align:center;padding:20px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;font-size:12px;color:var(--sil)">No Predict, Aviator, Coin Flip or referral activity yet — head to the Earn tab.</div>';
+    } else {
+      const META = {
+        predict:  { label:'Predict',   ico:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',                         bg:'var(--gd)',  fg:'var(--gold)' },
+        aviator:  { label:'Aviator',   ico:'<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>',    bg:'var(--gd)',  fg:'var(--gold)' },
+        coinflip: { label:'Coin Flip', ico:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/>', bg:'var(--gd)', fg:'var(--gold)' },
+        referral: { label:'Referral',  ico:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>', bg:'var(--okd)', fg:'var(--ok)' }
+      };
+      ec.innerHTML = recent.map(e => {
+        const m = META[e.type] || META.predict;
+        const sub = e.type==='predict' ? `${e.meta?.asset||''} · ${(e.meta?.dir||'').toUpperCase()} · ${e.meta?.result||''}`
+                  : e.type==='aviator'  ? (e.meta?.result==='win' ? `Cashed out at ${(e.meta?.cashedOutAt||0).toFixed(2)}×` : `Crashed at ${(e.meta?.crashPoint||0).toFixed(2)}×`)
+                  : e.type==='coinflip' ? `Called ${e.meta?.choice||''} · Landed ${e.meta?.result||''}`
+                  : e.meta?.role==='referrer' ? `${e.meta?.name||'A friend'} joined with your code` : 'Welcome bonus';
+        const pnlCls = (e.pnl||0)>0?'pos':(e.pnl||0)<0?'neg':'flat';
+        return `<div class="ea-item">
+          <div class="ea-ico" style="background:${m.bg};color:${m.fg}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${m.ico}</svg></div>
+          <div class="ea-mid"><div class="ea-t">${m.label}</div><div class="ea-s">${sub} · ${dateStr(e.ts)}</div></div>
+          <div class="ea-pnl ${pnlCls}">${(e.pnl||0)>0?'+':''}${fmt(e.pnl||0)}</div>
+        </div>`;
+      }).join('');
+    }
+  }
 }
 
 // ══════════════════════════════════
@@ -3348,6 +3547,30 @@ function renderTicker() {
     return `<div class="ticker-item"><span class="ticker-sym">${sym}</span><span class="ticker-price">${fmtTickerPrice(d.price,sym)}</span>${chg}</div>`;
   }).join('');
   track.innerHTML = items + items;
+  renderHomeLiveMarkets();
+}
+
+// Compact BTC/ETH/SOL preview on the Home page — reuses the ticker's already-fetched
+// _dispPrices, so this adds zero extra network calls. Tapping a card jumps into Predict.
+const LM_ASSETS = [
+  { sym:'BTC/USD', short:'BTC', color:'linear-gradient(135deg,#F7931A,#E8722A)', asset:'BTC' },
+  { sym:'ETH/USD', short:'ETH', color:'linear-gradient(135deg,#627EEA,#4338EC)', asset:'ETH' },
+  { sym:'SOL/USD', short:'SOL', color:'linear-gradient(135deg,#14F195,#0FAE6B)', asset:'SOL' }
+];
+function renderHomeLiveMarkets() {
+  const row = document.getElementById('home-lm-row');
+  if (!row) return;
+  row.innerHTML = LM_ASSETS.map(a => {
+    const d = _dispPrices[a.sym];
+    if (!d?.price) return `<div class="lm-card"><div class="lm-top"><div class="lm-ico" style="background:${a.color}">${a.short}</div><div class="lm-sym">${a.short}</div></div><div class="lm-px">—</div></div>`;
+    const hasChg = d.change !== null && d.change !== undefined;
+    const up = hasChg && d.change >= 0;
+    return `<div class="lm-card" onclick="go('p-earn','n-earn');setTimeout(()=>{switchEarnTab('pred');if(typeof pmPickAsset==='function')pmPickAsset('${a.asset}');},50)">
+      <div class="lm-top"><div class="lm-ico" style="background:${a.color}">${a.short}</div><div class="lm-sym">${a.short}/USD</div></div>
+      <div class="lm-px">${fmtTickerPrice(d.price,a.sym)}</div>
+      ${hasChg ? `<div class="lm-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</div>` : '<div class="lm-chg" style="color:var(--sil)">60s rounds</div>'}
+    </div>`;
+  }).join('');
 }
 
 async function initTicker() {
@@ -3438,6 +3661,8 @@ function rAll() {
   if (!_user) return;
   renderHome(); renderClaims(); renderPortfolio(); updateUserUI(); renderNotifications(); renderProfile();
   if (typeof renderEarn === 'function') renderEarn();
+  if (typeof renderWallet === 'function') renderWallet();
+  if (typeof renderReferral === 'function') renderReferral();
   scheduleDailyReminder();
 }
 
@@ -4242,6 +4467,8 @@ async function triggerReferralBonus(userId) {
       db.collection('users').doc(referrerId).update({ balance: firebase.firestore.FieldValue.increment(2000) }),
       db.collection('users').doc(userId).update({ balance: firebase.firestore.FieldValue.increment(2000), referralBonusPaid: true })
     ]));
+    logEarn(referrerId, { type:'referral', stake:0, payout:2000, pnl:2000, meta:{ role:'referrer', name:u.name||'A friend' } });
+    logEarn(userId, { type:'referral', stake:0, payout:2000, pnl:2000, meta:{ role:'referred' } });
   } catch(e) { console.error('Referral bonus error:', e); }
 }
 
