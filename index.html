@@ -337,6 +337,16 @@ body::after{display:none}
 .pnl-fig-val{font-family:var(--d);font-size:14px;font-weight:700;color:var(--plat)}
 .pnl-fig-val.pos{color:var(--ok)}.pnl-fig-val.neg{color:var(--err)}
 .ea-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.la-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:4px 14px;margin-bottom:14px;max-height:180px;overflow-y:auto}
+.la-item{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--b1)}
+.la-item:last-child{border-bottom:none}
+.la-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.la-dot.pos{background:var(--ok)}.la-dot.neg{background:var(--err)}.la-dot.flat{background:var(--sil)}
+.la-text{flex:1;font-size:11.5px;color:var(--plat);line-height:1.4}
+.la-text strong{font-weight:700}
+.la-time{font-size:9.5px;color:var(--sil);flex-shrink:0}
+.live-chip{display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pls 2.2s ease infinite}
 .ea-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ea-mid{flex:1;min-width:0}
 .ea-t{font-size:12.5px;font-weight:600;color:var(--plat)}
@@ -964,12 +974,15 @@ body.dark #splash{background:var(--void)}
             <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
               <div style="font-weight:700;font-size:13px">Up</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-up-price">₦50</div>
             </div>
             <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 18l-9.5-9.5-5 5L1 6"/><path d="M17 18h6v-6"/></svg>
               <div style="font-weight:700;font-size:13px">Down</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-down-price">₦50</div>
             </div>
           </div>
+          <div style="font-size:9.5px;color:var(--sil);text-align:center;margin:-6px 0 12px">Share prices move live with real demand · pays ₦100 per share if correct</div>
           <div class="stake-row" id="pm-stakes">
             <div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div>
             <div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div>
@@ -977,22 +990,30 @@ body.dark #splash{background:var(--void)}
             <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
           </div>
           <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Correct call pays <strong style="color:var(--ok)">1.85×</strong> · Round settles in 5 minutes</div>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Round settles in 5 minutes · You can sell your position early anytime before then</div>
           <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
         </div>
 
         <div id="pm-live" style="display:none">
           <div class="pm-live-card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Your Call</div><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div></div>
+              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Your Position</div><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div></div>
               <div class="pm-timer" id="pm-timer">5:00</div>
             </div>
             <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
-              <span>Entry Price</span><strong id="pm-entry" style="color:var(--plat)">—</strong>
+              <span>Underlying Price</span><strong id="pm-current" style="color:var(--plat)">—</strong>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil)">
-              <span>Current Price</span><strong id="pm-current" style="color:var(--plat)">—</strong>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
+              <span>Entry Share Price</span><strong id="pm-entry" style="color:var(--plat)">—</strong>
             </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:12px">
+              <span>Current Share Price</span><strong id="pm-share-now" style="color:var(--plat)">—</strong>
+            </div>
+            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div></div>
+              <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Sell Value Now</div><div style="font-family:var(--d);font-size:16px;font-weight:800" id="pm-live-pnl">₦0</div></div>
+            </div>
+            <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Position Now</button>
           </div>
         </div>
       </div>
@@ -1022,7 +1043,9 @@ body.dark #splash{background:var(--void)}
         <input class="stake-input" id="av-custom" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(this.value)"/>
         <button class="game-btn" id="av-btn" onclick="avStart()">Place Bet — ₦100</button>
       </div>
-      <div class="sh" style="padding:0 4px;margin:16px 0 10px"><h2>My Bets</h2></div>
+      <div class="sh" style="padding:0 4px;margin:16px 0 8px"><h2>Live Activity</h2><div class="live-chip"><div class="live-dot"></div>Live</div></div>
+      <div class="la-wrap" id="av-live-feed"></div>
+      <div class="sh" style="padding:0 4px;margin:0 0 10px"><h2>My Bets</h2></div>
       <div id="av-bet-history"></div>
     </div>
 
@@ -1045,7 +1068,9 @@ body.dark #splash{background:var(--void)}
         <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Payout on win: <strong style="color:var(--ok)" id="cf-payout-preview">₦196</strong> · 1.96×</div>
         <button class="game-btn" id="cf-flip-btn" onclick="cfFlip()">Flip for ₦100</button>
       </div>
-      <div class="sh" style="padding:0 4px;margin:16px 0 10px"><h2>My Bets</h2></div>
+      <div class="sh" style="padding:0 4px;margin:16px 0 8px"><h2>Live Activity</h2><div class="live-chip"><div class="live-dot"></div>Live</div></div>
+      <div class="la-wrap" id="cf-live-feed"></div>
+      <div class="sh" style="padding:0 4px;margin:0 0 10px"><h2>My Bets</h2></div>
       <div id="cf-bet-history"></div>
     </div>
 
@@ -2005,6 +2030,8 @@ function go(pid, nid) {
     if (s1) s1.style.display = 'block';
     if (s2) s2.style.display = 'none';
   }
+  if (pid !== 'p-earn' && typeof stopLiveActivity === 'function') stopLiveActivity();
+  if (pid !== 'p-earn' && typeof pmUnsubscribeRound === 'function' && !_pm.active) pmUnsubscribeRound();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
@@ -2720,7 +2747,11 @@ function renderClaims() {
 function switchEarnTab(tab) {
   document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
   document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-  if (tab === 'pred' && !_pm.active) pmFetchPrice();
+  if (tab === 'pred') { if (!_pm.active) pmFetchPrice(); pmEnsureRoundSubscribed(); }
+  else if (!_pm.active) pmUnsubscribeRound();
+  if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
+  else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
+  else stopLiveActivity();
 }
 function switchPlansTab(tab) {
   document.getElementById('mkt-tab-browse').classList.toggle('active', tab==='browse');
@@ -2775,7 +2806,7 @@ function initEarnPage() {
   cfUpdatePreview();
   avUpdateBtn();
   pmUpdateBtn();
-  if (!_pm.active) pmFetchPrice();
+  if (!_pm.active) { pmFetchPrice(); pmEnsureRoundSubscribed(); }
   pmRenderHistory();
   avRenderHistory();
 }
@@ -2803,6 +2834,66 @@ async function logEarn(userId, entry) {
     });
   } catch (e) { console.error('logEarn error', e); }
 }
+
+// ══════════════════════════════════
+// LIVE ACTIVITY — Aviator / Coin Flip
+// Shows OTHER real users' actual bets in real time via a shared Firestore
+// collection. Deliberately not simulated/fake: fabricating bettor activity to
+// pressure people into wagering more is a real-money-gambling dark pattern
+// (and outright illegal in several regulated markets), so this only ever
+// shows genuine activity — it'll simply be quiet until real users are playing.
+function maskName(name) {
+  const n = (name || 'A player').trim();
+  if (n.length <= 2) return n + '***';
+  return n.slice(0, 3) + '***';
+}
+function timeAgo(iso) {
+  const s = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
+  if (s < 5) return 'now';
+  if (s < 60) return s + 's ago';
+  const m = Math.floor(s / 60);
+  if (m < 60) return m + 'm ago';
+  return Math.floor(m / 60) + 'h ago';
+}
+async function logLiveActivity(game, action, amount, meta) {
+  try {
+    await db.collection('liveActivity').add({
+      game, action, amount, meta: meta || {},
+      name: maskName(_user?.name),
+      ts: nowISO()
+    });
+  } catch (e) { console.error('logLiveActivity error', e); }
+}
+let _liveActivityUnsub = null;
+function startLiveActivity(game, containerId) {
+  stopLiveActivity();
+  const c = document.getElementById(containerId);
+  if (c) c.innerHTML = '<div style="text-align:center;padding:14px 4px;font-size:11px;color:var(--sil)">Loading live activity…</div>';
+  _liveActivityUnsub = db.collection('liveActivity').orderBy('ts','desc').limit(60)
+    .onSnapshot(snap => {
+      const items = snap.docs.map(d => d.data()).filter(x => x.game === game).slice(0, 15);
+      renderLiveActivity(containerId, items);
+    }, e => {
+      console.error('liveActivity listener error', e);
+      if (c) c.innerHTML = '<div style="text-align:center;padding:14px 4px;font-size:11px;color:var(--sil)">Live activity unavailable right now</div>';
+    });
+}
+function stopLiveActivity() { if (_liveActivityUnsub) { _liveActivityUnsub(); _liveActivityUnsub = null; } }
+function renderLiveActivity(containerId, items) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  if (!items.length) { c.innerHTML = '<div style="text-align:center;padding:14px 4px;font-size:11px;color:var(--sil)">No live activity yet — be the first to play!</div>'; return; }
+  c.innerHTML = items.map(x => {
+    const cls = (x.action==='cashout'||x.action==='win') ? 'pos' : x.action==='loss' ? 'neg' : 'flat';
+    let text;
+    if (x.action==='bet')      text = `<strong>${x.name}</strong> placed a bet of ${fmt(x.amount)}`;
+    else if (x.action==='cashout') text = `<strong>${x.name}</strong> cashed out at ${(x.meta?.mult||0).toFixed(2)}× · won ${fmt(x.amount)}`;
+    else if (x.action==='loss')    text = `<strong>${x.name}</strong> lost ${fmt(x.amount)}`;
+    else                            text = `<strong>${x.name}</strong> won ${fmt(x.amount)}`;
+    return `<div class="la-item"><div class="la-dot ${cls}"></div><div class="la-text">${text}</div><div class="la-time">${timeAgo(x.ts)}</div></div>`;
+  }).join('');
+}
+
 
 // ── COIN FLIP ──────────────────────
 let _cf = { choice: 'heads', stake: 100, flipping: false };
@@ -2857,10 +2948,13 @@ async function cfFlip() {
       try { await walletCredit(payout); } catch (e) {}
       toast(`🎉 It's ${result}! You won ${fmt(payout)}`);
       logEarn(_user.id, { type:'coinflip', stake, payout, pnl:payout-stake, meta:{ choice:_cf.choice, result } });
+      logLiveActivity('coinflip', 'win', payout);
     } else {
       toast(`It's ${result}. Better luck next flip.`);
       logEarn(_user.id, { type:'coinflip', stake, payout:0, pnl:-stake, meta:{ choice:_cf.choice, result } });
+      logLiveActivity('coinflip', 'loss', stake);
     }
+    renderCfBetHistory();
     if (coin) {
       coin.style.transition = 'none';
       coin.style.transform = `rotateY(${result === 'tails' ? 180 : 0}deg)`;
@@ -2881,6 +2975,7 @@ function pmPickAsset(a) {
   _pm.asset = a;
   document.querySelectorAll('#pm-assets .pm-asset').forEach(el => el.classList.toggle('sel', el.dataset.a === a));
   pmFetchPrice();
+  pmEnsureRoundSubscribed();
 }
 function pmPickDir(d) {
   if (_pm.active) return;
@@ -2941,6 +3036,76 @@ function cryptoIconImg(short, sizePx, bgColor) {
   return `<img src="${url}" width="${sizePx}" height="${sizePx}" style="display:block;object-fit:contain" onerror="${fallback}"/>`;
 }
 
+// ══════════════════════════════════
+// PREDICT — real Bayse-style share market
+// Each 5-minute round is a shared Firestore doc. UP/DOWN "shares" are priced
+// by actual aggregate stake on each side (constant-sum market maker, seeded
+// with virtual liquidity so one early trader can't swing price to an
+// extreme) — not a fixed multiplier. Real other users trading the same
+// round genuinely move the price for everyone, live. You can sell back into
+// the market before the round ends, same as Bayse's early-exit mechanic.
+// Winning shares pay ₦100 each at resolution; losing shares pay ₦0.
+// ══════════════════════════════════
+const PM_SEED = 1000; // virtual liquidity per side — keeps price near 50/50 until real volume builds up
+function pmBucketStart() { return Math.floor(Date.now() / 300000) * 300000; }
+function pmRoundId(asset, bucketStart) { return asset + '_' + bucketStart; }
+function pmComputePrices(round) {
+  const yesPool = PM_SEED + (round.yesStake || 0);
+  const noPool = PM_SEED + (round.noStake || 0);
+  let up = Math.round((yesPool / (yesPool + noPool)) * 100);
+  up = Math.max(2, Math.min(98, up)); // keep both sides always tradeable, never 0 or 100 mid-round
+  return { up, down: 100 - up };
+}
+// Transaction-safe: if two users are the first to trade a fresh round at the same
+// moment, only one of their fetched prices becomes the round's official entry
+// price — everyone else just reads it. Prevents a race from creating two
+// slightly-different "truths" for the same round.
+async function pmGetOrCreateRound(asset, currentPrice) {
+  const bucketStart = pmBucketStart();
+  const id = pmRoundId(asset, bucketStart);
+  const ref = db.collection('predictRounds').doc(id);
+  try {
+    return await db.runTransaction(async tx => {
+      const snap = await tx.get(ref);
+      if (snap.exists) return { id, ...snap.data() };
+      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: currentPrice, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
+      tx.set(ref, data);
+      return { id, ...data };
+    });
+  } catch (e) { console.error('pmGetOrCreateRound error', e); return null; }
+}
+let _pmRoundUnsub = null, _pmRoundData = null;
+function pmEnsureRoundSubscribed() {
+  const id = pmRoundId(_pm.asset, pmBucketStart());
+  if (_pmRoundData?.id === id && _pmRoundUnsub) return; // already watching the right round
+  if (_pmRoundUnsub) _pmRoundUnsub();
+  _pmRoundData = null;
+  _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
+    if (!snap.exists) return; // not created yet — first trader's buy will create it
+    _pmRoundData = { id, ...snap.data() };
+    pmRenderLivePrices();
+  }, e => console.error('pmEnsureRoundSubscribed error', e));
+}
+function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
+function pmRenderLivePrices() {
+  if (!_pmRoundData) return;
+  const prices = pmComputePrices(_pmRoundData);
+  const upEl = document.getElementById('pm-up-price'), downEl = document.getElementById('pm-down-price');
+  if (upEl) upEl.textContent = '₦' + prices.up;
+  if (downEl) downEl.textContent = '₦' + prices.down;
+  if (_pm.active && _pm.active.roundId === _pmRoundData.id) {
+    const shareNow = _pm.active.side === 'up' ? prices.up : prices.down;
+    const sellVal = Math.round(_pm.active.shares * shareNow);
+    const pnl = sellVal - _pm.active.stake;
+    const shareNowEl = document.getElementById('pm-share-now');
+    if (shareNowEl) shareNowEl.textContent = '₦' + shareNow;
+    const sharesEl = document.getElementById('pm-shares');
+    if (sharesEl) sharesEl.textContent = _pm.active.shares.toFixed(2);
+    const pnlEl = document.getElementById('pm-live-pnl');
+    if (pnlEl) { pnlEl.textContent = (pnl>=0?'+':'') + fmt(sellVal) + (pnl!==0 ? ` (${pnl>=0?'+':''}${fmt(pnl)})` : ''); pnlEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
+  }
+}
+
 async function pmPlaceBet() {
   if (!_user) { toast('Please sign in first'); return; }
   if (_pm.active) { toast('A round is already in progress'); return; }
@@ -2948,17 +3113,34 @@ async function pmPlaceBet() {
   const stake = _pm.stake;
   if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
   if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
-  const entryPrice = await pmFetchPrice();
-  if (!entryPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
-  try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
+  const underlyingPrice = await pmFetchPrice();
+  if (!underlyingPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
 
-  _pm.active = { asset: _pm.asset, dir: _pm.dir, stake, entryPrice, endsAt: Date.now() + 300000 };
+  const round = await pmGetOrCreateRound(_pm.asset, underlyingPrice);
+  if (!round) { toast('Could not open this market. Try again.'); return; }
+  const prices = pmComputePrices(round);
+  const sharePrice = _pm.dir === 'up' ? prices.up : prices.down;
+  const shares = +(stake / sharePrice).toFixed(4); // ₦100 pays out per share if correct
+
+  try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
+  try {
+    await db.collection('predictRounds').doc(round.id).update({
+      [_pm.dir === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(stake)
+    });
+  } catch (e) { console.error('round stake increment failed', e); }
+
+  _pm.active = { roundId: round.id, asset: _pm.asset, side: _pm.dir, stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, endsAt: round.bucketEnd };
   document.getElementById('pm-idle').style.display = 'none';
   document.getElementById('pm-live').style.display = 'block';
   const ld = document.getElementById('pm-live-dir');
   ld.textContent = _pm.asset + ' · ' + (_pm.dir === 'up' ? '▲ Up' : '▼ Down');
   ld.style.color = _pm.dir === 'up' ? 'var(--ok)' : 'var(--err)';
-  document.getElementById('pm-entry').textContent = '$' + entryPrice.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  document.getElementById('pm-entry').textContent = '₦' + sharePrice;
+  document.getElementById('pm-shares').textContent = shares.toFixed(2);
+
+  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, result:'opened', sharePrice, shares } });
+  pmEnsureRoundSubscribed();
+  pmRenderLivePrices();
 
   clearInterval(_pm.priceTimer);
   _pm.priceTimer = setInterval(pmTick, 1000);
@@ -2982,29 +3164,63 @@ async function pmTick() {
   }
   if (leftMs <= 0) pmSettle();
 }
+// Sell your shares back into the market before the round ends — same early-exit
+// mechanic Bayse offers, priced at whatever the live share price is right now.
+async function pmSell() {
+  const a = _pm.active; if (!a || !_user) return;
+  const round = _pmRoundData?.id === a.roundId ? _pmRoundData : await db.collection('predictRounds').doc(a.roundId).get().then(s => ({ id:a.roundId, ...s.data() }));
+  const prices = pmComputePrices(round);
+  const sharePrice = a.side === 'up' ? prices.up : prices.down;
+  const sellValue = Math.round(a.shares * sharePrice);
+  const pnl = sellValue - a.stake;
+
+  try { await walletCredit(sellValue); } catch (e) { toast('Connection error — try again'); return; }
+  try {
+    await db.collection('predictRounds').doc(a.roundId).update({
+      [a.side === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(-a.stake)
+    });
+  } catch (e) { console.error('round unwind failed', e); }
+  logEarn(_user.id, { type:'predict', stake:a.stake, payout:sellValue, pnl, meta:{ asset:a.asset, dir:a.side, result:'sold_early', exitSharePrice:sharePrice } });
+  toast(pnl >= 0 ? `Sold for ${fmt(sellValue)} · +${fmt(pnl)} profit` : `Sold for ${fmt(sellValue)} · ${fmt(pnl)} loss`);
+
+  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: pnl > 0 ? true : pnl < 0 ? false : null, stake: a.stake });
+  _pmHistory = _pmHistory.slice(0, 8);
+  pmRenderHistory();
+
+  clearInterval(_pm.priceTimer);
+  _pm.active = null;
+  document.getElementById('pm-idle').style.display = 'block';
+  document.getElementById('pm-live').style.display = 'none';
+  pmUpdateBtn();
+  pmFetchPrice();
+}
 async function pmSettle() {
   const a = _pm.active; if (!a) return;
   clearInterval(_pm.priceTimer);
   const exitPrice = (await pmFetchPrice()) || a.entryPrice;
   const wentUp = exitPrice > a.entryPrice;
   const flat = exitPrice === a.entryPrice;
-  const won = !flat && ((a.dir === 'up' && wentUp) || (a.dir === 'down' && !wentUp));
+  const won = !flat && ((a.side === 'up' && wentUp) || (a.side === 'down' && !wentUp));
+
+  // Mark the shared round resolved (idempotent — every holder's client writes the
+  // same true outcome, so a second write from another user is harmless).
+  try { await db.collection('predictRounds').doc(a.roundId).update({ resolved: true, finalPrice: exitPrice, outcome: flat ? 'push' : (wentUp ? 'up' : 'down') }); } catch(e) {}
 
   if (flat) {
     try { await walletCredit(a.stake); } catch (e) {}
     toast('Price unchanged — stake refunded');
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.dir, result:'push' } });
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.side, result:'push' } });
   } else if (won) {
-    const payout = Math.round(a.stake * 1.85);
+    const payout = Math.round(a.shares * 100); // winning shares pay ₦100 each
     try { await walletCredit(payout); } catch (e) {}
     toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.dir, result:'win' } });
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.side, result:'win', shares:a.shares } });
   } else {
-    toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.dir} call missed`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.dir, result:'loss' } });
+    toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.side} call missed`);
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.side, result:'loss' } });
   }
 
-  _pmHistory.unshift({ asset: a.asset, dir: a.dir, won: flat ? null : won, stake: a.stake });
+  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: flat ? null : won, stake: a.stake });
   _pmHistory = _pmHistory.slice(0, 8);
   pmRenderHistory();
 
@@ -3029,7 +3245,10 @@ function pmRenderHistory() {
 setInterval(() => {
   const pg = document.getElementById('p-earn');
   const sec = document.getElementById('earn-pred');
-  if (pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active) pmFetchPrice();
+  if (pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active) {
+    pmFetchPrice();
+    pmEnsureRoundSubscribed(); // re-subscribes automatically once the 5-minute bucket rolls over
+  }
 }, 4000);
 
 // ── AVIATOR ─────────────────────────
@@ -3076,6 +3295,7 @@ async function avStart() {
   const btn = document.getElementById('av-btn');
   btn.textContent = 'Cash Out — ' + fmt(stake);
   btn.onclick = avCashOut;
+  logLiveActivity('aviator', 'bet', stake);
   avLoop();
 }
 function avLoop() {
@@ -3107,6 +3327,8 @@ function avCrash() {
     _avHistory.unshift({ mult: _av.crashPoint, won: false });
     avRenderHistory();
     logEarn(_user.id, { type:'aviator', stake:_av.stake, payout:0, pnl:-_av.stake, meta:{ crashPoint:_av.crashPoint, result:'loss' } });
+    logLiveActivity('aviator', 'loss', _av.stake, { mult:_av.crashPoint });
+    renderAvBetHistory();
   }
   setTimeout(avReset, 1600);
 }
@@ -3123,6 +3345,8 @@ async function avCashOut() {
   _avHistory.unshift({ mult, won: true });
   avRenderHistory();
   logEarn(_user.id, { type:'aviator', stake:_av.stake, payout, pnl:payout-_av.stake, meta:{ cashedOutAt:mult, result:'win' } });
+  logLiveActivity('aviator', 'cashout', payout, { mult });
+  renderAvBetHistory();
   // Deliberately do NOT stop _av.running or cancel the animation frame here —
   // the plane keeps climbing until it hits its real crash point in avLoop(),
   // exactly like a real crash-game casino. Only avCrash() ends the round.
