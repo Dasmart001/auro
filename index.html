@@ -139,7 +139,7 @@ body::after{display:none}
 .lm-card{flex-shrink:0;width:132px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:13px;cursor:pointer;transition:transform .15s}
 .lm-card:active{transform:scale(.96)}
 .lm-top{display:flex;align-items:center;gap:7px;margin-bottom:10px}
-.lm-ico{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:8.5px;font-weight:800;color:#fff;flex-shrink:0}
+.lm-ico{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:8.5px;font-weight:800;color:#fff;flex-shrink:0;background:var(--s2);padding:4px;overflow:hidden}
 .lm-sym{font-size:11.5px;font-weight:700;color:var(--plat)}
 .lm-px{font-family:var(--d);font-size:14px;font-weight:700;color:var(--plat);margin-bottom:3px}
 .lm-chg{font-size:10px;font-weight:700}
@@ -741,6 +741,8 @@ body.dark #splash{background:var(--void)}
 .pm-asset{flex-shrink:0;padding:8px 15px;border-radius:20px;border:1.5px solid var(--b1);background:var(--s2);font-size:12px;font-weight:700;color:var(--plat);cursor:pointer;transition:all .18s}
 .pm-asset.sel{border-color:var(--gold);background:var(--gd);color:var(--gold)}
 .pm-price-big{font-family:var(--d);font-size:30px;font-weight:800;color:var(--plat);letter-spacing:-.02em}
+.pm-flash{animation:pmFlash .5s ease}
+@keyframes pmFlash{0%{opacity:.45;transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
 .pm-dir-row{display:flex;gap:10px;margin-bottom:14px}
 .pm-dir{flex:1;padding:16px 8px;border-radius:12px;border:1.5px solid var(--b1);background:var(--s2);text-align:center;cursor:pointer;transition:all .2s;color:var(--sil)}
 .pm-dir.up.sel{background:var(--okd);border-color:var(--okb);color:var(--ok)}
@@ -868,7 +870,7 @@ body.dark #splash{background:var(--void)}
         <div class="bc-today-sub" id="bc-sub-text">Fund wallet to open positions</div>
       </div>
       <div class="bc-acts">
-        <button class="ba ba-g" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>Earn</button>
+        <button class="ba ba-g" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z"/><path d="M5 3v3M3.5 4.5h3"/><path d="M19 16v3M17.5 17.5h3"/></svg>Earn</button>
         <button class="ba ba-o" onclick="go('p-wallet','n-wallet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/><path d="M16 12h3"/></svg>Wallet</button>
       </div>
     </div>
@@ -884,13 +886,6 @@ body.dark #splash{background:var(--void)}
     <!-- LIVE MARKETS -->
     <div class="sh"><h2>Live Markets</h2><div class="sh-a" onclick="go('p-earn','n-earn');setTimeout(()=>switchEarnTab('pred'),50)">Predict now</div></div>
     <div class="lm-row" id="home-lm-row"></div>
-
-    <!-- PERFORMANCE STRIP -->
-    <div class="perf-strip">
-      <div class="pf-tile" style="--pft:var(--gb);--pfc:var(--gold)"><div class="pf-val" id="h-invested">₦0</div><div class="pf-lbl">Deployed Capital</div></div>
-      <div class="pf-tile" style="--pft:var(--okb);--pfc:var(--ok)"><div class="pf-val" id="h-earned">₦0</div><div class="pf-lbl">Total Realised</div></div>
-      <div class="pf-tile" style="--pft:rgba(124,58,237,.3);--pfc:#7C3AED"><div class="pf-val" id="h-active">0</div><div class="pf-lbl">Active Positions</div></div>
-    </div>
 
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
@@ -944,7 +939,7 @@ body.dark #splash{background:var(--void)}
     <div class="earn-pills">
       <div class="earn-pill active" data-tab="pred" onclick="switchEarnTab('pred')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Predictions</div>
       <div class="earn-pill" data-tab="aviator" onclick="switchEarnTab('aviator')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Aviator</div>
-      <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg> Coin Flip</div>
+      <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/></svg> Coin Flip</div>
       <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> 200% Markets</div>
       <div class="earn-pill" data-tab="refer" onclick="switchEarnTab('refer')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Refer &amp; Earn</div>
     </div>
@@ -952,12 +947,12 @@ body.dark #splash{background:var(--void)}
     <!-- PREDICTIONS -->
     <div class="earn-sec active" id="earn-pred">
       <div class="game-card">
-        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="game-head-t">Crypto Flash Prediction</div><div class="game-head-s">60-second rounds · Call the next move</div></div></div>
+        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="game-head-t">Crypto Flash Prediction</div><div class="game-head-s">5-minute rounds · Live price · Call the next move</div></div></div>
 
         <div class="pm-asset-row" id="pm-assets">
-          <div class="pm-asset sel" data-a="BTC" onclick="pmPickAsset('BTC')">₿ BTC</div>
-          <div class="pm-asset" data-a="ETH" onclick="pmPickAsset('ETH')">Ξ ETH</div>
-          <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')">◎ SOL</div>
+          <div class="pm-asset sel" data-a="BTC" onclick="pmPickAsset('BTC')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/BTC.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>BTC</div>
+          <div class="pm-asset" data-a="ETH" onclick="pmPickAsset('ETH')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/ETH.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>ETH</div>
+          <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/SOL.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>SOL</div>
         </div>
 
         <div id="pm-idle">
@@ -982,7 +977,7 @@ body.dark #splash{background:var(--void)}
             <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
           </div>
           <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Correct call pays <strong style="color:var(--ok)">1.85×</strong> · Round settles in 60 seconds</div>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Correct call pays <strong style="color:var(--ok)">1.85×</strong> · Round settles in 5 minutes</div>
           <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
         </div>
 
@@ -990,7 +985,7 @@ body.dark #splash{background:var(--void)}
           <div class="pm-live-card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
               <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Your Call</div><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div></div>
-              <div class="pm-timer" id="pm-timer">60s</div>
+              <div class="pm-timer" id="pm-timer">5:00</div>
             </div>
             <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
               <span>Entry Price</span><strong id="pm-entry" style="color:var(--plat)">—</strong>
@@ -1027,12 +1022,14 @@ body.dark #splash{background:var(--void)}
         <input class="stake-input" id="av-custom" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(this.value)"/>
         <button class="game-btn" id="av-btn" onclick="avStart()">Place Bet — ₦100</button>
       </div>
+      <div class="sh" style="padding:0 4px;margin:16px 0 10px"><h2>My Bets</h2></div>
+      <div id="av-bet-history"></div>
     </div>
 
     <!-- COIN FLIP -->
     <div class="earn-sec" id="earn-coinflip">
       <div class="game-card">
-        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg></div><div><div class="game-head-t">Coin Flip</div><div class="game-head-s">Call it. Double your stake instantly.</div></div></div>
+        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/></svg></div><div><div class="game-head-t">Coin Flip</div><div class="game-head-s">Call it. Double your stake instantly.</div></div></div>
         <div class="cf-stage"><div class="cf-coin" id="cf-coin"><div class="cf-face heads">HEADS</div><div class="cf-face tails">TAILS</div></div></div>
         <div class="cf-choice-row">
           <div class="cf-choice sel" id="cf-heads" onclick="cfPick('heads')">Heads</div>
@@ -1048,6 +1045,8 @@ body.dark #splash{background:var(--void)}
         <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Payout on win: <strong style="color:var(--ok)" id="cf-payout-preview">₦196</strong> · 1.96×</div>
         <button class="game-btn" id="cf-flip-btn" onclick="cfFlip()">Flip for ₦100</button>
       </div>
+      <div class="sh" style="padding:0 4px;margin:16px 0 10px"><h2>My Bets</h2></div>
+      <div id="cf-bet-history"></div>
     </div>
 
     <!-- 200% MARKETS TEASER -->
@@ -1378,7 +1377,7 @@ body.dark #splash{background:var(--void)}
 <!-- BOTTOM NAV -->
 <nav class="bnav">
   <div class="ni active" id="n-home" onclick="go('p-home','n-home')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div><div class="ni-lbl">Home</div><div class="ni-dot"></div></div>
-  <div class="ni" id="n-earn" onclick="go('p-earn','n-earn')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Earn</div><div class="ni-dot"></div></div>
+  <div class="ni" id="n-earn" onclick="go('p-earn','n-earn')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z"/><path d="M5 3v3M3.5 4.5h3"/><path d="M19 16v3M17.5 17.5h3"/></svg><div class="cbadge" id="claim-dot"></div></div><div class="ni-lbl">Earn</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-portfolio" onclick="go('p-portfolio','n-portfolio')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="ni-lbl">Portfolio</div><div class="ni-dot"></div></div>
   <div class="ni" id="n-wallet" onclick="go('p-wallet','n-wallet')"><div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/><path d="M16 12h3"/><path d="M3 9h18"/></svg></div><div class="ni-lbl">Wallet</div><div class="ni-dot"></div></div>
 </nav>
@@ -2741,6 +2740,36 @@ function renderEarn() {
   // Keep the three game buttons' enabled/disabled state in sync with the
   // live balance (e.g. after a deposit or a win/loss elsewhere resolves).
   pmUpdateBtn(); cfUpdatePreview(); avUpdateBtn();
+  renderAvBetHistory(); renderCfBetHistory();
+}
+function renderAvBetHistory() {
+  const c = document.getElementById('av-bet-history');
+  if (!c) return;
+  const bets = (_user?.earnLedger || []).filter(e => e.type === 'aviator').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
+  if (!bets.length) { c.innerHTML = '<div style="text-align:center;padding:16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;font-size:11.5px;color:var(--sil)">No bets yet — place one above to get started.</div>'; return; }
+  c.innerHTML = bets.map(e => {
+    const win = e.meta?.result === 'win';
+    const sub = win ? `Cashed out at ${(e.meta?.cashedOutAt||0).toFixed(2)}×` : `Crashed at ${(e.meta?.crashPoint||0).toFixed(2)}×`;
+    return `<div class="ea-item">
+      <div class="ea-ico" style="background:${win?'var(--okd)':'var(--errd)'};color:${win?'var(--ok)':'var(--err)'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+      <div class="ea-mid"><div class="ea-t">Stake ${fmt(e.stake)}</div><div class="ea-s">${sub} · ${dateStr(e.ts)}</div></div>
+      <div class="ea-pnl ${(e.pnl||0)>0?'pos':'neg'}">${(e.pnl||0)>0?'+':''}${fmt(e.pnl||0)}</div>
+    </div>`;
+  }).join('');
+}
+function renderCfBetHistory() {
+  const c = document.getElementById('cf-bet-history');
+  if (!c) return;
+  const bets = (_user?.earnLedger || []).filter(e => e.type === 'coinflip').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
+  if (!bets.length) { c.innerHTML = '<div style="text-align:center;padding:16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;font-size:11.5px;color:var(--sil)">No flips yet — call one above to get started.</div>'; return; }
+  c.innerHTML = bets.map(e => {
+    const win = (e.pnl||0) > 0;
+    return `<div class="ea-item">
+      <div class="ea-ico" style="background:${win?'var(--okd)':'var(--errd)'};color:${win?'var(--ok)':'var(--err)'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/></svg></div>
+      <div class="ea-mid"><div class="ea-t">Called ${e.meta?.choice||'—'} · Landed ${e.meta?.result||'—'}</div><div class="ea-s">Stake ${fmt(e.stake)} · ${dateStr(e.ts)}</div></div>
+      <div class="ea-pnl ${win?'pos':'neg'}">${win?'+':''}${fmt(e.pnl||0)}</div>
+    </div>`;
+  }).join('');
 }
 function initEarnPage() {
   cfUpdatePreview();
@@ -2903,6 +2932,15 @@ async function pmFetchPrice() {
     return null;
   }
 }
+// Real brand logos for BTC/ETH/SOL (small, well-known public CDN) instead of plain
+// letter badges. Falls back to the colored initials badge if the image fails to load,
+// so the UI never breaks if the CDN is briefly unreachable.
+function cryptoIconImg(short, sizePx, bgColor) {
+  const url = `https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/${short}.svg`;
+  const fallback = `this.outerHTML='<div style=&quot;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${bgColor};color:#fff;font-family:var(--d);font-size:${Math.round(sizePx*0.35)}px;font-weight:800;border-radius:inherit&quot;>${short}</div>'`;
+  return `<img src="${url}" width="${sizePx}" height="${sizePx}" style="display:block;object-fit:contain" onerror="${fallback}"/>`;
+}
+
 async function pmPlaceBet() {
   if (!_user) { toast('Please sign in first'); return; }
   if (_pm.active) { toast('A round is already in progress'); return; }
@@ -2914,7 +2952,7 @@ async function pmPlaceBet() {
   if (!entryPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
   try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
 
-  _pm.active = { asset: _pm.asset, dir: _pm.dir, stake, entryPrice, endsAt: Date.now() + 60000 };
+  _pm.active = { asset: _pm.asset, dir: _pm.dir, stake, entryPrice, endsAt: Date.now() + 300000 };
   document.getElementById('pm-idle').style.display = 'none';
   document.getElementById('pm-live').style.display = 'block';
   const ld = document.getElementById('pm-live-dir');
@@ -2928,14 +2966,21 @@ async function pmPlaceBet() {
 }
 async function pmTick() {
   const a = _pm.active; if (!a) return;
-  const left = Math.max(0, Math.round((a.endsAt - Date.now()) / 1000));
-  const t = document.getElementById('pm-timer'); if (t) t.textContent = left + 's';
+  const leftMs = Math.max(0, a.endsAt - Date.now());
+  const leftSec = Math.round(leftMs / 1000);
+  const t = document.getElementById('pm-timer');
+  if (t) t.textContent = Math.floor(leftSec/60) + ':' + String(leftSec%60).padStart(2,'0');
   const cur = await pmFetchPrice();
   if (cur) {
     const c = document.getElementById('pm-current');
-    if (c) { c.textContent = '$' + cur.toLocaleString('en-US', { maximumFractionDigits: 2 }); c.style.color = cur >= a.entryPrice ? 'var(--ok)' : 'var(--err)'; }
+    if (c) {
+      c.textContent = '$' + cur.toLocaleString('en-US', { maximumFractionDigits: 2 });
+      c.style.color = cur >= a.entryPrice ? 'var(--ok)' : 'var(--err)';
+      // Brief flash on every live tick so the price visibly feels "live", same idea as Bayse's ticking quote.
+      c.classList.remove('pm-flash'); void c.offsetWidth; c.classList.add('pm-flash');
+    }
   }
-  if (left <= 0) pmSettle();
+  if (leftMs <= 0) pmSettle();
 }
 async function pmSettle() {
   const a = _pm.active; if (!a) return;
@@ -3050,9 +3095,14 @@ function avLoop() {
 function avCrash() {
   _av.running = false;
   cancelAnimationFrame(_av.raf);
-  document.getElementById('av-status').textContent = 'Crashed';
   document.getElementById('av-mult').classList.add('crashed');
-  if (!_av.cashedOut) {
+  if (_av.cashedOut) {
+    // This player already locked in a payout earlier in the flight — the
+    // round itself still had to play out to its real crash point for
+    // everyone else, same as any live crash-game casino.
+    document.getElementById('av-status').textContent = `Crashed at ${_av.crashPoint.toFixed(2)}× — you'd already cashed out`;
+  } else {
+    document.getElementById('av-status').textContent = `Crashed at ${_av.crashPoint.toFixed(2)}×`;
     toast(`💥 Crashed at ${_av.crashPoint.toFixed(2)}× · You lost ${fmt(_av.stake)}`);
     _avHistory.unshift({ mult: _av.crashPoint, won: false });
     avRenderHistory();
@@ -3063,17 +3113,19 @@ function avCrash() {
 async function avCashOut() {
   if (!_av.running || _av.cashedOut) return;
   _av.cashedOut = true;
-  cancelAnimationFrame(_av.raf);
   const mult = _av.mult;
   const payout = Math.round(_av.stake * mult);
   try { await walletCredit(payout); } catch (e) {}
   toast(`✅ Cashed out at ${mult.toFixed(2)}× · You won ${fmt(payout)}`);
-  document.getElementById('av-status').textContent = 'Cashed Out';
-  _av.running = false;
+  document.getElementById('av-status').textContent = 'Cashed out — round still flying…';
+  const btn = document.getElementById('av-btn');
+  if (btn) { btn.disabled = true; btn.textContent = `Cashed Out at ${mult.toFixed(2)}× — Watching`; }
   _avHistory.unshift({ mult, won: true });
   avRenderHistory();
   logEarn(_user.id, { type:'aviator', stake:_av.stake, payout, pnl:payout-_av.stake, meta:{ cashedOutAt:mult, result:'win' } });
-  setTimeout(avReset, 1200);
+  // Deliberately do NOT stop _av.running or cancel the animation frame here —
+  // the plane keeps climbing until it hits its real crash point in avLoop(),
+  // exactly like a real crash-game casino. Only avCrash() ends the round.
 }
 function avReset() {
   _av.mult = 1; _av.cashedOut = false;
@@ -3135,11 +3187,7 @@ function renderHome() {
   const actC  = invs.filter(i=>isActive(i)).length;
   const todC  = invs.filter(i=>isActive(i)&&canClaim(i)).reduce((s,i)=>s+i.daily, 0);
 
-  // Performance strip
   const el = id => document.getElementById(id);
-  if (el('h-invested')) el('h-invested').textContent = fmt(tInv);
-  if (el('h-earned'))   el('h-earned').textContent   = fmt(tEarn);
-  if (el('h-active'))   el('h-active').textContent   = actC;
 
   // Today chip
   const todayEl = el('h-today-earn');
@@ -3344,7 +3392,7 @@ function renderPortfolio() {
       const META = {
         predict:  { label:'Predict',   ico:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',                         bg:'var(--gd)',  fg:'var(--gold)' },
         aviator:  { label:'Aviator',   ico:'<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>',    bg:'var(--gd)',  fg:'var(--gold)' },
-        coinflip: { label:'Coin Flip', ico:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/>', bg:'var(--gd)', fg:'var(--gold)' },
+        coinflip: { label:'Coin Flip', ico:'<circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/>', bg:'var(--gd)', fg:'var(--gold)' },
         referral: { label:'Referral',  ico:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>', bg:'var(--okd)', fg:'var(--ok)' }
       };
       ec.innerHTML = recent.map(e => {
@@ -3562,13 +3610,14 @@ function renderHomeLiveMarkets() {
   if (!row) return;
   row.innerHTML = LM_ASSETS.map(a => {
     const d = _dispPrices[a.sym];
-    if (!d?.price) return `<div class="lm-card"><div class="lm-top"><div class="lm-ico" style="background:${a.color}">${a.short}</div><div class="lm-sym">${a.short}</div></div><div class="lm-px">—</div></div>`;
+    const icoHtml = cryptoIconImg(a.short, 16, a.color.match(/#[0-9A-Fa-f]{6}/)[0]);
+    if (!d?.price) return `<div class="lm-card"><div class="lm-top"><div class="lm-ico">${icoHtml}</div><div class="lm-sym">${a.short}</div></div><div class="lm-px">—</div></div>`;
     const hasChg = d.change !== null && d.change !== undefined;
     const up = hasChg && d.change >= 0;
     return `<div class="lm-card" onclick="go('p-earn','n-earn');setTimeout(()=>{switchEarnTab('pred');if(typeof pmPickAsset==='function')pmPickAsset('${a.asset}');},50)">
-      <div class="lm-top"><div class="lm-ico" style="background:${a.color}">${a.short}</div><div class="lm-sym">${a.short}/USD</div></div>
+      <div class="lm-top"><div class="lm-ico">${icoHtml}</div><div class="lm-sym">${a.short}/USD</div></div>
       <div class="lm-px">${fmtTickerPrice(d.price,a.sym)}</div>
-      ${hasChg ? `<div class="lm-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</div>` : '<div class="lm-chg" style="color:var(--sil)">60s rounds</div>'}
+      ${hasChg ? `<div class="lm-chg ${up?'up':'dn'}">${up?'▲':'▼'}${Math.abs(d.change).toFixed(2)}%</div>` : '<div class="lm-chg" style="color:var(--sil)">5-min rounds</div>'}
     </div>`;
   }).join('');
 }
