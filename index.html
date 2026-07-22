@@ -1298,10 +1298,10 @@ body.dark #splash{background:var(--void)}
       <label class="fl">Withdrawal Amount</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
       <div class="qrow">
-        <button class="qb" onclick="setWit(5000)">₦5k</button>
-        <button class="qb" onclick="setWit(10000)">₦10k</button>
-        <button class="qb" onclick="setWit(25000)">₦25k</button>
+        <button class="qb" onclick="setWit(30000)">₦30k</button>
         <button class="qb" onclick="setWit(50000)">₦50k</button>
+        <button class="qb" onclick="setWit(100000)">₦100k</button>
+        <button class="qb" onclick="setWit(200000)">₦200k</button>
         <button class="qb" onclick="witMax()">Max</button>
       </div>
       <label class="fl" style="margin-bottom:7px">Select Your Bank</label>
@@ -1790,7 +1790,7 @@ body.dark #splash{background:var(--void)}
         <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
         <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
         <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
-        <li>Minimum withdrawal is ₦1,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
+        <li>Minimum withdrawal is ₦30,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
         <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
       </ul>
 
@@ -2538,7 +2538,7 @@ async function doWithdraw() {
   const bank = document.getElementById('w-bank').value;
   const acct = document.getElementById('w-acct').value.trim();
   const actn = document.getElementById('w-acct-name').value.trim();
-  if (v < 15000) { toast('Minimum withdrawal is ₦15,000'); return; }
+  if (v < 30000) { toast('Minimum withdrawal is ₦30,000'); return; }
   if (v > _user.balance) { toast('Amount exceeds your available balance'); return; }
   if (!bank) { toast('Please select your bank'); return; }
   if (!acct || acct.length < 10) { toast('Enter a valid 10-digit account number'); return; }
