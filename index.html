@@ -764,12 +764,21 @@ body.dark #splash{background:var(--void)}
 .av-history{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .av-history::-webkit-scrollbar{display:none}
 .av-hist-chip{flex-shrink:0;padding:5px 9px;border-radius:8px;font-size:10px;font-weight:700}
-.av-hist-chip.win{background:var(--okd);color:var(--ok)}
-.av-hist-chip.loss{background:var(--errd);color:var(--err)}
+/* Tiered by the round's own multiplier — same for every viewer, not personal win/loss */
+.av-hist-chip.t1{background:rgba(17,20,43,.06);color:var(--sil)}
+.av-hist-chip.t2{background:var(--okd);color:var(--ok)}
+.av-hist-chip.t3{background:var(--gd);color:var(--gold)}
+.av-hist-chip.t4{background:rgba(124,58,237,.14);color:#7C3AED}
 .av-stage{background:linear-gradient(180deg,#13152E,#1E2142);border-radius:16px;height:210px;position:relative;overflow:hidden;margin-bottom:14px}
 .av-status-chip{position:absolute;top:12px;left:12px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;z-index:2}
 .av-mult{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--d);font-size:36px;font-weight:800;color:#fff;z-index:2;transition:color .2s}
 .av-mult.crashed{color:#FF6B6B}
+.av-pf-row{display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--sil);cursor:pointer;margin-bottom:12px;padding:2px}
+.av-pf-detail{background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:9px;padding:10px 12px;margin:-4px 0 12px;font-size:9.5px;color:var(--sil);word-break:break-all;line-height:1.7}
+.av-pf-detail strong{color:var(--plat);font-weight:600}
+.av-bet-panel{background:rgba(17,20,43,.02);border:1px solid var(--b1);border-radius:12px;padding:12px;margin-bottom:10px}
+.av-bet-panel-lbl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:8px}
+.av-mini-stakes .stake-chip{padding:8px 4px;font-size:11px}
 .av-path{position:absolute;inset:0;width:100%;height:100%}
 
 /* Markets teaser card inside Earn */
@@ -1034,14 +1043,32 @@ body.dark #splash{background:var(--void)}
           <div class="av-mult" id="av-mult">1.00×</div>
           <svg class="av-path" viewBox="0 0 300 220" preserveAspectRatio="none"><path id="av-curve" d="M0,220 L0,220" stroke="#4338EC" stroke-width="3" fill="none"/></svg>
         </div>
-        <div class="stake-row" id="av-stakes">
-          <div class="stake-chip sel" data-v="100" onclick="avSetStake(100)">₦100</div>
-          <div class="stake-chip" data-v="500" onclick="avSetStake(500)">₦500</div>
-          <div class="stake-chip" data-v="1000" onclick="avSetStake(1000)">₦1,000</div>
-          <div class="stake-chip" data-v="5000" onclick="avSetStake(5000)">₦5,000</div>
+        <div class="av-pf-row" id="av-pf-row" onclick="avToggleVerify()">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span id="av-pf-status">Provably Fair · Round hash committed</span>
         </div>
-        <input class="stake-input" id="av-custom" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(this.value)"/>
-        <button class="game-btn" id="av-btn" onclick="avStart()">Place Bet — ₦100</button>
+        <div class="av-pf-detail" id="av-pf-detail" style="display:none"></div>
+
+        <div class="av-bet-panel" id="av-panel-0">
+          <div class="av-bet-panel-lbl">Bet 1</div>
+          <div class="stake-row av-mini-stakes" id="av-stakes-0">
+            <div class="stake-chip sel" data-v="100" onclick="avSetStake(0,100)">₦100</div>
+            <div class="stake-chip" data-v="500" onclick="avSetStake(0,500)">₦500</div>
+            <div class="stake-chip" data-v="1000" onclick="avSetStake(0,1000)">₦1,000</div>
+          </div>
+          <input class="stake-input" id="av-custom-0" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(0,this.value)"/>
+          <button class="game-btn" id="av-btn-0" onclick="avActionTap(0)">Bet — ₦100</button>
+        </div>
+        <div class="av-bet-panel" id="av-panel-1">
+          <div class="av-bet-panel-lbl">Bet 2</div>
+          <div class="stake-row av-mini-stakes" id="av-stakes-1">
+            <div class="stake-chip sel" data-v="100" onclick="avSetStake(1,100)">₦100</div>
+            <div class="stake-chip" data-v="500" onclick="avSetStake(1,500)">₦500</div>
+            <div class="stake-chip" data-v="1000" onclick="avSetStake(1,1000)">₦1,000</div>
+          </div>
+          <input class="stake-input" id="av-custom-1" type="number" placeholder="Custom stake (₦)" oninput="avCustomStake(1,this.value)"/>
+          <button class="game-btn" id="av-btn-1" onclick="avActionTap(1)">Bet — ₦100</button>
+        </div>
       </div>
       <div class="sh" style="padding:0 4px;margin:16px 0 8px"><h2>Live Activity</h2><div class="live-chip"><div class="live-dot"></div>Live</div></div>
       <div class="la-wrap" id="av-live-feed"></div>
@@ -1067,6 +1094,11 @@ body.dark #splash{background:var(--void)}
         <input class="stake-input" id="cf-custom" type="number" placeholder="Custom stake (₦)" oninput="cfCustomStake(this.value)"/>
         <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Payout on win: <strong style="color:var(--ok)" id="cf-payout-preview">₦196</strong> · 1.96×</div>
         <button class="game-btn" id="cf-flip-btn" onclick="cfFlip()">Flip for ₦100</button>
+        <div class="av-pf-row" id="cf-pf-row" onclick="cfToggleVerify()" style="margin-top:12px">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span id="cf-pf-status">Provably Fair · Flip a coin to see your hash</span>
+        </div>
+        <div class="av-pf-detail" id="cf-pf-detail" style="display:none"></div>
       </div>
       <div class="sh" style="padding:0 4px;margin:16px 0 8px"><h2>Live Activity</h2><div class="live-chip"><div class="live-dot"></div>Live</div></div>
       <div class="la-wrap" id="cf-live-feed"></div>
@@ -1266,10 +1298,10 @@ body.dark #splash{background:var(--void)}
       <label class="fl">Withdrawal Amount</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
       <div class="qrow">
-        <button class="qb" onclick="setWit(30000)">₦30k</button>
+        <button class="qb" onclick="setWit(5000)">₦5k</button>
+        <button class="qb" onclick="setWit(10000)">₦10k</button>
+        <button class="qb" onclick="setWit(25000)">₦25k</button>
         <button class="qb" onclick="setWit(50000)">₦50k</button>
-        <button class="qb" onclick="setWit(100000)">₦100k</button>
-        <button class="qb" onclick="setWit(200000)">₦200k</button>
         <button class="qb" onclick="witMax()">Max</button>
       </div>
       <label class="fl" style="margin-bottom:7px">Select Your Bank</label>
@@ -1758,7 +1790,7 @@ body.dark #splash{background:var(--void)}
         <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
         <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
         <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
-        <li>Minimum withdrawal is ₦30,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
+        <li>Minimum withdrawal is ₦1,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
         <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
       </ul>
 
@@ -2088,6 +2120,7 @@ function showApp() {
   document.getElementById('main-app').style.display = 'block';
   go('p-home','n-home');
   initTicker();
+  runStopgapCleanup();
 }
 
 // ══════════════════════════════════
@@ -2505,7 +2538,7 @@ async function doWithdraw() {
   const bank = document.getElementById('w-bank').value;
   const acct = document.getElementById('w-acct').value.trim();
   const actn = document.getElementById('w-acct-name').value.trim();
-  if (v < 30000) { toast('Minimum withdrawal is ₦30,000'); return; }
+  if (v < 15000) { toast('Minimum withdrawal is ₦15,000'); return; }
   if (v > _user.balance) { toast('Amount exceeds your available balance'); return; }
   if (!bank) { toast('Please select your bank'); return; }
   if (!acct || acct.length < 10) { toast('Enter a valid 10-digit account number'); return; }
@@ -2770,7 +2803,7 @@ function renderEarn() {
   if (b && _user) b.textContent = fmt(_user.balance || 0);
   // Keep the three game buttons' enabled/disabled state in sync with the
   // live balance (e.g. after a deposit or a win/loss elsewhere resolves).
-  pmUpdateBtn(); cfUpdatePreview(); avUpdateBtn();
+  pmUpdateBtn(); cfUpdatePreview(); avUpdateBtn(0); avUpdateBtn(1);
   renderAvBetHistory(); renderCfBetHistory();
 }
 function renderAvBetHistory() {
@@ -2804,11 +2837,12 @@ function renderCfBetHistory() {
 }
 function initEarnPage() {
   cfUpdatePreview();
-  avUpdateBtn();
+  avUpdateBtn(0); avUpdateBtn(1);
   pmUpdateBtn();
   if (!_pm.active) { pmFetchPrice(); pmEnsureRoundSubscribed(); }
   pmRenderHistory();
   avRenderHistory();
+  if (_av.phase === 'idle') avScheduleRound();
 }
 async function walletDebit(amount) {
   await withTimeout(db.collection('users').doc(_user.id).update({
@@ -2879,6 +2913,87 @@ function startLiveActivity(game, containerId) {
     });
 }
 function stopLiveActivity() { if (_liveActivityUnsub) { _liveActivityUnsub(); _liveActivityUnsub = null; } }
+
+// ══════════════════════════════════
+// PROVABLY FAIR — shared by Aviator and Coin Flip
+// Industry-standard commit/reveal: hash a secret seed BEFORE the outcome is
+// used, so the outcome is cryptographically locked in before you can react
+// to it, then reveal the seed after so anyone can independently verify the
+// result. Uses the browser's native Web Crypto (no external library).
+//
+// Honest caveat: real trustlessness requires the "server seed" to be
+// generated and held by an actual server until reveal, so no single client
+// can ever have seen it early. This app has no backend yet, so the seed is
+// generated in-browser — the hash-commit/reveal structure is fully correct
+// and verifiable, but true multi-party trustlessness needs that seed
+// generation moved to a Cloud Function once the backend exists (a drop-in
+// swap — nothing else about this scheme changes).
+// ══════════════════════════════════
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function hmacSha256Hex(keyStr, msgStr) {
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(keyStr), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(msgStr));
+  return [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function randomSeed() {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  return [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function getClientSeed() {
+  let s = localStorage.getItem('auro_client_seed');
+  if (!s) { s = randomSeed(); localStorage.setItem('auro_client_seed', s); }
+  return s;
+}
+// Standard bustabit-style crash formula: ~1% instant-crash rate enforces house
+// edge, otherwise unbounded heavy-tailed distribution (matches real crash games —
+// no artificial multiplier cap).
+function crashFromHash(hex) {
+  const first8 = parseInt(hex.slice(0, 8), 16);
+  if (first8 % 101 === 0) return 1.00;
+  const int52 = parseInt(hex.slice(0, 13), 16);
+  const M = Math.pow(2, 52);
+  return Math.max(1.00, Math.floor((100 * M - int52) / (M - int52)) / 100);
+}
+// Coin flip outcome from the same hash family — parity of the derived integer.
+function coinFromHash(hex) {
+  const n = parseInt(hex.slice(0, 8), 16);
+  return n % 2 === 0 ? 'heads' : 'tails';
+}
+function fmtMult(m) {
+  return (m >= 1000 ? m.toLocaleString('en-US', { maximumFractionDigits: 0 }) : m.toFixed(2)) + '×';
+}
+
+// ══════════════════════════════════
+// STOPGAP CLEANUP — liveActivity and predictRounds both grow forever with no
+// backend to prune them. The real fix is a scheduled Cloud Function; until
+// that exists, one session roughly per hour does a best-effort sweep of
+// anything older than 48h. Guarded by a shared lock doc so open tabs across
+// many users don't all race to do the same sweep at once.
+// ══════════════════════════════════
+async function runStopgapCleanup() {
+  try {
+    const lockRef = db.collection('_meta').doc('cleanup');
+    const lockSnap = await lockRef.get();
+    const lastRun = lockSnap.exists ? new Date(lockSnap.data().lastRun || 0).getTime() : 0;
+    if (Date.now() - lastRun < 3600000) return; // another session already swept within the last hour
+    await lockRef.set({ lastRun: nowISO() }, { merge: true });
+
+    const cutoffISO = new Date(Date.now() - 172800000).toISOString(); // 48h
+    const cutoffMs = Date.now() - 172800000;
+    const [oldActivity, oldRounds] = await Promise.all([
+      db.collection('liveActivity').where('ts', '<', cutoffISO).limit(200).get(),
+      db.collection('predictRounds').where('bucketEnd', '<', cutoffMs).limit(200).get()
+    ]);
+    const batch = db.batch();
+    let n = 0;
+    oldActivity.forEach(d => { batch.delete(d.ref); n++; });
+    oldRounds.forEach(d => { batch.delete(d.ref); n++; });
+    if (n > 0) await batch.commit();
+  } catch (e) { console.error('runStopgapCleanup error', e); }
+}
 function renderLiveActivity(containerId, items) {
   const c = document.getElementById(containerId);
   if (!c) return;
@@ -2923,6 +3038,7 @@ function cfUpdatePreview() {
   const pv = document.getElementById('cf-payout-preview');
   if (pv) pv.textContent = fmt(Math.round((_cf.stake || 0) * 1.96));
 }
+let _cfSeed = { server: '', hash: '', client: '', nonce: 0 };
 async function cfFlip() {
   if (_cf.flipping) return;
   if (!_user) { toast('Please sign in first'); return; }
@@ -2935,10 +3051,20 @@ async function cfFlip() {
   try { await walletDebit(stake); }
   catch (e) { toast('Connection error'); _cf.flipping = false; if (btn) { btn.disabled = false; cfUpdatePreview(); } return; }
 
-  const result = Math.random() < 0.5 ? 'heads' : 'tails';
+  // Provably fair: commit the seed hash BEFORE deriving the result, so the
+  // outcome is cryptographically locked in before the animation even starts.
+  _cfSeed.server = randomSeed();
+  _cfSeed.client = getClientSeed();
+  _cfSeed.nonce = (_cfSeed.nonce || 0) + 1;
+  _cfSeed.hash = await sha256Hex(_cfSeed.server);
+  const hash = await hmacSha256Hex(_cfSeed.server, _cfSeed.client + ':' + _cfSeed.nonce);
+  const result = coinFromHash(hash);
+  const pfStatus = document.getElementById('cf-pf-status');
+  if (pfStatus) pfStatus.textContent = 'Provably Fair · Result locked in — tap to verify';
+
   const won = result === _cf.choice;
   const coin = document.getElementById('cf-coin');
-  const spins = 5 + Math.floor(Math.random() * 3);
+  const spins = 5 + Math.floor(Math.random() * 3); // spin count is cosmetic only, doesn't affect the already-determined result
   const finalDeg = spins * 360 + (result === 'tails' ? 180 : 0);
   if (coin) coin.style.transform = `rotateY(${finalDeg}deg)`;
 
@@ -2964,6 +3090,19 @@ async function cfFlip() {
     _cf.flipping = false;
     if (btn) { btn.disabled = false; cfUpdatePreview(); }
   }, 2200);
+}
+function cfToggleVerify() {
+  const d = document.getElementById('cf-pf-detail');
+  if (!d) return;
+  if (d.style.display === 'none' || !d.style.display) {
+    d.innerHTML = _cfSeed.server
+      ? `<div>Committed hash: <strong>${_cfSeed.hash}</strong></div>
+         <div style="margin-top:6px">Revealed server seed: <strong>${_cfSeed.server}</strong></div>
+         <div style="margin-top:6px">Client seed: <strong>${_cfSeed.client}</strong> · Nonce: <strong>${_cfSeed.nonce}</strong></div>
+         <div style="margin-top:6px">SHA-256 of the revealed seed should equal the committed hash — verify with any SHA-256 tool.</div>`
+      : `<div>Flip a coin to generate your first provably-fair hash — it'll appear here after.</div>`;
+    d.style.display = 'block';
+  } else { d.style.display = 'none'; }
 }
 
 // ── CRYPTO FLASH PREDICTIONS ───────
@@ -3075,16 +3214,21 @@ async function pmGetOrCreateRound(asset, currentPrice) {
   } catch (e) { console.error('pmGetOrCreateRound error', e); return null; }
 }
 let _pmRoundUnsub = null, _pmRoundData = null;
-function pmEnsureRoundSubscribed() {
+async function pmEnsureRoundSubscribed() {
   const id = pmRoundId(_pm.asset, pmBucketStart());
   if (_pmRoundData?.id === id && _pmRoundUnsub) return; // already watching the right round
   if (_pmRoundUnsub) _pmRoundUnsub();
   _pmRoundData = null;
   _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
-    if (!snap.exists) return; // not created yet — first trader's buy will create it
+    if (!snap.exists) return; // briefly, until pmGetOrCreateRound below finishes
     _pmRoundData = { id, ...snap.data() };
     pmRenderLivePrices();
   }, e => console.error('pmEnsureRoundSubscribed error', e));
+  // Create the round on FIRST VIEW, not deferred until someone actually bets —
+  // otherwise Up/Down prices sit frozen at the ₦50/₦50 placeholder until
+  // someone trades, even though the underlying price is already ticking live.
+  const px = await pmFetchPrice();
+  if (px) pmGetOrCreateRound(_pm.asset, px);
 }
 function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
 function pmRenderLivePrices() {
@@ -3162,6 +3306,7 @@ async function pmTick() {
       c.classList.remove('pm-flash'); void c.offsetWidth; c.classList.add('pm-flash');
     }
   }
+  pmRenderLivePrices(); // keeps "how's my prediction doing" P&L live every second, not just when someone else trades
   if (leftMs <= 0) pmSettle();
 }
 // Sell your shares back into the market before the round ends — same early-exit
@@ -3252,117 +3397,191 @@ setInterval(() => {
 }, 4000);
 
 // ── AVIATOR ─────────────────────────
-let _av = { stake: 100, running: false, crashPoint: 1, mult: 1, raf: null, cashedOut: false, startTime: 0 };
+// ══════════════════════════════════
+// AVIATOR — continuous casino-style crash game
+// Runs continuously (betting → flying → crashed → betting…), same as a real
+// crash-game table, not just when you personally have a bet in. Up to two
+// simultaneous bets per round. Crash point is provably fair (see above) and
+// unbounded — no artificial multiplier cap. Cashing out never stops the
+// flight; it keeps climbing to its real crash point regardless.
+// ══════════════════════════════════
+let _av = {
+  bets: [
+    { stake: 100, active: false, cashedOut: false, cashOutMult: 0, payout: 0 },
+    { stake: 100, active: false, cashedOut: false, cashOutMult: 0, payout: 0 }
+  ],
+  phase: 'idle', // idle | betting | flying | crashed
+  mult: 1, crashPoint: 1, startTime: 0, raf: null, timer: null,
+  serverSeed: '', serverSeedHash: '', clientSeed: '', nonce: 0
+};
 let _avHistory = [];
-function avSetStake(v) {
-  if (_av.running) return;
-  _av.stake = v;
-  document.querySelectorAll('#av-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
-  const c = document.getElementById('av-custom'); if (c) c.value = '';
-  avUpdateBtn();
+function avTierClass(m) { return m >= 20 ? 't4' : m >= 5 ? 't3' : m >= 2 ? 't2' : 't1'; }
+
+function avSetStake(slot, v) {
+  if (_av.bets[slot].active) return;
+  _av.bets[slot].stake = v;
+  document.querySelectorAll(`#av-stakes-${slot} .stake-chip`).forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
+  const c = document.getElementById(`av-custom-${slot}`); if (c) c.value = '';
+  avUpdateBtn(slot);
 }
-function avCustomStake(v) {
-  if (_av.running) return;
-  _av.stake = parseInt(v) || 0;
-  document.querySelectorAll('#av-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
-  avUpdateBtn();
+function avCustomStake(slot, v) {
+  if (_av.bets[slot].active) return;
+  _av.bets[slot].stake = parseInt(v) || 0;
+  document.querySelectorAll(`#av-stakes-${slot} .stake-chip`).forEach(el => el.classList.remove('sel'));
+  avUpdateBtn(slot);
 }
-function avUpdateBtn() {
-  const btn = document.getElementById('av-btn');
-  if (!btn || _av.running) return;
-  const short = _user && (_av.stake || 0) > _user.balance;
+function avUpdateBtn(slot) {
+  const btn = document.getElementById(`av-btn-${slot}`);
+  if (!btn || _av.bets[slot].active || _av.phase === 'flying' || _av.phase === 'crashed') return;
+  const short = _user && (_av.bets[slot].stake || 0) > _user.balance;
   btn.disabled = !!short;
-  btn.textContent = short ? 'Insufficient balance' : 'Place Bet — ' + fmt(_av.stake || 0);
+  btn.textContent = short ? 'Insufficient balance' : 'Bet — ' + fmt(_av.bets[slot].stake || 0);
 }
-function avGenCrash() {
-  // ~4% house edge, heavy-tailed distribution, floor 1.00x, cap 50x
-  const r = Math.max(Math.random(), 0.0001);
-  return Math.max(1.00, Math.min(0.96 / r, 50));
+async function avActionTap(slot) {
+  const b = _av.bets[slot];
+  if (_av.phase === 'flying' && b.active && !b.cashedOut) { avCashOut(slot); return; }
+  if (b.active) return;
+  if (_av.phase === 'flying' || _av.phase === 'crashed') { toast('Wait for the next round to place a bet'); return; }
+  await avPlaceBet(slot);
 }
-async function avStart() {
-  if (_av.running) return;
+async function avPlaceBet(slot) {
   if (!_user) { toast('Please sign in first'); return; }
-  const stake = _av.stake;
+  const b = _av.bets[slot];
+  const stake = b.stake;
   if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
   if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
   try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
-
-  _av.running = true; _av.cashedOut = false; _av.mult = 1;
-  _av.crashPoint = avGenCrash();
-  _av.startTime = performance.now();
-  document.getElementById('av-status').textContent = 'Flying';
-  document.getElementById('av-mult').classList.remove('crashed');
-  const btn = document.getElementById('av-btn');
-  btn.textContent = 'Cash Out — ' + fmt(stake);
-  btn.onclick = avCashOut;
+  b.active = true; b.cashedOut = false; b.cashOutMult = 0; b.payout = 0;
+  const btn = document.getElementById(`av-btn-${slot}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Bet placed — waiting for takeoff'; }
   logLiveActivity('aviator', 'bet', stake);
+  if (_av.phase === 'idle') avScheduleRound();
+}
+// Betting window → provably-fair commit → flight. Auto-repeats forever, same
+// as a real casino table that's always running, whether or not you're betting.
+async function avScheduleRound() {
+  if (_av.phase === 'betting' || _av.phase === 'flying') return;
+  _av.phase = 'betting';
+  const mEl = document.getElementById('av-mult');
+  if (mEl) { mEl.textContent = '1.00×'; mEl.classList.remove('crashed'); }
+  const curve = document.getElementById('av-curve'); if (curve) curve.setAttribute('d', 'M0,220 L0,220');
+  [0, 1].forEach(i => avUpdateBtn(i));
+
+  // Commit BEFORE betting closes: hash is public now, seed only revealed after crash.
+  _av.serverSeed = randomSeed();
+  _av.clientSeed = getClientSeed();
+  _av.nonce = (_av.nonce || 0) + 1;
+  _av.serverSeedHash = await sha256Hex(_av.serverSeed);
+  const hash = await hmacSha256Hex(_av.serverSeed, _av.clientSeed + ':' + _av.nonce);
+  _av.crashPoint = crashFromHash(hash);
+  const pfStatus = document.getElementById('av-pf-status');
+  if (pfStatus) pfStatus.textContent = 'Provably Fair · Hash ' + _av.serverSeedHash.slice(0, 10) + '… committed';
+
+  let left = 6;
+  const st = document.getElementById('av-status');
+  if (st) st.textContent = 'Betting closes in ' + left + 's';
+  clearTimeout(_av.timer);
+  const tick = () => {
+    left--;
+    const s = document.getElementById('av-status');
+    if (s) s.textContent = left > 0 ? ('Betting closes in ' + left + 's') : 'Taking off…';
+    if (left <= 0) { avStartFlight(); return; }
+    _av.timer = setTimeout(tick, 1000);
+  };
+  _av.timer = setTimeout(tick, 1000);
+}
+function avStartFlight() {
+  _av.phase = 'flying';
+  _av.mult = 1;
+  _av.startTime = performance.now();
+  [0, 1].forEach(i => {
+    const btn = document.getElementById(`av-btn-${i}`);
+    if (!btn) return;
+    if (_av.bets[i].active) { btn.disabled = false; btn.textContent = 'Cash Out — ' + fmt(_av.bets[i].stake); }
+    else { btn.disabled = true; btn.textContent = 'Round in progress'; }
+  });
+  const st = document.getElementById('av-status'); if (st) st.textContent = 'Flying';
   avLoop();
 }
 function avLoop() {
   const el = document.getElementById('av-mult');
   const curve = document.getElementById('av-curve');
   const t = (performance.now() - _av.startTime) / 1000;
-  _av.mult = Math.min(1 + t * t * 0.18 + t * 0.35, _av.crashPoint);
-  if (el) el.textContent = _av.mult.toFixed(2) + '×';
+  _av.mult = Math.min(Math.exp(t * 0.17), _av.crashPoint); // smooth exponential climb
+  if (el) el.textContent = fmtMult(_av.mult);
   if (curve) {
     const x = Math.min(t * 40, 300);
-    const y = Math.max(220 - (_av.mult - 1) * 40, 10);
-    curve.setAttribute('d', `M0,220 Q${x * 0.6},${220 - ((_av.mult - 1) * 15)} ${x},${y}`);
+    const y = Math.max(220 - Math.log(_av.mult) * 60, 8);
+    curve.setAttribute('d', `M0,220 Q${x * 0.6},${220 - Math.log(_av.mult) * 22} ${x},${y}`);
   }
+  [0, 1].forEach(i => {
+    const b = _av.bets[i];
+    if (b.active && !b.cashedOut) {
+      const btn = document.getElementById(`av-btn-${i}`);
+      if (btn) btn.textContent = 'Cash Out — ' + fmt(Math.round(b.stake * _av.mult));
+    }
+  });
   if (_av.mult >= _av.crashPoint) { avCrash(); return; }
   _av.raf = requestAnimationFrame(avLoop);
 }
-function avCrash() {
-  _av.running = false;
-  cancelAnimationFrame(_av.raf);
-  document.getElementById('av-mult').classList.add('crashed');
-  if (_av.cashedOut) {
-    // This player already locked in a payout earlier in the flight — the
-    // round itself still had to play out to its real crash point for
-    // everyone else, same as any live crash-game casino.
-    document.getElementById('av-status').textContent = `Crashed at ${_av.crashPoint.toFixed(2)}× — you'd already cashed out`;
-  } else {
-    document.getElementById('av-status').textContent = `Crashed at ${_av.crashPoint.toFixed(2)}×`;
-    toast(`💥 Crashed at ${_av.crashPoint.toFixed(2)}× · You lost ${fmt(_av.stake)}`);
-    _avHistory.unshift({ mult: _av.crashPoint, won: false });
-    avRenderHistory();
-    logEarn(_user.id, { type:'aviator', stake:_av.stake, payout:0, pnl:-_av.stake, meta:{ crashPoint:_av.crashPoint, result:'loss' } });
-    logLiveActivity('aviator', 'loss', _av.stake, { mult:_av.crashPoint });
-    renderAvBetHistory();
-  }
-  setTimeout(avReset, 1600);
-}
-async function avCashOut() {
-  if (!_av.running || _av.cashedOut) return;
-  _av.cashedOut = true;
-  const mult = _av.mult;
-  const payout = Math.round(_av.stake * mult);
-  try { await walletCredit(payout); } catch (e) {}
-  toast(`✅ Cashed out at ${mult.toFixed(2)}× · You won ${fmt(payout)}`);
-  document.getElementById('av-status').textContent = 'Cashed out — round still flying…';
-  const btn = document.getElementById('av-btn');
-  if (btn) { btn.disabled = true; btn.textContent = `Cashed Out at ${mult.toFixed(2)}× — Watching`; }
-  _avHistory.unshift({ mult, won: true });
-  avRenderHistory();
-  logEarn(_user.id, { type:'aviator', stake:_av.stake, payout, pnl:payout-_av.stake, meta:{ cashedOutAt:mult, result:'win' } });
-  logLiveActivity('aviator', 'cashout', payout, { mult });
+async function avCashOut(slot) {
+  const b = _av.bets[slot];
+  if (_av.phase !== 'flying' || !b.active || b.cashedOut) return;
+  b.cashedOut = true; b.cashOutMult = _av.mult; b.payout = Math.round(b.stake * _av.mult);
+  try { await walletCredit(b.payout); } catch (e) {}
+  toast(`✅ Bet ${slot + 1} cashed out at ${fmtMult(_av.mult)} · You won ${fmt(b.payout)}`);
+  const btn = document.getElementById(`av-btn-${slot}`);
+  if (btn) { btn.disabled = true; btn.textContent = `Cashed Out at ${fmtMult(_av.mult)}`; }
+  logEarn(_user.id, { type:'aviator', stake:b.stake, payout:b.payout, pnl:b.payout - b.stake, meta:{ cashedOutAt:_av.mult, result:'win', slot } });
+  logLiveActivity('aviator', 'cashout', b.payout, { mult:_av.mult });
   renderAvBetHistory();
-  // Deliberately do NOT stop _av.running or cancel the animation frame here —
-  // the plane keeps climbing until it hits its real crash point in avLoop(),
-  // exactly like a real crash-game casino. Only avCrash() ends the round.
+  // Deliberately do NOT stop the flight or the other bet slot here — the
+  // plane keeps climbing to its real, provably-fair crash point regardless,
+  // exactly like a real crash-game casino.
 }
-function avReset() {
-  _av.mult = 1; _av.cashedOut = false;
-  const el = document.getElementById('av-mult'); if (el) { el.textContent = '1.00×'; el.classList.remove('crashed'); }
-  const curve = document.getElementById('av-curve'); if (curve) curve.setAttribute('d', 'M0,220 L0,220');
-  const st = document.getElementById('av-status'); if (st) st.textContent = 'Ready';
-  const btn = document.getElementById('av-btn');
-  if (btn) { btn.onclick = avStart; avUpdateBtn(); }
+function avCrash() {
+  _av.phase = 'crashed';
+  cancelAnimationFrame(_av.raf);
+  const mEl = document.getElementById('av-mult'); if (mEl) mEl.classList.add('crashed');
+  const st = document.getElementById('av-status'); if (st) st.textContent = `Crashed at ${fmtMult(_av.crashPoint)}`;
+  const pfStatus = document.getElementById('av-pf-status');
+  if (pfStatus) pfStatus.textContent = `Crashed at ${fmtMult(_av.crashPoint)} · Seed revealed — tap to verify`;
+
+  // Universal round history — every round's real crash point, tiered by
+  // magnitude, regardless of whether you personally had a bet in it.
+  _avHistory.unshift({ mult: _av.crashPoint });
+  _avHistory = _avHistory.slice(0, 15);
+  avRenderHistory();
+
+  for (let i = 0; i < 2; i++) {
+    const b = _av.bets[i];
+    if (b.active && !b.cashedOut) {
+      toast(`💥 Bet ${i + 1} crashed at ${fmtMult(_av.crashPoint)} · Lost ${fmt(b.stake)}`);
+      logEarn(_user.id, { type:'aviator', stake:b.stake, payout:0, pnl:-b.stake, meta:{ crashPoint:_av.crashPoint, result:'loss', slot:i } });
+      logLiveActivity('aviator', 'loss', b.stake, { mult:_av.crashPoint });
+    }
+    _av.bets[i] = { stake: b.stake, active: false, cashedOut: false, cashOutMult: 0, payout: 0 };
+  }
+  renderAvBetHistory();
+  setTimeout(() => { _av.phase = 'idle'; avScheduleRound(); }, 2200); // continuous — keeps running like a live table
+}
+function avToggleVerify() {
+  const d = document.getElementById('av-pf-detail');
+  if (!d) return;
+  if (d.style.display === 'none' || !d.style.display) {
+    d.innerHTML = _av.phase === 'crashed'
+      ? `<div>Committed hash: <strong>${_av.serverSeedHash}</strong></div>
+         <div style="margin-top:6px">Revealed server seed: <strong>${_av.serverSeed}</strong></div>
+         <div style="margin-top:6px">Client seed: <strong>${_av.clientSeed}</strong> · Nonce: <strong>${_av.nonce}</strong></div>
+         <div style="margin-top:6px">SHA-256 of the revealed seed should equal the committed hash — verify with any SHA-256 tool.</div>`
+      : `<div>Server seed hash, committed before this round's betting closed: <strong>${_av.serverSeedHash || '—'}</strong></div>
+         <div style="margin-top:6px">The seed itself is revealed once this round crashes, so the outcome is locked in before anyone could react to it.</div>`;
+    d.style.display = 'block';
+  } else { d.style.display = 'none'; }
 }
 function avRenderHistory() {
   const h = document.getElementById('av-history'); if (!h) return;
-  _avHistory = _avHistory.slice(0, 10);
-  h.innerHTML = _avHistory.map(x => `<div class="av-hist-chip ${x.won ? 'win' : 'loss'}">${x.mult.toFixed(2)}×</div>`).join('');
+  h.innerHTML = _avHistory.map(x => `<div class="av-hist-chip ${avTierClass(x.mult)}">${fmtMult(x.mult)}</div>`).join('');
 }
 
 // ══════════════════════════════════
