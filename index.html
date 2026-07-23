@@ -379,6 +379,46 @@ body::after{display:none}
 .hi-a{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
 .hi-r{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
 
+
+/* ── RECEIPT ── */
+.hist-item{cursor:pointer;transition:transform .15s, box-shadow .15s}
+.hist-item:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(17,20,43,.06)}
+.hist-item:active{transform:scale(.99)}
+.rcpt-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:6000;display:none;align-items:flex-end;justify-content:center}
+.rcpt-modal.open{display:flex}
+.rcpt-sheet{background:var(--s2);border-radius:24px 24px 0 0;width:100%;max-width:430px;max-height:94vh;overflow-y:auto;animation:shu .36s var(--ez) both;position:relative;padding-bottom:34px}
+.rcpt-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.rcpt-card-wrap{padding:12px 16px 16px}
+.rcpt-card{background:#FFFFFF;border-radius:20px;padding:22px 20px 18px;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(17,20,43,.10);border:1px solid rgba(17,20,43,.06)}
+.rcpt-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.rcpt-watermark{position:absolute;top:-18px;right:-10px;font-family:var(--d);font-size:84px;font-weight:800;color:rgba(67,56,236,.04);letter-spacing:-.04em;pointer-events:none;user-select:none;transform:rotate(-8deg)}
+.rcpt-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.rcpt-logo{font-family:var(--d);font-size:18px;font-weight:800;letter-spacing:.02em;color:var(--gold)}
+.rcpt-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:20px;border:1px solid}
+.rcpt-amt-hero{text-align:center;margin:10px 0 18px}
+.rcpt-amt-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
+.rcpt-amt-val{font-family:var(--d);font-size:34px;font-weight:700;letter-spacing:-.03em;color:var(--plat);line-height:1}
+.rcpt-amt-sub{font-size:11px;color:var(--sil);margin-top:6px}
+.rcpt-divider{height:1px;background:repeating-linear-gradient(90deg,var(--b1) 0 7px,transparent 7px 11px);margin:16px 0}
+.rcpt-grid{display:grid;gap:10px}
+.rcpt-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.rcpt-k{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);flex-shrink:0;max-width:40%}
+.rcpt-v{font-size:12px;font-weight:600;color:var(--plat);text-align:right;word-break:break-all}
+.rcpt-v.mono{font-family:var(--d);font-weight:600;letter-spacing:.02em}
+.rcpt-qr-wrap{display:flex;align-items:center;gap:14px;background:rgba(243,244,250,.9);border:1px dashed var(--b1);border-radius:12px;padding:12px;margin-top:16px}
+.rcpt-qr{width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--b1);flex-shrink:0;object-fit:contain}
+.rcpt-qr-txt{flex:1}
+.rcpt-qr-title{font-size:11px;font-weight:700;color:var(--plat);margin-bottom:2px}
+.rcpt-qr-sub{font-size:10px;color:var(--sil);line-height:1.4}
+.rcpt-foot{margin-top:14px;text-align:center}
+.rcpt-foot p{font-size:9px;color:var(--dim);line-height:1.5;max-width:260px;margin:0 auto}
+.rcpt-actions{display:flex;gap:10px;padding:0 16px}
+.rcpt-btn{flex:1;padding:13px;border-radius:11px;font-family:var(--b);font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s}
+.rcpt-btn-p{background:var(--gold);color:#fff;border:none}
+.rcpt-btn-p:hover{background:var(--gold2);transform:translateY(-1px)}
+.rcpt-btn-s{background:var(--s1);color:var(--plat);border:1px solid var(--b1)}
+.rcpt-btn-s:hover{background:var(--s2)}
+
 /* NOTIFICATIONS */
 .notifs{padding:0 16px}
 .notif{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--b1)}
@@ -1624,6 +1664,47 @@ body.dark #splash{background:var(--void)}
   </div>
 </div>
 
+
+<!-- RECEIPT MODAL -->
+<div class="rcpt-modal" id="rcpt-modal" onclick="if(event.target===this)closeReceipt()">
+  <div class="rcpt-sheet">
+    <div class="m-handle"></div>
+    <div style="padding:0 18px 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:9px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;color:var(--gold)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="m-title" style="font-size:16px;margin:0;line-height:1.1">Transaction Receipt</div>
+          <div style="font-size:10px;color:var(--sil)">Tap to download or share</div>
+        </div>
+      </div>
+      <div class="adm-close" onclick="closeReceipt()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    </div>
+
+    <div class="rcpt-card-wrap">
+      <div id="rcpt-capture" class="rcpt-card">
+        <!-- injected by JS -->
+      </div>
+    </div>
+
+    <div class="rcpt-actions">
+      <button class="rcpt-btn rcpt-btn-p" onclick="downloadReceipt()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PNG
+      </button>
+      <button class="rcpt-btn rcpt-btn-s" onclick="shareReceipt()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:12px;display:flex;justify-content:center;gap:14px">
+      <button onclick="copyReceiptRef()" style="background:none;border:none;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;letter-spacing:.04em">Copy Reference • <span id="rcpt-copy-hint" style="color:var(--sil);font-weight:400">AURO-XXXX</span></button>
+    </div>
+  </div>
+</div>
+
+
 <!-- INVEST MODAL -->
 <div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
   <div class="msheet" style="padding-top:0">
@@ -2509,10 +2590,13 @@ async function doDeposit() {
 function renderDepHistory(deps) {
   const c = document.getElementById('dep-history');
   if (!deps || !deps.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No deposit requests yet</div>'; return; }
+  if (!window._rcptMap) window._rcptMap = {};
+  deps.forEach(d=>{ if(d.id) _rcptMap[d.id]={...d,kind:'deposit'}; });
   c.innerHTML = deps.map(d => {
     const cls = d.status==='approved'?'hi-a':d.status==='rejected'?'hi-r':'hi-p';
     const lbl = d.status==='approved'?'Approved':d.status==='rejected'?'Rejected':'Pending';
-    return `<div class="hist-item"><div><div class="hi-amt">${fmt(d.amount)}</div><div class="hi-sub">${dateStr(d.date)}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
+    const safeId = (d.id||'').replace(/'/g,'');
+    return `<div class="hist-item" onclick="openReceipt('deposit','${safeId}')"><div><div class="hi-amt">+${fmt(d.amount)}</div><div class="hi-sub">Deposit · ${dateStr(d.date)} · <span style="color:var(--gold)">Receipt</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div></div>`;
   }).join('');
 }
 
@@ -2570,10 +2654,13 @@ async function doWithdraw() {
 function renderWitHistory(wits) {
   const c = document.getElementById('wit-history');
   if (!wits || !wits.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No withdrawal requests yet</div>'; return; }
+  if (!window._rcptMap) window._rcptMap = {};
+  wits.forEach(w=>{ if(w.id) _rcptMap[w.id]={...w,kind:'withdraw'}; });
   c.innerHTML = wits.map(w => {
     const cls = w.status==='approved'?'hi-a':w.status==='rejected'?'hi-r':'hi-p';
     const lbl = w.status==='approved'?'Sent':w.status==='rejected'?'Rejected':'Processing';
-    return `<div class="hist-item"><div><div class="hi-amt">${fmt(w.amount)}</div><div class="hi-sub">${dateStr(w.date)} · ${w.bank}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
+    const safeId = (w.id||'').replace(/'/g,'');
+    return `<div class="hist-item" onclick="openReceipt('withdraw','${safeId}')"><div><div class="hi-amt">-${fmt(w.amount)}</div><div class="hi-sub">Withdrawal · ${dateStr(w.date)} · ${w.bank||'Bank'} · <span style="color:var(--gold)">Receipt</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div></div>`;
   }).join('');
 }
 function renderWallet() {
@@ -2586,18 +2673,22 @@ function renderWallet() {
   const wits = (_myWits||[]).map(w => ({ ...w, kind:'withdraw' }));
   const all = [...deps, ...wits].sort((a,b) => (b.date||'').localeCompare(a.date||''));
   if (!all.length) { c.innerHTML = '<div style="font-size:11px;color:var(--sil);text-align:center;padding:24px 0">No transactions yet — fund your wallet to get started.</div>'; return; }
+  // cache for receipt
+  if (!window._rcptMap) window._rcptMap = {};
+  all.forEach(tx=>{ if(tx.id) _rcptMap[tx.id]=tx; });
   c.innerHTML = all.map(t => {
     const isDep = t.kind==='deposit';
     const cls = t.status==='approved'?'hi-a':t.status==='rejected'?'hi-r':'hi-p';
     const lbl = t.status==='approved'?(isDep?'Approved':'Sent'):t.status==='rejected'?'Rejected':(isDep?'Pending':'Processing');
-    return `<div class="hist-item">
+    const safeId = (t.id||'').replace(/'/g,'');
+    return `<div class="hist-item" onclick="openReceipt('${t.kind}','${safeId}')">
       <div style="display:flex;align-items:center;gap:11px">
         <div style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${isDep?'var(--okd)':'var(--gd)'};color:${isDep?'var(--ok)':'var(--gold)'}">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${isDep?'<path d="M12 19V5M5 12l7 7 7-7"/>':'<path d="M12 5v14M5 12l7-7 7 7"/>'}</svg>
         </div>
-        <div><div class="hi-amt">${isDep?'+':'-'}${fmt(t.amount)}</div><div class="hi-sub">${isDep?'Deposit':'Withdrawal'} · ${dateStr(t.date)}</div></div>
+        <div><div class="hi-amt">${isDep?'+':'-'}${fmt(t.amount)}</div><div class="hi-sub">${isDep?'Deposit':'Withdrawal'} · ${dateStr(t.date)} · <span style="color:var(--gold)">Receipt</span></div></div>
       </div>
-      <div class="hi-badge ${cls}">${lbl}</div>
+      <div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>`;
   }).join('');
 }
@@ -5597,6 +5688,157 @@ function toggleDarkMode() {
   const saved = localStorage.getItem('auro_theme');
   if (saved === 'dark') applyDarkMode(true);
 })();
+
+
+// ══════════════════════════════════
+// RECEIPT — GENERATE / DOWNLOAD / SHARE
+// ══════════════════════════════════
+let _currentReceiptRef = '';
+let _currentReceiptTx = null;
+
+function _genRef(id){
+  if(!id) return 'AURO-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  const core = id.replace(/[^a-zA-Z0-9]/g,'').slice(0,8).toUpperCase();
+  return 'AURO-'+(core||'XXXX')+'-'+(new Date().getFullYear());
+}
+
+function openReceipt(kind, id){
+  const map = window._rcptMap||{};
+  let tx = map[id];
+  if(!tx){
+    // try find in global arrays as fallback
+    const allDeps = (typeof _myDeps!=='undefined' && _myDeps) ? _myDeps : [];
+    const allWits = (typeof _myWits!=='undefined' && _myWits) ? _myWits : [];
+    tx = [...allDeps.map(d=>({...d,kind:'deposit'})), ...allWits.map(w=>({...w,kind:'withdraw'}))].find(x=>x.id===id);
+  }
+  if(!tx){ toast('Receipt not ready yet'); return; }
+  _currentReceiptTx = tx;
+  const isDep = (tx.kind||kind)==='deposit';
+  const ref = _genRef(tx.id);
+  _currentReceiptRef = ref;
+  const amt = tx.amount||0;
+  const date = tx.date ? dateStr(tx.date) : new Date().toLocaleDateString();
+  const fullDate = tx.date ? new Date(tx.date).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'}) : new Date().toLocaleString();
+  const status = tx.status||'pending';
+  const statusLabel = status==='approved' ? (isDep?'Successful':'Completed') : status==='rejected' ? 'Failed' : 'Pending';
+  const statusColor = status==='approved' ? 'var(--ok)' : status==='rejected' ? 'var(--err)' : 'var(--gold)';
+  const statusBg = status==='approved' ? 'var(--okd)' : status==='rejected' ? 'var(--errd)' : 'var(--gd)';
+  const statusBorder = status==='approved' ? 'var(--okb)' : status==='rejected' ? 'var(--errb)' : 'var(--gb)';
+  const userName = (_user && _user.name) ? _user.name : 'AURO User';
+  const method = isDep ? (tx.method||'OPAY Transfer') : (tx.bank||'Bank Transfer');
+  const acct = isDep ? '6558614972 · AURO Treasury' : (tx.acct||tx.account||'—');
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(ref+'|'+amt+'|'+status)}&bgcolor=ffffff&color=11142B&margin=6`;
+
+  document.getElementById('rcpt-copy-hint').textContent = ref;
+
+  const capture = document.getElementById('rcpt-capture');
+  capture.innerHTML = `
+    <div class="rcpt-watermark">AURO</div>
+    <div class="rcpt-top">
+      <div>
+        <div class="rcpt-logo">AURO<span style="font-weight:400;font-size:10px;vertical-align:super;margin-left:2px;letter-spacing:.08em">®</span></div>
+        <div style="font-size:10px;color:var(--sil);margin-top:2px;letter-spacing:.04em">Trade & Earn • Digital Receipt</div>
+      </div>
+      <div class="rcpt-badge" style="background:${statusBg};color:${statusColor};border-color:${statusBorder}">${statusLabel}</div>
+    </div>
+
+    <div class="rcpt-amt-hero">
+      <div class="rcpt-amt-label">${isDep?'Amount Credited':'Amount Debited'}</div>
+      <div class="rcpt-amt-val">${isDep?'+':'-'}${fmt(amt)}</div>
+      <div class="rcpt-amt-sub">${isDep?'Deposit to NGN Wallet':'Withdrawal from NGN Wallet'} • ${date}</div>
+    </div>
+
+    <div class="rcpt-divider"></div>
+
+    <div class="rcpt-grid">
+      <div class="rcpt-row"><span class="rcpt-k">Reference</span><span class="rcpt-v mono">${ref}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Transaction ID</span><span class="rcpt-v mono" style="font-size:10px">${(tx.id||'—').slice(0,18)}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Type</span><span class="rcpt-v">${isDep?'Wallet Funding (Deposit)':'Wallet Payout (Withdrawal)'}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Date & Time</span><span class="rcpt-v">${fullDate}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Method</span><span class="rcpt-v">${method}</span></div>
+      ${!isDep?`<div class="rcpt-row"><span class="rcpt-k">Destination</span><span class="rcpt-v">${acct}</span></div>`:``}
+      <div class="rcpt-row"><span class="rcpt-k">Account Name</span><span class="rcpt-v">${userName}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Status</span><span class="rcpt-v" style="color:${statusColor};font-weight:700">${statusLabel}</span></div>
+    </div>
+
+    <div class="rcpt-qr-wrap">
+      <img class="rcpt-qr" src="${qrUrl}" alt="qr" crossorigin="anonymous"/>
+      <div class="rcpt-qr-txt">
+        <div class="rcpt-qr-title">Verified by AURO</div>
+        <div class="rcpt-qr-sub">Scan to verify this receipt. Keep your reference <strong>${ref}</strong> for support. Funds reflect based on bank processing time.</div>
+      </div>
+    </div>
+
+    <div class="rcpt-foot">
+      <p>This receipt is system generated and valid without signature. For enquiries, contact support@auro.trade with your reference. AURO is not a bank. <br/>auro.trade • ${new Date().getFullYear()}</p>
+    </div>
+  `;
+
+  document.getElementById('rcpt-modal').classList.add('open');
+}
+
+function closeReceipt(){
+  document.getElementById('rcpt-modal').classList.remove('open');
+}
+
+function _ensureHtml2Canvas(){
+  return new Promise((res, rej)=>{
+    if(window.html2canvas) return res(window.html2canvas);
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload=()=>res(window.html2canvas);
+    s.onerror=rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function downloadReceipt(){
+  const el = document.getElementById('rcpt-capture');
+  if(!el) return;
+  const btn = document.querySelector('.rcpt-btn-p');
+  const orig = btn ? btn.innerHTML : '';
+  if(btn) btn.innerHTML='Generating…';
+  try{
+    const canvas = await _ensureHtml2Canvas().then(h2c=>h2c(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,allowTaint:true}));
+    const url = canvas.toDataURL('image/png');
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`${_currentReceiptRef||'AURO-receipt'}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Receipt downloaded ✓');
+  }catch(e){ console.error(e); toast('Could not download — try screenshot'); }
+  finally{ if(btn) btn.innerHTML=orig; }
+}
+
+async function shareReceipt(){
+  const el = document.getElementById('rcpt-capture');
+  if(!el) return;
+  try{
+    const canvas = await _ensureHtml2Canvas().then(h2c=>h2c(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true}));
+    canvas.toBlob(async (blob)=>{
+      if(!blob) { downloadReceipt(); return; }
+      const file = new File([blob], `${_currentReceiptRef||'receipt'}.png`, {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({title:'AURO Receipt',text:`My AURO transaction ${_currentReceiptRef} - ${fmt(_currentReceiptTx?.amount||0)}`,files:[file]}); toast('Shared ✓'); return; }catch(err){ if(err.name==='AbortError') return; }
+      }
+      // fallback: Web Share API text
+      if(navigator.share){
+        try{ await navigator.share({title:'AURO Receipt',text:`AURO ${(_currentReceiptTx?.kind||'transaction')} of ${fmt(_currentReceiptTx?.amount||0)} • Ref: ${_currentReceiptRef}`}); return; }catch{}
+      }
+      downloadReceipt();
+    },'image/png',1);
+  }catch(e){ console.error(e); downloadReceipt(); }
+}
+
+function copyReceiptRef(){
+  if(!_currentReceiptRef){ toast('No reference'); return; }
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(_currentReceiptRef).then(()=>toast('Reference copied: '+_currentReceiptRef));
+  }else{
+    const ta=document.createElement('textarea'); ta.value=_currentReceiptRef; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Reference copied');
+  }
+}
+
 
 boot();
 </script>
