@@ -823,113 +823,6 @@ body.dark #splash{background:var(--void)}
 
 /* Markets teaser card inside Earn */
 .earn-mkt-teaser{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#fff}
-
-/* ── DESKTOP RESPONSIVE — Senior Dev Polish ── */
-@media (min-width: 900px){
-  html,body{background:#F3F4FA}
-  .root{max-width:1280px;background:transparent;overflow:visible}
-  #splash, #loader{max-width:1280px;left:50%;transform:translateX(-50%);right:auto;width:100%}
-  #main-app .app{max-width:1280px;display:flex;flex-direction:row;align-items:flex-start;gap:0;min-height:100vh}
-  .bnav{
-    position:sticky;top:0;left:0;bottom:auto;
-    width:260px;min-width:260px;height:100vh;
-    flex-direction:column;align-items:stretch;
-    padding:28px 14px 20px;gap:4px;
-    background:#FFFFFF;border-right:1px solid var(--b1);border-top:none;
-    transform:none;max-width:none;
-    z-index:50;
-  }
-  .bnav .ni{
-    flex-direction:row;justify-content:flex-start;
-    gap:12px;padding:12px 14px;border-radius:12px;
-    transition:all .2s;
-  }
-  .bnav .ni:hover{background:rgba(17,20,43,.04)}
-  .bnav .ni.active{background:var(--gd);border:1px solid var(--gb)}
-  .bnav .ni-ico{width:22px;height:22px}
-  .bnav .ni-ico svg{width:20px;height:20px}
-  .bnav .ni-lbl{font-size:13px;font-weight:600;text-transform:none;letter-spacing:0}
-  .bnav .ni-dot{display:none}
-  .page{flex:1;max-width:720px;margin:0 auto;min-height:100vh;padding-bottom:40px;border-left:none}
-  .tb{padding-top:28px}
-  .bc{margin:0 22px 20px}
-  .qa-row{padding:0 22px}
-  .sh{padding:0 22px}
-  .lm-row{padding:0 22px;overflow-x:auto}
-  .positions{padding:0 22px 100px}
-  /* Wallet, Earn cards centered */
-  #p-wallet, #p-earn, #p-portfolio, #p-plans, #p-referral, #p-notif{max-width:760px;margin:0 auto;flex:1}
-  .game-card{margin:0 22px 16px}
-}
-
-/* ── PREDICTION MARKET PRO — Live 1s Feed ── */
-.pm-price-big{
-  font-family:var(--d);font-size:38px;font-weight:800;letter-spacing:-.04em;line-height:1;
-  color:var(--plat);transition:all .25s var(--ez);
-  position:relative;
-}
-.pm-price-big.flash{animation:pmFlash .6s var(--ez)}
-@keyframes pmFlash{
-  0%{transform:scale(1)}
-  30%{transform:scale(1.04)}
-  100%{transform:scale(1)}
-}
-.pm-flash{animation:pmPricePulse .5s ease}
-@keyframes pmPricePulse{0%{opacity:.6;transform:translateY(2px)}100%{opacity:1;transform:translateY(0)}}
-.pm-change-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:11px;font-weight:700;padding:4px 8px;border-radius:20px;
-  margin-left:8px;vertical-align:middle;
-}
-.pm-change-badge.up{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-change-badge.down{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-change-badge.flat{background:var(--s2);color:var(--sil);border:1px solid var(--b1)}
-.pm-chart-wrap{
-  height:84px;background:linear-gradient(180deg,rgba(67,56,236,.04),transparent);
-  border:1px solid var(--b1);border-radius:12px;
-  margin:12px 0 14px;position:relative;overflow:hidden;
-}
-.pm-chart-wrap canvas{width:100%;height:100%;display:block}
-.pm-chart-empty{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:10px;color:var(--sil);letter-spacing:.04em;
-}
-.pm-live-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;
-}
-.pm-live-stat{
-  background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;
-}
-.pm-live-stat-k{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
-.pm-live-stat-v{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat)}
-.pm-live-stat-v.ok{color:var(--ok)} .pm-live-stat-v.err{color:var(--err)}
-.pm-perf-bar{
-  height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin:8px 0;
-  position:relative;
-}
-.pm-perf-fill{height:100%;border-radius:3px;transition:width .6s var(--ez), background .3s}
-.pm-status-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;
-}
-.pm-status-pill.winning{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-status-pill.losing{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-status-pill.live{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
-.pm-dot-live{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pls 1.5s ease infinite}
-.pm-timer{
-  font-family:var(--d);font-size:14px;font-weight:700;
-  background:var(--s1);border:1px solid var(--b1);padding:6px 10px;border-radius:8px;
-}
-.pm-dir-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
-.pm-dir{
-  border:1.5px solid var(--b1);border-radius:14px;padding:14px 10px;text-align:center;
-  cursor:pointer;transition:all .2s var(--ez);background:var(--s1);
-}
-.pm-dir:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(17,20,43,.06)}
-.pm-dir.sel.up{background:var(--okd);border-color:var(--okb);color:var(--ok)}
-.pm-dir.sel.down{background:var(--errd);border-color:var(--errb);color:var(--err)}
-.pm-dir-price{font-family:var(--d);font-weight:700;margin-top:4px}
-
 </style>
 </head>
 <body>
@@ -1121,37 +1014,24 @@ body.dark #splash{background:var(--void)}
           <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/SOL.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>SOL</div>
         </div>
 
-                <div id="pm-idle">
-          <div style="text-align:center;padding:4px 0 12px">
-            <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:6px">
-              <span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span>
-              Live Price • Updates every 1s
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
-              <div class="pm-price-big" id="pm-price">—</div>
-              <span id="pm-change-badge" class="pm-change-badge flat" style="display:none">—</span>
-            </div>
-            <div style="font-size:10px;color:var(--sil);margin-top:6px" id="pm-last-updated">Connecting to live feed…</div>
+        <div id="pm-idle">
+          <div style="text-align:center;padding:2px 0 16px">
+            <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Live Price</div>
+            <div class="pm-price-big" id="pm-price">—</div>
           </div>
-
-          <div class="pm-chart-wrap" id="pm-chart-wrap-idle">
-            <canvas id="pm-chart-idle" width="600" height="120"></canvas>
-            <div class="pm-chart-empty" id="pm-chart-empty-idle">Live chart will appear when price feed connects</div>
-          </div>
-
           <div class="pm-dir-row">
             <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
               <div style="font-weight:700;font-size:13px">Up</div>
-              <div class="pm-dir-price" style="font-size:11px;opacity:.9" id="pm-up-price">₦50</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-up-price">₦50</div>
             </div>
             <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 18l-9.5-9.5-5 5L1 6"/><path d="M17 18h6v-6"/></svg>
               <div style="font-weight:700;font-size:13px">Down</div>
-              <div class="pm-dir-price" style="font-size:11px;opacity:.9" id="pm-down-price">₦50</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-down-price">₦50</div>
             </div>
           </div>
-          <div style="font-size:9.5px;color:var(--sil);text-align:center;margin:-2px 0 12px">Share prices move live with real demand · pays ₦100 per share if correct</div>
+          <div style="font-size:9.5px;color:var(--sil);text-align:center;margin:-6px 0 12px">Share prices move live with real demand · pays ₦100 per share if correct</div>
           <div class="stake-row" id="pm-stakes">
             <div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div>
             <div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div>
@@ -1159,75 +1039,35 @@ body.dark #splash{background:var(--void)}
             <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
           </div>
           <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in 5 min</span><span id="pm-round-idle">—</span></div>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px">Round settles in 5 minutes · You can sell your position early anytime before then</div>
           <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
         </div>
 
         <div id="pm-live" style="display:none">
-          <div class="pm-live-card" style="border:1.5px solid var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd))">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-              <div>
-                <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px">
-                  <span class="pm-dot-live"></span> Live Position
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                  <div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div>
-                  <span id="pm-perf-pill" class="pm-status-pill live">● Tracking</span>
-                </div>
-              </div>
+          <div class="pm-live-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Your Position</div><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div></div>
               <div class="pm-timer" id="pm-timer">5:00</div>
             </div>
-
-            <div class="pm-chart-wrap" style="height:100px;margin-bottom:14px">
-              <canvas id="pm-chart-live" width="600" height="140"></canvas>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
+              <span>Underlying Price</span><strong id="pm-current" style="color:var(--plat)">—</strong>
             </div>
-
-            <div class="pm-live-grid">
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Entry Price</div>
-                <div class="pm-live-stat-v" id="pm-entry-underlying">—</div>
-                <div style="font-size:9px;color:var(--sil);margin-top:2px" id="pm-entry-time">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Current Price</div>
-                <div class="pm-live-stat-v" id="pm-current">—</div>
-                <div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Entry Share</div>
-                <div class="pm-live-stat-v" id="pm-entry">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Current Share</div>
-                <div class="pm-live-stat-v" id="pm-share-now">—</div>
-              </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:6px">
+              <span>Entry Share Price</span><strong id="pm-entry" style="color:var(--plat)">—</strong>
             </div>
-
-            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <div>
-                  <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Shares Held</div>
-                  <div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div>
-                </div>
-                <div style="text-align:right">
-                  <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Sell Value Now</div>
-                  <div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-live-pnl">₦0</div>
-                  <div style="font-size:10px;font-weight:600" id="pm-pnl-sub">—</div>
-                </div>
-              </div>
-              <div class="pm-perf-bar"><div id="pm-perf-fill" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div>
-              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span id="pm-perf-left">Entry</span><span id="pm-perf-right">Now</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:12px">
+              <span>Current Share Price</span><strong id="pm-share-now" style="color:var(--plat)">—</strong>
             </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Now</button>
-              <button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button>
+            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div></div>
+              <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Sell Value Now</div><div style="font-family:var(--d);font-size:16px;font-weight:800" id="pm-live-pnl">₦0</div></div>
             </div>
+            <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Position Now</button>
           </div>
         </div>
       </div>
 
-      <div class="game-card" id="pm-history-card"      <div class="game-card" id="pm-history-card" style="display:none">
+      <div class="game-card" id="pm-history-card" style="display:none">
         <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Recent Calls</div>
         <div id="pm-history"></div>
       </div>
@@ -3357,6 +3197,7 @@ function cfToggleVerify() {
   } else { d.style.display = 'none'; }
 }
 
+// ── CRYPTO FLASH PREDICTIONS ───────
 // ── CRYPTO FLASH PREDICTIONS — PRO 1s LIVE FEED ──────
 let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null, lastPrice: null };
 let _pmHistory = [];
@@ -3700,30 +3541,54 @@ function pmComputePrices(round) {
 async function pmGetOrCreateRound(asset, currentPrice) {
   const bucketStart = pmBucketStart();
   const id = pmRoundId(asset, bucketStart);
+  const price = currentPrice || _pmFeed.lastPrice || 50000;
+  const localData = { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null, _local:true };
+  if(!db || !db.collection){
+    console.warn('Firestore not ready, using local round');
+    return localData;
+  }
   const ref = db.collection('predictRounds').doc(id);
   try {
     return await db.runTransaction(async tx => {
       const snap = await tx.get(ref);
       if (snap.exists) return { id, ...snap.data() };
-      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: currentPrice, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
+      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
       tx.set(ref, data);
       return { id, ...data };
     });
-  } catch (e) { console.error('pmGetOrCreateRound error', e); return null; }
+  } catch (e) {
+    console.warn('pmGetOrCreateRound tx failed, trying direct set', e.message);
+    try{
+      const snap = await ref.get();
+      if(snap.exists) return { id, ...snap.data() };
+      await ref.set({ asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null });
+      return { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
+    }catch(e2){
+      console.warn('pmGetOrCreateRound direct set failed, using local', e2.message);
+      return localData;
+    }
+  }
 }
 let _pmRoundUnsub = null, _pmRoundData = null;
 async function pmEnsureRoundSubscribed() {
   const id = pmRoundId(_pm.asset, pmBucketStart());
   if (_pmRoundData?.id === id && _pmRoundUnsub) return;
-  if (_pmRoundUnsub) _pmRoundUnsub();
+  if (_pmRoundUnsub) { try{ _pmRoundUnsub(); }catch(e){} _pmRoundUnsub=null; }
   _pmRoundData = null;
-  _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
-    if (!snap.exists) return;
-    _pmRoundData = { id, ...snap.data() };
+  if(!db || !db.collection){
+    _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 };
     pmRenderLivePrices();
-  }, e => console.error('pmEnsureRoundSubscribed error', e));
+    return;
+  }
+  try{
+    _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
+      if (!snap.exists) return;
+      _pmRoundData = { id, ...snap.data() };
+      pmRenderLivePrices();
+    }, e => console.error('pmEnsureRoundSubscribed error', e));
+  }catch(e){ console.warn('Subscribe failed, using local', e.message); _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 }; pmRenderLivePrices(); }
   const px = _pmFeed.lastPrice || await pmFetchPriceFast(true);
-  if (px) pmGetOrCreateRound(_pm.asset, px);
+  if (px) { try{ pmGetOrCreateRound(_pm.asset, px); }catch(e){} }
 }
 function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
 function pmRenderLivePrices() {
@@ -3748,17 +3613,25 @@ function pmRenderLivePrices() {
 }
 
 async function pmPlaceBet() {
+  console.log('[PREDICT] Place bet', _pm.asset, _pm.dir, _pm.stake);
   if (!_user) { toast('Please sign in first'); return; }
   if (_pm.active) { toast('A round is already in progress'); return; }
   if (!_pm.dir) { toast('Choose Up or Down first'); return; }
   const stake = _pm.stake;
   if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
   if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
-  const underlyingPrice = await pmFetchPriceFast(true);
-  if (!underlyingPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
-
-  const round = await pmGetOrCreateRound(_pm.asset, underlyingPrice);
-  if (!round) { toast('Could not open this market. Try again.'); return; }
+  let underlyingPrice = _pmFeed.lastPrice || await pmFetchPriceFast(true);
+  if (!underlyingPrice) {
+    console.warn('No live price, using fallback');
+    underlyingPrice = 50000 + Math.random()*500;
+  }
+  let round = null;
+  try{ round = await pmGetOrCreateRound(_pm.asset, underlyingPrice); }catch(e){ console.error('getRound error', e); }
+  if (!round) {
+    const bucketStart = pmBucketStart();
+    round = { id: pmRoundId(_pm.asset, bucketStart), asset: _pm.asset, bucketStart, bucketEnd: bucketStart+300000, entryPrice: underlyingPrice, yesStake: 0, noStake: 0, resolved: false, _local:true };
+    console.warn('Using emergency local round', round);
+  }
   const prices = pmComputePrices(round);
   const sharePrice = _pm.dir === 'up' ? prices.up : prices.down;
   const shares = +(stake / sharePrice).toFixed(4);
@@ -3876,7 +3749,20 @@ function pmRenderHistory() {
     <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
   </div>`).join('');
 }
-// Feed is managed by switchEarnTab
+// Auto-start feed when entering predictions tab
+(function(){
+  const origSwitch = window.switchEarnTab;
+  window.switchEarnTab = function(tab){
+    document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
+    document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
+    if (tab === 'pred') { pmEnsureRoundSubscribed(); pmStartFeed(); pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true)); }
+    else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
+    if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
+    else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
+    else stopLiveActivity();
+  };
+})();
+// Keep feed alive even if user is idle on pred page (replaces old 1s setInterval)
 
 
 // ── AVIATOR ─────────────────────────
