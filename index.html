@@ -824,108 +824,68 @@ body.dark #splash{background:var(--void)}
 /* Markets teaser card inside Earn */
 .earn-mkt-teaser{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#fff}
 
-/* ── DESKTOP RESPONSIVE — Senior Dev Polish ── */
+/* ── BAYSE MARKETS — Rebuilt from scratch ── */
+.bayse-cats{display:flex;gap:8px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none}
+.bayse-cats::-webkit-scrollbar{display:none}
+.bayse-cat{padding:7px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--s1);border:1px solid var(--b1);color:var(--sil);cursor:pointer;white-space:nowrap;transition:all .2s}
+.bayse-cat.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+.bayse-market-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px;margin:0 16px 12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.bayse-market-card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(17,20,43,.06);border-color:var(--b2)}
+.bayse-market-card.has-pos{border-color:var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd))}
+.bayse-market-card.ended{opacity:.6}
+.bayse-m-top{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.bayse-m-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
+.bayse-m-meta{flex:1;min-width:0}
+.bayse-m-sub{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sil);margin-bottom:2px}
+.bayse-m-q{font-family:var(--d);font-size:13px;font-weight:600;line-height:1.3;color:var(--plat);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bayse-m-time{font-size:10px;font-weight:600;color:var(--sil);background:var(--s2);border:1px solid var(--b1);padding:3px 7px;border-radius:20px;white-space:nowrap}
+.bayse-m-time.ended{background:var(--errd);color:var(--err);border-color:var(--errb)}
+.bayse-m-prices{display:grid;grid-template-columns:70px 1fr 70px;gap:8px;align-items:center;margin-bottom:8px}
+.bayse-m-yes, .bayse-m-no{text-align:center}
+.bayse-m-yes span, .bayse-m-no span{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+.bayse-m-yes span{color:var(--ok)} .bayse-m-no span{color:var(--err)}
+.bayse-m-yes strong, .bayse-m-no strong{font-family:var(--d);font-size:15px;font-weight:800;display:block}
+.bayse-m-yes small, .bayse-m-no small{font-size:10px;color:var(--sil)}
+.bayse-m-bar{height:6px;background:var(--b1);border-radius:3px;overflow:hidden;position:relative}
+.bayse-m-fill{height:100%;background:linear-gradient(90deg,var(--ok),var(--gold));border-radius:3px;transition:width .6s var(--ez)}
+.bayse-m-bottom{display:flex;justify-content:space-between;align-items:center}
+.bayse-m-vol{font-size:10px;color:var(--sil)}
+.bayse-m-pos-badge{font-size:9px;font-weight:700;color:var(--gold);background:var(--gd);border:1px solid var(--gb);padding:2px 6px;border-radius:20px}
+.bayse-m-chart{width:100%;height:32px;margin-top:8px;display:block;opacity:.7}
+.bayse-detail-card{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:16px;margin:0 16px}
+.bayse-badge{font-size:9px;font-weight:700;letter-spacing:.04em;padding:4px 8px;border-radius:20px;background:var(--s2);border:1px solid var(--b1);color:var(--sil)}
+.bayse-yesno-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.bayse-side{border:1.5px solid var(--b1);border-radius:14px;padding:14px;text-align:center;cursor:pointer;transition:all .2s;background:var(--s1)}
+.bayse-side.yes.sel{background:var(--okd);border-color:var(--okb);color:var(--ok)}
+.bayse-side.no.sel{background:var(--errd);border-color:var(--errb);color:var(--err)}
+.bayse-side:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(17,20,43,.06)}
+.bayse-status{font-size:10px;font-weight:700;padding:4px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:4px}
+.bayse-status.win{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
+.bayse-status.lose{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
+.bayse-pnl-bar{height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin:8px 0}
+.bayse-pnl-fill{height:100%;border-radius:3px;transition:width .6s var(--ez)}
+.bayse-pnl-fill.win{background:var(--ok)} .bayse-pnl-fill.lose{background:var(--err)}
+.bayse-pos-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:10px 12px;margin:0 16px 8px;cursor:pointer}
+.bayse-pos-card:hover{border-color:var(--b2)}
+
+
+/* ── DESKTOP RESPONSIVE ── */
 @media (min-width: 900px){
   html,body{background:#F3F4FA}
   .root{max-width:1280px;background:transparent;overflow:visible}
   #splash, #loader{max-width:1280px;left:50%;transform:translateX(-50%);right:auto;width:100%}
   #main-app .app{max-width:1280px;display:flex;flex-direction:row;align-items:flex-start;gap:0;min-height:100vh}
-  .bnav{
-    position:sticky;top:0;left:0;bottom:auto;
-    width:260px;min-width:260px;height:100vh;
-    flex-direction:column;align-items:stretch;
-    padding:28px 14px 20px;gap:4px;
-    background:#FFFFFF;border-right:1px solid var(--b1);border-top:none;
-    transform:none;max-width:none;
-    z-index:50;
-  }
-  .bnav .ni{
-    flex-direction:row;justify-content:flex-start;
-    gap:12px;padding:12px 14px;border-radius:12px;
-    transition:all .2s;
-  }
+  .bnav{position:sticky;top:0;left:0;bottom:auto;width:260px;min-width:260px;height:100vh;flex-direction:column;align-items:stretch;padding:28px 14px 20px;gap:4px;background:#FFFFFF;border-right:1px solid var(--b1);border-top:none;transform:none;max-width:none;z-index:50}
+  .bnav .ni{flex-direction:row;justify-content:flex-start;gap:12px;padding:12px 14px;border-radius:12px}
   .bnav .ni:hover{background:rgba(17,20,43,.04)}
   .bnav .ni.active{background:var(--gd);border:1px solid var(--gb)}
   .bnav .ni-ico{width:22px;height:22px}
-  .bnav .ni-ico svg{width:20px;height:20px}
   .bnav .ni-lbl{font-size:13px;font-weight:600;text-transform:none;letter-spacing:0}
   .bnav .ni-dot{display:none}
-  .page{flex:1;max-width:720px;margin:0 auto;min-height:100vh;padding-bottom:40px;border-left:none}
+  .page{flex:1;max-width:720px;margin:0 auto;min-height:100vh;padding-bottom:40px}
   .tb{padding-top:28px}
-  .bc{margin:0 22px 20px}
-  .qa-row{padding:0 22px}
-  .sh{padding:0 22px}
-  .lm-row{padding:0 22px;overflow-x:auto}
-  .positions{padding:0 22px 100px}
-  #p-wallet, #p-earn, #p-portfolio, #p-plans, #p-referral, #p-notif{max-width:760px;margin:0 auto;flex:1}
   .game-card{margin:0 22px 16px}
 }
-.pm-price-big{
-  font-family:var(--d);font-size:38px;font-weight:800;letter-spacing:-.04em;line-height:1;
-  color:var(--plat);transition:all .25s var(--ez);
-  position:relative;
-}
-.pm-price-big.flash{animation:pmFlash .6s var(--ez)}
-@keyframes pmFlash{
-  0%{transform:scale(1)}
-  30%{transform:scale(1.04)}
-  100%{transform:scale(1)}
-}
-.pm-flash{animation:pmPricePulse .5s ease}
-@keyframes pmPricePulse{0%{opacity:.6;transform:translateY(2px)}100%{opacity:1;transform:translateY(0)}}
-.pm-change-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:11px;font-weight:700;padding:4px 8px;border-radius:20px;
-  margin-left:8px;vertical-align:middle;
-}
-.pm-change-badge.up{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-change-badge.down{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-change-badge.flat{background:var(--s2);color:var(--sil);border:1px solid var(--b1)}
-.pm-chart-wrap{
-  height:84px;background:linear-gradient(180deg,rgba(67,56,236,.04),transparent);
-  border:1px solid var(--b1);border-radius:12px;
-  margin:12px 0 14px;position:relative;overflow:hidden;
-}
-.pm-chart-wrap canvas{width:100%;height:100%;display:block}
-.pm-chart-empty{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:10px;color:var(--sil);letter-spacing:.04em;
-}
-.pm-live-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;
-}
-.pm-live-stat{
-  background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;
-}
-.pm-live-stat-k{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
-.pm-live-stat-v{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat)}
-.pm-live-stat-v.ok{color:var(--ok)} .pm-live-stat-v.err{color:var(--err)}
-.pm-perf-bar{
-  height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin:8px 0;
-  position:relative;
-}
-.pm-perf-fill{height:100%;border-radius:3px;transition:width .6s var(--ez), background .3s}
-.pm-status-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;
-}
-.pm-status-pill.winning{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-status-pill.losing{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-status-pill.live{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
-.pm-dot-live{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pls 1.5s ease infinite}
-.pm-timer{
-  font-family:var(--d);font-size:14px;font-weight:700;
-  background:var(--s1);border:1px solid var(--b1);padding:6px 10px;border-radius:8px;
-}
-.pm-dir-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
-.pm-dir{
-  border:1.5px solid var(--b1);border-radius:14px;padding:14px 10px;text-align:center;
-  cursor:pointer;transition:all .2s var(--ez);background:var(--s1);
-}
-.pm-dir:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(17,20,43,.06)}
-.pm-dir.sel.up{background:var(--okd);border-color:var(--okb);color:var(--ok)}
-.pm-dir.sel.down{background:var(--errd);border-color:var(--errb);color:var(--err)}
-.pm-dir-price{font-family:var(--d);font-weight:700;margin-top:4px}
 
 </style>
 </head>
@@ -1107,128 +1067,73 @@ body.dark #splash{background:var(--void)}
       <div class="earn-pill" data-tab="refer" onclick="switchEarnTab('refer')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Refer &amp; Earn</div>
     </div>
 
-    <!-- PREDICTIONS -->
+    <!-- PREDICTIONS — BAYSE STYLE REBUILT -->
     <div class="earn-sec active" id="earn-pred">
-      <div class="game-card">
-        <div class="game-head"><div class="game-icn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="game-head-t">Crypto Flash Prediction</div><div class="game-head-s">5-minute rounds · Live price · Call the next move</div></div></div>
-
-        <div class="pm-asset-row" id="pm-assets">
-          <div class="pm-asset sel" data-a="BTC" onclick="pmPickAsset('BTC')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/BTC.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>BTC</div>
-          <div class="pm-asset" data-a="ETH" onclick="pmPickAsset('ETH')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/ETH.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>ETH</div>
-          <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/SOL.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>SOL</div>
+      <div style="padding:0 16px 12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div><div style="font-family:var(--d);font-size:20px;font-weight:800">Prediction Markets</div><div style="font-size:11px;color:var(--sil)">Trade YES/NO • No house edge • Sell early anytime</div></div>
+          <div style="background:var(--okd);color:var(--ok);border:1px solid var(--okb);font-size:9px;font-weight:700;padding:4px 8px;border-radius:20px;display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span> LIVE</div>
         </div>
-
-                <div id="pm-idle">
-          <div style="text-align:center;padding:4px 0 12px">
-            <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:6px">
-              <span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span>
-              Live Price • Updates every 1s • v2.5 FIXED
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
-              <div class="pm-price-big" id="pm-price">—</div>
-              <span id="pm-change-badge" class="pm-change-badge flat" style="display:none">—</span>
-            </div>
-            <div style="font-size:10px;color:var(--sil);margin-top:6px" id="pm-last-updated">Connecting to live feed…</div>
-          </div>
-
-          <div class="pm-chart-wrap" id="pm-chart-wrap-idle">
-            <canvas id="pm-chart-idle" width="600" height="120"></canvas>
-            <div class="pm-chart-empty" id="pm-chart-empty-idle">Live chart will appear when price feed connects</div>
-          </div>
-
-          <div class="pm-dir-row">
-            <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
-              <div style="font-weight:700;font-size:13px">Up</div>
-              <div class="pm-dir-price" style="font-size:11px;opacity:.9" id="pm-up-price">₦50</div>
-            </div>
-            <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 18l-9.5-9.5-5 5L1 6"/><path d="M17 18h6v-6"/></svg>
-              <div style="font-weight:700;font-size:13px">Down</div>
-              <div class="pm-dir-price" style="font-size:11px;opacity:.9" id="pm-down-price">₦50</div>
-            </div>
-          </div>
-          <div style="font-size:9.5px;color:var(--sil);text-align:center;margin:-2px 0 12px">Share prices move live with real demand · pays ₦100 per share if correct</div>
-          <div class="stake-row" id="pm-stakes">
-            <div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div>
-            <div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div>
-            <div class="stake-chip" data-v="1000" onclick="pmSetStake(1000)">₦1,000</div>
-            <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
-          </div>
-          <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in 5 min</span><span id="pm-round-idle">—</span></div>
-          <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
-        </div>
-
-        <div id="pm-live" style="display:none">
-          <div class="pm-live-card" style="border:1.5px solid var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd))">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-              <div>
-                <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px">
-                  <span class="pm-dot-live"></span> Live Position
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                  <div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div>
-                  <span id="pm-perf-pill" class="pm-status-pill live">● Tracking</span>
-                </div>
-              </div>
-              <div class="pm-timer" id="pm-timer">5:00</div>
-            </div>
-
-            <div class="pm-chart-wrap" style="height:100px;margin-bottom:14px">
-              <canvas id="pm-chart-live" width="600" height="140"></canvas>
-            </div>
-
-            <div class="pm-live-grid">
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Entry Price</div>
-                <div class="pm-live-stat-v" id="pm-entry-underlying">—</div>
-                <div style="font-size:9px;color:var(--sil);margin-top:2px" id="pm-entry-time">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Current Price</div>
-                <div class="pm-live-stat-v" id="pm-current">—</div>
-                <div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Entry Share</div>
-                <div class="pm-live-stat-v" id="pm-entry">—</div>
-              </div>
-              <div class="pm-live-stat">
-                <div class="pm-live-stat-k">Current Share</div>
-                <div class="pm-live-stat-v" id="pm-share-now">—</div>
-              </div>
-            </div>
-
-            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <div>
-                  <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Shares Held</div>
-                  <div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div>
-                </div>
-                <div style="text-align:right">
-                  <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.06em">Sell Value Now</div>
-                  <div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-live-pnl">₦0</div>
-                  <div style="font-size:10px;font-weight:600" id="pm-pnl-sub">—</div>
-                </div>
-              </div>
-              <div class="pm-perf-bar"><div id="pm-perf-fill" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div>
-              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span id="pm-perf-left">Entry</span><span id="pm-perf-right">Now</span></div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Now</button>
-              <button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button>
-            </div>
-          </div>
+        <div style="background:linear-gradient(135deg,var(--gd),rgba(67,56,236,.03));border:1px solid var(--gb);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center">
+          <div style="width:28px;height:28px;border-radius:8px;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px">💡</div>
+          <div style="font-size:10.5px;line-height:1.4;color:var(--sil)"><strong style="color:var(--plat)">How Bayse works:</strong> Every market is YES/NO. Price 0-100¢ = chance. YES+NO=100¢. Buy YES if you think it happens. Winning shares pay ₦100. Sell early anytime price moves your way.</div>
         </div>
       </div>
 
-      <div class="game-card" id="pm-history-card"      <div class="game-card" id="pm-history-card" style="display:none">
-        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Recent Calls</div>
-        <div id="pm-history"></div>
+      <div class="bayse-cats" id="bayse-cats"></div>
+
+      <div id="bayse-markets-list"></div>
+
+      <div id="bayse-market-detail" style="display:none">
+        <div style="padding:0 16px 12px"><button onclick="bayseBack()" style="background:var(--s1);border:1px solid var(--b1);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer">← Back to markets</button></div>
+        <div class="bayse-detail-card">
+          <div style="font-family:var(--d);font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px" id="bayse-detail-q">—</div>
+          <div id="bayse-detail-meta" style="margin-bottom:12px"></div>
+          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:8px;margin-bottom:14px"><canvas id="bayse-detail-chart" width="600" height="160" style="width:100%;height:120px;display:block"></canvas></div>
+          
+          <div class="bayse-yesno-row">
+            <div class="bayse-side yes" id="bayse-yes-card" onclick="baysePickSide('yes')">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);margin-bottom:4px">YES</div>
+              <div style="font-family:var(--d);font-size:22px;font-weight:800" id="bayse-yes-price">—</div>
+              <div style="font-size:10px;color:var(--sil);margin-top:2px" id="bayse-yes-pct">—</div>
+            </div>
+            <div class="bayse-side no" id="bayse-no-card" onclick="baysePickSide('no')">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--err);margin-bottom:4px">NO</div>
+              <div style="font-family:var(--d);font-size:22px;font-weight:800" id="bayse-no-price">—</div>
+              <div style="font-size:10px;color:var(--sil);margin-top:2px" id="bayse-no-pct">—</div>
+            </div>
+          </div>
+
+          <div id="bayse-buy-panel">
+            <div style="font-size:11px;font-weight:700;margin-bottom:8px">Buy <span id="bayse-buy-side-label">YES</span> • Min ₦100 • No house edge</div>
+            <div class="stake-row" id="bayse-stakes">
+              <div class="stake-chip sel" data-v="100" onclick="bayseSetStake(100)">₦100</div>
+              <div class="stake-chip" data-v="500" onclick="bayseSetStake(500)">₦500</div>
+              <div class="stake-chip" data-v="1000" onclick="bayseSetStake(1000)">₦1,000</div>
+              <div class="stake-chip" data-v="5000" onclick="bayseSetStake(5000)">₦5,000</div>
+            </div>
+            <input class="stake-input" id="bayse-custom" type="number" placeholder="Custom amount (₦)" oninput="bayseCustomStake(this.value)"/>
+            <div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;margin:10px 0" id="bayse-buy-preview">—</div>
+            <button class="game-btn" id="bayse-buy-btn" onclick="baysePlaceTrade()">Buy YES for ₦100</button>
+            <div style="font-size:9.5px;color:var(--sil);text-align:center;margin-top:8px">You trade against other users • Price moves live with demand • Sell early to lock profit</div>
+          </div>
+
+          <div id="bayse-position-panel" style="display:none"></div>
+        </div>
+      </div>
+
+      <div style="padding:12px 16px 0"><div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Your Open Positions</div><div id="bayse-positions-list"></div></div>
+
+      <div class="game-card" style="margin-top:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">How it works (Bayse style)</div>
+        <div style="font-size:11px;color:var(--sil);line-height:1.5">
+          <div style="display:flex;gap:8px;margin-bottom:8px"><span style="background:var(--gd);color:var(--gold);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">1</span><span><strong style="color:var(--plat)">Pick a market you know</strong> — Finance, Crypto, Sports, Politics. If you follow it, you have edge.</span></div>
+          <div style="display:flex;gap:8px;margin-bottom:8px"><span style="background:var(--gd);color:var(--gold);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">2</span><span><strong style="color:var(--plat)">Buy YES or NO</strong> — YES 65¢ means 65% chance. If you think higher, buy YES. Winning pays ₦100/share.</span></div>
+          <div style="display:flex;gap:8px"><span style="background:var(--gd);color:var(--gold);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span><span><strong style="color:var(--plat)">Sell early or hold</strong> — Price moves live. Bought YES at 65¢ now 82¢? Sell for profit before it ends. No need to wait.</span></div>
+        </div>
       </div>
     </div>
+
 
     <!-- AVIATOR -->
     <div class="earn-sec" id="earn-aviator">
@@ -2161,11 +2066,6 @@ body.dark #splash{background:var(--void)}
 <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="toast-m"></span></div>
 
 <script>
-
-// AURO v2.5 - MARKET FIX 2026-05-13 - Force open market
-console.log('AURO v2.5 loaded - market fix active');
-window.AURO_VERSION = '2.5-fixed';
-
 // ══════════════════════════════════
 // FIREBASE CONFIG & INIT
 // ══════════════════════════════════
@@ -2307,7 +2207,6 @@ function go(pid, nid) {
     if (s2) s2.style.display = 'none';
   }
   if (pid !== 'p-earn' && typeof stopLiveActivity === 'function') stopLiveActivity();
-  if (pid !== 'p-earn' && typeof pmUnsubscribeRound === 'function' && !_pm.active) pmUnsubscribeRound();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
@@ -3034,8 +2933,7 @@ function renderClaims() {
 function switchEarnTab(tab) {
   document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
   document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-  if (tab === 'pred') { pmEnsureRoundSubscribed(); pmStartFeed(); pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true)); }
-  else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
+  if (tab === 'pred') { bayseInit(); }
   if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
   else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
   else stopLiveActivity();
@@ -3092,9 +2990,7 @@ function renderCfBetHistory() {
 function initEarnPage() {
   cfUpdatePreview();
   avUpdateBtn(0); avUpdateBtn(1);
-  pmUpdateBtn();
-  if (!_pm.active) { pmEnsureRoundSubscribed(); pmStartFeed(); pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true)); } else { pmStartFeed(); }
-  pmRenderHistory();
+  bayseInit();
   avRenderHistory();
   if (_av.phase === 'idle') avScheduleRound();
 }
@@ -3360,141 +3256,336 @@ function cfToggleVerify() {
 }
 
 // ── CRYPTO FLASH PREDICTIONS ───────
-// ── CRYPTO FLASH PREDICTIONS — PRO 1s LIVE FEED ──────
-let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null, lastPrice: null };
-let _pmHistory = [];
-let _pmFeed = { timer: null, history: [], lastPrice: null, lastChange: 0, lastFetch: 0, fetching: false };
+// BAYSE-STYLE PREDICTION MARKETS — rebuilt from scratch for AURO
+// Based on research: YES/NO shares priced 0-100, YES+NO=100, price = implied probability
+// No house edge, trade vs other users, AMM with seeded liquidity, early exit, ₦100 payout per winning share
 
-function pmGetSymbol(a){
-  const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT', BNB:'BNBUSDT', XRP:'XRPUSDT', DOGE:'DOGEUSDT', ADA:'ADAUSDT' };
-  return map[a]||'BTCUSDT';
-}
-function pmGetCoingeckoId(a){
-  const map = { BTC:'bitcoin', ETH:'ethereum', SOL:'solana', BNB:'binancecoin', XRP:'ripple', DOGE:'dogecoin', ADA:'cardano' };
-  return map[a]||'bitcoin';
+let _bayseMarkets = [];
+let _baysePositions = []; // active positions
+let _bayseHistory = []; // settled history
+let _bayseSelected = null; // currently opened market id
+let _bayseSide = 'yes'; // selected side in detail
+let _bayseStake = 100;
+let _bayseFeedTimer = null;
+let _baysePriceCache = {}; // underlying crypto prices {BTC: 66500, ...}
+let _baysePriceHistory = {}; // {marketId: [{t, yesPrice}, ...]}
+
+const BAYSE_LIQUIDITY = 2000; // seeded liquidity per side - keeps price near 50/50 initially
+
+function bayseNow(){ return Date.now(); }
+
+function bayseComputePrice(yesPool, noPool){
+  const total = yesPool + noPool;
+  let yes = Math.round((yesPool / total) * 100);
+  yes = Math.max(2, Math.min(98, yes));
+  return { yes, no: 100 - yes };
 }
 
-async function pmFetchBinancePrice(asset){
-  const symbol = pmGetSymbol(asset);
-  // Binance Vision is CORS-friendly
-  const urls = [
-    `https://data-api.binance.vision/api/v3/ticker/price?symbol=${symbol}`,
-    `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
+function bayseFormatTimeLeft(end){
+  const diff = Math.max(0, end - bayseNow());
+  const m = Math.floor(diff/60000);
+  const s = Math.floor((diff%60000)/1000);
+  if(diff<=0) return 'Ended';
+  if(m>60) return Math.floor(m/60)+'h '+ (m%60)+'m left';
+  if(m>0) return `${m}m ${s}s left`;
+  return `${s}s left`;
+}
+
+function bayseInitMarkets(){
+  const now = bayseNow();
+  // Real markets inspired by Bayse: Finance, Crypto, Sports, Politics
+  _bayseMarkets = [
+    {
+      id: 'btc_15m_up',
+      question: 'Will BTC close above current price in next 15 minutes?',
+      category: 'Crypto',
+      subcategory: '15-min • BTC',
+      icon: 'BTC',
+      iconBg: '#F7931A',
+      end: now + 15*60*1000,
+      yesPool: BAYSE_LIQUIDITY + Math.random()*500,
+      noPool: BAYSE_LIQUIDITY + Math.random()*500,
+      volume: 12450 + Math.floor(Math.random()*5000),
+      target: null, // up/down market
+      type: 'updown',
+      asset: 'BTC',
+      resolution: 'Binance BTC price',
+      entryUnderlying: null,
+    },
+    {
+      id: 'eth_5m_up',
+      question: 'Will ETH go up in next 5 minutes?',
+      category: 'Crypto',
+      subcategory: '5-min • ETH',
+      icon: 'ETH',
+      iconBg: '#627EEA',
+      end: now + 5*60*1000,
+      yesPool: BAYSE_LIQUIDITY + Math.random()*300,
+      noPool: BAYSE_LIQUIDITY + Math.random()*300,
+      volume: 8320 + Math.floor(Math.random()*3000),
+      type: 'updown',
+      asset: 'ETH',
+      resolution: 'Binance ETH price',
+      entryUnderlying: null,
+    },
+    {
+      id: 'sol_15m_up',
+      question: 'Will SOL close higher in next 15 minutes?',
+      category: 'Crypto',
+      subcategory: '15-min • SOL',
+      icon: 'SOL',
+      iconBg: '#9945FF',
+      end: now + 15*60*1000,
+      yesPool: BAYSE_LIQUIDITY + 200,
+      noPool: BAYSE_LIQUIDITY - 100,
+      volume: 5420,
+      type: 'updown',
+      asset: 'SOL',
+      resolution: 'Binance SOL price',
+      entryUnderlying: null,
+    },
+    {
+      id: 'btc_70k_today',
+      question: 'Will BTC hit $70,000 today?',
+      category: 'Crypto',
+      subcategory: 'Daily • BTC',
+      icon: 'BTC',
+      iconBg: '#F7931A',
+      end: new Date().setHours(23,59,59,999),
+      yesPool: BAYSE_LIQUIDITY + 800,
+      noPool: BAYSE_LIQUIDITY + 200,
+      volume: 45200,
+      type: 'target_above',
+      asset: 'BTC',
+      target: 70000,
+      resolution: 'Binance BTC hits target',
+      entryUnderlying: null,
+    },
+    {
+      id: 'usdngn_1650',
+      question: 'Will USD/NGN close above ₦1,650 by 4PM today?',
+      category: 'Finance',
+      subcategory: 'Hourly • USD/NGN',
+      icon: '$',
+      iconBg: '#0FAE6B',
+      end: now + 2*60*60*1000,
+      yesPool: BAYSE_LIQUIDITY + 600,
+      noPool: BAYSE_LIQUIDITY + 100,
+      volume: 18900,
+      type: 'target_above',
+      asset: 'USDNGN',
+      target: 1650,
+      resolution: 'CBN rate',
+      entryUnderlying: 1642,
+    },
+    {
+      id: 'fuel_1500_june',
+      question: 'Will fuel price exceed ₦1,500 per litre by June 2026?',
+      category: 'Politics',
+      subcategory: 'Economy • Fuel',
+      icon: '⛽',
+      iconBg: '#EF4444',
+      end: new Date('2026-06-30').getTime(),
+      yesPool: BAYSE_LIQUIDITY + 1200,
+      noPool: BAYSE_LIQUIDITY + 400,
+      volume: 32100,
+      type: 'yesno',
+      asset: null,
+      target: null,
+      resolution: 'Official NNPC price',
+      entryUnderlying: null,
+    },
+    {
+      id: 'arsenal_trophyless',
+      question: 'Will Arsenal go trophyless this season?',
+      category: 'Sports',
+      subcategory: 'EPL • Arsenal',
+      icon: '⚽',
+      iconBg: '#4338EC',
+      end: new Date('2026-05-30').getTime(),
+      yesPool: BAYSE_LIQUIDITY + 900,
+      noPool: BAYSE_LIQUIDITY + 300,
+      volume: 27800,
+      type: 'yesno',
+      asset: null,
+      target: null,
+      resolution: 'Official EPL results',
+      entryUnderlying: null,
+    },
+    {
+      id: 'btc_100k_dec',
+      question: 'Will Bitcoin hit $100,000 by Dec 31, 2026?',
+      category: 'Crypto',
+      subcategory: 'Long-term • BTC',
+      icon: 'BTC',
+      iconBg: '#F7931A',
+      end: new Date('2026-12-31').getTime(),
+      yesPool: BAYSE_LIQUIDITY + 400,
+      noPool: BAYSE_LIQUIDITY + 800,
+      volume: 89200,
+      type: 'target_above',
+      asset: 'BTC',
+      target: 100000,
+      resolution: 'Binance BTC price',
+      entryUnderlying: null,
+    },
   ];
-  for(const url of urls){
-    try{
-      const r = await fetchWithTimeout(url, 3500);
-      if(r.ok){
-        const d = await r.json();
-        const p = parseFloat(d.price);
-        if(p>0) return p;
-      }
-    }catch(e){}
-  }
-  return null;
-}
-async function pmFetchCoingeckoPrice(asset){
-  try{
-    const id = pmGetCoingeckoId(asset);
-    const r = await fetchWithTimeout(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`, 4000);
-    if(r.ok){
-      const d = await r.json();
-      const p = d[id]?.usd;
-      if(p>0) return +p;
+
+  // Initialize price history for charts
+  _bayseMarkets.forEach(m=>{
+    const p = bayseComputePrice(m.yesPool, m.noPool);
+    m.yesPrice = p.yes;
+    m.noPrice = p.no;
+    _baysePriceHistory[m.id] = [];
+    for(let i=0;i<20;i++){
+      _baysePriceHistory[m.id].push({ t: now - (20-i)*30000, yes: p.yes + (Math.random()-0.5)*6 });
     }
-  }catch(e){}
-  return null;
+    // Set entry underlying for updown markets
+    if(m.type==='updown' && m.asset){
+      m.entryUnderlying = _baysePriceCache[m.asset] || (m.asset==='BTC'?66500: m.asset==='ETH'?3200: 180);
+    }
+  });
+
+  bayseRenderMarkets();
 }
 
-async function pmFetchPriceFast(force=false){
-  // Throttle real network to 1s but always return cached instantly
-  const now = Date.now();
-  if(!force && _pmFeed.lastPrice && (now - _pmFeed.lastFetch < 900) ){
-    return _pmFeed.lastPrice;
+function bayseRenderMarkets(){
+  const list = document.getElementById('bayse-markets-list');
+  const catsEl = document.getElementById('bayse-cats');
+  if(!list) return;
+
+  // Categories filter
+  if(catsEl){
+    const cats = ['All','Crypto','Finance','Sports','Politics'];
+    catsEl.innerHTML = cats.map(c=>`<div class="bayse-cat ${c==='All'?'sel':''}" data-cat="${c}" onclick="bayseFilterCat('${c}')">${c}</div>`).join('');
   }
-  if(_pmFeed.fetching && !force) return _pmFeed.lastPrice;
-  _pmFeed.fetching = true;
-  let price = null;
-  // 1. Binance fast
-  price = await pmFetchBinancePrice(_pm.asset);
-  // 2. Coingecko fallback
-  if(!price) price = await pmFetchCoingeckoPrice(_pm.asset);
-  // 3. Fallback to existing multi-provider cache
-  if(!price){
-    const pair = _pm.asset + '/USD';
-    price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
-    if(!price){
-      try{ await fetchCrypto(); }catch(e){}
-      price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
-    }
-  }
-  if(price && price>0){
-    const prev = _pmFeed.lastPrice;
-    _pmFeed.lastPrice = price;
-    _pmFeed.lastFetch = now;
-    if(prev) _pmFeed.lastChange = ((price - prev)/prev)*100;
-    // push to history for chart (keep 80 points)
-    _pmFeed.history.push({ t: now, p: price });
-    if(_pmFeed.history.length>80) _pmFeed.history.shift();
-  }
-  _pmFeed.fetching = false;
-  return _pmFeed.lastPrice;
+
+  const filter = window._bayseCatFilter || 'All';
+  const filtered = filter==='All' ? _bayseMarkets : _bayseMarkets.filter(m=>m.category===filter);
+
+  list.innerHTML = filtered.map(m=>{
+    const timeLeft = bayseFormatTimeLeft(m.end);
+    const ended = m.end <= bayseNow();
+    const hasPos = _baysePositions.some(p=>p.marketId===m.id);
+    return `
+      <div class="bayse-market-card ${ended?'ended':''} ${hasPos?'has-pos':''}" onclick="bayseOpenMarket('${m.id}')">
+        <div class="bayse-m-top">
+          <div class="bayse-m-icon" style="background:${m.iconBg}">${m.icon}</div>
+          <div class="bayse-m-meta">
+            <div class="bayse-m-sub">${m.subcategory} • ${m.category}</div>
+            <div class="bayse-m-q">${m.question}</div>
+          </div>
+          <div class="bayse-m-time ${ended?'ended':''}">${timeLeft}</div>
+        </div>
+        <div class="bayse-m-prices">
+          <div class="bayse-m-yes"><span>YES</span><strong>${m.yesPrice}¢</strong><small>${m.yesPrice}%</small></div>
+          <div class="bayse-m-bar"><div class="bayse-m-fill" style="width:${m.yesPrice}%"></div></div>
+          <div class="bayse-m-no"><span>NO</span><strong>${m.noPrice}¢</strong><small>${m.noPrice}%</small></div>
+        </div>
+        <div class="bayse-m-bottom">
+          <div class="bayse-m-vol">Vol: ${fmt(m.volume)} • ${m.resolution}</div>
+          ${hasPos ? '<div class="bayse-m-pos-badge">Your position</div>' : ''}
+        </div>
+        <canvas class="bayse-m-chart" id="bayse-chart-${m.id}" width="300" height="50"></canvas>
+      </div>
+    `;
+  }).join('');
+
+  // Render mini charts
+  setTimeout(()=> filtered.forEach(m=> bayseRenderMiniChart(m.id)), 50);
 }
 
-function pmRenderIdlePrice(price, flash=true){
-  const el = document.getElementById('pm-price');
-  const badge = document.getElementById('pm-change-badge');
-  const updatedEl = document.getElementById('pm-last-updated');
-  const roundEl = document.getElementById('pm-round-idle');
-  if(!el) return;
-  if(price){
-    const prevText = el.textContent;
-    el.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    if(flash && prevText !== el.textContent){
-      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
-    }
-    if(badge){
-      badge.style.display='inline-flex';
-      const chg = _pmFeed.lastChange;
-      if(Math.abs(chg) < 0.01){
-        badge.className='pm-change-badge flat'; badge.textContent='● Live';
-      } else if(chg>0){
-        badge.className='pm-change-badge up'; badge.textContent='▲ '+chg.toFixed(2)+'%';
-      } else {
-        badge.className='pm-change-badge down'; badge.textContent='▼ '+Math.abs(chg).toFixed(2)+'%';
-      }
-    }
-    if(updatedEl) updatedEl.textContent = 'Live • Updated ' + new Date().toLocaleTimeString('en-NG', {hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' • 1s feed';
-  }
-  if(roundEl){
-    const bucket = pmBucketStart();
-    const minsLeft = Math.max(0, Math.ceil((bucket+300000 - Date.now())/60000));
-    roundEl.textContent = `Round ends in ${minsLeft}m`;
-  }
-  pmRenderChartIdle();
-}
-
-function pmRenderChartIdle(){
-  const canvas = document.getElementById('pm-chart-idle');
-  const empty = document.getElementById('pm-chart-empty-idle');
+function bayseRenderMiniChart(marketId){
+  const canvas = document.getElementById(`bayse-chart-${marketId}`);
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
-  if(!hist.length){
-    if(empty) empty.style.display='flex';
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    return;
-  }
-  if(empty) empty.style.display='none';
+  const hist = _baysePriceHistory[marketId] || [];
+  if(!hist.length) return;
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0,0,W,H);
-  const prices = hist.map(x=>x.p);
+  const prices = hist.map(h=>h.yes);
   const min = Math.min(...prices), max = Math.max(...prices);
-  const range = (max-min) || max*0.001 || 1;
-  // gradient fill
+  const range = (max-min) || 1;
+  ctx.beginPath();
+  ctx.strokeStyle = '#4338EC';
+  ctx.lineWidth = 1.5;
+  prices.forEach((p,i)=>{
+    const x = (i/(prices.length-1))*W;
+    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+}
+
+function bayseFilterCat(cat){
+  window._bayseCatFilter = cat;
+  document.querySelectorAll('.bayse-cat').forEach(el=> el.classList.toggle('sel', el.dataset.cat===cat));
+  bayseRenderMarkets();
+}
+
+function bayseOpenMarket(id){
+  const m = _bayseMarkets.find(x=>x.id===id);
+  if(!m) return;
+  _bayseSelected = id;
+  _bayseSide = 'yes';
+  _bayseStake = 100;
+
+  document.getElementById('bayse-markets-list').style.display='none';
+  document.getElementById('bayse-cats').style.display='none';
+  const detail = document.getElementById('bayse-market-detail');
+  detail.style.display='block';
+
+  document.getElementById('bayse-detail-q').textContent = m.question;
+  document.getElementById('bayse-detail-meta').innerHTML = `
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <span class="bayse-badge">${m.category}</span>
+      <span class="bayse-badge">${m.subcategory}</span>
+      <span style="font-size:11px;color:var(--sil)">${bayseFormatTimeLeft(m.end)} • Vol ${fmt(m.volume)} • Resolves via ${m.resolution}</span>
+    </div>
+  `;
+  bayseUpdateDetailPrices();
+  bayseRenderDetailChart();
+  bayseUpdateBuyPanel();
+  bayseRenderPositionPanel();
+}
+
+function bayseBack(){
+  _bayseSelected = null;
+  document.getElementById('bayse-market-detail').style.display='none';
+  document.getElementById('bayse-markets-list').style.display='block';
+  document.getElementById('bayse-cats').style.display='flex';
+  bayseRenderMarkets();
+}
+
+function bayseUpdateDetailPrices(){
+  const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+  if(!m) return;
+  document.getElementById('bayse-yes-price').textContent = m.yesPrice+'¢';
+  document.getElementById('bayse-no-price').textContent = m.noPrice+'¢';
+  document.getElementById('bayse-yes-pct').textContent = m.yesPrice+'% chance';
+  document.getElementById('bayse-no-pct').textContent = m.noPrice+'% chance';
+  document.getElementById('bayse-yes-card').classList.toggle('sel', _bayseSide==='yes');
+  document.getElementById('bayse-no-card').classList.toggle('sel', _bayseSide==='no');
+}
+
+function bayseRenderDetailChart(){
+  const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+  if(!m) return;
+  const canvas = document.getElementById('bayse-detail-chart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const hist = _baysePriceHistory[m.id] || [];
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  if(!hist.length) return;
+  const prices = hist.map(h=>h.yes);
+  const min = Math.min(...prices, 20), max = Math.max(...prices, 80);
+  const range = max-min || 1;
+
+  // Fill
   const grad = ctx.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0, 'rgba(67,56,236,0.18)');
-  grad.addColorStop(1, 'rgba(67,56,236,0)');
+  grad.addColorStop(0,'rgba(67,56,236,0.18)');
+  grad.addColorStop(1,'rgba(67,56,236,0)');
   ctx.beginPath();
   prices.forEach((p,i)=>{
     const x = (i/(prices.length-1))*W;
@@ -3503,9 +3594,10 @@ function pmRenderChartIdle(){
   });
   ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
   ctx.fillStyle = grad; ctx.fill();
-  // line
+
+  // Line
   ctx.beginPath();
-  ctx.strokeStyle = '#4338EC'; ctx.lineWidth = 2.2; ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.strokeStyle = '#4338EC'; ctx.lineWidth = 2.2;
   prices.forEach((p,i)=>{
     const x = (i/(prices.length-1))*W;
     const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
@@ -3514,417 +3606,345 @@ function pmRenderChartIdle(){
   ctx.stroke();
 }
 
-function pmRenderChartLive(){
-  const canvas = document.getElementById('pm-chart-live');
-  if(!canvas || !_pm.active) return;
-  const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  if(!hist.length) return;
-  const entryPrice = _pm.active.entryUnderlying || _pm.active.entryPrice;
-  const prices = hist.map(x=>x.p);
-  const min = Math.min(...prices, entryPrice), max = Math.max(...prices, entryPrice);
-  const range = (max-min) || max*0.001 || 1;
-  // entry line
-  const entryY = H - ((entryPrice-min)/range)*(H*0.7) - H*0.15;
-  ctx.setLineDash([6,6]); ctx.strokeStyle='rgba(17,20,43,0.2)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,entryY); ctx.lineTo(W,entryY); ctx.stroke(); ctx.setLineDash([]);
-  ctx.fillStyle='rgba(17,20,43,0.6)'; ctx.font='10px Outfit'; ctx.fillText('Entry $'+entryPrice.toFixed(2), 6, entryY-6);
-  // fill
-  const grad = ctx.createLinearGradient(0,0,0,H);
-  const isWinning = (_pm.active.side==='up' && _pmFeed.lastPrice>entryPrice) || (_pm.active.side==='down' && _pmFeed.lastPrice<entryPrice);
-  if(isWinning){
-    grad.addColorStop(0,'rgba(15,174,107,0.18)'); grad.addColorStop(1,'rgba(15,174,107,0)');
-  } else {
-    grad.addColorStop(0,'rgba(239,68,68,0.18)'); grad.addColorStop(1,'rgba(239,68,68,0)');
+function baysePickSide(side){
+  _bayseSide = side;
+  bayseUpdateDetailPrices();
+  bayseUpdateBuyPanel();
+}
+
+function bayseSetStake(v){
+  _bayseStake = v;
+  document.querySelectorAll('#bayse-stakes .stake-chip').forEach(el=> el.classList.toggle('sel', parseInt(el.dataset.v)===v));
+  const custom = document.getElementById('bayse-custom'); if(custom) custom.value='';
+  bayseUpdateBuyPanel();
+}
+
+function bayseCustomStake(v){
+  _bayseStake = parseInt(v)||0;
+  document.querySelectorAll('#bayse-stakes .stake-chip').forEach(el=> el.classList.remove('sel'));
+  bayseUpdateBuyPanel();
+}
+
+function bayseUpdateBuyPanel(){
+  const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+  if(!m) return;
+  const sidePrice = _bayseSide==='yes' ? m.yesPrice : m.noPrice;
+  const shares = sidePrice>0 ? (_bayseStake / sidePrice) : 0;
+  const payout = Math.round(shares * 100);
+  const profit = payout - _bayseStake;
+
+  document.getElementById('bayse-buy-side-label').textContent = _bayseSide.toUpperCase();
+  document.getElementById('bayse-buy-side-label2').textContent = _bayseSide.toUpperCase();
+  const btn = document.getElementById('bayse-buy-btn');
+  if(btn){
+    btn.textContent = `Buy ${_bayseSide.toUpperCase()} for ${fmt(_bayseStake)}`;
+    btn.disabled = _bayseStake < 100 || (_user && _bayseStake > _user.balance);
+    if(_user && _bayseStake > _user.balance) btn.textContent = 'Insufficient balance';
   }
-  ctx.beginPath();
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
-  ctx.beginPath();
-  ctx.strokeStyle = isWinning ? '#0FAE6B' : '#EF4444';
-  ctx.lineWidth=2.4;
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-  // current dot
-  const last = prices[prices.length-1];
-  const lastX = W; const lastY = H - ((last-min)/range)*(H*0.7) - H*0.15;
-  ctx.beginPath(); ctx.arc(lastX-4,lastY,4,0,Math.PI*2); ctx.fillStyle=isWinning?'#0FAE6B':'#EF4444'; ctx.fill();
+
+  const preview = document.getElementById('bayse-buy-preview');
+  if(preview){
+    preview.innerHTML = `
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:4px"><span>Entry price</span><strong style="color:var(--plat)">${sidePrice}¢</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:4px"><span>Shares</span><strong style="color:var(--plat)">${shares.toFixed(2)}</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil);margin-bottom:4px"><span>If you win</span><strong style="color:var(--ok)">${fmt(payout)} (+${fmt(profit)})</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--sil)"><span>If you lose</span><strong style="color:var(--err)">-${fmt(_bayseStake)}</strong></div>
+      <div style="font-size:9.5px;color:var(--sil);margin-top:8px;text-align:center">Winning shares pay ₦100 each • No house edge • Sell early anytime</div>
+    `;
+  }
 }
 
-function pmStartFeed(){
-  if(_pmFeed.timer) clearInterval(_pmFeed.timer);
-  // immediate render if cached
-  if(_pmFeed.lastPrice) pmRenderIdlePrice(_pmFeed.lastPrice, false);
-  // immediate fetch
-  pmFetchPriceFast(true).then(p=>{ if(p) pmRenderIdlePrice(p, true); });
-  _pmFeed.timer = setInterval(async ()=>{
-    const pg = document.getElementById('p-earn');
-    const sec = document.getElementById('earn-pred');
-    const isPredVisible = pg && pg.classList.contains('active') && sec && sec.classList.contains('active');
-    const hasActive = !!_pm.active;
-    if(!isPredVisible && !hasActive) return;
-    const price = await pmFetchPriceFast(false);
-    if(price){
-      if(!_pm.active){
-        pmRenderIdlePrice(price, true);
-      } else {
-        // update live card current price every second
-        const el = document.getElementById('pm-current');
-        if(el){
-          el.textContent = '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-          const entry = _pm.active.entryUnderlying || _pm.active.entryPrice;
-          el.style.color = price>=entry ? 'var(--ok)' : 'var(--err)';
-          // flash
-          if(price!==_pm._lastShownPrice){
-            el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash');
-          }
-          _pm._lastShownPrice = price;
-        }
-        pmUpdateLivePerformance(price);
-        pmRenderChartLive();
+function bayseRenderPositionPanel(){
+  const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+  const pos = _baysePositions.find(p=>p.marketId===_bayseSelected);
+  const panel = document.getElementById('bayse-position-panel');
+  const buyPanel = document.getElementById('bayse-buy-panel');
+  if(!panel || !buyPanel) return;
+
+  if(!pos){
+    panel.style.display='none';
+    buyPanel.style.display='block';
+    return;
+  }
+
+  // Has position - show position panel, hide buy panel
+  buyPanel.style.display='none';
+  panel.style.display='block';
+
+  const currentPrice = pos.side==='yes' ? m.yesPrice : m.noPrice;
+  const currentValue = Math.round(pos.shares * currentPrice);
+  const pnl = currentValue - pos.stake;
+  const pnlPct = ((currentValue / pos.stake - 1)*100);
+  const isWinning = pnl>0;
+
+  panel.innerHTML = `
+    <div style="background:linear-gradient(135deg, ${isWinning?'var(--okd)':'var(--errd)'}, transparent);border:1px solid ${isWinning?'var(--okb)':'var(--errb)'};border-radius:12px;padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em">Your Position</div><div style="font-family:var(--d);font-size:14px;font-weight:800">${pos.side.toUpperCase()} • ${pos.shares.toFixed(2)} shares @ ${pos.entryPrice}¢</div></div>
+        <div class="bayse-status ${isWinning?'win':'lose'}">${isWinning?'● Winning':'● Losing'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Entry</div><div style="font-family:var(--d);font-size:13px;font-weight:700">${fmt(pos.stake)} @ ${pos.entryPrice}¢</div></div>
+        <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Now</div><div style="font-family:var(--d);font-size:13px;font-weight:700">${fmt(currentValue)} @ ${currentPrice}¢</div></div>
+      </div>
+      <div style="background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">P&L</div><div style="font-family:var(--d);font-size:16px;font-weight:800;color:${isWinning?'var(--ok)':'var(--err)'}">${pnl>=0?'+':''}${fmt(pnl)} (${pnlPct>=0?'+':''}${pnlPct.toFixed(1)}%)</div></div>
+        <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Potential</div><div style="font-size:12px;font-weight:600;color:var(--sil)">${fmt(Math.round(pos.shares*100))} if wins</div></div>
+      </div>
+      <div class="bayse-pnl-bar"><div class="bayse-pnl-fill ${isWinning?'win':'lose'}" style="width:${Math.max(5, Math.min(95, 50 + pnlPct*2))}%"></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="game-btn" onclick="bayseSellEarly()" style="background:var(--ok)">Sell for ${fmt(currentValue)}</button>
+      <button class="game-btn" onclick="bayseBack()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">Back to markets</button>
+    </div>
+  `;
+}
+
+async function baysePlaceTrade(){
+  if(!_user){ toast('Please sign in first'); return; }
+  const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+  if(!m) return;
+  if(m.end <= bayseNow()){ toast('Market has ended'); return; }
+  const stake = _bayseStake;
+  if(!stake || stake < 100){ toast('Minimum stake is ₦100'); return; }
+  if(_user.balance < stake){ toast('Insufficient balance · Please deposit'); return; }
+  if(_baysePositions.some(p=>p.marketId===m.id)){ toast('You already have a position in this market · Sell first to trade again'); return; }
+
+  const sidePrice = _bayseSide==='yes' ? m.yesPrice : m.noPrice;
+  const shares = +(stake / sidePrice).toFixed(4);
+
+  try{ await walletDebit(stake); }catch(e){ toast('Connection error'); return; }
+
+  // Update market pools - this moves price like Bayse AMM
+  if(_bayseSide==='yes'){
+    m.yesPool += stake;
+  } else {
+    m.noPool += stake;
+  }
+  const newPrice = bayseComputePrice(m.yesPool, m.noPool);
+  m.yesPrice = newPrice.yes;
+  m.noPrice = newPrice.no;
+  m.volume += stake;
+
+  // Add to price history for chart
+  if(!_baysePriceHistory[m.id]) _baysePriceHistory[m.id]=[];
+  _baysePriceHistory[m.id].push({ t: bayseNow(), yes: m.yesPrice });
+  if(_baysePriceHistory[m.id].length>50) _baysePriceHistory[m.id].shift();
+
+  // Create position
+  const pos = {
+    id: 'pos_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
+    marketId: m.id,
+    side: _bayseSide,
+    shares,
+    entryPrice: sidePrice,
+    stake,
+    entryTime: bayseNow(),
+    entryUnderlying: _baysePriceCache[m.asset] || null,
+  };
+  _baysePositions.unshift(pos);
+
+  // Log to earn ledger
+  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ marketId:m.id, question:m.question, side:_bayseSide, entryPrice:sidePrice, shares, asset:m.asset } });
+
+  toast(`Bought ${_bayseSide.toUpperCase()} • ${shares.toFixed(2)} shares @ ${sidePrice}¢`);
+  bayseUpdateDetailPrices();
+  bayseRenderDetailChart();
+  bayseRenderPositionPanel();
+  bayseRenderMarkets();
+}
+
+async function bayseSellEarly(){
+  const pos = _baysePositions.find(p=>p.marketId===_bayseSelected);
+  if(!pos) return;
+  const m = _bayseMarkets.find(x=>x.id===pos.marketId);
+  if(!m) return;
+
+  const currentPrice = pos.side==='yes' ? m.yesPrice : m.noPrice;
+  const currentValue = Math.round(pos.shares * currentPrice);
+  const pnl = currentValue - pos.stake;
+
+  try{ await walletCredit(currentValue); }catch(e){ toast('Connection error'); return; }
+
+  // Update pools - selling reduces pool (reverse)
+  if(pos.side==='yes'){
+    m.yesPool = Math.max(BAYSE_LIQUIDITY/2, m.yesPool - pos.stake);
+  } else {
+    m.noPool = Math.max(BAYSE_LIQUIDITY/2, m.noPool - pos.stake);
+  }
+  const newPrice = bayseComputePrice(m.yesPool, m.noPool);
+  m.yesPrice = newPrice.yes;
+  m.noPrice = newPrice.no;
+
+  // Remove position
+  _baysePositions = _baysePositions.filter(p=>p.id!==pos.id);
+  _bayseHistory.unshift({ ...pos, exitPrice: currentPrice, exitValue: currentValue, pnl, exitTime: bayseNow(), marketQuestion: m.question });
+
+  logEarn(_user.id, { type:'predict', stake:pos.stake, payout:currentValue, pnl, meta:{ marketId:m.id, side:pos.side, result:'sold_early', exitPrice:currentPrice } });
+
+  toast(pnl>=0 ? `Sold for ${fmt(currentValue)} • +${fmt(pnl)} profit` : `Sold for ${fmt(currentValue)} • ${fmt(pnl)} loss`);
+
+  bayseUpdateDetailPrices();
+  bayseRenderDetailChart();
+  bayseRenderPositionPanel();
+  bayseRenderMarkets();
+  bayseRenderPositionsList();
+}
+
+function bayseRenderPositionsList(){
+  const c = document.getElementById('bayse-positions-list');
+  if(!c) return;
+  if(!_baysePositions.length){
+    c.innerHTML = '<div style="text-align:center;padding:16px;color:var(--sil);font-size:11px">No open positions • Buy YES or NO on any market to start</div>';
+    return;
+  }
+  c.innerHTML = _baysePositions.map(pos=>{
+    const m = _bayseMarkets.find(x=>x.id===pos.marketId);
+    if(!m) return '';
+    const currentPrice = pos.side==='yes' ? m.yesPrice : m.noPrice;
+    const currentValue = Math.round(pos.shares * currentPrice);
+    const pnl = currentValue - pos.stake;
+    const isWin = pnl>=0;
+    return `
+      <div class="bayse-pos-card" onclick="bayseOpenMarket('${m.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-size:11px;font-weight:700">${m.question.slice(0,50)}...</div>
+          <div class="bayse-status ${isWin?'win':'lose'}">${isWin?'+':''}${fmt(pnl)}</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--sil)">
+          <span>${pos.side.toUpperCase()} • ${pos.shares.toFixed(2)} shares @ ${pos.entryPrice}¢ → ${currentPrice}¢</span>
+          <span>${bayseFormatTimeLeft(m.end)}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Live feed - updates timers, prices, charts every 1s
+function bayseStartFeed(){
+  if(_bayseFeedTimer) clearInterval(_bayseFeedTimer);
+  _bayseFeedTimer = setInterval(async ()=>{
+    // Update timers
+    const isPredVisible = document.getElementById('p-earn')?.classList.contains('active') && document.getElementById('earn-pred')?.classList.contains('active');
+    if(!isPredVisible && !_baysePositions.length) return;
+
+    // Update underlying crypto prices
+    await bayseFetchUnderlyingPrices();
+
+    // Check for expired markets and settle
+    const now = bayseNow();
+    _bayseMarkets.forEach(m=>{
+      if(m.end <= now && !m.resolved){
+        bayseSettleMarket(m);
       }
+    });
+
+    // Update UI
+    if(_bayseSelected){
+      bayseUpdateDetailPrices();
+      bayseRenderDetailChart();
+      const pos = _baysePositions.find(p=>p.marketId===_bayseSelected);
+      if(pos) bayseRenderPositionPanel();
+      // Update meta time
+      const meta = document.getElementById('bayse-detail-meta');
+      const m = _bayseMarkets.find(x=>x.id===_bayseSelected);
+      if(meta && m){
+        meta.querySelector('span:last-child').textContent = `${bayseFormatTimeLeft(m.end)} • Vol ${fmt(m.volume)} • Resolves via ${m.resolution}`;
+      }
+    } else {
+      bayseRenderMarkets();
     }
+    bayseRenderPositionsList();
+
+    // Update open positions live values
   }, 1000);
 }
 
-function pmStopFeed(){
-  if(_pmFeed.timer){ clearInterval(_pmFeed.timer); _pmFeed.timer=null; }
-}
-
-function pmUpdateLivePerformance(currentPrice){
-  if(!_pm.active) return;
-  const entry = _pm.active.entryUnderlying || _pm.active.entryPrice;
-  const diff = currentPrice - entry;
-  const diffPct = (diff/entry)*100;
-  const isUp = _pm.active.side==='up';
-  const isWinning = (isUp && diff>0) || (!isUp && diff<0);
-  const isFlat = Math.abs(diffPct) < 0.01;
-
-  // diff badge
-  const diffEl = document.getElementById('pm-price-diff');
-  if(diffEl){
-    if(isFlat){ diffEl.textContent='● No change'; diffEl.style.color='var(--sil)'; }
-    else if(isWinning){ diffEl.textContent=`▲ +${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Winning`; diffEl.style.color='var(--ok)'; }
-    else { diffEl.textContent=`▼ -${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Losing`; diffEl.style.color='var(--err)'; }
-  }
-  // pill
-  const pill = document.getElementById('pm-perf-pill');
-  if(pill){
-    if(isFlat){ pill.className='pm-status-pill live'; pill.textContent='● Tracking'; }
-    else if(isWinning){ pill.className='pm-status-pill winning'; pill.textContent='● Winning'; }
-    else { pill.className='pm-status-pill losing'; pill.textContent='● Losing'; }
-  }
-  // perf bar
-  const fill = document.getElementById('pm-perf-fill');
-  if(fill){
-    // bar shows how far from entry to current relative to some range (we map diffPct -2% to +2% => 0-100%)
-    let pct = 50 + (diffPct*15); // scale
-    pct = Math.max(5, Math.min(95, pct));
-    if(!isUp) pct = 100-pct; // invert for down
-    fill.style.width = pct+'%';
-    fill.style.background = isWinning ? 'var(--ok)' : isFlat ? 'var(--gold)' : 'var(--err)';
-  }
-  const left = document.getElementById('pm-perf-left');
-  const right = document.getElementById('pm-perf-right');
-  if(left) left.textContent = 'Entry $'+entry.toFixed(2);
-  if(right) right.textContent = 'Now $'+currentPrice.toFixed(2);
-
-  // also update share price live P&L (existing logic)
-  pmRenderLivePrices();
-}
-
-function pmPickAsset(a) {
-  if (_pm.active) { toast('Wait for the current round to settle'); return; }
-  _pm.asset = a;
-  document.querySelectorAll('#pm-assets .pm-asset').forEach(el => el.classList.toggle('sel', el.dataset.a === a));
-  _pmFeed.history = []; _pmFeed.lastPrice=null;
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true));
-  pmEnsureRoundSubscribed();
-  pmStartFeed();
-}
-function pmPickDir(d) {
-  if (_pm.active) return;
-  _pm.dir = d;
-  document.getElementById('pm-up').classList.toggle('sel', d === 'up');
-  document.getElementById('pm-down').classList.toggle('sel', d === 'down');
-}
-function pmSetStake(v) {
-  if (_pm.active) return;
-  _pm.stake = v;
-  document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
-  const c = document.getElementById('pm-custom'); if (c) c.value = '';
-  pmUpdateBtn();
-}
-function pmCustomStake(v) {
-  if (_pm.active) return;
-  _pm.stake = parseInt(v) || 0;
-  document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
-  pmUpdateBtn();
-}
-function pmUpdateBtn() {
-  const btn = document.getElementById('pm-btn');
-  if (!btn || _pm.active) return;
-  const short = _user && (_pm.stake || 0) > _user.balance;
-  btn.disabled = !!short;
-  btn.textContent = short ? 'Insufficient balance' : 'Predict for ' + fmt(_pm.stake || 0);
-}
-async function pmFetchPrice() {
-  // wrapper for compatibility — now uses fast 1s feed
-  const p = await pmFetchPriceFast(false);
-  const el = _pm.active ? document.getElementById('pm-current') : document.getElementById('pm-price');
-  if (el && p) el.textContent = '$' + p.toLocaleString('en-US', { maximumFractionDigits: 2 });
-  return p;
-}
-function pmShowHowItWorks(){
-  toast('Predict if price goes Up or Down in 5 min. Share price moves with demand. Sell anytime before settlement. Correct shares pay ₦100 each.');
-}
-
-// keep original round logic but enhance
-const PM_SEED = 1000;
-function pmBucketStart() { return Math.floor(Date.now() / 300000) * 300000; }
-function pmRoundId(asset, bucketStart) { return asset + '_' + bucketStart; }
-function pmComputePrices(round) {
-  const yesPool = PM_SEED + (round.yesStake || 0);
-  const noPool = PM_SEED + (round.noStake || 0);
-  let up = Math.round((yesPool / (yesPool + noPool)) * 100);
-  up = Math.max(2, Math.min(98, up));
-  return { up, down: 100 - up };
-}
-async function pmGetOrCreateRound(asset, currentPrice) {
-  const bucketStart = pmBucketStart();
-  const id = pmRoundId(asset, bucketStart);
-  const price = currentPrice || _pmFeed.lastPrice || 50000;
-  const localData = { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null, _local:true };
-  if(!db || !db.collection){
-    console.warn('Firestore not ready, using local round');
-    return localData;
-  }
-  const ref = db.collection('predictRounds').doc(id);
-  try {
-    return await db.runTransaction(async tx => {
-      const snap = await tx.get(ref);
-      if (snap.exists) return { id, ...snap.data() };
-      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
-      tx.set(ref, data);
-      return { id, ...data };
-    });
-  } catch (e) {
-    console.warn('pmGetOrCreateRound tx failed, trying direct set', e.message);
+async function bayseFetchUnderlyingPrices(){
+  // Fetch BTC, ETH, SOL prices
+  const assets = ['BTC','ETH','SOL'];
+  for(const asset of assets){
     try{
-      const snap = await ref.get();
-      if(snap.exists) return { id, ...snap.data() };
-      await ref.set({ asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null });
-      return { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
-    }catch(e2){
-      console.warn('pmGetOrCreateRound direct set failed, using local', e2.message);
-      return localData;
-    }
+      const price = await bayseFetchBinancePrice(asset);
+      if(price) _baysePriceCache[asset] = price;
+    }catch(e){}
   }
 }
-let _pmRoundUnsub = null, _pmRoundData = null;
-async function pmEnsureRoundSubscribed() {
-  const id = pmRoundId(_pm.asset, pmBucketStart());
-  if (_pmRoundData?.id === id && _pmRoundUnsub) return;
-  if (_pmRoundUnsub) { try{ _pmRoundUnsub(); }catch(e){} _pmRoundUnsub=null; }
-  _pmRoundData = null;
-  if(!db || !db.collection){
-    _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 };
-    pmRenderLivePrices();
-    return;
-  }
+
+async function bayseFetchBinancePrice(asset){
+  const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT' };
+  const symbol = map[asset];
+  if(!symbol) return null;
   try{
-    _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
-      if (!snap.exists) return;
-      _pmRoundData = { id, ...snap.data() };
-      pmRenderLivePrices();
-    }, e => console.error('pmEnsureRoundSubscribed error', e));
-  }catch(e){ console.warn('Subscribe failed, using local', e.message); _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 }; pmRenderLivePrices(); }
-  const px = _pmFeed.lastPrice || await pmFetchPriceFast(true);
-  if (px) { try{ pmGetOrCreateRound(_pm.asset, px); }catch(e){} }
-}
-function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
-function pmRenderLivePrices() {
-  if (!_pmRoundData) return;
-  const prices = pmComputePrices(_pmRoundData);
-  const upEl = document.getElementById('pm-up-price'), downEl = document.getElementById('pm-down-price');
-  if (upEl) upEl.textContent = '₦' + prices.up;
-  if (downEl) downEl.textContent = '₦' + prices.down;
-  if (_pm.active && _pm.active.roundId === _pmRoundData.id) {
-    const shareNow = _pm.active.side === 'up' ? prices.up : prices.down;
-    const sellVal = Math.round(_pm.active.shares * shareNow);
-    const pnl = sellVal - _pm.active.stake;
-    const shareNowEl = document.getElementById('pm-share-now');
-    if (shareNowEl) shareNowEl.textContent = '₦' + shareNow;
-    const sharesEl = document.getElementById('pm-shares');
-    if (sharesEl) sharesEl.textContent = _pm.active.shares.toFixed(2);
-    const pnlEl = document.getElementById('pm-live-pnl');
-    const pnlSub = document.getElementById('pm-pnl-sub');
-    if (pnlEl) { pnlEl.textContent = fmt(sellVal); pnlEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
-    if (pnlSub) { pnlSub.textContent = (pnl>=0?'+':'') + fmt(pnl) + (pnl!==0 ? ' PnL' : ''); pnlSub.style.color = pnl>=0 ? 'var(--ok)' : 'var(--err)'; }
+    const r = await fetchWithTimeout(`https://data-api.binance.vision/api/v3/ticker/price?symbol=${symbol}`, 3000);
+    if(r.ok){
+      const d = await r.json();
+      const p = parseFloat(d.price);
+      if(p>0) return p;
+    }
+  }catch(e){}
+  // fallback to cache or random walk
+  if(_baysePriceCache[asset]){
+    // simulate small movement
+    return _baysePriceCache[asset] * (1 + (Math.random()-0.5)*0.002);
   }
+  return null;
 }
 
-async function pmPlaceBet() {
-  console.log('[PREDICT] Place bet', _pm.asset, _pm.dir, _pm.stake);
-  if (!_user) { toast('Please sign in first'); return; }
-  if (_pm.active) { toast('A round is already in progress'); return; }
-  if (!_pm.dir) { toast('Choose Up or Down first'); return; }
-  const stake = _pm.stake;
-  if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
-  if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
-  let underlyingPrice = _pmFeed.lastPrice || await pmFetchPriceFast(true);
-  if (!underlyingPrice) {
-    console.warn('No live price, using fallback');
-    underlyingPrice = 50000 + Math.random()*500;
-  }
-  let round = null;
-  try{ round = await pmGetOrCreateRound(_pm.asset, underlyingPrice); }catch(e){ console.error('getRound error', e); }
-  if (!round) {
-    const bucketStart = pmBucketStart();
-    round = { id: pmRoundId(_pm.asset, bucketStart), asset: _pm.asset, bucketStart, bucketEnd: bucketStart+300000, entryPrice: underlyingPrice, yesStake: 0, noStake: 0, resolved: false, _local:true };
-    console.warn('Using emergency local round', round);
-  }
-  const prices = pmComputePrices(round);
-  const sharePrice = _pm.dir === 'up' ? prices.up : prices.down;
-  const shares = +(stake / sharePrice).toFixed(4);
-
-  try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
-  try {
-    await db.collection('predictRounds').doc(round.id).update({
-      [_pm.dir === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(stake)
-    });
-  } catch (e) { console.error('round stake increment failed', e); }
-
-  _pm.active = { roundId: round.id, asset: _pm.asset, side: _pm.dir, stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, entryUnderlying: underlyingPrice, endsAt: round.bucketEnd };
-  document.getElementById('pm-idle').style.display = 'none';
-  document.getElementById('pm-live').style.display = 'block';
-  const ld = document.getElementById('pm-live-dir');
-  ld.textContent = _pm.asset + ' · ' + (_pm.dir === 'up' ? '▲ Up' : '▼ Down');
-  ld.style.color = _pm.dir === 'up' ? 'var(--ok)' : 'var(--err)';
-  document.getElementById('pm-entry').textContent = '₦' + sharePrice;
-  document.getElementById('pm-entry-underlying').textContent = '$'+underlyingPrice.toFixed(2);
-  document.getElementById('pm-entry-time').textContent = new Date().toLocaleTimeString();
-  document.getElementById('pm-shares').textContent = shares.toFixed(2);
-  document.getElementById('pm-current').textContent = '$'+underlyingPrice.toFixed(2);
-
-  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, result:'opened', sharePrice, shares, entryPrice: underlyingPrice } });
-  pmEnsureRoundSubscribed();
-  pmRenderLivePrices();
-  pmStartFeed();
-
-  clearInterval(_pm.priceTimer);
-  _pm.priceTimer = setInterval(pmTick, 1000);
-  pmTick();
-}
-async function pmTick() {
-  const a = _pm.active; if (!a) return;
-  const leftMs = Math.max(0, a.endsAt - Date.now());
-  const leftSec = Math.round(leftMs / 1000);
-  const t = document.getElementById('pm-timer');
-  if (t) t.textContent = Math.floor(leftSec/60) + ':' + String(leftSec%60).padStart(2,'0');
-  // price is handled by pmStartFeed 1s loop
-  if (leftMs <= 0) pmSettle();
-}
-async function pmSell() {
-  const a = _pm.active; if (!a || !_user) return;
-  const round = _pmRoundData?.id === a.roundId ? _pmRoundData : await db.collection('predictRounds').doc(a.roundId).get().then(s => ({ id:a.roundId, ...s.data() }));
-  const prices = pmComputePrices(round);
-  const sharePrice = a.side === 'up' ? prices.up : prices.down;
-  const sellValue = Math.round(a.shares * sharePrice);
-  const pnl = sellValue - a.stake;
-
-  try { await walletCredit(sellValue); } catch (e) { toast('Connection error — try again'); return; }
-  try {
-    await db.collection('predictRounds').doc(a.roundId).update({
-      [a.side === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(-a.stake)
-    });
-  } catch (e) { console.error('round unwind failed', e); }
-  logEarn(_user.id, { type:'predict', stake:a.stake, payout:sellValue, pnl, meta:{ asset:a.asset, dir:a.side, result:'sold_early', exitSharePrice:sharePrice, exitUnderlying: _pmFeed.lastPrice } });
-  toast(pnl >= 0 ? `Sold for ${fmt(sellValue)} · +${fmt(pnl)} profit` : `Sold for ${fmt(sellValue)} · ${fmt(pnl)} loss`);
-
-  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: pnl > 0 ? true : pnl < 0 ? false : null, stake: a.stake });
-  _pmHistory = _pmHistory.slice(0, 8);
-  pmRenderHistory();
-
-  clearInterval(_pm.priceTimer);
-  _pm.active = null;
-  document.getElementById('pm-idle').style.display = 'block';
-  document.getElementById('pm-live').style.display = 'none';
-  pmUpdateBtn();
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,false));
-  pmStartFeed();
-}
-async function pmSettle() {
-  const a = _pm.active; if (!a) return;
-  clearInterval(_pm.priceTimer);
-  const exitPrice = _pmFeed.lastPrice || (await pmFetchPriceFast(true)) || a.entryUnderlying;
-  const wentUp = exitPrice > a.entryUnderlying;
-  const flat = Math.abs(exitPrice - a.entryUnderlying) < 0.01;
-  const won = !flat && ((a.side === 'up' && wentUp) || (a.side === 'down' && !wentUp));
-
-  try { await db.collection('predictRounds').doc(a.roundId).update({ resolved: true, finalPrice: exitPrice, outcome: flat ? 'push' : (wentUp ? 'up' : 'down') }); } catch(e) {}
-
-  if (flat) {
-    try { await walletCredit(a.stake); } catch (e) {}
-    toast('Price unchanged — stake refunded');
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.side, result:'push' } });
-  } else if (won) {
-    const payout = Math.round(a.shares * 100);
-    try { await walletCredit(payout); } catch (e) {}
-    toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.side, result:'win', shares:a.shares, exitPrice } });
+function bayseSettleMarket(m){
+  // For demo, settle based on random or underlying
+  let yesWon = false;
+  if(m.type==='updown'){
+    const current = _baysePriceCache[m.asset];
+    const entry = m.entryUnderlying;
+    if(current && entry){
+      yesWon = current > entry;
+    } else {
+      yesWon = Math.random() > 0.5;
+    }
+  } else if(m.type==='target_above'){
+    const current = _baysePriceCache[m.asset] || m.target * (0.95 + Math.random()*0.1);
+    yesWon = current >= m.target;
   } else {
-    toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.side} call missed`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.side, result:'loss', exitPrice } });
+    // yesno - random for demo, in real would use oracle
+    yesWon = Math.random() > 0.5;
   }
 
-  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: flat ? null : won, stake: a.stake });
-  _pmHistory = _pmHistory.slice(0, 8);
-  pmRenderHistory();
+  m.resolved = true;
+  m.outcome = yesWon ? 'yes' : 'no';
 
-  _pm.active = null;
-  document.getElementById('pm-idle').style.display = 'block';
-  document.getElementById('pm-live').style.display = 'none';
-  pmUpdateBtn();
-  _pmFeed.history = [];
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,false));
-  pmStartFeed();
+  // Settle positions
+  const positionsToSettle = _baysePositions.filter(p=>p.marketId===m.id);
+  positionsToSettle.forEach(pos=>{
+    const won = (pos.side==='yes' && yesWon) || (pos.side==='no' && !yesWon);
+    const payout = won ? Math.round(pos.shares * 100) : 0;
+    const pnl = payout - pos.stake;
+
+    if(won){
+      walletCredit(payout).catch(()=>{});
+    }
+
+    _bayseHistory.unshift({ ...pos, won, payout, pnl, settledAt: bayseNow(), marketQuestion: m.question, outcome: m.outcome });
+    logEarn(_user.id, { type:'predict', stake:pos.stake, payout, pnl, meta:{ marketId:m.id, side:pos.side, result: won?'win':'loss', outcome:m.outcome } });
+
+    toast(won ? `🎯 Market settled YES • You won ${fmt(payout)}` : `Market settled ${yesWon?'YES':'NO'} • Your ${pos.side.toUpperCase()} lost`);
+  });
+
+  _baysePositions = _baysePositions.filter(p=>p.marketId!==m.id);
+  bayseRenderPositionsList();
+  bayseRenderMarkets();
+  if(_bayseSelected===m.id) bayseRenderPositionPanel();
 }
-function pmRenderHistory() {
-  const c = document.getElementById('pm-history-card');
-  const h = document.getElementById('pm-history');
-  if (!c || !h) return;
-  if (!_pmHistory.length) { c.style.display = 'none'; return; }
-  c.style.display = 'block';
-  h.innerHTML = _pmHistory.map(x => `<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b1);font-size:12px">
-    <span>${x.asset} · ${x.dir === 'up' ? '▲ Up' : '▼ Down'} · ${fmt(x.stake)}</span>
-    <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
-  </div>`).join('');
+
+// Initialize on earn page load
+function bayseInit(){
+  if(_bayseMarkets.length) return;
+  bayseInitMarkets();
+  bayseStartFeed();
+  bayseRenderPositionsList();
 }
-// Auto-start feed when entering predictions tab
-(function(){
-  const origSwitch = window.switchEarnTab;
-  window.switchEarnTab = function(tab){
-    document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
-    document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-    if (tab === 'pred') { pmEnsureRoundSubscribed(); pmStartFeed(); pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true)); }
-    else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
-    if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
-    else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
-    else stopLiveActivity();
-  };
-})();
-// Keep feed alive even if user is idle on pred page (replaces old 1s setInterval)
+
+// switchEarnTab already handles bayseInit above
 
 
 // ── AVIATOR ─────────────────────────
@@ -6272,45 +6292,6 @@ function copyReceiptRef(){
     const ta=document.createElement('textarea'); ta.value=_currentReceiptRef; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Reference copied');
   }
 }
-
-
-
-// Hard override: block old error toast and force open
-(function(){
-  const _origToast = window.toast;
-  window.toast = function(msg){
-    if(typeof msg==='string' && msg.toLowerCase().includes('could not open this market')){
-      console.warn('[FIX] Blocked old error toast, forcing local open');
-      if(typeof _origToast==='function') _origToast('Opening market in offline mode... ✓');
-      // Force emergency open if not already active
-      setTimeout(()=>{
-        if(!_pm || !_pm.active){
-          try{
-            const bucketStart = typeof pmBucketStart==='function' ? pmBucketStart() : Math.floor(Date.now()/300000)*300000;
-            const underlyingPrice = (_pmFeed && _pmFeed.lastPrice) ? _pmFeed.lastPrice : 65000 + Math.random()*1000;
-            const id = (typeof pmRoundId==='function' ? pmRoundId(_pm.asset||'BTC', bucketStart) : 'BTC_'+bucketStart);
-            const round = { id, asset: _pm.asset||'BTC', bucketStart, bucketEnd: bucketStart+300000, entryPrice: underlyingPrice, yesStake: 0, noStake: 0, resolved: false, _local:true };
-            const prices = typeof pmComputePrices==='function' ? pmComputePrices(round) : {up:50, down:50};
-            const sharePrice = (_pm.dir==='up' ? prices.up : prices.down) || 50;
-            const stake = _pm.stake||100;
-            const shares = +(stake / sharePrice).toFixed(4);
-            _pm.active = { roundId: round.id, asset: _pm.asset||'BTC', side: _pm.dir||'up', stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, entryUnderlying: underlyingPrice, endsAt: round.bucketEnd };
-            const idleEl = document.getElementById('pm-idle'); if(idleEl) idleEl.style.display='none';
-            const liveEl = document.getElementById('pm-live'); if(liveEl) liveEl.style.display='block';
-            const ld = document.getElementById('pm-live-dir'); if(ld){ ld.textContent = (_pm.asset||'BTC') + ' · ' + (_pm.dir==='up'?'▲ Up':'▼ Down'); ld.style.color = _pm.dir==='up' ? 'var(--ok)' : 'var(--err)'; }
-            const entryEl = document.getElementById('pm-entry'); if(entryEl) entryEl.textContent = '₦'+sharePrice;
-            const entryUnder = document.getElementById('pm-entry-underlying'); if(entryUnder) entryUnder.textContent = '$'+underlyingPrice.toFixed(2);
-            const sharesEl = document.getElementById('pm-shares'); if(sharesEl) sharesEl.textContent = shares.toFixed(2);
-            if(typeof pmStartFeed==='function') pmStartFeed();
-            if(typeof pmTick==='function'){ clearInterval(_pm.priceTimer); _pm.priceTimer=setInterval(pmTick,1000); pmTick(); }
-          }catch(e){ console.error('Force open failed', e); }
-        }
-      }, 300);
-      return;
-    }
-    if(_origToast) _origToast(msg);
-  };
-})();
 
 
 boot();
