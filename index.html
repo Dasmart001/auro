@@ -1297,6 +1297,7 @@ body.dark #splash{background:var(--void)}
       <div class="avail"><div><div class="av-lbl">Withdrawable Balance</div><div class="av-val" id="w-avail">₦0</div></div><div class="av-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cleared</div></div>
       <label class="fl">Withdrawal Amount</label>
       <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="w-a" placeholder="0.00" oninput="updWit()"/></div>
+      <div style="font-size:11px;color:var(--sil);margin:6px 0 12px">Minimum withdrawal is <strong style="color:var(--plat)">₦30,000</strong>.</div>
       <div class="qrow">
         <button class="qb" onclick="setWit(30000)">₦30k</button>
         <button class="qb" onclick="setWit(50000)">₦50k</button>
@@ -3106,7 +3107,6 @@ function cfToggleVerify() {
 }
 
 // ── CRYPTO FLASH PREDICTIONS ───────
-const PM_SYMS = { BTC: 'BTCUSDT', ETH: 'ETHUSDT', SOL: 'SOLUSDT' };
 let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null };
 let _pmHistory = [];
 function pmPickAsset(a) {
@@ -3142,29 +3142,26 @@ function pmUpdateBtn() {
   btn.disabled = !!short;
   btn.textContent = short ? 'Insufficient balance' : 'Predict for ' + fmt(_pm.stake || 0);
 }
+// Real price comes from the same reliable multi-provider chain the home
+// ticker uses (CryptoCompare → CoinCap → CoinGecko), not a direct Binance
+// call — Binance's public API is a well-documented, recurring source of
+// browser CORS failures (works fine for a while, then silently breaks with
+// no warning), which is worse than just being slightly less "instant."
+// Fetches for real, every second, only while a Predict market is actually
+// being viewed (idle-browsing or an open position) — this is a genuinely
+// live, real number, not a cosmetic simulation. Scaling note: since there's
+// no backend to centralize this fetch across every concurrent user, this
+// cadence is safe at today's usage level but not something to leave
+// unbounded forever — the durable fix once there's a backend is a single
+// server-side price poll pushed to all clients (WebSocket/SSE), so no
+// individual client is hitting the free-tier providers at all.
 async function pmFetchPrice() {
-  const el = document.getElementById('pm-price');
-  try {
-    const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=' + PM_SYMS[_pm.asset]);
-    if (!r.ok) throw new Error('HTTP '+r.status);
-    const d = await r.json();
-    const p = parseFloat(d.price);
-    if (!p || p <= 0) throw new Error('bad price');
-    if (el && !_pm.active) el.textContent = '$' + p.toLocaleString('en-US', { maximumFractionDigits: 2 });
-    return p;
-  } catch (e) {
-    // Binance can be unreachable (regional blocks, flaky networks). Fall back
-    // to the ticker's own price cache, which already pulls from three
-    // independent providers — same pair, no extra network round trip.
-    const pair = _pm.asset + '/USD';
-    const cached = _dispPrices?.[pair]?.price || _realPrices?.[pair]?.price;
-    if (cached) {
-      if (el && !_pm.active) el.textContent = '$' + cached.toLocaleString('en-US', { maximumFractionDigits: 2 });
-      return cached;
-    }
-    if (el && !_pm.active) el.textContent = 'Price unavailable';
-    return null;
-  }
+  const pair = _pm.asset + '/USD';
+  try { await fetchCrypto(); } catch (e) {}
+  const p = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
+  const el = _pm.active ? document.getElementById('pm-current') : document.getElementById('pm-price');
+  if (el && p) el.textContent = '$' + p.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  return p;
 }
 // Real brand logos for BTC/ETH/SOL (small, well-known public CDN) instead of plain
 // letter badges. Falls back to the colored initials badge if the image fails to load,
@@ -3296,14 +3293,15 @@ async function pmTick() {
   const leftSec = Math.round(leftMs / 1000);
   const t = document.getElementById('pm-timer');
   if (t) t.textContent = Math.floor(leftSec/60) + ':' + String(leftSec%60).padStart(2,'0');
-  const cur = await pmFetchPrice();
-  if (cur) {
+  const real = await pmFetchPrice(); // real fetch, throttled ~8s to protect the shared price feed — see comment above
+  if (real != null) {
     const c = document.getElementById('pm-current');
     if (c) {
-      c.textContent = '$' + cur.toLocaleString('en-US', { maximumFractionDigits: 2 });
-      c.style.color = cur >= a.entryPrice ? 'var(--ok)' : 'var(--err)';
-      // Brief flash on every live tick so the price visibly feels "live", same idea as Bayse's ticking quote.
-      c.classList.remove('pm-flash'); void c.offsetWidth; c.classList.add('pm-flash');
+      c.textContent = '$' + real.toLocaleString('en-US', { maximumFractionDigits: 2 });
+      c.style.color = real >= a.entryPrice ? 'var(--ok)' : 'var(--err)';
+      // Flash only fires when the real price actually changed, so it never implies movement that didn't happen.
+      if (real !== _pm._lastShownPrice) { c.classList.remove('pm-flash'); void c.offsetWidth; c.classList.add('pm-flash'); }
+      _pm._lastShownPrice = real;
     }
   }
   pmRenderLivePrices(); // keeps "how's my prediction doing" P&L live every second, not just when someone else trades
@@ -3386,15 +3384,23 @@ function pmRenderHistory() {
     <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
   </div>`).join('');
 }
-// Background price refresh while browsing Predictions with no active round
-setInterval(() => {
+// Live price display while browsing Predictions with no active round. Checks
+// every second so the round subscription stays fresh across bucket rollovers,
+// but the price number itself only changes — and only flashes — when real
+// data actually arrives (~every 8s, see pmFetchPrice).
+setInterval(async () => {
   const pg = document.getElementById('p-earn');
   const sec = document.getElementById('earn-pred');
-  if (pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active) {
-    pmFetchPrice();
-    pmEnsureRoundSubscribed(); // re-subscribes automatically once the 5-minute bucket rolls over
+  if (!(pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active)) return;
+  const real = await pmFetchPrice();
+  const el = document.getElementById('pm-price');
+  if (el && real != null) {
+    el.textContent = '$' + real.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    if (real !== _pm._lastIdlePrice) { el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash'); }
+    _pm._lastIdlePrice = real;
   }
-}, 4000);
+  pmEnsureRoundSubscribed(); // re-subscribes automatically once the 5-minute bucket rolls over
+}, 1000);
 
 // ── AVIATOR ─────────────────────────
 // ══════════════════════════════════
@@ -3683,11 +3689,6 @@ function renderHome() {
   }).join('');
 }
 
-function copyRefCode() {
-  const code = _user?.refCode||'';
-  if (!code) return;
-  cpy(code);
-}
 // Populates the Refer & Earn panel inside the Earn hub.
 function renderReferral() {
   if (!_user) return;
