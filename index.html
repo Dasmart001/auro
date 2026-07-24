@@ -3473,6 +3473,14 @@ function pmUpdateBtn() {
 // reliable multi-provider chain the home ticker uses, as a last resort.
 // Cached per-asset for ~1.5s and de-dupes in-flight requests so nothing piles
 // up even while several positions across different assets are open at once.
+// Real brand logos for BTC/ETH/SOL (small, well-known public CDN) instead of plain
+// letter badges. Falls back to the colored initials badge if the image fails to load,
+// so the UI never breaks if the CDN is briefly unreachable.
+function cryptoIconImg(short, sizePx, bgColor) {
+  const url = `https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/${short}.svg`;
+  const fallback = `this.outerHTML='<div style=&quot;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${bgColor};color:#fff;font-family:var(--d);font-size:${Math.round(sizePx*0.35)}px;font-weight:800;border-radius:inherit&quot;>${short}</div>'`;
+  return `<img src="${url}" width="${sizePx}" height="${sizePx}" style="display:block;object-fit:contain" onerror="${fallback}"/>`;
+}
 function pmGetSymbol(a) {
   const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT', BNB:'BNBUSDT', XRP:'XRPUSDT', DOGE:'DOGEUSDT', ADA:'ADAUSDT' };
   return map[a] || 'BTCUSDT';
