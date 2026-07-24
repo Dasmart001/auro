@@ -2165,8 +2165,8 @@ function simToday(u) {
 // STATE
 // ══════════════════════════════════
 let _user = null;
-let _unsubUser = null, _unsubDep = null, _unsubWit = null;
-let _myDeps = [], _myWits = [];
+let _unsubUser = null, _unsubDep = null, _unsubWit = null, _unsubActivity = null;
+let _myDeps = [], _myWits = [], _myActivity = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null, _unsubAdmPaidWit = null;
 let _unsubAdmHistDep = null, _unsubAdmHistWit = null;
 let _histDeps = [], _histWits = [], _histFilter = 'all';
@@ -2354,10 +2354,10 @@ async function doSignup() {
 // ══════════════════════════════════
 function doLogout() {
   closeUserMenu();
-  [_unsubUser, _unsubDep, _unsubWit].forEach(fn => { if(fn) fn(); });
-  _unsubUser = _unsubDep = _unsubWit = null;
+  [_unsubUser, _unsubDep, _unsubWit, _unsubActivity].forEach(fn => { if(fn) fn(); });
+  _unsubUser = _unsubDep = _unsubWit = _unsubActivity = null;
   _user = null;
-  _myDeps = []; _myWits = [];
+  _myDeps = []; _myWits = []; _myActivity = [];
   localStorage.removeItem(SK);
   showAuth();
 }
@@ -2395,6 +2395,20 @@ function startListening(uid) {
       renderNotifications();
       if (typeof renderWallet === 'function') renderWallet();
     }, e => console.error('Wit listener error:', e));
+
+  // Earn activity (Predict / Aviator / Coin Flip / Referral) — lives in its own
+  // subcollection instead of one ever-growing array on the user doc, so the
+  // user document stays small and browsable in the Firebase console. Capped
+  // at the 200 most recent entries, which is far more than any UI displays.
+  if (_unsubActivity) _unsubActivity();
+  _unsubActivity = db.collection('users').doc(uid).collection('activity')
+    .orderBy('ts', 'desc').limit(200)
+    .onSnapshot(snap => {
+      _myActivity = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderPortfolio();
+      if (typeof renderAvBetHistory === 'function') renderAvBetHistory();
+      if (typeof renderCfBetHistory === 'function') renderCfBetHistory();
+    }, e => console.error('Activity listener error:', e));
 }
 
 function updateUserUI() {
@@ -3069,7 +3083,7 @@ function renderEarn() {
 function renderAvBetHistory() {
   const c = document.getElementById('av-bet-history');
   if (!c) return;
-  const bets = (_user?.earnLedger || []).filter(e => e.type === 'aviator').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
+  const bets = [...(_myActivity||[]), ...(_user?.earnLedger||[])].filter(e => e.type === 'aviator').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
   if (!bets.length) { c.innerHTML = '<div style="text-align:center;padding:16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;font-size:11.5px;color:var(--sil)">No bets yet — place one above to get started.</div>'; return; }
   c.innerHTML = bets.map(e => {
     const win = e.meta?.result === 'win';
@@ -3084,7 +3098,7 @@ function renderAvBetHistory() {
 function renderCfBetHistory() {
   const c = document.getElementById('cf-bet-history');
   if (!c) return;
-  const bets = (_user?.earnLedger || []).filter(e => e.type === 'coinflip').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
+  const bets = [...(_myActivity||[]), ...(_user?.earnLedger||[])].filter(e => e.type === 'coinflip').sort((a,b) => (b.ts||'').localeCompare(a.ts||'')).slice(0, 20);
   if (!bets.length) { c.innerHTML = '<div style="text-align:center;padding:16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;font-size:11.5px;color:var(--sil)">No flips yet — call one above to get started.</div>'; return; }
   c.innerHTML = bets.map(e => {
     const win = (e.pnl||0) > 0;
@@ -3117,17 +3131,22 @@ async function walletCredit(amount) {
   }));
 }
 // Persistent, cross-session record of every Earn outcome (Predict / Aviator / Coin
-// Flip / Referral). This is what powers the unified Portfolio + P&L view — without
-// it, game results only ever lived in local JS variables and vanished on reload.
+// Flip / Referral). Detail entries live in users/{uid}/activity/{id} — a proper
+// subcollection instead of one array field on the user doc — so the user
+// document itself stays small and the Firebase console stays browsable even
+// after thousands of rounds. Running totals (gamesPnl/referralPnl) are kept as
+// plain incrementing counters on the user doc so Portfolio P&L stays a cheap
+// single-document read instead of summing an ever-growing list every time.
 async function logEarn(userId, entry) {
   try {
-    await db.collection('users').doc(userId).update({
-      earnLedger: firebase.firestore.FieldValue.arrayUnion({
-        id: 'el_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
-        ts: nowISO(),
-        ...entry
-      })
-    });
+    const ts = nowISO();
+    const writes = [ db.collection('users').doc(userId).collection('activity').add({ ts, ...entry }) ];
+    if (entry.type === 'predict' || entry.type === 'aviator' || entry.type === 'coinflip') {
+      writes.push(db.collection('users').doc(userId).update({ gamesPnl: firebase.firestore.FieldValue.increment(entry.pnl || 0) }));
+    } else if (entry.type === 'referral') {
+      writes.push(db.collection('users').doc(userId).update({ referralPnl: firebase.firestore.FieldValue.increment(entry.pnl || 0) }));
+    }
+    await Promise.all(writes);
   } catch (e) { console.error('logEarn error', e); }
 }
 
@@ -4250,10 +4269,13 @@ function renderPortfolio() {
   }).join('');
 
   // ── Unified P&L across every Earn activity ──
-  const ledger = _user.earnLedger || [];
+  // gamesPnl/referralPnl are running totals kept on the user doc (see logEarn);
+  // the legacy earnLedger array is also summed in for any older entries that
+  // predate the subcollection migration, so no existing user's history is lost.
+  const legacy = _user.earnLedger || [];
   const yieldRealised = invs.reduce((s,i)=>s+(i.totalClaimed||0), 0);
-  const gamesNet = ledger.filter(e => e.type==='predict'||e.type==='aviator'||e.type==='coinflip').reduce((s,e)=>s+(e.pnl||0), 0);
-  const refEarned = ledger.filter(e => e.type==='referral').reduce((s,e)=>s+(e.pnl||0), 0);
+  const gamesNet = (_user.gamesPnl||0) + legacy.filter(e => e.type==='predict'||e.type==='aviator'||e.type==='coinflip').reduce((s,e)=>s+(e.pnl||0), 0);
+  const refEarned = (_user.referralPnl||0) + legacy.filter(e => e.type==='referral').reduce((s,e)=>s+(e.pnl||0), 0);
   const totalPnl = yieldRealised + gamesNet + refEarned;
 
   const pnlValEl = document.getElementById('pnl-val');
@@ -4274,7 +4296,7 @@ function renderPortfolio() {
   // ── Earn Activity feed (predict / aviator / coinflip / referral) ──
   const ec = document.getElementById('earn-activity-c');
   if (ec) {
-    const recent = [...ledger].sort((a,b)=>(b.ts||'').localeCompare(a.ts||'')).slice(0,25);
+    const recent = [...(_myActivity||[]), ...legacy].sort((a,b)=>(b.ts||'').localeCompare(a.ts||'')).slice(0,25);
     if (!recent.length) {
       ec.innerHTML = '<div style="text-align:center;padding:20px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;font-size:12px;color:var(--sil)">No Predict, Aviator, Coin Flip or referral activity yet — head to the Earn tab.</div>';
     } else {
