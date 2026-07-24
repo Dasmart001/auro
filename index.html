@@ -379,46 +379,6 @@ body::after{display:none}
 .hi-a{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
 .hi-r{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
 
-
-/* ── RECEIPT ── */
-.hist-item{cursor:pointer;transition:transform .15s, box-shadow .15s}
-.hist-item:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(17,20,43,.06)}
-.hist-item:active{transform:scale(.99)}
-.rcpt-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:6000;display:none;align-items:flex-end;justify-content:center}
-.rcpt-modal.open{display:flex}
-.rcpt-sheet{background:var(--s2);border-radius:24px 24px 0 0;width:100%;max-width:430px;max-height:94vh;overflow-y:auto;animation:shu .36s var(--ez) both;position:relative;padding-bottom:34px}
-.rcpt-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.rcpt-card-wrap{padding:12px 16px 16px}
-.rcpt-card{background:#FFFFFF;border-radius:20px;padding:22px 20px 18px;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(17,20,43,.10);border:1px solid rgba(17,20,43,.06)}
-.rcpt-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.rcpt-watermark{position:absolute;top:-18px;right:-10px;font-family:var(--d);font-size:84px;font-weight:800;color:rgba(67,56,236,.04);letter-spacing:-.04em;pointer-events:none;user-select:none;transform:rotate(-8deg)}
-.rcpt-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
-.rcpt-logo{font-family:var(--d);font-size:18px;font-weight:800;letter-spacing:.02em;color:var(--gold)}
-.rcpt-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:20px;border:1px solid}
-.rcpt-amt-hero{text-align:center;margin:10px 0 18px}
-.rcpt-amt-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
-.rcpt-amt-val{font-family:var(--d);font-size:34px;font-weight:700;letter-spacing:-.03em;color:var(--plat);line-height:1}
-.rcpt-amt-sub{font-size:11px;color:var(--sil);margin-top:6px}
-.rcpt-divider{height:1px;background:repeating-linear-gradient(90deg,var(--b1) 0 7px,transparent 7px 11px);margin:16px 0}
-.rcpt-grid{display:grid;gap:10px}
-.rcpt-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.rcpt-k{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);flex-shrink:0;max-width:40%}
-.rcpt-v{font-size:12px;font-weight:600;color:var(--plat);text-align:right;word-break:break-all}
-.rcpt-v.mono{font-family:var(--d);font-weight:600;letter-spacing:.02em}
-.rcpt-qr-wrap{display:flex;align-items:center;gap:14px;background:rgba(243,244,250,.9);border:1px dashed var(--b1);border-radius:12px;padding:12px;margin-top:16px}
-.rcpt-qr{width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--b1);flex-shrink:0;object-fit:contain}
-.rcpt-qr-txt{flex:1}
-.rcpt-qr-title{font-size:11px;font-weight:700;color:var(--plat);margin-bottom:2px}
-.rcpt-qr-sub{font-size:10px;color:var(--sil);line-height:1.4}
-.rcpt-foot{margin-top:14px;text-align:center}
-.rcpt-foot p{font-size:9px;color:var(--dim);line-height:1.5;max-width:260px;margin:0 auto}
-.rcpt-actions{display:flex;gap:10px;padding:0 16px}
-.rcpt-btn{flex:1;padding:13px;border-radius:11px;font-family:var(--b);font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s}
-.rcpt-btn-p{background:var(--gold);color:#fff;border:none}
-.rcpt-btn-p:hover{background:var(--gold2);transform:translateY(-1px)}
-.rcpt-btn-s{background:var(--s1);color:var(--plat);border:1px solid var(--b1)}
-.rcpt-btn-s:hover{background:var(--s2)}
-
 /* NOTIFICATIONS */
 .notifs{padding:0 16px}
 .notif{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--b1)}
@@ -791,8 +751,62 @@ body.dark #splash{background:var(--void)}
 .pm-asset{flex-shrink:0;padding:8px 15px;border-radius:20px;border:1.5px solid var(--b1);background:var(--s2);font-size:12px;font-weight:700;color:var(--plat);cursor:pointer;transition:all .18s}
 .pm-asset.sel{border-color:var(--gold);background:var(--gd);color:var(--gold)}
 .pm-price-big{font-family:var(--d);font-size:30px;font-weight:800;color:var(--plat);letter-spacing:-.02em}
-.pm-flash{animation:pmFlash .5s ease}
+.pm-price-big.flash{animation:pmFlash .6s var(--ez)}
+.pm-flash{animation:pmPricePulse .5s ease}
 @keyframes pmFlash{0%{opacity:.45;transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
+@keyframes pmPricePulse{0%{opacity:.6;transform:translateY(2px)}100%{opacity:1;transform:translateY(0)}}
+.pm-change-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:20px;margin-left:8px}
+.pm-change-badge.up{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
+.pm-change-badge.down{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
+.pm-change-badge.flat{background:var(--s2);color:var(--sil);border:1px solid var(--b1)}
+.pm-chart-wrap{height:84px;background:linear-gradient(180deg,rgba(67,56,236,.04),transparent);border:1px solid var(--b1);border-radius:12px;margin:12px 0 14px;position:relative;overflow:hidden}
+.pm-chart-wrap canvas{width:100%;height:100%;display:block}
+.pm-chart-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--sil)}
+.pm-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.pm-live-stat{background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px}
+.pm-live-stat-k{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
+.pm-live-stat-v{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat)}
+.pm-perf-bar{height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin:8px 0}
+.pm-perf-fill{height:100%;border-radius:3px;transition:width .6s var(--ez), background .3s}
+.pm-status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700}
+.pm-status-pill.winning{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
+.pm-status-pill.losing{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
+.pm-status-pill.live{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
+/* RECEIPTS */
+.rcpt-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:6000;display:none;align-items:flex-end;justify-content:center}
+.rcpt-modal.open{display:flex}
+.rcpt-sheet{background:var(--s2);border-radius:24px 24px 0 0;width:100%;max-width:430px;max-height:94vh;overflow-y:auto;animation:shu .36s var(--ez) both;position:relative;padding-bottom:34px}
+.rcpt-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.rcpt-card-wrap{padding:12px 16px 16px}
+.rcpt-card{background:#FFFFFF;border-radius:20px;padding:22px 20px 18px;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(17,20,43,.10);border:1px solid rgba(17,20,43,.06)}
+.rcpt-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.rcpt-watermark{position:absolute;top:-18px;right:-10px;font-family:var(--d);font-size:84px;font-weight:800;color:rgba(67,56,236,.04);letter-spacing:-.04em;pointer-events:none;user-select:none;transform:rotate(-8deg)}
+.rcpt-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.rcpt-logo{font-family:var(--d);font-size:18px;font-weight:800;letter-spacing:.02em;color:var(--gold)}
+.rcpt-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:20px;border:1px solid}
+.rcpt-amt-hero{text-align:center;margin:10px 0 18px}
+.rcpt-amt-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:6px}
+.rcpt-amt-val{font-family:var(--d);font-size:34px;font-weight:700;letter-spacing:-.03em;color:var(--plat);line-height:1}
+.rcpt-amt-sub{font-size:11px;color:var(--sil);margin-top:6px}
+.rcpt-divider{height:1px;background:repeating-linear-gradient(90deg,var(--b1) 0 7px,transparent 7px 11px);margin:16px 0}
+.rcpt-grid{display:grid;gap:10px}
+.rcpt-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.rcpt-k{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);flex-shrink:0;max-width:40%}
+.rcpt-v{font-size:12px;font-weight:600;color:var(--plat);text-align:right;word-break:break-all}
+.rcpt-v.mono{font-family:var(--d);font-weight:600;letter-spacing:.02em}
+.rcpt-qr-wrap{display:flex;align-items:center;gap:14px;background:rgba(243,244,250,.9);border:1px dashed var(--b1);border-radius:12px;padding:12px;margin-top:16px}
+.rcpt-qr{width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--b1);flex-shrink:0;object-fit:contain}
+.rcpt-qr-txt{flex:1}
+.rcpt-qr-title{font-size:11px;font-weight:700;color:var(--plat);margin-bottom:2px}
+.rcpt-qr-sub{font-size:10px;color:var(--sil);line-height:1.4}
+.rcpt-foot{margin-top:14px;text-align:center}
+.rcpt-foot p{font-size:9px;color:var(--dim);line-height:1.5;max-width:260px;margin:0 auto}
+.rcpt-actions{display:flex;gap:10px;padding:0 16px}
+.rcpt-btn{flex:1;padding:13px;border-radius:11px;font-family:var(--b);font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s}
+.rcpt-btn-p{background:var(--gold);color:#fff;border:none}
+.rcpt-btn-p:hover{background:var(--gold2);transform:translateY(-1px)}
+.rcpt-btn-s{background:var(--s1);color:var(--plat);border:1px solid var(--b1)}
+.rcpt-btn-s:hover{background:var(--s2)}
 .pm-dir-row{display:flex;gap:10px;margin-bottom:14px}
 .pm-dir{flex:1;padding:16px 8px;border-radius:12px;border:1.5px solid var(--b1);background:var(--s2);text-align:center;cursor:pointer;transition:all .2s;color:var(--sil)}
 .pm-dir.up.sel{background:var(--okd);border-color:var(--okb);color:var(--ok)}
@@ -823,52 +837,6 @@ body.dark #splash{background:var(--void)}
 
 /* Markets teaser card inside Earn */
 .earn-mkt-teaser{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#fff}
-
-/* ── DESKTOP RESPONSIVE ── */
-@media (min-width: 900px){
-  html,body{background:#F3F4FA}
-  .root{max-width:1280px;background:transparent;overflow:visible}
-  #splash, #loader{max-width:1280px;left:50%;transform:translateX(-50%);right:auto;width:100%}
-  #main-app .app{max-width:1280px;display:flex;flex-direction:row;align-items:flex-start;gap:0;min-height:100vh}
-  .bnav{position:sticky;top:0;left:0;bottom:auto;width:260px;min-width:260px;height:100vh;flex-direction:column;align-items:stretch;padding:28px 14px 20px;gap:4px;background:#FFFFFF;border-right:1px solid var(--b1);border-top:none;transform:none;max-width:none;z-index:50}
-  .bnav .ni{flex-direction:row;justify-content:flex-start;gap:12px;padding:12px 14px;border-radius:12px}
-  .bnav .ni:hover{background:rgba(17,20,43,.04)}
-  .bnav .ni.active{background:var(--gd);border:1px solid var(--gb)}
-  .bnav .ni-ico{width:22px;height:22px}
-  .bnav .ni-lbl{font-size:13px;font-weight:600;text-transform:none;letter-spacing:0}
-  .bnav .ni-dot{display:none}
-  .page{flex:1;max-width:720px;margin:0 auto;min-height:100vh;padding-bottom:40px}
-  .tb{padding-top:28px}
-  .game-card{margin:0 22px 16px}
-}
-.pm-price-big{font-family:var(--d);font-size:38px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--plat)}
-.pm-price-big.flash{animation:pmFlash .6s var(--ez)}
-@keyframes pmFlash{0%{transform:scale(1)}30%{transform:scale(1.04)}100%{transform:scale(1)}}
-.pm-flash{animation:pmPricePulse .5s ease}
-@keyframes pmPricePulse{0%{opacity:.6;transform:translateY(2px)}100%{opacity:1;transform:translateY(0)}}
-.pm-change-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:20px;margin-left:8px}
-.pm-change-badge.up{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-change-badge.down{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-change-badge.flat{background:var(--s2);color:var(--sil);border:1px solid var(--b1)}
-.pm-chart-wrap{height:84px;background:linear-gradient(180deg,rgba(67,56,236,.04),transparent);border:1px solid var(--b1);border-radius:12px;margin:12px 0 14px;position:relative;overflow:hidden}
-.pm-chart-wrap canvas{width:100%;height:100%;display:block}
-.pm-chart-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--sil)}
-.pm-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.pm-live-stat{background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:10px 12px}
-.pm-live-stat-k{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:3px}
-.pm-live-stat-v{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat)}
-.pm-perf-bar{height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin:8px 0}
-.pm-perf-fill{height:100%;border-radius:3px;transition:width .6s var(--ez), background .3s}
-.pm-status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700}
-.pm-status-pill.winning{background:var(--okd);color:var(--ok);border:1px solid var(--okb)}
-.pm-status-pill.losing{background:var(--errd);color:var(--err);border:1px solid var(--errb)}
-.pm-status-pill.live{background:var(--gd);color:var(--gold);border:1px solid var(--gb)}
-.pm-timer{font-family:var(--d);font-size:14px;font-weight:700;background:var(--s1);border:1px solid var(--b1);padding:6px 10px;border-radius:8px}
-.pm-dir-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
-.pm-dir{border:1.5px solid var(--b1);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s var(--ez);background:var(--s1)}
-.pm-dir.sel.up{background:var(--okd);border-color:var(--okb);color:var(--ok)}
-.pm-dir.sel.down{background:var(--errd);border-color:var(--errb);color:var(--err)}
-
 </style>
 </head>
 <body>
@@ -1060,11 +1028,11 @@ body.dark #splash{background:var(--void)}
           <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/SOL.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>SOL</div>
         </div>
 
-                <div id="pm-idle">
+        <div id="pm-idle">
           <div style="text-align:center;padding:4px 0 12px">
             <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:6px">
               <span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span>
-              Live Price • Updates every 1s • v2.5 FIXED
+              Live Price · Updates every 1s
             </div>
             <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
               <div class="pm-price-big" id="pm-price">—</div>
@@ -1077,26 +1045,62 @@ body.dark #splash{background:var(--void)}
             <div class="pm-chart-empty" id="pm-chart-empty-idle">Live chart will appear when price feed connects</div>
           </div>
           <div class="pm-dir-row">
-            <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')"><div style="font-weight:700;font-size:13px">Up</div><div style="font-size:11px" id="pm-up-price">₦50</div></div>
-            <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')"><div style="font-weight:700;font-size:13px">Down</div><div style="font-size:11px" id="pm-down-price">₦50</div></div>
+            <div class="pm-dir up" id="pm-up" onclick="pmPickDir('up')">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+              <div style="font-weight:700;font-size:13px">Up</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-up-price">₦50</div>
+            </div>
+            <div class="pm-dir down" id="pm-down" onclick="pmPickDir('down')">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 4px"><path d="M23 18l-9.5-9.5-5 5L1 6"/><path d="M17 18h6v-6"/></svg>
+              <div style="font-weight:700;font-size:13px">Down</div>
+              <div style="font-size:10px;opacity:.75;margin-top:1px" id="pm-down-price">₦50</div>
+            </div>
           </div>
-          <div class="stake-row" id="pm-stakes"><div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div><div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div><div class="stake-chip" data-v="1000" onclick="pmSetStake(1000)">₦1,000</div><div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div></div>
+          <div style="font-size:9.5px;color:var(--sil);text-align:center;margin:-6px 0 12px">Share prices move live with real demand · pays ₦100 per share if correct</div>
+          <div class="stake-row" id="pm-stakes">
+            <div class="stake-chip sel" data-v="100" onclick="pmSetStake(100)">₦100</div>
+            <div class="stake-chip" data-v="500" onclick="pmSetStake(500)">₦500</div>
+            <div class="stake-chip" data-v="1000" onclick="pmSetStake(1000)">₦1,000</div>
+            <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
+          </div>
           <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in 5 min</span><span id="pm-round-idle">—</span></div>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in 5 min · sell early anytime</span><span id="pm-round-idle">—</span></div>
           <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
         </div>
+
         <div id="pm-live" style="display:none">
           <div class="pm-live-card" style="border:1.5px solid var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd))">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div><div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span> Live Position</div><div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div><span id="pm-perf-pill" class="pm-status-pill live">● Tracking</span></div></div><div class="pm-timer" id="pm-timer">5:00</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
+                <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span> Live Position</div>
+                <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div><span id="pm-perf-pill" class="pm-status-pill live">● Tracking</span></div>
+              </div>
+              <div class="pm-timer" id="pm-timer">5:00</div>
+            </div>
             <div class="pm-chart-wrap" style="height:100px;margin-bottom:14px"><canvas id="pm-chart-live" width="600" height="140"></canvas></div>
-            <div class="pm-live-grid"><div class="pm-live-stat"><div class="pm-live-stat-k">Entry Price</div><div class="pm-live-stat-v" id="pm-entry-underlying">—</div><div style="font-size:9px;color:var(--sil);margin-top:2px" id="pm-entry-time">—</div></div><div class="pm-live-stat"><div class="pm-live-stat-k">Current Price</div><div class="pm-live-stat-v" id="pm-current">—</div><div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff">—</div></div><div class="pm-live-stat"><div class="pm-live-stat-k">Entry Share</div><div class="pm-live-stat-v" id="pm-entry">—</div></div><div class="pm-live-stat"><div class="pm-live-stat-k">Current Share</div><div class="pm-live-stat-v" id="pm-share-now">—</div></div></div>
-            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div></div><div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Sell Value Now</div><div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-live-pnl">₦0</div><div style="font-size:10px;font-weight:600" id="pm-pnl-sub">—</div></div></div><div class="pm-perf-bar"><div id="pm-perf-fill" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div><div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span id="pm-perf-left">Entry</span><span id="pm-perf-right">Now</span></div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Now</button><button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button></div>
+            <div class="pm-live-grid">
+              <div class="pm-live-stat"><div class="pm-live-stat-k">Entry Price</div><div class="pm-live-stat-v" id="pm-entry-underlying">—</div><div style="font-size:9px;color:var(--sil);margin-top:2px" id="pm-entry-time">—</div></div>
+              <div class="pm-live-stat"><div class="pm-live-stat-k">Current Price</div><div class="pm-live-stat-v" id="pm-current">—</div><div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff">—</div></div>
+              <div class="pm-live-stat"><div class="pm-live-stat-k">Entry Share</div><div class="pm-live-stat-v" id="pm-entry">—</div></div>
+              <div class="pm-live-stat"><div class="pm-live-stat-k">Current Share</div><div class="pm-live-stat-v" id="pm-share-now">—</div></div>
+            </div>
+            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div></div>
+                <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Sell Value Now</div><div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-live-pnl">₦0</div><div style="font-size:10px;font-weight:600" id="pm-pnl-sub">—</div></div>
+              </div>
+              <div class="pm-perf-bar"><div id="pm-perf-fill" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span id="pm-perf-left">Entry</span><span id="pm-perf-right">Now</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Now</button>
+              <button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="game-card" id="pm-history-card"      <div class="game-card" id="pm-history-card" style="display:none">
+      <div class="game-card" id="pm-history-card" style="display:none">
         <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Recent Calls</div>
         <div id="pm-history"></div>
       </div>
@@ -1693,7 +1697,6 @@ body.dark #splash{background:var(--void)}
   </div>
 </div>
 
-
 <!-- RECEIPT MODAL -->
 <div class="rcpt-modal" id="rcpt-modal" onclick="if(event.target===this)closeReceipt()">
   <div class="rcpt-sheet">
@@ -1733,6 +1736,40 @@ body.dark #splash{background:var(--void)}
   </div>
 </div>
 
+<!-- RECEIPT MODAL -->
+<div class="rcpt-modal" id="rcpt-modal" onclick="if(event.target===this)closeReceipt()">
+  <div class="rcpt-sheet">
+    <div class="m-handle"></div>
+    <div style="padding:0 18px 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:9px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;color:var(--gold)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="m-title" style="font-size:16px;margin:0;line-height:1.1">Transaction Receipt</div>
+          <div style="font-size:10px;color:var(--sil)">Tap to download or share</div>
+        </div>
+      </div>
+      <div class="adm-close" onclick="closeReceipt()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    </div>
+    <div class="rcpt-card-wrap">
+      <div id="rcpt-capture" class="rcpt-card"><!-- injected by JS --></div>
+    </div>
+    <div class="rcpt-actions">
+      <button class="rcpt-btn rcpt-btn-p" onclick="downloadReceipt()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PNG
+      </button>
+      <button class="rcpt-btn rcpt-btn-s" onclick="shareReceipt()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:12px;display:flex;justify-content:center;gap:14px">
+      <button onclick="copyReceiptRef()" style="background:none;border:none;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;letter-spacing:.04em">Copy Reference • <span id="rcpt-copy-hint" style="color:var(--sil);font-weight:400">AURO-XXXX</span></button>
+    </div>
+  </div>
+</div>
 
 <!-- INVEST MODAL -->
 <div class="overlay" id="inv-modal" onclick="mClose(event,'inv-modal')">
@@ -2616,16 +2653,146 @@ async function doDeposit() {
 
 
 
+// ══════════════════════════════════
+// RECEIPTS — shareable/downloadable deposit & withdrawal receipts.
+// Renders a receipt into a hidden card, then rasterizes it to PNG via
+// html2canvas (lazy-loaded from a CDN only when actually needed) for
+// download or native share. QR encodes only the reference/amount/status —
+// no account numbers or personal data.
+// ══════════════════════════════════
+let _currentReceiptRef = '';
+let _currentReceiptTx = null;
+function _genRef(id) {
+  if (!id) return 'AURO-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const core = id.replace(/[^a-zA-Z0-9]/g,'').slice(0,8).toUpperCase();
+  return 'AURO-' + (core||'XXXX') + '-' + new Date().getFullYear();
+}
+function openReceipt(kind, id) {
+  const allDeps = (_myDeps||[]).map(d => ({ ...d, kind:'deposit' }));
+  const allWits = (_myWits||[]).map(w => ({ ...w, kind:'withdraw' }));
+  const tx = [...allDeps, ...allWits].find(x => x.id === id);
+  if (!tx) { toast('Receipt not ready yet'); return; }
+  _currentReceiptTx = tx;
+  const isDep = (tx.kind||kind) === 'deposit';
+  const ref = _genRef(tx.id);
+  _currentReceiptRef = ref;
+  const amt = tx.amount || 0;
+  const date = tx.date ? dateStr(tx.date) : new Date().toLocaleDateString();
+  const fullDate = tx.date ? new Date(tx.date).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'}) : new Date().toLocaleString();
+  const status = tx.status || 'pending';
+  const statusLabel = status==='approved' ? (isDep?'Successful':'Completed') : status==='rejected' ? 'Failed' : 'Pending';
+  const statusColor = status==='approved' ? 'var(--ok)' : status==='rejected' ? 'var(--err)' : 'var(--gold)';
+  const statusBg = status==='approved' ? 'var(--okd)' : status==='rejected' ? 'var(--errd)' : 'var(--gd)';
+  const statusBorder = status==='approved' ? 'var(--okb)' : status==='rejected' ? 'var(--errb)' : 'var(--gb)';
+  const userName = (_user && _user.name) ? _user.name : 'AURO User';
+  const method = isDep ? (tx.method||'Bank Transfer') : (tx.bank||'Bank Transfer');
+  const acct = isDep ? '—' : (tx.accountNumber || tx.acct || '—');
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(ref+'|'+amt+'|'+status)}&bgcolor=ffffff&color=11142B&margin=6`;
+
+  const hint = document.getElementById('rcpt-copy-hint'); if (hint) hint.textContent = ref;
+  const capture = document.getElementById('rcpt-capture');
+  if (!capture) return;
+  capture.innerHTML = `
+    <div class="rcpt-watermark">AURO</div>
+    <div class="rcpt-top">
+      <div>
+        <div class="rcpt-logo">AURO<span style="font-weight:400;font-size:10px;vertical-align:super;margin-left:2px;letter-spacing:.08em">®</span></div>
+        <div style="font-size:10px;color:var(--sil);margin-top:2px;letter-spacing:.04em">Trade &amp; Earn • Digital Receipt</div>
+      </div>
+      <div class="rcpt-badge" style="background:${statusBg};color:${statusColor};border-color:${statusBorder}">${statusLabel}</div>
+    </div>
+    <div class="rcpt-amt-hero">
+      <div class="rcpt-amt-label">${isDep?'Amount Credited':'Amount Debited'}</div>
+      <div class="rcpt-amt-val">${isDep?'+':'-'}${fmt(amt)}</div>
+      <div class="rcpt-amt-sub">${isDep?'Deposit to NGN Wallet':'Withdrawal from NGN Wallet'} • ${date}</div>
+    </div>
+    <div class="rcpt-divider"></div>
+    <div class="rcpt-grid">
+      <div class="rcpt-row"><span class="rcpt-k">Reference</span><span class="rcpt-v mono">${ref}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Transaction ID</span><span class="rcpt-v mono" style="font-size:10px">${(tx.id||'—').slice(0,18)}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Type</span><span class="rcpt-v">${isDep?'Wallet Funding (Deposit)':'Wallet Payout (Withdrawal)'}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Date &amp; Time</span><span class="rcpt-v">${fullDate}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Method</span><span class="rcpt-v">${method}</span></div>
+      ${!isDep?`<div class="rcpt-row"><span class="rcpt-k">Destination</span><span class="rcpt-v">${acct}</span></div>`:``}
+      <div class="rcpt-row"><span class="rcpt-k">Account Name</span><span class="rcpt-v">${userName}</span></div>
+      <div class="rcpt-row"><span class="rcpt-k">Status</span><span class="rcpt-v" style="color:${statusColor};font-weight:700">${statusLabel}</span></div>
+    </div>
+    <div class="rcpt-qr-wrap">
+      <img class="rcpt-qr" src="${qrUrl}" alt="qr" crossorigin="anonymous"/>
+      <div class="rcpt-qr-txt">
+        <div class="rcpt-qr-title">Verified by AURO</div>
+        <div class="rcpt-qr-sub">Scan to verify this receipt. Keep your reference <strong>${ref}</strong> for support.</div>
+      </div>
+    </div>
+    <div class="rcpt-foot">
+      <p>This receipt is system generated and valid without signature. For enquiries, contact support with your reference. AURO is not a bank.<br/>${new Date().getFullYear()}</p>
+    </div>
+  `;
+  document.getElementById('rcpt-modal').classList.add('open');
+}
+function closeReceipt() { document.getElementById('rcpt-modal').classList.remove('open'); }
+function copyReceiptRef() {
+  if (!_currentReceiptRef) { toast('No reference'); return; }
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(_currentReceiptRef).then(() => toast('Reference copied: ' + _currentReceiptRef));
+  } else {
+    const ta = document.createElement('textarea'); ta.value = _currentReceiptRef; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); toast('Reference copied');
+  }
+}
+function _ensureHtml2Canvas() {
+  return new Promise((res, rej) => {
+    if (window.html2canvas) return res(window.html2canvas);
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload = () => res(window.html2canvas);
+    s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+async function downloadReceipt() {
+  const el = document.getElementById('rcpt-capture');
+  if (!el) return;
+  const btn = document.querySelector('.rcpt-btn-p');
+  const orig = btn ? btn.innerHTML : '';
+  if (btn) btn.innerHTML = 'Generating…';
+  try {
+    const canvas = await _ensureHtml2Canvas().then(h2c => h2c(el, { scale:2.5, backgroundColor:'#ffffff', useCORS:true, allowTaint:true }));
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url; a.download = `${_currentReceiptRef||'AURO-receipt'}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Receipt downloaded ✓');
+  } catch (e) { console.error(e); toast('Could not download — try screenshot'); }
+  finally { if (btn) btn.innerHTML = orig; }
+}
+async function shareReceipt() {
+  const el = document.getElementById('rcpt-capture');
+  if (!el) return;
+  try {
+    const canvas = await _ensureHtml2Canvas().then(h2c => h2c(el, { scale:2.5, backgroundColor:'#ffffff', useCORS:true }));
+    canvas.toBlob(async (blob) => {
+      if (!blob) { downloadReceipt(); return; }
+      const file = new File([blob], `${_currentReceiptRef||'receipt'}.png`, { type:'image/png' });
+      if (navigator.canShare && navigator.canShare({ files:[file] })) {
+        try { await navigator.share({ title:'AURO Receipt', text:`My AURO transaction ${_currentReceiptRef} - ${fmt(_currentReceiptTx?.amount||0)}`, files:[file] }); toast('Shared ✓'); return; }
+        catch (err) { if (err.name==='AbortError') return; }
+      }
+      if (navigator.share) {
+        try { await navigator.share({ title:'AURO Receipt', text:`AURO ${(_currentReceiptTx?.kind||'transaction')} of ${fmt(_currentReceiptTx?.amount||0)} • Ref: ${_currentReceiptRef}` }); return; } catch {}
+      }
+      downloadReceipt();
+    }, 'image/png', 1);
+  } catch (e) { console.error(e); downloadReceipt(); }
+}
+
 function renderDepHistory(deps) {
   const c = document.getElementById('dep-history');
   if (!deps || !deps.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No deposit requests yet</div>'; return; }
-  if (!window._rcptMap) window._rcptMap = {};
-  deps.forEach(d=>{ if(d.id) _rcptMap[d.id]={...d,kind:'deposit'}; });
   c.innerHTML = deps.map(d => {
     const cls = d.status==='approved'?'hi-a':d.status==='rejected'?'hi-r':'hi-p';
     const lbl = d.status==='approved'?'Approved':d.status==='rejected'?'Rejected':'Pending';
-    const safeId = (d.id||'').replace(/'/g,'');
-    return `<div class="hist-item" onclick="openReceipt('deposit','${safeId}')"><div><div class="hi-amt">+${fmt(d.amount)}</div><div class="hi-sub">Deposit · ${dateStr(d.date)} · <span style="color:var(--gold)">Receipt</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div></div>`;
+    return `<div class="hist-item"><div><div class="hi-amt">${fmt(d.amount)}</div><div class="hi-sub">${dateStr(d.date)}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
   }).join('');
 }
 
@@ -2683,13 +2850,10 @@ async function doWithdraw() {
 function renderWitHistory(wits) {
   const c = document.getElementById('wit-history');
   if (!wits || !wits.length) { c.innerHTML='<div style="font-size:11px;color:var(--sil);text-align:center;padding:14px 0">No withdrawal requests yet</div>'; return; }
-  if (!window._rcptMap) window._rcptMap = {};
-  wits.forEach(w=>{ if(w.id) _rcptMap[w.id]={...w,kind:'withdraw'}; });
   c.innerHTML = wits.map(w => {
     const cls = w.status==='approved'?'hi-a':w.status==='rejected'?'hi-r':'hi-p';
     const lbl = w.status==='approved'?'Sent':w.status==='rejected'?'Rejected':'Processing';
-    const safeId = (w.id||'').replace(/'/g,'');
-    return `<div class="hist-item" onclick="openReceipt('withdraw','${safeId}')"><div><div class="hi-amt">-${fmt(w.amount)}</div><div class="hi-sub">Withdrawal · ${dateStr(w.date)} · ${w.bank||'Bank'} · <span style="color:var(--gold)">Receipt</span></div></div><div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div></div>`;
+    return `<div class="hist-item"><div><div class="hi-amt">${fmt(w.amount)}</div><div class="hi-sub">${dateStr(w.date)} · ${w.bank}</div></div><div class="hi-badge ${cls}">${lbl}</div></div>`;
   }).join('');
 }
 function renderWallet() {
@@ -2702,22 +2866,19 @@ function renderWallet() {
   const wits = (_myWits||[]).map(w => ({ ...w, kind:'withdraw' }));
   const all = [...deps, ...wits].sort((a,b) => (b.date||'').localeCompare(a.date||''));
   if (!all.length) { c.innerHTML = '<div style="font-size:11px;color:var(--sil);text-align:center;padding:24px 0">No transactions yet — fund your wallet to get started.</div>'; return; }
-  // cache for receipt
-  if (!window._rcptMap) window._rcptMap = {};
-  all.forEach(tx=>{ if(tx.id) _rcptMap[tx.id]=tx; });
   c.innerHTML = all.map(t => {
     const isDep = t.kind==='deposit';
     const cls = t.status==='approved'?'hi-a':t.status==='rejected'?'hi-r':'hi-p';
     const lbl = t.status==='approved'?(isDep?'Approved':'Sent'):t.status==='rejected'?'Rejected':(isDep?'Pending':'Processing');
-    const safeId = (t.id||'').replace(/'/g,'');
-    return `<div class="hist-item" onclick="openReceipt('${t.kind}','${safeId}')">
+    const safeId = String(t.id||'').replace(/[^a-zA-Z0-9_-]/g,'');
+    return `<div class="hist-item" onclick="openReceipt('${t.kind}','${safeId}')" style="cursor:pointer">
       <div style="display:flex;align-items:center;gap:11px">
         <div style="width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${isDep?'var(--okd)':'var(--gd)'};color:${isDep?'var(--ok)':'var(--gold)'}">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${isDep?'<path d="M12 19V5M5 12l7 7 7-7"/>':'<path d="M12 5v14M5 12l7-7 7 7"/>'}</svg>
         </div>
         <div><div class="hi-amt">${isDep?'+':'-'}${fmt(t.amount)}</div><div class="hi-sub">${isDep?'Deposit':'Withdrawal'} · ${dateStr(t.date)} · <span style="color:var(--gold)">Receipt</span></div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div style="display:flex;align-items:center;gap:8px"><div class="hi-badge ${cls}">${lbl}</div><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--dim)"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>`;
   }).join('');
 }
@@ -2901,8 +3062,8 @@ function renderClaims() {
 function switchEarnTab(tab) {
   document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
   document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-  if (tab === 'pred') { if (!_pm.active) pmFetchPrice(); pmEnsureRoundSubscribed(); }
-  else if (!_pm.active) pmUnsubscribeRound();
+  if (tab === 'pred') { pmEnsureRoundSubscribed(); if (!_pm.active) pmStartFeed(); }
+  else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
   if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
   else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
   else stopLiveActivity();
@@ -2960,7 +3121,8 @@ function initEarnPage() {
   cfUpdatePreview();
   avUpdateBtn(0); avUpdateBtn(1);
   pmUpdateBtn();
-  if (!_pm.active) { pmFetchPrice(); pmEnsureRoundSubscribed(); }
+  pmEnsureRoundSubscribed();
+  if (!_pm.active) pmStartFeed();
   pmRenderHistory();
   avRenderHistory();
   if (_av.phase === 'idle') avScheduleRound();
@@ -3227,295 +3389,13 @@ function cfToggleVerify() {
 }
 
 // ── CRYPTO FLASH PREDICTIONS ───────
-// ── CRYPTO FLASH PREDICTIONS — PRO 1s LIVE FEED ──────
-let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null, lastPrice: null };
+let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null };
 let _pmHistory = [];
-let _pmFeed = { timer: null, history: [], lastPrice: null, lastChange: 0, lastFetch: 0, fetching: false };
-
-function pmGetSymbol(a){
-  const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT', BNB:'BNBUSDT', XRP:'XRPUSDT', DOGE:'DOGEUSDT', ADA:'ADAUSDT' };
-  return map[a]||'BTCUSDT';
-}
-function pmGetCoingeckoId(a){
-  const map = { BTC:'bitcoin', ETH:'ethereum', SOL:'solana', BNB:'binancecoin', XRP:'ripple', DOGE:'dogecoin', ADA:'cardano' };
-  return map[a]||'bitcoin';
-}
-
-async function pmFetchBinancePrice(asset){
-  const symbol = pmGetSymbol(asset);
-  // Binance Vision is CORS-friendly
-  const urls = [
-    `https://data-api.binance.vision/api/v3/ticker/price?symbol=${symbol}`,
-    `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
-  ];
-  for(const url of urls){
-    try{
-      const r = await fetchWithTimeout(url, 3500);
-      if(r.ok){
-        const d = await r.json();
-        const p = parseFloat(d.price);
-        if(p>0) return p;
-      }
-    }catch(e){}
-  }
-  return null;
-}
-async function pmFetchCoingeckoPrice(asset){
-  try{
-    const id = pmGetCoingeckoId(asset);
-    const r = await fetchWithTimeout(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`, 4000);
-    if(r.ok){
-      const d = await r.json();
-      const p = d[id]?.usd;
-      if(p>0) return +p;
-    }
-  }catch(e){}
-  return null;
-}
-
-async function pmFetchPriceFast(force=false){
-  // Throttle real network to 1s but always return cached instantly
-  const now = Date.now();
-  if(!force && _pmFeed.lastPrice && (now - _pmFeed.lastFetch < 900) ){
-    return _pmFeed.lastPrice;
-  }
-  if(_pmFeed.fetching && !force) return _pmFeed.lastPrice;
-  _pmFeed.fetching = true;
-  let price = null;
-  // 1. Binance fast
-  price = await pmFetchBinancePrice(_pm.asset);
-  // 2. Coingecko fallback
-  if(!price) price = await pmFetchCoingeckoPrice(_pm.asset);
-  // 3. Fallback to existing multi-provider cache
-  if(!price){
-    const pair = _pm.asset + '/USD';
-    price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
-    if(!price){
-      try{ await fetchCrypto(); }catch(e){}
-      price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
-    }
-  }
-  if(price && price>0){
-    const prev = _pmFeed.lastPrice;
-    _pmFeed.lastPrice = price;
-    _pmFeed.lastFetch = now;
-    if(prev) _pmFeed.lastChange = ((price - prev)/prev)*100;
-    // push to history for chart (keep 80 points)
-    _pmFeed.history.push({ t: now, p: price });
-    if(_pmFeed.history.length>80) _pmFeed.history.shift();
-  }
-  _pmFeed.fetching = false;
-  return _pmFeed.lastPrice;
-}
-
-function pmRenderIdlePrice(price, flash=true){
-  const el = document.getElementById('pm-price');
-  const badge = document.getElementById('pm-change-badge');
-  const updatedEl = document.getElementById('pm-last-updated');
-  const roundEl = document.getElementById('pm-round-idle');
-  if(!el) return;
-  if(price){
-    const prevText = el.textContent;
-    el.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    if(flash && prevText !== el.textContent){
-      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
-    }
-    if(badge){
-      badge.style.display='inline-flex';
-      const chg = _pmFeed.lastChange;
-      if(Math.abs(chg) < 0.01){
-        badge.className='pm-change-badge flat'; badge.textContent='● Live';
-      } else if(chg>0){
-        badge.className='pm-change-badge up'; badge.textContent='▲ '+chg.toFixed(2)+'%';
-      } else {
-        badge.className='pm-change-badge down'; badge.textContent='▼ '+Math.abs(chg).toFixed(2)+'%';
-      }
-    }
-    if(updatedEl) updatedEl.textContent = 'Live • Updated ' + new Date().toLocaleTimeString('en-NG', {hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' • 1s feed';
-  }
-  if(roundEl){
-    const bucket = pmBucketStart();
-    const minsLeft = Math.max(0, Math.ceil((bucket+300000 - Date.now())/60000));
-    roundEl.textContent = `Round ends in ${minsLeft}m`;
-  }
-  pmRenderChartIdle();
-}
-
-function pmRenderChartIdle(){
-  const canvas = document.getElementById('pm-chart-idle');
-  const empty = document.getElementById('pm-chart-empty-idle');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
-  if(!hist.length){
-    if(empty) empty.style.display='flex';
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    return;
-  }
-  if(empty) empty.style.display='none';
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  const prices = hist.map(x=>x.p);
-  const min = Math.min(...prices), max = Math.max(...prices);
-  const range = (max-min) || max*0.001 || 1;
-  // gradient fill
-  const grad = ctx.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0, 'rgba(67,56,236,0.18)');
-  grad.addColorStop(1, 'rgba(67,56,236,0)');
-  ctx.beginPath();
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
-  ctx.fillStyle = grad; ctx.fill();
-  // line
-  ctx.beginPath();
-  ctx.strokeStyle = '#4338EC'; ctx.lineWidth = 2.2; ctx.lineJoin='round'; ctx.lineCap='round';
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-}
-
-function pmRenderChartLive(){
-  const canvas = document.getElementById('pm-chart-live');
-  if(!canvas || !_pm.active) return;
-  const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  if(!hist.length) return;
-  const entryPrice = _pm.active.entryUnderlying || _pm.active.entryPrice;
-  const prices = hist.map(x=>x.p);
-  const min = Math.min(...prices, entryPrice), max = Math.max(...prices, entryPrice);
-  const range = (max-min) || max*0.001 || 1;
-  // entry line
-  const entryY = H - ((entryPrice-min)/range)*(H*0.7) - H*0.15;
-  ctx.setLineDash([6,6]); ctx.strokeStyle='rgba(17,20,43,0.2)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,entryY); ctx.lineTo(W,entryY); ctx.stroke(); ctx.setLineDash([]);
-  ctx.fillStyle='rgba(17,20,43,0.6)'; ctx.font='10px Outfit'; ctx.fillText('Entry $'+entryPrice.toFixed(2), 6, entryY-6);
-  // fill
-  const grad = ctx.createLinearGradient(0,0,0,H);
-  const isWinning = (_pm.active.side==='up' && _pmFeed.lastPrice>entryPrice) || (_pm.active.side==='down' && _pmFeed.lastPrice<entryPrice);
-  if(isWinning){
-    grad.addColorStop(0,'rgba(15,174,107,0.18)'); grad.addColorStop(1,'rgba(15,174,107,0)');
-  } else {
-    grad.addColorStop(0,'rgba(239,68,68,0.18)'); grad.addColorStop(1,'rgba(239,68,68,0)');
-  }
-  ctx.beginPath();
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
-  ctx.beginPath();
-  ctx.strokeStyle = isWinning ? '#0FAE6B' : '#EF4444';
-  ctx.lineWidth=2.4;
-  prices.forEach((p,i)=>{
-    const x = (i/(prices.length-1))*W;
-    const y = H - ((p-min)/range)*(H*0.7) - H*0.15;
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-  // current dot
-  const last = prices[prices.length-1];
-  const lastX = W; const lastY = H - ((last-min)/range)*(H*0.7) - H*0.15;
-  ctx.beginPath(); ctx.arc(lastX-4,lastY,4,0,Math.PI*2); ctx.fillStyle=isWinning?'#0FAE6B':'#EF4444'; ctx.fill();
-}
-
-function pmStartFeed(){
-  if(_pmFeed.timer) clearInterval(_pmFeed.timer);
-  // immediate render if cached
-  if(_pmFeed.lastPrice) pmRenderIdlePrice(_pmFeed.lastPrice, false);
-  // immediate fetch
-  pmFetchPriceFast(true).then(p=>{ if(p) pmRenderIdlePrice(p, true); });
-  _pmFeed.timer = setInterval(async ()=>{
-    const pg = document.getElementById('p-earn');
-    const sec = document.getElementById('earn-pred');
-    const isPredVisible = pg && pg.classList.contains('active') && sec && sec.classList.contains('active');
-    const hasActive = !!_pm.active;
-    if(!isPredVisible && !hasActive) return;
-    const price = await pmFetchPriceFast(false);
-    if(price){
-      if(!_pm.active){
-        pmRenderIdlePrice(price, true);
-      } else {
-        // update live card current price every second
-        const el = document.getElementById('pm-current');
-        if(el){
-          el.textContent = '$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-          const entry = _pm.active.entryUnderlying || _pm.active.entryPrice;
-          el.style.color = price>=entry ? 'var(--ok)' : 'var(--err)';
-          // flash
-          if(price!==_pm._lastShownPrice){
-            el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash');
-          }
-          _pm._lastShownPrice = price;
-        }
-        pmUpdateLivePerformance(price);
-        pmRenderChartLive();
-      }
-    }
-  }, 1000);
-}
-
-function pmStopFeed(){
-  if(_pmFeed.timer){ clearInterval(_pmFeed.timer); _pmFeed.timer=null; }
-}
-
-function pmUpdateLivePerformance(currentPrice){
-  if(!_pm.active) return;
-  const entry = _pm.active.entryUnderlying || _pm.active.entryPrice;
-  const diff = currentPrice - entry;
-  const diffPct = (diff/entry)*100;
-  const isUp = _pm.active.side==='up';
-  const isWinning = (isUp && diff>0) || (!isUp && diff<0);
-  const isFlat = Math.abs(diffPct) < 0.01;
-
-  // diff badge
-  const diffEl = document.getElementById('pm-price-diff');
-  if(diffEl){
-    if(isFlat){ diffEl.textContent='● No change'; diffEl.style.color='var(--sil)'; }
-    else if(isWinning){ diffEl.textContent=`▲ +${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Winning`; diffEl.style.color='var(--ok)'; }
-    else { diffEl.textContent=`▼ -${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Losing`; diffEl.style.color='var(--err)'; }
-  }
-  // pill
-  const pill = document.getElementById('pm-perf-pill');
-  if(pill){
-    if(isFlat){ pill.className='pm-status-pill live'; pill.textContent='● Tracking'; }
-    else if(isWinning){ pill.className='pm-status-pill winning'; pill.textContent='● Winning'; }
-    else { pill.className='pm-status-pill losing'; pill.textContent='● Losing'; }
-  }
-  // perf bar
-  const fill = document.getElementById('pm-perf-fill');
-  if(fill){
-    // bar shows how far from entry to current relative to some range (we map diffPct -2% to +2% => 0-100%)
-    let pct = 50 + (diffPct*15); // scale
-    pct = Math.max(5, Math.min(95, pct));
-    if(!isUp) pct = 100-pct; // invert for down
-    fill.style.width = pct+'%';
-    fill.style.background = isWinning ? 'var(--ok)' : isFlat ? 'var(--gold)' : 'var(--err)';
-  }
-  const left = document.getElementById('pm-perf-left');
-  const right = document.getElementById('pm-perf-right');
-  if(left) left.textContent = 'Entry $'+entry.toFixed(2);
-  if(right) right.textContent = 'Now $'+currentPrice.toFixed(2);
-
-  // also update share price live P&L (existing logic)
-  pmRenderLivePrices();
-}
-
 function pmPickAsset(a) {
   if (_pm.active) { toast('Wait for the current round to settle'); return; }
   _pm.asset = a;
   document.querySelectorAll('#pm-assets .pm-asset').forEach(el => el.classList.toggle('sel', el.dataset.a === a));
-  _pmFeed.history = []; _pmFeed.lastPrice=null;
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true));
+  _pmFeed.history = []; _pmFeed.lastPrice = null;
   pmEnsureRoundSubscribed();
   pmStartFeed();
 }
@@ -3545,79 +3425,282 @@ function pmUpdateBtn() {
   btn.disabled = !!short;
   btn.textContent = short ? 'Insufficient balance' : 'Predict for ' + fmt(_pm.stake || 0);
 }
-async function pmFetchPrice() {
-  // wrapper for compatibility — now uses fast 1s feed
-  const p = await pmFetchPriceFast(false);
-  const el = _pm.active ? document.getElementById('pm-current') : document.getElementById('pm-price');
-  if (el && p) el.textContent = '$' + p.toLocaleString('en-US', { maximumFractionDigits: 2 });
-  return p;
+// Fast, real, multi-tier price feed for Predict. Tier 1: Binance's official
+// public-market-data-only domain (data-api.binance.vision) — confirmed via
+// Binance's own developer docs as the sanctioned endpoint for exactly this
+// use case, separate from the general trading API domain that has the CORS
+// reliability problems. Tier 2: CoinGecko direct. Tier 3: the existing
+// reliable multi-provider chain the home ticker uses, as a last resort.
+// Caches for ~900ms and de-dupes in-flight requests so nothing piles up.
+function pmGetSymbol(a) {
+  const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT', BNB:'BNBUSDT', XRP:'XRPUSDT', DOGE:'DOGEUSDT', ADA:'ADAUSDT' };
+  return map[a] || 'BTCUSDT';
 }
-function pmShowHowItWorks(){
+function pmGetCoingeckoId(a) {
+  const map = { BTC:'bitcoin', ETH:'ethereum', SOL:'solana', BNB:'binancecoin', XRP:'ripple', DOGE:'dogecoin', ADA:'cardano' };
+  return map[a] || 'bitcoin';
+}
+async function pmFetchBinancePrice(asset) {
+  const symbol = pmGetSymbol(asset);
+  const urls = [
+    `https://data-api.binance.vision/api/v3/ticker/price?symbol=${symbol}`,
+    `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
+  ];
+  for (const url of urls) {
+    try {
+      const r = await fetchWithTimeout(url, 3500);
+      if (r.ok) { const d = await r.json(); const p = parseFloat(d.price); if (p > 0) return p; }
+    } catch (e) {}
+  }
+  return null;
+}
+async function pmFetchCoingeckoPrice(asset) {
+  try {
+    const id = pmGetCoingeckoId(asset);
+    const r = await fetchWithTimeout(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`, 4000);
+    if (r.ok) { const d = await r.json(); const p = d[id]?.usd; if (p > 0) return +p; }
+  } catch (e) {}
+  return null;
+}
+let _pmFeed = { timer: null, history: [], lastPrice: null, lastChange: 0, lastFetch: 0, fetching: false };
+async function pmFetchPriceFast(force = false) {
+  const now = Date.now();
+  if (!force && _pmFeed.lastPrice && (now - _pmFeed.lastFetch < 900)) return _pmFeed.lastPrice;
+  if (_pmFeed.fetching && !force) return _pmFeed.lastPrice;
+  _pmFeed.fetching = true;
+  let price = await pmFetchBinancePrice(_pm.asset);
+  if (!price) price = await pmFetchCoingeckoPrice(_pm.asset);
+  if (!price) {
+    const pair = _pm.asset + '/USD';
+    price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
+    if (!price) {
+      try { await fetchCrypto(); } catch (e) {}
+      price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
+    }
+  }
+  if (price && price > 0) {
+    const prev = _pmFeed.lastPrice;
+    _pmFeed.lastPrice = price;
+    _pmFeed.lastFetch = now;
+    if (prev) _pmFeed.lastChange = ((price - prev) / prev) * 100;
+    _pmFeed.history.push({ t: now, p: price });
+    if (_pmFeed.history.length > 80) _pmFeed.history.shift();
+  }
+  _pmFeed.fetching = false;
+  return _pmFeed.lastPrice;
+}
+// Backward-compatible wrapper — every existing caller of pmFetchPrice()
+// transparently gets the faster, more reliable feed above for free.
+async function pmFetchPrice() { return pmFetchPriceFast(false); }
+function pmStartFeed() {
+  if (_pmFeed.timer) clearInterval(_pmFeed.timer);
+  if (_pmFeed.lastPrice) pmRenderIdlePrice(_pmFeed.lastPrice, false);
+  pmFetchPriceFast(true).then(p => { if (p) pmRenderIdlePrice(p, true); });
+  _pmFeed.timer = setInterval(async () => {
+    const pg = document.getElementById('p-earn');
+    const sec = document.getElementById('earn-pred');
+    const isPredVisible = pg && pg.classList.contains('active') && sec && sec.classList.contains('active');
+    if (!isPredVisible && !_pm.active) return;
+    const price = await pmFetchPriceFast(false);
+    if (!price) return;
+    if (!_pm.active) { pmRenderIdlePrice(price, true); return; }
+    const el = document.getElementById('pm-current');
+    if (el) {
+      el.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      el.style.color = price >= _pm.active.entryPrice ? 'var(--ok)' : 'var(--err)';
+      if (price !== _pm._lastShownPrice) { el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash'); }
+      _pm._lastShownPrice = price;
+    }
+    pmUpdateLivePerformance(price);
+    pmRenderChartLive();
+  }, 1000);
+}
+function pmStopFeed() { if (_pmFeed.timer) { clearInterval(_pmFeed.timer); _pmFeed.timer = null; } }
+function pmRenderIdlePrice(price, flash = true) {
+  const el = document.getElementById('pm-price');
+  const badge = document.getElementById('pm-change-badge');
+  const updatedEl = document.getElementById('pm-last-updated');
+  const roundEl = document.getElementById('pm-round-idle');
+  if (!el) return;
+  if (price) {
+    const prevText = el.textContent;
+    el.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (flash && prevText !== el.textContent) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+    if (badge) {
+      badge.style.display = 'inline-flex';
+      const chg = _pmFeed.lastChange;
+      if (Math.abs(chg) < 0.01) { badge.className = 'pm-change-badge flat'; badge.textContent = '● Live'; }
+      else if (chg > 0) { badge.className = 'pm-change-badge up'; badge.textContent = '▲ ' + chg.toFixed(2) + '%'; }
+      else { badge.className = 'pm-change-badge down'; badge.textContent = '▼ ' + Math.abs(chg).toFixed(2) + '%'; }
+    }
+    if (updatedEl) updatedEl.textContent = 'Live • Updated ' + new Date().toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) + ' • 1s feed';
+  }
+  if (roundEl) {
+    const bucket = pmBucketStart();
+    const minsLeft = Math.max(0, Math.ceil((bucket + 300000 - Date.now()) / 60000));
+    roundEl.textContent = `Round ends in ${minsLeft}m`;
+  }
+  pmRenderChartIdle();
+}
+function pmRenderChartIdle() {
+  const canvas = document.getElementById('pm-chart-idle');
+  const empty = document.getElementById('pm-chart-empty-idle');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const hist = _pmFeed.history;
+  if (!hist.length) { if (empty) empty.style.display = 'flex'; ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+  if (empty) empty.style.display = 'none';
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const prices = hist.map(x => x.p);
+  const min = Math.min(...prices), max = Math.max(...prices);
+  const range = (max - min) || max * 0.001 || 1;
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(67,56,236,0.18)'); grad.addColorStop(1, 'rgba(67,56,236,0)');
+  ctx.beginPath();
+  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+  ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+  ctx.beginPath();
+  ctx.strokeStyle = '#4338EC'; ctx.lineWidth = 2.2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+  ctx.stroke();
+}
+function pmRenderChartLive() {
+  const canvas = document.getElementById('pm-chart-live');
+  if (!canvas || !_pm.active) return;
+  const ctx = canvas.getContext('2d');
+  const hist = _pmFeed.history;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  if (!hist.length) return;
+  const entryPrice = _pm.active.entryPrice;
+  const prices = hist.map(x => x.p);
+  const min = Math.min(...prices, entryPrice), max = Math.max(...prices, entryPrice);
+  const range = (max - min) || max * 0.001 || 1;
+  const entryY = H - ((entryPrice - min) / range) * (H * 0.7) - H * 0.15;
+  ctx.setLineDash([6, 6]); ctx.strokeStyle = 'rgba(17,20,43,0.2)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, entryY); ctx.lineTo(W, entryY); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(17,20,43,0.6)'; ctx.font = '10px Outfit'; ctx.fillText('Entry $' + entryPrice.toFixed(2), 6, entryY - 6);
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  const isWinning = (_pm.active.side === 'up' && _pmFeed.lastPrice > entryPrice) || (_pm.active.side === 'down' && _pmFeed.lastPrice < entryPrice);
+  if (isWinning) { grad.addColorStop(0, 'rgba(15,174,107,0.18)'); grad.addColorStop(1, 'rgba(15,174,107,0)'); }
+  else { grad.addColorStop(0, 'rgba(239,68,68,0.18)'); grad.addColorStop(1, 'rgba(239,68,68,0)'); }
+  ctx.beginPath();
+  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+  ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+  ctx.beginPath();
+  ctx.strokeStyle = isWinning ? '#0FAE6B' : '#EF4444'; ctx.lineWidth = 2.4;
+  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+  ctx.stroke();
+  const last = prices[prices.length - 1];
+  const lastX = W, lastY = H - ((last - min) / range) * (H * 0.7) - H * 0.15;
+  ctx.beginPath(); ctx.arc(lastX - 4, lastY, 4, 0, Math.PI * 2); ctx.fillStyle = isWinning ? '#0FAE6B' : '#EF4444'; ctx.fill();
+}
+function pmUpdateLivePerformance(currentPrice) {
+  if (!_pm.active) return;
+  const entry = _pm.active.entryPrice;
+  const diff = currentPrice - entry;
+  const diffPct = (diff / entry) * 100;
+  const isUp = _pm.active.side === 'up';
+  const isWinning = (isUp && diff > 0) || (!isUp && diff < 0);
+  const isFlat = Math.abs(diffPct) < 0.01;
+  const diffEl = document.getElementById('pm-price-diff');
+  if (diffEl) {
+    if (isFlat) { diffEl.textContent = '● No change'; diffEl.style.color = 'var(--sil)'; }
+    else if (isWinning) { diffEl.textContent = `▲ +${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Winning`; diffEl.style.color = 'var(--ok)'; }
+    else { diffEl.textContent = `▼ -${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Losing`; diffEl.style.color = 'var(--err)'; }
+  }
+  const pill = document.getElementById('pm-perf-pill');
+  if (pill) {
+    if (isFlat) { pill.className = 'pm-status-pill live'; pill.textContent = '● Tracking'; }
+    else if (isWinning) { pill.className = 'pm-status-pill winning'; pill.textContent = '● Winning'; }
+    else { pill.className = 'pm-status-pill losing'; pill.textContent = '● Losing'; }
+  }
+  const fill = document.getElementById('pm-perf-fill');
+  if (fill) {
+    let pct = 50 + (diffPct * 15);
+    pct = Math.max(5, Math.min(95, pct));
+    if (!isUp) pct = 100 - pct;
+    fill.style.width = pct + '%';
+    fill.style.background = isWinning ? 'var(--ok)' : isFlat ? 'var(--gold)' : 'var(--err)';
+  }
+  const left = document.getElementById('pm-perf-left');
+  const right = document.getElementById('pm-perf-right');
+  if (left) left.textContent = 'Entry $' + entry.toFixed(2);
+  if (right) right.textContent = 'Now $' + currentPrice.toFixed(2);
+  pmRenderLivePrices();
+}
+function pmShowHowItWorks() {
   toast('Predict if price goes Up or Down in 5 min. Share price moves with demand. Sell anytime before settlement. Correct shares pay ₦100 each.');
 }
+// Real brand logos for BTC/ETH/SOL (small, well-known public CDN) instead of plain
+// letter badges. Falls back to the colored initials badge if the image fails to load,
+// so the UI never breaks if the CDN is briefly unreachable.
+function cryptoIconImg(short, sizePx, bgColor) {
+  const url = `https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/${short}.svg`;
+  const fallback = `this.outerHTML='<div style=&quot;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${bgColor};color:#fff;font-family:var(--d);font-size:${Math.round(sizePx*0.35)}px;font-weight:800;border-radius:inherit&quot;>${short}</div>'`;
+  return `<img src="${url}" width="${sizePx}" height="${sizePx}" style="display:block;object-fit:contain" onerror="${fallback}"/>`;
+}
 
-// keep original round logic but enhance
-const PM_SEED = 1000;
+// ══════════════════════════════════
+// PREDICT — real Bayse-style share market
+// Each 5-minute round is a shared Firestore doc. UP/DOWN "shares" are priced
+// by actual aggregate stake on each side (constant-sum market maker, seeded
+// with virtual liquidity so one early trader can't swing price to an
+// extreme) — not a fixed multiplier. Real other users trading the same
+// round genuinely move the price for everyone, live. You can sell back into
+// the market before the round ends, same as Bayse's early-exit mechanic.
+// Winning shares pay ₦100 each at resolution; losing shares pay ₦0.
+// ══════════════════════════════════
+const PM_SEED = 1000; // virtual liquidity per side — keeps price near 50/50 until real volume builds up
 function pmBucketStart() { return Math.floor(Date.now() / 300000) * 300000; }
 function pmRoundId(asset, bucketStart) { return asset + '_' + bucketStart; }
 function pmComputePrices(round) {
   const yesPool = PM_SEED + (round.yesStake || 0);
   const noPool = PM_SEED + (round.noStake || 0);
   let up = Math.round((yesPool / (yesPool + noPool)) * 100);
-  up = Math.max(2, Math.min(98, up));
+  up = Math.max(2, Math.min(98, up)); // keep both sides always tradeable, never 0 or 100 mid-round
   return { up, down: 100 - up };
 }
+// Transaction-safe: if two users are the first to trade a fresh round at the same
+// moment, only one of their fetched prices becomes the round's official entry
+// price — everyone else just reads it. Prevents a race from creating two
+// slightly-different "truths" for the same round.
+let _pmLastRoundError = null;
 async function pmGetOrCreateRound(asset, currentPrice) {
   const bucketStart = pmBucketStart();
   const id = pmRoundId(asset, bucketStart);
-  const price = currentPrice || _pmFeed.lastPrice || 50000;
-  const localData = { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null, _local:true };
-  if(!db || !db.collection){
-    console.warn('Firestore not ready, using local round');
-    return localData;
-  }
   const ref = db.collection('predictRounds').doc(id);
   try {
     return await db.runTransaction(async tx => {
       const snap = await tx.get(ref);
       if (snap.exists) return { id, ...snap.data() };
-      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
+      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: currentPrice, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
       tx.set(ref, data);
       return { id, ...data };
     });
   } catch (e) {
-    console.warn('pmGetOrCreateRound tx failed, trying direct set', e.message);
-    try{
-      const snap = await ref.get();
-      if(snap.exists) return { id, ...snap.data() };
-      await ref.set({ asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null });
-      return { id, asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: price, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
-    }catch(e2){
-      console.warn('pmGetOrCreateRound direct set failed, using local', e2.message);
-      return localData;
-    }
+    console.error('pmGetOrCreateRound error', e);
+    _pmLastRoundError = e?.code || e?.message || 'unknown';
+    return null;
   }
 }
 let _pmRoundUnsub = null, _pmRoundData = null;
 async function pmEnsureRoundSubscribed() {
   const id = pmRoundId(_pm.asset, pmBucketStart());
-  if (_pmRoundData?.id === id && _pmRoundUnsub) return;
-  if (_pmRoundUnsub) { try{ _pmRoundUnsub(); }catch(e){} _pmRoundUnsub=null; }
+  if (_pmRoundData?.id === id && _pmRoundUnsub) return; // already watching the right round
+  if (_pmRoundUnsub) _pmRoundUnsub();
   _pmRoundData = null;
-  if(!db || !db.collection){
-    _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 };
+  _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
+    if (!snap.exists) return; // briefly, until pmGetOrCreateRound below finishes
+    _pmRoundData = { id, ...snap.data() };
     pmRenderLivePrices();
-    return;
-  }
-  try{
-    _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
-      if (!snap.exists) return;
-      _pmRoundData = { id, ...snap.data() };
-      pmRenderLivePrices();
-    }, e => console.error('pmEnsureRoundSubscribed error', e));
-  }catch(e){ console.warn('Subscribe failed, using local', e.message); _pmRoundData = { id, asset: _pm.asset, bucketStart: pmBucketStart(), bucketEnd: pmBucketStart()+300000, entryPrice: _pmFeed.lastPrice||50000, yesStake: 0, noStake: 0 }; pmRenderLivePrices(); }
-  const px = _pmFeed.lastPrice || await pmFetchPriceFast(true);
-  if (px) { try{ pmGetOrCreateRound(_pm.asset, px); }catch(e){} }
+  }, e => console.error('pmEnsureRoundSubscribed error', e));
+  // Create the round on FIRST VIEW, not deferred until someone actually bets —
+  // otherwise Up/Down prices sit frozen at the ₦50/₦50 placeholder until
+  // someone trades, even though the underlying price is already ticking live.
+  const px = await pmFetchPrice();
+  if (px) pmGetOrCreateRound(_pm.asset, px);
 }
 function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
 function pmRenderLivePrices() {
@@ -3635,35 +3718,25 @@ function pmRenderLivePrices() {
     const sharesEl = document.getElementById('pm-shares');
     if (sharesEl) sharesEl.textContent = _pm.active.shares.toFixed(2);
     const pnlEl = document.getElementById('pm-live-pnl');
-    const pnlSub = document.getElementById('pm-pnl-sub');
-    if (pnlEl) { pnlEl.textContent = fmt(sellVal); pnlEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
-    if (pnlSub) { pnlSub.textContent = (pnl>=0?'+':'') + fmt(pnl) + (pnl!==0 ? ' PnL' : ''); pnlSub.style.color = pnl>=0 ? 'var(--ok)' : 'var(--err)'; }
+    if (pnlEl) { pnlEl.textContent = (pnl>=0?'+':'') + fmt(sellVal) + (pnl!==0 ? ` (${pnl>=0?'+':''}${fmt(pnl)})` : ''); pnlEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
   }
 }
 
 async function pmPlaceBet() {
-  console.log('[PREDICT] Place bet', _pm.asset, _pm.dir, _pm.stake);
   if (!_user) { toast('Please sign in first'); return; }
   if (_pm.active) { toast('A round is already in progress'); return; }
   if (!_pm.dir) { toast('Choose Up or Down first'); return; }
   const stake = _pm.stake;
   if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
   if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
-  let underlyingPrice = _pmFeed.lastPrice || await pmFetchPriceFast(true);
-  if (!underlyingPrice) {
-    console.warn('No live price, using fallback');
-    underlyingPrice = 50000 + Math.random()*500;
-  }
-  let round = null;
-  try{ round = await pmGetOrCreateRound(_pm.asset, underlyingPrice); }catch(e){ console.error('getRound error', e); }
-  if (!round) {
-    const bucketStart = pmBucketStart();
-    round = { id: pmRoundId(_pm.asset, bucketStart), asset: _pm.asset, bucketStart, bucketEnd: bucketStart+300000, entryPrice: underlyingPrice, yesStake: 0, noStake: 0, resolved: false, _local:true };
-    console.warn('Using emergency local round', round);
-  }
+  const underlyingPrice = await pmFetchPrice();
+  if (!underlyingPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
+
+  const round = await pmGetOrCreateRound(_pm.asset, underlyingPrice);
+  if (!round) { toast('Could not open this market (' + (_pmLastRoundError || 'unknown error') + '). Try again.'); return; }
   const prices = pmComputePrices(round);
   const sharePrice = _pm.dir === 'up' ? prices.up : prices.down;
-  const shares = +(stake / sharePrice).toFixed(4);
+  const shares = +(stake / sharePrice).toFixed(4); // ₦100 pays out per share if correct
 
   try { await walletDebit(stake); } catch (e) { toast('Connection error'); return; }
   try {
@@ -3672,21 +3745,22 @@ async function pmPlaceBet() {
     });
   } catch (e) { console.error('round stake increment failed', e); }
 
-  _pm.active = { roundId: round.id, asset: _pm.asset, side: _pm.dir, stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, entryUnderlying: underlyingPrice, endsAt: round.bucketEnd };
+  _pm.active = { roundId: round.id, asset: _pm.asset, side: _pm.dir, stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, endsAt: round.bucketEnd };
   document.getElementById('pm-idle').style.display = 'none';
   document.getElementById('pm-live').style.display = 'block';
   const ld = document.getElementById('pm-live-dir');
   ld.textContent = _pm.asset + ' · ' + (_pm.dir === 'up' ? '▲ Up' : '▼ Down');
   ld.style.color = _pm.dir === 'up' ? 'var(--ok)' : 'var(--err)';
   document.getElementById('pm-entry').textContent = '₦' + sharePrice;
-  document.getElementById('pm-entry-underlying').textContent = '$'+underlyingPrice.toFixed(2);
-  document.getElementById('pm-entry-time').textContent = new Date().toLocaleTimeString();
   document.getElementById('pm-shares').textContent = shares.toFixed(2);
-  document.getElementById('pm-current').textContent = '$'+underlyingPrice.toFixed(2);
+  const entryUEl = document.getElementById('pm-entry-underlying'); if (entryUEl) entryUEl.textContent = '$' + underlyingPrice.toFixed(2);
+  const entryTEl = document.getElementById('pm-entry-time'); if (entryTEl) entryTEl.textContent = new Date().toLocaleTimeString();
+  const curEl = document.getElementById('pm-current'); if (curEl) curEl.textContent = '$' + underlyingPrice.toFixed(2);
 
-  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, result:'opened', sharePrice, shares, entryPrice: underlyingPrice } });
+  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, result:'opened', sharePrice, shares } });
   pmEnsureRoundSubscribed();
   pmRenderLivePrices();
+  _pmFeed.history = [];
   pmStartFeed();
 
   clearInterval(_pm.priceTimer);
@@ -3699,9 +3773,14 @@ async function pmTick() {
   const leftSec = Math.round(leftMs / 1000);
   const t = document.getElementById('pm-timer');
   if (t) t.textContent = Math.floor(leftSec/60) + ':' + String(leftSec%60).padStart(2,'0');
-  // price is handled by pmStartFeed 1s loop
+  // Underlying price, performance pill, and chart are handled by pmStartFeed's
+  // own 1s interval (started in pmPlaceBet) — avoid running two overlapping
+  // fetch loops. This tick just keeps the countdown and share-price P&L live.
+  pmRenderLivePrices(); // keeps "how's my prediction doing" share P&L live every second
   if (leftMs <= 0) pmSettle();
 }
+// Sell your shares back into the market before the round ends — same early-exit
+// mechanic Bayse offers, priced at whatever the live share price is right now.
 async function pmSell() {
   const a = _pm.active; if (!a || !_user) return;
   const round = _pmRoundData?.id === a.roundId ? _pmRoundData : await db.collection('predictRounds').doc(a.roundId).get().then(s => ({ id:a.roundId, ...s.data() }));
@@ -3716,7 +3795,7 @@ async function pmSell() {
       [a.side === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(-a.stake)
     });
   } catch (e) { console.error('round unwind failed', e); }
-  logEarn(_user.id, { type:'predict', stake:a.stake, payout:sellValue, pnl, meta:{ asset:a.asset, dir:a.side, result:'sold_early', exitSharePrice:sharePrice, exitUnderlying: _pmFeed.lastPrice } });
+  logEarn(_user.id, { type:'predict', stake:a.stake, payout:sellValue, pnl, meta:{ asset:a.asset, dir:a.side, result:'sold_early', exitSharePrice:sharePrice } });
   toast(pnl >= 0 ? `Sold for ${fmt(sellValue)} · +${fmt(pnl)} profit` : `Sold for ${fmt(sellValue)} · ${fmt(pnl)} loss`);
 
   _pmHistory.unshift({ asset: a.asset, dir: a.side, won: pnl > 0 ? true : pnl < 0 ? false : null, stake: a.stake });
@@ -3728,17 +3807,20 @@ async function pmSell() {
   document.getElementById('pm-idle').style.display = 'block';
   document.getElementById('pm-live').style.display = 'none';
   pmUpdateBtn();
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,false));
+  _pmFeed.history = [];
+  pmFetchPriceFast(true).then(p => pmRenderIdlePrice(p, false));
   pmStartFeed();
 }
 async function pmSettle() {
   const a = _pm.active; if (!a) return;
   clearInterval(_pm.priceTimer);
-  const exitPrice = _pmFeed.lastPrice || (await pmFetchPriceFast(true)) || a.entryUnderlying;
-  const wentUp = exitPrice > a.entryUnderlying;
-  const flat = Math.abs(exitPrice - a.entryUnderlying) < 0.01;
+  const exitPrice = (await pmFetchPrice()) || a.entryPrice;
+  const wentUp = exitPrice > a.entryPrice;
+  const flat = exitPrice === a.entryPrice;
   const won = !flat && ((a.side === 'up' && wentUp) || (a.side === 'down' && !wentUp));
 
+  // Mark the shared round resolved (idempotent — every holder's client writes the
+  // same true outcome, so a second write from another user is harmless).
   try { await db.collection('predictRounds').doc(a.roundId).update({ resolved: true, finalPrice: exitPrice, outcome: flat ? 'push' : (wentUp ? 'up' : 'down') }); } catch(e) {}
 
   if (flat) {
@@ -3746,13 +3828,13 @@ async function pmSettle() {
     toast('Price unchanged — stake refunded');
     logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.side, result:'push' } });
   } else if (won) {
-    const payout = Math.round(a.shares * 100);
+    const payout = Math.round(a.shares * 100); // winning shares pay ₦100 each
     try { await walletCredit(payout); } catch (e) {}
     toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.side, result:'win', shares:a.shares, exitPrice } });
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.side, result:'win', shares:a.shares } });
   } else {
     toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.side} call missed`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.side, result:'loss', exitPrice } });
+    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.side, result:'loss' } });
   }
 
   _pmHistory.unshift({ asset: a.asset, dir: a.side, won: flat ? null : won, stake: a.stake });
@@ -3764,7 +3846,7 @@ async function pmSettle() {
   document.getElementById('pm-live').style.display = 'none';
   pmUpdateBtn();
   _pmFeed.history = [];
-  pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,false));
+  pmFetchPriceFast(true).then(p => pmRenderIdlePrice(p, false));
   pmStartFeed();
 }
 function pmRenderHistory() {
@@ -3778,21 +3860,23 @@ function pmRenderHistory() {
     <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
   </div>`).join('');
 }
-// Auto-start feed when entering predictions tab
-(function(){
-  const origSwitch = window.switchEarnTab;
-  window.switchEarnTab = function(tab){
-    document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
-    document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-    if (tab === 'pred') { pmEnsureRoundSubscribed(); pmStartFeed(); pmFetchPriceFast(true).then(p=>pmRenderIdlePrice(p,true)); }
-    else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
-    if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
-    else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
-    else stopLiveActivity();
-  };
-})();
-// Keep feed alive even if user is idle on pred page (replaces old 1s setInterval)
-
+// Live price display while browsing Predictions with no active round. Checks
+// every second so the round subscription stays fresh across bucket rollovers,
+// but the price number itself only changes — and only flashes — when real
+// data actually arrives (~every 8s, see pmFetchPrice).
+setInterval(async () => {
+  const pg = document.getElementById('p-earn');
+  const sec = document.getElementById('earn-pred');
+  if (!(pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active)) return;
+  const real = await pmFetchPrice();
+  const el = document.getElementById('pm-price');
+  if (el && real != null) {
+    el.textContent = '$' + real.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    if (real !== _pm._lastIdlePrice) { el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash'); }
+    _pm._lastIdlePrice = real;
+  }
+  pmEnsureRoundSubscribed(); // re-subscribes automatically once the 5-minute bucket rolls over
+}, 1000);
 
 // ── AVIATOR ─────────────────────────
 // ══════════════════════════════════
@@ -5989,157 +6073,6 @@ function toggleDarkMode() {
   const saved = localStorage.getItem('auro_theme');
   if (saved === 'dark') applyDarkMode(true);
 })();
-
-
-// ══════════════════════════════════
-// RECEIPT — GENERATE / DOWNLOAD / SHARE
-// ══════════════════════════════════
-let _currentReceiptRef = '';
-let _currentReceiptTx = null;
-
-function _genRef(id){
-  if(!id) return 'AURO-'+Math.random().toString(36).slice(2,8).toUpperCase();
-  const core = id.replace(/[^a-zA-Z0-9]/g,'').slice(0,8).toUpperCase();
-  return 'AURO-'+(core||'XXXX')+'-'+(new Date().getFullYear());
-}
-
-function openReceipt(kind, id){
-  const map = window._rcptMap||{};
-  let tx = map[id];
-  if(!tx){
-    // try find in global arrays as fallback
-    const allDeps = (typeof _myDeps!=='undefined' && _myDeps) ? _myDeps : [];
-    const allWits = (typeof _myWits!=='undefined' && _myWits) ? _myWits : [];
-    tx = [...allDeps.map(d=>({...d,kind:'deposit'})), ...allWits.map(w=>({...w,kind:'withdraw'}))].find(x=>x.id===id);
-  }
-  if(!tx){ toast('Receipt not ready yet'); return; }
-  _currentReceiptTx = tx;
-  const isDep = (tx.kind||kind)==='deposit';
-  const ref = _genRef(tx.id);
-  _currentReceiptRef = ref;
-  const amt = tx.amount||0;
-  const date = tx.date ? dateStr(tx.date) : new Date().toLocaleDateString();
-  const fullDate = tx.date ? new Date(tx.date).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'}) : new Date().toLocaleString();
-  const status = tx.status||'pending';
-  const statusLabel = status==='approved' ? (isDep?'Successful':'Completed') : status==='rejected' ? 'Failed' : 'Pending';
-  const statusColor = status==='approved' ? 'var(--ok)' : status==='rejected' ? 'var(--err)' : 'var(--gold)';
-  const statusBg = status==='approved' ? 'var(--okd)' : status==='rejected' ? 'var(--errd)' : 'var(--gd)';
-  const statusBorder = status==='approved' ? 'var(--okb)' : status==='rejected' ? 'var(--errb)' : 'var(--gb)';
-  const userName = (_user && _user.name) ? _user.name : 'AURO User';
-  const method = isDep ? (tx.method||'OPAY Transfer') : (tx.bank||'Bank Transfer');
-  const acct = isDep ? '6558614972 · AURO Treasury' : (tx.acct||tx.account||'—');
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(ref+'|'+amt+'|'+status)}&bgcolor=ffffff&color=11142B&margin=6`;
-
-  document.getElementById('rcpt-copy-hint').textContent = ref;
-
-  const capture = document.getElementById('rcpt-capture');
-  capture.innerHTML = `
-    <div class="rcpt-watermark">AURO</div>
-    <div class="rcpt-top">
-      <div>
-        <div class="rcpt-logo">AURO<span style="font-weight:400;font-size:10px;vertical-align:super;margin-left:2px;letter-spacing:.08em">®</span></div>
-        <div style="font-size:10px;color:var(--sil);margin-top:2px;letter-spacing:.04em">Trade & Earn • Digital Receipt</div>
-      </div>
-      <div class="rcpt-badge" style="background:${statusBg};color:${statusColor};border-color:${statusBorder}">${statusLabel}</div>
-    </div>
-
-    <div class="rcpt-amt-hero">
-      <div class="rcpt-amt-label">${isDep?'Amount Credited':'Amount Debited'}</div>
-      <div class="rcpt-amt-val">${isDep?'+':'-'}${fmt(amt)}</div>
-      <div class="rcpt-amt-sub">${isDep?'Deposit to NGN Wallet':'Withdrawal from NGN Wallet'} • ${date}</div>
-    </div>
-
-    <div class="rcpt-divider"></div>
-
-    <div class="rcpt-grid">
-      <div class="rcpt-row"><span class="rcpt-k">Reference</span><span class="rcpt-v mono">${ref}</span></div>
-      <div class="rcpt-row"><span class="rcpt-k">Transaction ID</span><span class="rcpt-v mono" style="font-size:10px">${(tx.id||'—').slice(0,18)}</span></div>
-      <div class="rcpt-row"><span class="rcpt-k">Type</span><span class="rcpt-v">${isDep?'Wallet Funding (Deposit)':'Wallet Payout (Withdrawal)'}</span></div>
-      <div class="rcpt-row"><span class="rcpt-k">Date & Time</span><span class="rcpt-v">${fullDate}</span></div>
-      <div class="rcpt-row"><span class="rcpt-k">Method</span><span class="rcpt-v">${method}</span></div>
-      ${!isDep?`<div class="rcpt-row"><span class="rcpt-k">Destination</span><span class="rcpt-v">${acct}</span></div>`:``}
-      <div class="rcpt-row"><span class="rcpt-k">Account Name</span><span class="rcpt-v">${userName}</span></div>
-      <div class="rcpt-row"><span class="rcpt-k">Status</span><span class="rcpt-v" style="color:${statusColor};font-weight:700">${statusLabel}</span></div>
-    </div>
-
-    <div class="rcpt-qr-wrap">
-      <img class="rcpt-qr" src="${qrUrl}" alt="qr" crossorigin="anonymous"/>
-      <div class="rcpt-qr-txt">
-        <div class="rcpt-qr-title">Verified by AURO</div>
-        <div class="rcpt-qr-sub">Scan to verify this receipt. Keep your reference <strong>${ref}</strong> for support. Funds reflect based on bank processing time.</div>
-      </div>
-    </div>
-
-    <div class="rcpt-foot">
-      <p>This receipt is system generated and valid without signature. For enquiries, contact support@auro.trade with your reference. AURO is not a bank. <br/>auro.trade • ${new Date().getFullYear()}</p>
-    </div>
-  `;
-
-  document.getElementById('rcpt-modal').classList.add('open');
-}
-
-function closeReceipt(){
-  document.getElementById('rcpt-modal').classList.remove('open');
-}
-
-function _ensureHtml2Canvas(){
-  return new Promise((res, rej)=>{
-    if(window.html2canvas) return res(window.html2canvas);
-    const s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-    s.onload=()=>res(window.html2canvas);
-    s.onerror=rej;
-    document.head.appendChild(s);
-  });
-}
-
-async function downloadReceipt(){
-  const el = document.getElementById('rcpt-capture');
-  if(!el) return;
-  const btn = document.querySelector('.rcpt-btn-p');
-  const orig = btn ? btn.innerHTML : '';
-  if(btn) btn.innerHTML='Generating…';
-  try{
-    const canvas = await _ensureHtml2Canvas().then(h2c=>h2c(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,allowTaint:true}));
-    const url = canvas.toDataURL('image/png');
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=`${_currentReceiptRef||'AURO-receipt'}.png`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('Receipt downloaded ✓');
-  }catch(e){ console.error(e); toast('Could not download — try screenshot'); }
-  finally{ if(btn) btn.innerHTML=orig; }
-}
-
-async function shareReceipt(){
-  const el = document.getElementById('rcpt-capture');
-  if(!el) return;
-  try{
-    const canvas = await _ensureHtml2Canvas().then(h2c=>h2c(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true}));
-    canvas.toBlob(async (blob)=>{
-      if(!blob) { downloadReceipt(); return; }
-      const file = new File([blob], `${_currentReceiptRef||'receipt'}.png`, {type:'image/png'});
-      if(navigator.canShare && navigator.canShare({files:[file]})){
-        try{ await navigator.share({title:'AURO Receipt',text:`My AURO transaction ${_currentReceiptRef} - ${fmt(_currentReceiptTx?.amount||0)}`,files:[file]}); toast('Shared ✓'); return; }catch(err){ if(err.name==='AbortError') return; }
-      }
-      // fallback: Web Share API text
-      if(navigator.share){
-        try{ await navigator.share({title:'AURO Receipt',text:`AURO ${(_currentReceiptTx?.kind||'transaction')} of ${fmt(_currentReceiptTx?.amount||0)} • Ref: ${_currentReceiptRef}`}); return; }catch{}
-      }
-      downloadReceipt();
-    },'image/png',1);
-  }catch(e){ console.error(e); downloadReceipt(); }
-}
-
-function copyReceiptRef(){
-  if(!_currentReceiptRef){ toast('No reference'); return; }
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(_currentReceiptRef).then(()=>toast('Reference copied: '+_currentReceiptRef));
-  }else{
-    const ta=document.createElement('textarea'); ta.value=_currentReceiptRef; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Reference copied');
-  }
-}
-
 
 boot();
 </script>
