@@ -1027,6 +1027,11 @@ body.dark #splash{background:var(--void)}
           <div class="pm-asset" data-a="ETH" onclick="pmPickAsset('ETH')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/ETH.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>ETH</div>
           <div class="pm-asset" data-a="SOL" onclick="pmPickAsset('SOL')"><img src="https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/SOL.svg" width="13" height="13" style="vertical-align:-2px;margin-right:3px" onerror="this.style.display='none'"/>SOL</div>
         </div>
+        <div class="pm-asset-row" id="pm-timeframes" style="margin-top:6px">
+          <div class="pm-asset sel" data-tf="5" onclick="pmPickTf(5)">5 min</div>
+          <div class="pm-asset" data-tf="15" onclick="pmPickTf(15)">15 min</div>
+          <div class="pm-asset" data-tf="60" onclick="pmPickTf(60)">1 hr</div>
+        </div>
 
         <div id="pm-idle">
           <div style="text-align:center;padding:4px 0 12px">
@@ -1064,44 +1069,19 @@ body.dark #splash{background:var(--void)}
             <div class="stake-chip" data-v="5000" onclick="pmSetStake(5000)">₦5,000</div>
           </div>
           <input class="stake-input" id="pm-custom" type="number" placeholder="Custom stake (₦)" oninput="pmCustomStake(this.value)"/>
-          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in 5 min · sell early anytime</span><span id="pm-round-idle">—</span></div>
+          <div style="font-size:11px;color:var(--sil);margin-bottom:12px;display:flex;justify-content:space-between"><span>Round settles in <span id="pm-round-len">5 min</span> · sell early anytime</span><span id="pm-round-idle">—</span></div>
           <button class="game-btn" id="pm-btn" onclick="pmPlaceBet()">Predict for ₦100</button>
         </div>
 
-        <div id="pm-live" style="display:none">
-          <div class="pm-live-card" style="border:1.5px solid var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd))">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-              <div>
-                <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span> Live Position</div>
-                <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--d);font-size:15px;font-weight:800" id="pm-live-dir">—</div><span id="pm-perf-pill" class="pm-status-pill live">● Tracking</span></div>
-              </div>
-              <div class="pm-timer" id="pm-timer">5:00</div>
-            </div>
-            <div class="pm-chart-wrap" style="height:100px;margin-bottom:14px"><canvas id="pm-chart-live" width="600" height="140"></canvas></div>
-            <div class="pm-live-grid">
-              <div class="pm-live-stat"><div class="pm-live-stat-k">Entry Price</div><div class="pm-live-stat-v" id="pm-entry-underlying">—</div><div style="font-size:9px;color:var(--sil);margin-top:2px" id="pm-entry-time">—</div></div>
-              <div class="pm-live-stat"><div class="pm-live-stat-k">Current Price</div><div class="pm-live-stat-v" id="pm-current">—</div><div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff">—</div></div>
-              <div class="pm-live-stat"><div class="pm-live-stat-k">Entry Share</div><div class="pm-live-stat-v" id="pm-entry">—</div></div>
-              <div class="pm-live-stat"><div class="pm-live-stat-k">Current Share</div><div class="pm-live-stat-v" id="pm-share-now">—</div></div>
-            </div>
-            <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700" id="pm-shares">—</div></div>
-                <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Sell Value Now</div><div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-live-pnl">₦0</div><div style="font-size:10px;font-weight:600" id="pm-pnl-sub">—</div></div>
-              </div>
-              <div class="pm-perf-bar"><div id="pm-perf-fill" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div>
-              <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span id="pm-perf-left">Entry</span><span id="pm-perf-right">Now</span></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <button class="game-btn" id="pm-sell-btn" onclick="pmSell()" style="background:var(--ok)">Sell Now</button>
-              <button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div class="game-card" id="pm-positions-card">
+        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Open Positions</div>
+        <div id="pm-positions"></div>
       </div>
 
       <div class="game-card" id="pm-history-card" style="display:none">
-        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Recent Calls</div>
+        <div style="font-size:11px;font-weight:700;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">History</div>
         <div id="pm-history"></div>
       </div>
     </div>
@@ -2211,7 +2191,6 @@ function go(pid, nid) {
     if (s2) s2.style.display = 'none';
   }
   if (pid !== 'p-earn' && typeof stopLiveActivity === 'function') stopLiveActivity();
-  if (pid !== 'p-earn' && typeof pmUnsubscribeRound === 'function' && !_pm.active) pmUnsubscribeRound();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById(pid); if (pg) pg.classList.add('active');
@@ -3062,8 +3041,7 @@ function renderClaims() {
 function switchEarnTab(tab) {
   document.querySelectorAll('.earn-pill').forEach(p => p.classList.toggle('active', p.dataset.tab === tab));
   document.querySelectorAll('.earn-sec').forEach(s => s.classList.toggle('active', s.id === 'earn-' + tab));
-  if (tab === 'pred') { pmEnsureRoundSubscribed(); if (!_pm.active) pmStartFeed(); }
-  else if (!_pm.active) { pmUnsubscribeRound(); pmStopFeed(); }
+  if (tab === 'pred') { pmEnsurePreviewSubscribed(); pmInitMasterLoop(); }
   if (tab === 'aviator') startLiveActivity('aviator', 'av-live-feed');
   else if (tab === 'coinflip') startLiveActivity('coinflip', 'cf-live-feed');
   else stopLiveActivity();
@@ -3121,8 +3099,9 @@ function initEarnPage() {
   cfUpdatePreview();
   avUpdateBtn(0); avUpdateBtn(1);
   pmUpdateBtn();
-  pmEnsureRoundSubscribed();
-  if (!_pm.active) pmStartFeed();
+  pmEnsurePreviewSubscribed();
+  pmInitMasterLoop();
+  pmRenderPositionsList();
   pmRenderHistory();
   avRenderHistory();
   if (_av.phase === 'idle') avScheduleRound();
@@ -3389,49 +3368,92 @@ function cfToggleVerify() {
 }
 
 // ── CRYPTO FLASH PREDICTIONS ───────
-let _pm = { asset: 'BTC', dir: null, stake: 100, active: null, priceTimer: null };
+// ══════════════════════════════════
+// PREDICT — real Bayse-style share market, multi-position
+// Supports concurrent positions across BTC/ETH/SOL and 5m/15m/1h timeframes.
+// Each round is a shared Firestore doc keyed by asset+timeframe+bucket, priced
+// by a constant-sum market maker seeded with virtual liquidity (like before) —
+// but blended with a live probability model driven by how far the underlying
+// price has actually moved from the round's entry price relative to time
+// remaining. That's what makes "Worth Now" genuinely track whether a position
+// is winning or losing, instead of only reacting to money staked.
+// You can sell back into the market before the round ends, same as Bayse's
+// early-exit mechanic. Winning shares pay ₦100 each at resolution.
+// ══════════════════════════════════
+const PM_SEED = 1000; // virtual liquidity per side — keeps price near 50/50 until real volume builds up
+const PM_TIMEFRAMES = { 5: 300000, 15: 900000, 60: 3600000 };
+function pmBucketStart(tfMin) { const ms = PM_TIMEFRAMES[tfMin]; return Math.floor(Date.now() / ms) * ms; }
+function pmRoundId(asset, tfMin, bucketStart) { return asset + '_' + tfMin + 'm_' + bucketStart; }
+
+function pmComputePrices(round, currentPrice) {
+  const total = Math.max(1, round.bucketEnd - round.bucketStart);
+  const remainMs = Math.max(0, round.bucketEnd - Date.now());
+  const remainFrac = Math.max(0.015, remainMs / total); // floors near expiry so it stays finite
+  const px = currentPrice != null ? currentPrice : round.entryPrice;
+  const move = (px - round.entryPrice) / round.entryPrice; // signed fraction moved from entry
+  const k = 950; // sensitivity — bigger move relative to time remaining swings probability harder
+  const z = (move * k) / Math.sqrt(remainFrac);
+  const pUp = 1 / (1 + Math.exp(-z));
+  const yesPool = PM_SEED + (round.yesStake || 0), noPool = PM_SEED + (round.noStake || 0);
+  const stakeSkew = yesPool / (yesPool + noPool); // small liquidity-based skew from real stake
+  const blended = pUp * 0.85 + stakeSkew * 0.15;
+  let up = Math.round(blended * 100);
+  up = Math.max(2, Math.min(98, up)); // keep both sides always tradeable, never 0 or 100 mid-round
+  return { up, down: 100 - up };
+}
+
+let _pm = { asset: 'BTC', dir: null, stake: 100, tf: 5, positions: [] };
+let _pmPositionSeq = 0;
 let _pmHistory = [];
+let _pmRoundData = {};      // roundId -> latest round doc data
+let _pmRoundSubs = {};      // roundId -> unsubscribe fn
+let _pmPriceCache = {};     // asset -> { price, lastFetch, fetching, history:[], lastChange }
+let _pmPreviewRoundId = null, _pmPreviewUnsub = null;
+let _pmMasterTimer = null;
+
 function pmPickAsset(a) {
-  if (_pm.active) { toast('Wait for the current round to settle'); return; }
   _pm.asset = a;
   document.querySelectorAll('#pm-assets .pm-asset').forEach(el => el.classList.toggle('sel', el.dataset.a === a));
-  _pmFeed.history = []; _pmFeed.lastPrice = null;
-  pmEnsureRoundSubscribed();
-  pmStartFeed();
+  pmEnsurePreviewSubscribed();
+}
+function pmPickTf(tf) {
+  _pm.tf = tf;
+  document.querySelectorAll('#pm-timeframes .pm-asset').forEach(el => el.classList.toggle('sel', +el.dataset.tf === tf));
+  const lenEl = document.getElementById('pm-round-len'); if (lenEl) lenEl.textContent = tf === 60 ? '1 hr' : tf + ' min';
+  pmEnsurePreviewSubscribed();
 }
 function pmPickDir(d) {
-  if (_pm.active) return;
   _pm.dir = d;
   document.getElementById('pm-up').classList.toggle('sel', d === 'up');
   document.getElementById('pm-down').classList.toggle('sel', d === 'down');
 }
 function pmSetStake(v) {
-  if (_pm.active) return;
   _pm.stake = v;
   document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.toggle('sel', parseInt(el.dataset.v) === v));
   const c = document.getElementById('pm-custom'); if (c) c.value = '';
   pmUpdateBtn();
 }
 function pmCustomStake(v) {
-  if (_pm.active) return;
   _pm.stake = parseInt(v) || 0;
   document.querySelectorAll('#pm-stakes .stake-chip').forEach(el => el.classList.remove('sel'));
   pmUpdateBtn();
 }
 function pmUpdateBtn() {
   const btn = document.getElementById('pm-btn');
-  if (!btn || _pm.active) return;
+  if (!btn) return;
   const short = _user && (_pm.stake || 0) > _user.balance;
   btn.disabled = !!short;
   btn.textContent = short ? 'Insufficient balance' : 'Predict for ' + fmt(_pm.stake || 0);
 }
+
 // Fast, real, multi-tier price feed for Predict. Tier 1: Binance's official
 // public-market-data-only domain (data-api.binance.vision) — confirmed via
 // Binance's own developer docs as the sanctioned endpoint for exactly this
 // use case, separate from the general trading API domain that has the CORS
 // reliability problems. Tier 2: CoinGecko direct. Tier 3: the existing
 // reliable multi-provider chain the home ticker uses, as a last resort.
-// Caches for ~900ms and de-dupes in-flight requests so nothing piles up.
+// Cached per-asset for ~1.5s and de-dupes in-flight requests so nothing piles
+// up even while several positions across different assets are open at once.
 function pmGetSymbol(a) {
   const map = { BTC:'BTCUSDT', ETH:'ETHUSDT', SOL:'SOLUSDT', BNB:'BNBUSDT', XRP:'XRPUSDT', DOGE:'DOGEUSDT', ADA:'ADAUSDT' };
   return map[a] || 'BTCUSDT';
@@ -3462,16 +3484,16 @@ async function pmFetchCoingeckoPrice(asset) {
   } catch (e) {}
   return null;
 }
-let _pmFeed = { timer: null, history: [], lastPrice: null, lastChange: 0, lastFetch: 0, fetching: false };
-async function pmFetchPriceFast(force = false) {
+async function pmGetPrice(asset, force = false) {
   const now = Date.now();
-  if (!force && _pmFeed.lastPrice && (now - _pmFeed.lastFetch < 900)) return _pmFeed.lastPrice;
-  if (_pmFeed.fetching && !force) return _pmFeed.lastPrice;
-  _pmFeed.fetching = true;
-  let price = await pmFetchBinancePrice(_pm.asset);
-  if (!price) price = await pmFetchCoingeckoPrice(_pm.asset);
+  const c = _pmPriceCache[asset] || (_pmPriceCache[asset] = { price:null, lastFetch:0, fetching:false, history:[], lastChange:0 });
+  if (!force && c.price && (now - c.lastFetch < 1500)) return c.price;
+  if (c.fetching && !force) return c.price;
+  c.fetching = true;
+  let price = await pmFetchBinancePrice(asset);
+  if (!price) price = await pmFetchCoingeckoPrice(asset);
   if (!price) {
-    const pair = _pm.asset + '/USD';
+    const pair = asset + '/USD';
     price = _realPrices[pair]?.price || _dispPrices[pair]?.price || null;
     if (!price) {
       try { await fetchCrypto(); } catch (e) {}
@@ -3479,48 +3501,24 @@ async function pmFetchPriceFast(force = false) {
     }
   }
   if (price && price > 0) {
-    const prev = _pmFeed.lastPrice;
-    _pmFeed.lastPrice = price;
-    _pmFeed.lastFetch = now;
-    if (prev) _pmFeed.lastChange = ((price - prev) / prev) * 100;
-    _pmFeed.history.push({ t: now, p: price });
-    if (_pmFeed.history.length > 80) _pmFeed.history.shift();
+    const prev = c.price;
+    c.price = price; c.lastFetch = now;
+    if (prev) c.lastChange = ((price - prev) / prev) * 100;
+    c.history.push({ t: now, p: price });
+    if (c.history.length > 80) c.history.shift();
   }
-  _pmFeed.fetching = false;
-  return _pmFeed.lastPrice;
+  c.fetching = false;
+  return c.price;
 }
-// Backward-compatible wrapper — every existing caller of pmFetchPrice()
-// transparently gets the faster, more reliable feed above for free.
-async function pmFetchPrice() { return pmFetchPriceFast(false); }
-function pmStartFeed() {
-  if (_pmFeed.timer) clearInterval(_pmFeed.timer);
-  if (_pmFeed.lastPrice) pmRenderIdlePrice(_pmFeed.lastPrice, false);
-  pmFetchPriceFast(true).then(p => { if (p) pmRenderIdlePrice(p, true); });
-  _pmFeed.timer = setInterval(async () => {
-    const pg = document.getElementById('p-earn');
-    const sec = document.getElementById('earn-pred');
-    const isPredVisible = pg && pg.classList.contains('active') && sec && sec.classList.contains('active');
-    if (!isPredVisible && !_pm.active) return;
-    const price = await pmFetchPriceFast(false);
-    if (!price) return;
-    if (!_pm.active) { pmRenderIdlePrice(price, true); return; }
-    const el = document.getElementById('pm-current');
-    if (el) {
-      el.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      el.style.color = price >= _pm.active.entryPrice ? 'var(--ok)' : 'var(--err)';
-      if (price !== _pm._lastShownPrice) { el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash'); }
-      _pm._lastShownPrice = price;
-    }
-    pmUpdateLivePerformance(price);
-    pmRenderChartLive();
-  }, 1000);
-}
-function pmStopFeed() { if (_pmFeed.timer) { clearInterval(_pmFeed.timer); _pmFeed.timer = null; } }
+// Backward-compatible single-asset wrapper for the currently selected browse asset.
+async function pmFetchPrice() { return pmGetPrice(_pm.asset, false); }
+
 function pmRenderIdlePrice(price, flash = true) {
   const el = document.getElementById('pm-price');
   const badge = document.getElementById('pm-change-badge');
   const updatedEl = document.getElementById('pm-last-updated');
   const roundEl = document.getElementById('pm-round-idle');
+  const cache = _pmPriceCache[_pm.asset];
   if (!el) return;
   if (price) {
     const prevText = el.textContent;
@@ -3528,7 +3526,7 @@ function pmRenderIdlePrice(price, flash = true) {
     if (flash && prevText !== el.textContent) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
     if (badge) {
       badge.style.display = 'inline-flex';
-      const chg = _pmFeed.lastChange;
+      const chg = cache?.lastChange || 0;
       if (Math.abs(chg) < 0.01) { badge.className = 'pm-change-badge flat'; badge.textContent = '● Live'; }
       else if (chg > 0) { badge.className = 'pm-change-badge up'; badge.textContent = '▲ ' + chg.toFixed(2) + '%'; }
       else { badge.className = 'pm-change-badge down'; badge.textContent = '▼ ' + Math.abs(chg).toFixed(2) + '%'; }
@@ -3536,8 +3534,8 @@ function pmRenderIdlePrice(price, flash = true) {
     if (updatedEl) updatedEl.textContent = 'Live • Updated ' + new Date().toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) + ' • 1s feed';
   }
   if (roundEl) {
-    const bucket = pmBucketStart();
-    const minsLeft = Math.max(0, Math.ceil((bucket + 300000 - Date.now()) / 60000));
+    const bucket = pmBucketStart(_pm.tf);
+    const minsLeft = Math.max(0, Math.ceil((bucket + PM_TIMEFRAMES[_pm.tf] - Date.now()) / 60000));
     roundEl.textContent = `Round ends in ${minsLeft}m`;
   }
   pmRenderChartIdle();
@@ -3547,7 +3545,7 @@ function pmRenderChartIdle() {
   const empty = document.getElementById('pm-chart-empty-idle');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
+  const hist = (_pmPriceCache[_pm.asset]?.history) || [];
   if (!hist.length) { if (empty) empty.style.display = 'flex'; ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
   if (empty) empty.style.display = 'none';
   const W = canvas.width, H = canvas.height;
@@ -3565,176 +3563,89 @@ function pmRenderChartIdle() {
   prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
   ctx.stroke();
 }
-function pmRenderChartLive() {
-  const canvas = document.getElementById('pm-chart-live');
-  if (!canvas || !_pm.active) return;
-  const ctx = canvas.getContext('2d');
-  const hist = _pmFeed.history;
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0, 0, W, H);
-  if (!hist.length) return;
-  const entryPrice = _pm.active.entryPrice;
-  const prices = hist.map(x => x.p);
-  const min = Math.min(...prices, entryPrice), max = Math.max(...prices, entryPrice);
-  const range = (max - min) || max * 0.001 || 1;
-  const entryY = H - ((entryPrice - min) / range) * (H * 0.7) - H * 0.15;
-  ctx.setLineDash([6, 6]); ctx.strokeStyle = 'rgba(17,20,43,0.2)'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(0, entryY); ctx.lineTo(W, entryY); ctx.stroke(); ctx.setLineDash([]);
-  ctx.fillStyle = 'rgba(17,20,43,0.6)'; ctx.font = '10px Outfit'; ctx.fillText('Entry $' + entryPrice.toFixed(2), 6, entryY - 6);
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  const isWinning = (_pm.active.side === 'up' && _pmFeed.lastPrice > entryPrice) || (_pm.active.side === 'down' && _pmFeed.lastPrice < entryPrice);
-  if (isWinning) { grad.addColorStop(0, 'rgba(15,174,107,0.18)'); grad.addColorStop(1, 'rgba(15,174,107,0)'); }
-  else { grad.addColorStop(0, 'rgba(239,68,68,0.18)'); grad.addColorStop(1, 'rgba(239,68,68,0)'); }
-  ctx.beginPath();
-  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
-  ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
-  ctx.beginPath();
-  ctx.strokeStyle = isWinning ? '#0FAE6B' : '#EF4444'; ctx.lineWidth = 2.4;
-  prices.forEach((p, i) => { const x = (i / (prices.length - 1)) * W; const y = H - ((p - min) / range) * (H * 0.7) - H * 0.15; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
-  ctx.stroke();
-  const last = prices[prices.length - 1];
-  const lastX = W, lastY = H - ((last - min) / range) * (H * 0.7) - H * 0.15;
-  ctx.beginPath(); ctx.arc(lastX - 4, lastY, 4, 0, Math.PI * 2); ctx.fillStyle = isWinning ? '#0FAE6B' : '#EF4444'; ctx.fill();
-}
-function pmUpdateLivePerformance(currentPrice) {
-  if (!_pm.active) return;
-  const entry = _pm.active.entryPrice;
-  const diff = currentPrice - entry;
-  const diffPct = (diff / entry) * 100;
-  const isUp = _pm.active.side === 'up';
-  const isWinning = (isUp && diff > 0) || (!isUp && diff < 0);
-  const isFlat = Math.abs(diffPct) < 0.01;
-  const diffEl = document.getElementById('pm-price-diff');
-  if (diffEl) {
-    if (isFlat) { diffEl.textContent = '● No change'; diffEl.style.color = 'var(--sil)'; }
-    else if (isWinning) { diffEl.textContent = `▲ +${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Winning`; diffEl.style.color = 'var(--ok)'; }
-    else { diffEl.textContent = `▼ -${Math.abs(diff).toFixed(2)} (${Math.abs(diffPct).toFixed(2)}%) Losing`; diffEl.style.color = 'var(--err)'; }
-  }
-  const pill = document.getElementById('pm-perf-pill');
-  if (pill) {
-    if (isFlat) { pill.className = 'pm-status-pill live'; pill.textContent = '● Tracking'; }
-    else if (isWinning) { pill.className = 'pm-status-pill winning'; pill.textContent = '● Winning'; }
-    else { pill.className = 'pm-status-pill losing'; pill.textContent = '● Losing'; }
-  }
-  const fill = document.getElementById('pm-perf-fill');
-  if (fill) {
-    let pct = 50 + (diffPct * 15);
-    pct = Math.max(5, Math.min(95, pct));
-    if (!isUp) pct = 100 - pct;
-    fill.style.width = pct + '%';
-    fill.style.background = isWinning ? 'var(--ok)' : isFlat ? 'var(--gold)' : 'var(--err)';
-  }
-  const left = document.getElementById('pm-perf-left');
-  const right = document.getElementById('pm-perf-right');
-  if (left) left.textContent = 'Entry $' + entry.toFixed(2);
-  if (right) right.textContent = 'Now $' + currentPrice.toFixed(2);
-  pmRenderLivePrices();
-}
+
 function pmShowHowItWorks() {
-  toast('Predict if price goes Up or Down in 5 min. Share price moves with demand. Sell anytime before settlement. Correct shares pay ₦100 each.');
-}
-// Real brand logos for BTC/ETH/SOL (small, well-known public CDN) instead of plain
-// letter badges. Falls back to the colored initials badge if the image fails to load,
-// so the UI never breaks if the CDN is briefly unreachable.
-function cryptoIconImg(short, sizePx, bgColor) {
-  const url = `https://cdn.jsdelivr.net/gh/madenix/Crypto-logo-cdn@main/Logos/${short}.svg`;
-  const fallback = `this.outerHTML='<div style=&quot;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${bgColor};color:#fff;font-family:var(--d);font-size:${Math.round(sizePx*0.35)}px;font-weight:800;border-radius:inherit&quot;>${short}</div>'`;
-  return `<img src="${url}" width="${sizePx}" height="${sizePx}" style="display:block;object-fit:contain" onerror="${fallback}"/>`;
+  toast('Predict if price goes Up or Down within your chosen timeframe (5 min / 15 min / 1 hr). Share price moves live with the market — sell anytime before settlement. Correct shares pay ₦100 each.');
 }
 
-// ══════════════════════════════════
-// PREDICT — real Bayse-style share market
-// Each 5-minute round is a shared Firestore doc. UP/DOWN "shares" are priced
-// by actual aggregate stake on each side (constant-sum market maker, seeded
-// with virtual liquidity so one early trader can't swing price to an
-// extreme) — not a fixed multiplier. Real other users trading the same
-// round genuinely move the price for everyone, live. You can sell back into
-// the market before the round ends, same as Bayse's early-exit mechanic.
-// Winning shares pay ₦100 each at resolution; losing shares pay ₦0.
-// ══════════════════════════════════
-const PM_SEED = 1000; // virtual liquidity per side — keeps price near 50/50 until real volume builds up
-function pmBucketStart() { return Math.floor(Date.now() / 300000) * 300000; }
-function pmRoundId(asset, bucketStart) { return asset + '_' + bucketStart; }
-function pmComputePrices(round) {
-  const yesPool = PM_SEED + (round.yesStake || 0);
-  const noPool = PM_SEED + (round.noStake || 0);
-  let up = Math.round((yesPool / (yesPool + noPool)) * 100);
-  up = Math.max(2, Math.min(98, up)); // keep both sides always tradeable, never 0 or 100 mid-round
-  return { up, down: 100 - up };
-}
-// Transaction-safe: if two users are the first to trade a fresh round at the same
-// moment, only one of their fetched prices becomes the round's official entry
-// price — everyone else just reads it. Prevents a race from creating two
-// slightly-different "truths" for the same round.
 let _pmLastRoundError = null;
-async function pmGetOrCreateRound(asset, currentPrice) {
-  const bucketStart = pmBucketStart();
-  const id = pmRoundId(asset, bucketStart);
+async function pmGetOrCreateRound(asset, tfMin, currentPrice) {
+  const bucketStart = pmBucketStart(tfMin);
+  const id = pmRoundId(asset, tfMin, bucketStart);
   const ref = db.collection('predictRounds').doc(id);
   try {
-    return await db.runTransaction(async tx => {
+    const result = await db.runTransaction(async tx => {
       const snap = await tx.get(ref);
       if (snap.exists) return { id, ...snap.data() };
-      const data = { asset, bucketStart, bucketEnd: bucketStart + 300000, entryPrice: currentPrice, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
+      const data = { asset, tf: tfMin, bucketStart, bucketEnd: bucketStart + PM_TIMEFRAMES[tfMin], entryPrice: currentPrice, yesStake: 0, noStake: 0, resolved: false, finalPrice: null, outcome: null };
       tx.set(ref, data);
       return { id, ...data };
     });
+    _pmRoundData[id] = result;
+    return result;
   } catch (e) {
-    console.error('pmGetOrCreateRound error', e);
-    _pmLastRoundError = e?.code || e?.message || 'unknown';
+    // Log the raw error object so it's fully inspectable in devtools — this is
+    // the most reliable way to see the true cause (open the browser console,
+    // find "pmGetOrCreateRound error", expand it).
+    console.error('pmGetOrCreateRound error — full object:', e);
+    console.error('pmGetOrCreateRound error — code:', e?.code, 'message:', e?.message, 'name:', e?.name);
+    _pmLastRoundError = e?.code || e?.message || e?.name || (typeof e === 'string' ? e : null) || (e ? String(e) : null) || 'no error object thrown';
     return null;
   }
 }
-let _pmRoundUnsub = null, _pmRoundData = null;
-async function pmEnsureRoundSubscribed() {
-  const id = pmRoundId(_pm.asset, pmBucketStart());
-  if (_pmRoundData?.id === id && _pmRoundUnsub) return; // already watching the right round
-  if (_pmRoundUnsub) _pmRoundUnsub();
-  _pmRoundData = null;
-  _pmRoundUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
-    if (!snap.exists) return; // briefly, until pmGetOrCreateRound below finishes
-    _pmRoundData = { id, ...snap.data() };
-    pmRenderLivePrices();
-  }, e => console.error('pmEnsureRoundSubscribed error', e));
-  // Create the round on FIRST VIEW, not deferred until someone actually bets —
-  // otherwise Up/Down prices sit frozen at the ₦50/₦50 placeholder until
-  // someone trades, even though the underlying price is already ticking live.
-  const px = await pmFetchPrice();
-  if (px) pmGetOrCreateRound(_pm.asset, px);
+function pmSubscribeRound(roundId) {
+  if (_pmRoundSubs[roundId]) return;
+  _pmRoundSubs[roundId] = db.collection('predictRounds').doc(roundId).onSnapshot(snap => {
+    if (!snap.exists) return;
+    _pmRoundData[roundId] = { id: roundId, ...snap.data() };
+  }, e => console.error('pmSubscribeRound error', e));
 }
-function pmUnsubscribeRound() { if (_pmRoundUnsub) { _pmRoundUnsub(); _pmRoundUnsub = null; } _pmRoundData = null; }
-function pmRenderLivePrices() {
-  if (!_pmRoundData) return;
-  const prices = pmComputePrices(_pmRoundData);
+function pmMaybeUnsubscribeRound(roundId) {
+  const stillUsed = _pm.positions.some(p => p.roundId === roundId) || _pmPreviewRoundId === roundId;
+  if (!stillUsed && _pmRoundSubs[roundId]) { _pmRoundSubs[roundId](); delete _pmRoundSubs[roundId]; }
+}
+// Live preview pricing for the "about to place a call" panel — subscribes to
+// whatever asset+timeframe round is currently selected so the Up/Down chip
+// prices update in real time even before a position is opened.
+async function pmEnsurePreviewSubscribed() {
+  const bucketStart = pmBucketStart(_pm.tf);
+  const id = pmRoundId(_pm.asset, _pm.tf, bucketStart);
+  if (_pmPreviewRoundId === id && _pmPreviewUnsub) return;
+  const prevId = _pmPreviewRoundId;
+  if (_pmPreviewUnsub) _pmPreviewUnsub();
+  _pmPreviewRoundId = id;
+  _pmPreviewUnsub = db.collection('predictRounds').doc(id).onSnapshot(snap => {
+    if (!snap.exists) return;
+    _pmRoundData[id] = { id, ...snap.data() };
+    pmRenderPreviewPrices();
+  }, e => console.error('pmEnsurePreviewSubscribed error', e));
+  if (prevId) pmMaybeUnsubscribeRound(prevId);
+  const px = await pmGetPrice(_pm.asset, false);
+  if (px) await pmGetOrCreateRound(_pm.asset, _pm.tf, px);
+  pmRenderPreviewPrices();
+}
+function pmRenderPreviewPrices() {
+  const round = _pmRoundData[_pmPreviewRoundId];
+  if (!round) return;
+  const px = _pmPriceCache[_pm.asset]?.price;
+  const prices = pmComputePrices(round, px);
   const upEl = document.getElementById('pm-up-price'), downEl = document.getElementById('pm-down-price');
   if (upEl) upEl.textContent = '₦' + prices.up;
   if (downEl) downEl.textContent = '₦' + prices.down;
-  if (_pm.active && _pm.active.roundId === _pmRoundData.id) {
-    const shareNow = _pm.active.side === 'up' ? prices.up : prices.down;
-    const sellVal = Math.round(_pm.active.shares * shareNow);
-    const pnl = sellVal - _pm.active.stake;
-    const shareNowEl = document.getElementById('pm-share-now');
-    if (shareNowEl) shareNowEl.textContent = '₦' + shareNow;
-    const sharesEl = document.getElementById('pm-shares');
-    if (sharesEl) sharesEl.textContent = _pm.active.shares.toFixed(2);
-    const pnlEl = document.getElementById('pm-live-pnl');
-    if (pnlEl) { pnlEl.textContent = (pnl>=0?'+':'') + fmt(sellVal) + (pnl!==0 ? ` (${pnl>=0?'+':''}${fmt(pnl)})` : ''); pnlEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
-  }
 }
 
 async function pmPlaceBet() {
   if (!_user) { toast('Please sign in first'); return; }
-  if (_pm.active) { toast('A round is already in progress'); return; }
   if (!_pm.dir) { toast('Choose Up or Down first'); return; }
   const stake = _pm.stake;
   if (!stake || stake < 50) { toast('Minimum stake is ₦50'); return; }
   if (_user.balance < stake) { toast('Insufficient balance · Please deposit first'); return; }
-  const underlyingPrice = await pmFetchPrice();
+  const underlyingPrice = await pmGetPrice(_pm.asset, true);
   if (!underlyingPrice) { toast('Could not fetch live price. Check your connection and try again.'); return; }
 
-  const round = await pmGetOrCreateRound(_pm.asset, underlyingPrice);
+  const round = await pmGetOrCreateRound(_pm.asset, _pm.tf, underlyingPrice);
   if (!round) { toast('Could not open this market (' + (_pmLastRoundError || 'unknown error') + '). Try again.'); return; }
-  const prices = pmComputePrices(round);
+  const prices = pmComputePrices(round, underlyingPrice);
   const sharePrice = _pm.dir === 'up' ? prices.up : prices.down;
   const shares = +(stake / sharePrice).toFixed(4); // ₦100 pays out per share if correct
 
@@ -3745,109 +3656,164 @@ async function pmPlaceBet() {
     });
   } catch (e) { console.error('round stake increment failed', e); }
 
-  _pm.active = { roundId: round.id, asset: _pm.asset, side: _pm.dir, stake, shares, entrySharePrice: sharePrice, entryPrice: round.entryPrice, endsAt: round.bucketEnd };
-  document.getElementById('pm-idle').style.display = 'none';
-  document.getElementById('pm-live').style.display = 'block';
-  const ld = document.getElementById('pm-live-dir');
-  ld.textContent = _pm.asset + ' · ' + (_pm.dir === 'up' ? '▲ Up' : '▼ Down');
-  ld.style.color = _pm.dir === 'up' ? 'var(--ok)' : 'var(--err)';
-  document.getElementById('pm-entry').textContent = '₦' + sharePrice;
-  document.getElementById('pm-shares').textContent = shares.toFixed(2);
-  const entryUEl = document.getElementById('pm-entry-underlying'); if (entryUEl) entryUEl.textContent = '$' + underlyingPrice.toFixed(2);
-  const entryTEl = document.getElementById('pm-entry-time'); if (entryTEl) entryTEl.textContent = new Date().toLocaleTimeString();
-  const curEl = document.getElementById('pm-current'); if (curEl) curEl.textContent = '$' + underlyingPrice.toFixed(2);
+  const posId = 'p' + (++_pmPositionSeq) + '_' + Date.now();
+  const pos = { id: posId, roundId: round.id, asset: _pm.asset, side: _pm.dir, tf: _pm.tf, stake, shares, entryPrice: round.entryPrice, startedAt: round.bucketStart, endsAt: round.bucketEnd };
+  _pm.positions.push(pos);
+  pmSubscribeRound(round.id);
+  pmRenderPositionsList();
+  pmInitMasterLoop();
 
-  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, result:'opened', sharePrice, shares } });
-  pmEnsureRoundSubscribed();
-  pmRenderLivePrices();
-  _pmFeed.history = [];
-  pmStartFeed();
+  logEarn(_user.id, { type:'predict', stake, payout:null, pnl:0, meta:{ asset:_pm.asset, dir:_pm.dir, tf:_pm.tf, result:'opened', sharePrice, shares } });
+  toast(`Position opened · ${_pm.asset} ${_pm.dir === 'up' ? 'Up' : 'Down'} · ${fmt(stake)}`);
+}
 
-  clearInterval(_pm.priceTimer);
-  _pm.priceTimer = setInterval(pmTick, 1000);
-  pmTick();
+function pmPositionCardHTML(pos) {
+  const tfLabel = pos.tf === 60 ? '1h' : pos.tf + 'm';
+  return `<div class="pm-live-card" id="pm-pos-${pos.id}" style="border:1.5px solid var(--gb);background:linear-gradient(180deg,var(--s1),var(--gd));margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div>
+        <div style="font-size:9px;color:var(--sil);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:pls 1.5s ease infinite"></span> ${tfLabel} Position</div>
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--d);font-size:15px;font-weight:800">${pos.asset} · ${pos.side === 'up' ? '▲ Up' : '▼ Down'}</div><span id="pm-perf-pill-${pos.id}" class="pm-status-pill live">● Tracking</span></div>
+      </div>
+      <div class="pm-timer" id="pm-timer-${pos.id}">--:--</div>
+    </div>
+    <div class="pm-live-grid">
+      <div class="pm-live-stat"><div class="pm-live-stat-k">Entry Price</div><div class="pm-live-stat-v">$${pos.entryPrice.toFixed(2)}</div></div>
+      <div class="pm-live-stat"><div class="pm-live-stat-k">Current Price</div><div class="pm-live-stat-v" id="pm-current-${pos.id}">—</div><div style="font-size:10px;font-weight:700;margin-top:2px" id="pm-price-diff-${pos.id}">—</div></div>
+    </div>
+    <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:12px;padding:12px 14px;margin:10px 0 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Shares Held</div><div style="font-family:var(--d);font-size:14px;font-weight:700">${pos.shares.toFixed(2)}</div></div>
+        <div style="text-align:right"><div style="font-size:9px;color:var(--sil);text-transform:uppercase">Worth Now</div><div style="font-family:var(--d);font-size:18px;font-weight:800" id="pm-worth-${pos.id}">₦${pos.stake}</div><div style="font-size:10px;font-weight:600" id="pm-pnl-sub-${pos.id}">—</div></div>
+      </div>
+      <div class="pm-perf-bar"><div id="pm-perf-fill-${pos.id}" class="pm-perf-fill" style="width:50%;background:var(--gold)"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--sil)"><span>Entry $${pos.entryPrice.toFixed(2)}</span><span id="pm-perf-right-${pos.id}">Now</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="game-btn" onclick="pmSell('${pos.id}')" style="background:var(--ok)">Sell Now</button>
+      <button class="game-btn" onclick="pmShowHowItWorks()" style="background:var(--s2);color:var(--plat);border:1px solid var(--b1)">How it works</button>
+    </div>
+  </div>`;
 }
-async function pmTick() {
-  const a = _pm.active; if (!a) return;
-  const leftMs = Math.max(0, a.endsAt - Date.now());
-  const leftSec = Math.round(leftMs / 1000);
-  const t = document.getElementById('pm-timer');
-  if (t) t.textContent = Math.floor(leftSec/60) + ':' + String(leftSec%60).padStart(2,'0');
-  // Underlying price, performance pill, and chart are handled by pmStartFeed's
-  // own 1s interval (started in pmPlaceBet) — avoid running two overlapping
-  // fetch loops. This tick just keeps the countdown and share-price P&L live.
-  pmRenderLivePrices(); // keeps "how's my prediction doing" share P&L live every second
-  if (leftMs <= 0) pmSettle();
+function pmRenderPositionsList() {
+  const c = document.getElementById('pm-positions');
+  if (!c) return;
+  if (!_pm.positions.length) { c.innerHTML = '<div style="text-align:center;padding:18px 0;color:var(--sil);font-size:11.5px">No open positions — place a call above.</div>'; return; }
+  c.innerHTML = _pm.positions.map(pmPositionCardHTML).join('');
 }
+
+async function pmTickPositions() {
+  const now = Date.now();
+  for (const pos of [..._pm.positions]) {
+    const price = await pmGetPrice(pos.asset, false);
+    const leftMs = Math.max(0, pos.endsAt - now);
+    const leftSec = Math.round(leftMs / 1000);
+    const t = document.getElementById('pm-timer-' + pos.id);
+    if (t) {
+      t.textContent = pos.tf === 60
+        ? Math.floor(leftSec / 3600) + ':' + String(Math.floor((leftSec % 3600) / 60)).padStart(2,'0') + ':' + String(leftSec % 60).padStart(2,'0')
+        : Math.floor(leftSec / 60) + ':' + String(leftSec % 60).padStart(2,'0');
+    }
+    if (price != null) {
+      const round = _pmRoundData[pos.roundId] || { bucketStart: pos.startedAt, bucketEnd: pos.endsAt, entryPrice: pos.entryPrice, yesStake: 0, noStake: 0 };
+      const prices = pmComputePrices(round, price);
+      const shareNow = pos.side === 'up' ? prices.up : prices.down;
+      const worth = Math.round(pos.shares * shareNow);
+      const pnl = worth - pos.stake;
+      const diff = price - pos.entryPrice;
+      const isWinning = (pos.side === 'up' && diff > 0) || (pos.side === 'down' && diff < 0);
+      const isFlat = Math.abs(diff) < 1e-9;
+
+      const curEl = document.getElementById('pm-current-' + pos.id); if (curEl) curEl.textContent = '$' + price.toFixed(2);
+      const diffEl = document.getElementById('pm-price-diff-' + pos.id);
+      if (diffEl) {
+        if (isFlat) { diffEl.textContent = '● No change'; diffEl.style.color = 'var(--sil)'; }
+        else if (isWinning) { diffEl.textContent = `▲ +${Math.abs(diff).toFixed(2)} Winning`; diffEl.style.color = 'var(--ok)'; }
+        else { diffEl.textContent = `▼ -${Math.abs(diff).toFixed(2)} Losing`; diffEl.style.color = 'var(--err)'; }
+      }
+      const pillEl = document.getElementById('pm-perf-pill-' + pos.id);
+      if (pillEl) { pillEl.className = 'pm-status-pill ' + (isFlat ? 'live' : isWinning ? 'winning' : 'losing'); pillEl.textContent = isFlat ? '● Tracking' : isWinning ? '● Winning' : '● Losing'; }
+      const worthEl = document.getElementById('pm-worth-' + pos.id); if (worthEl) worthEl.textContent = '₦' + worth;
+      const subEl = document.getElementById('pm-pnl-sub-' + pos.id);
+      if (subEl) { subEl.textContent = (pnl >= 0 ? '+' : '') + fmt(pnl); subEl.style.color = pnl >= 0 ? 'var(--ok)' : 'var(--err)'; }
+      const fillEl = document.getElementById('pm-perf-fill-' + pos.id);
+      if (fillEl) {
+        let pct = 50 + ((diff / pos.entryPrice) * 100 * 15);
+        pct = Math.max(5, Math.min(95, pct));
+        if (pos.side === 'down') pct = 100 - pct;
+        fillEl.style.width = pct + '%';
+        fillEl.style.background = isWinning ? 'var(--ok)' : isFlat ? 'var(--gold)' : 'var(--err)';
+      }
+      const rightEl = document.getElementById('pm-perf-right-' + pos.id); if (rightEl) rightEl.textContent = 'Now $' + price.toFixed(2);
+    }
+    if (leftMs <= 0) await pmSettle(pos.id);
+  }
+}
+
 // Sell your shares back into the market before the round ends — same early-exit
 // mechanic Bayse offers, priced at whatever the live share price is right now.
-async function pmSell() {
-  const a = _pm.active; if (!a || !_user) return;
-  const round = _pmRoundData?.id === a.roundId ? _pmRoundData : await db.collection('predictRounds').doc(a.roundId).get().then(s => ({ id:a.roundId, ...s.data() }));
-  const prices = pmComputePrices(round);
-  const sharePrice = a.side === 'up' ? prices.up : prices.down;
-  const sellValue = Math.round(a.shares * sharePrice);
-  const pnl = sellValue - a.stake;
+async function pmSell(posId) {
+  const idx = _pm.positions.findIndex(p => p.id === posId);
+  if (idx === -1 || !_user) return;
+  const pos = _pm.positions[idx];
+  const round = _pmRoundData[pos.roundId] || await db.collection('predictRounds').doc(pos.roundId).get().then(s => ({ id: pos.roundId, ...s.data() }));
+  const price = await pmGetPrice(pos.asset, true);
+  const prices = pmComputePrices(round, price ?? pos.entryPrice);
+  const sharePrice = pos.side === 'up' ? prices.up : prices.down;
+  const sellValue = Math.round(pos.shares * sharePrice);
+  const pnl = sellValue - pos.stake;
 
   try { await walletCredit(sellValue); } catch (e) { toast('Connection error — try again'); return; }
   try {
-    await db.collection('predictRounds').doc(a.roundId).update({
-      [a.side === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(-a.stake)
+    await db.collection('predictRounds').doc(pos.roundId).update({
+      [pos.side === 'up' ? 'yesStake' : 'noStake']: firebase.firestore.FieldValue.increment(-pos.stake)
     });
   } catch (e) { console.error('round unwind failed', e); }
-  logEarn(_user.id, { type:'predict', stake:a.stake, payout:sellValue, pnl, meta:{ asset:a.asset, dir:a.side, result:'sold_early', exitSharePrice:sharePrice } });
+  logEarn(_user.id, { type:'predict', stake:pos.stake, payout:sellValue, pnl, meta:{ asset:pos.asset, dir:pos.side, tf:pos.tf, result:'sold_early', exitSharePrice:sharePrice } });
   toast(pnl >= 0 ? `Sold for ${fmt(sellValue)} · +${fmt(pnl)} profit` : `Sold for ${fmt(sellValue)} · ${fmt(pnl)} loss`);
 
-  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: pnl > 0 ? true : pnl < 0 ? false : null, stake: a.stake });
+  _pmHistory.unshift({ asset: pos.asset, dir: pos.side, tf: pos.tf, won: pnl > 0 ? true : pnl < 0 ? false : null, stake: pos.stake });
   _pmHistory = _pmHistory.slice(0, 8);
   pmRenderHistory();
 
-  clearInterval(_pm.priceTimer);
-  _pm.active = null;
-  document.getElementById('pm-idle').style.display = 'block';
-  document.getElementById('pm-live').style.display = 'none';
-  pmUpdateBtn();
-  _pmFeed.history = [];
-  pmFetchPriceFast(true).then(p => pmRenderIdlePrice(p, false));
-  pmStartFeed();
+  _pm.positions.splice(idx, 1);
+  pmMaybeUnsubscribeRound(pos.roundId);
+  pmRenderPositionsList();
 }
-async function pmSettle() {
-  const a = _pm.active; if (!a) return;
-  clearInterval(_pm.priceTimer);
-  const exitPrice = (await pmFetchPrice()) || a.entryPrice;
-  const wentUp = exitPrice > a.entryPrice;
-  const flat = exitPrice === a.entryPrice;
-  const won = !flat && ((a.side === 'up' && wentUp) || (a.side === 'down' && !wentUp));
+async function pmSettle(posId) {
+  const idx = _pm.positions.findIndex(p => p.id === posId);
+  if (idx === -1) return;
+  const pos = _pm.positions[idx];
+  _pm.positions.splice(idx, 1); // remove immediately so the tick loop can't double-settle it
+  pmRenderPositionsList();
+
+  const exitPrice = (await pmGetPrice(pos.asset, true)) || pos.entryPrice;
+  const wentUp = exitPrice > pos.entryPrice;
+  const flat = exitPrice === pos.entryPrice;
+  const won = !flat && ((pos.side === 'up' && wentUp) || (pos.side === 'down' && !wentUp));
 
   // Mark the shared round resolved (idempotent — every holder's client writes the
   // same true outcome, so a second write from another user is harmless).
-  try { await db.collection('predictRounds').doc(a.roundId).update({ resolved: true, finalPrice: exitPrice, outcome: flat ? 'push' : (wentUp ? 'up' : 'down') }); } catch(e) {}
+  try { await db.collection('predictRounds').doc(pos.roundId).update({ resolved: true, finalPrice: exitPrice, outcome: flat ? 'push' : (wentUp ? 'up' : 'down') }); } catch (e) {}
 
   if (flat) {
-    try { await walletCredit(a.stake); } catch (e) {}
+    try { await walletCredit(pos.stake); } catch (e) {}
     toast('Price unchanged — stake refunded');
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:a.stake, pnl:0, meta:{ asset:a.asset, dir:a.side, result:'push' } });
+    logEarn(_user.id, { type:'predict', stake:pos.stake, payout:pos.stake, pnl:0, meta:{ asset:pos.asset, dir:pos.side, tf:pos.tf, result:'push' } });
   } else if (won) {
-    const payout = Math.round(a.shares * 100); // winning shares pay ₦100 each
+    const payout = Math.round(pos.shares * 100); // winning shares pay ₦100 each
     try { await walletCredit(payout); } catch (e) {}
-    toast(`🎯 Correct! ${a.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout, pnl:payout-a.stake, meta:{ asset:a.asset, dir:a.side, result:'win', shares:a.shares } });
+    toast(`🎯 Correct! ${pos.asset} went ${wentUp ? 'up' : 'down'} · You won ${fmt(payout)}`);
+    logEarn(_user.id, { type:'predict', stake:pos.stake, payout, pnl:payout-pos.stake, meta:{ asset:pos.asset, dir:pos.side, tf:pos.tf, result:'win', shares:pos.shares } });
   } else {
-    toast(`${a.asset} went ${wentUp ? 'up' : 'down'} · Your ${a.side} call missed`);
-    logEarn(_user.id, { type:'predict', stake:a.stake, payout:0, pnl:-a.stake, meta:{ asset:a.asset, dir:a.side, result:'loss' } });
+    toast(`${pos.asset} went ${wentUp ? 'up' : 'down'} · Your ${pos.side} call missed`);
+    logEarn(_user.id, { type:'predict', stake:pos.stake, payout:0, pnl:-pos.stake, meta:{ asset:pos.asset, dir:pos.side, tf:pos.tf, result:'loss' } });
   }
 
-  _pmHistory.unshift({ asset: a.asset, dir: a.side, won: flat ? null : won, stake: a.stake });
+  _pmHistory.unshift({ asset: pos.asset, dir: pos.side, tf: pos.tf, won: flat ? null : won, stake: pos.stake });
   _pmHistory = _pmHistory.slice(0, 8);
   pmRenderHistory();
-
-  _pm.active = null;
-  document.getElementById('pm-idle').style.display = 'block';
-  document.getElementById('pm-live').style.display = 'none';
-  pmUpdateBtn();
-  _pmFeed.history = [];
-  pmFetchPriceFast(true).then(p => pmRenderIdlePrice(p, false));
-  pmStartFeed();
+  pmMaybeUnsubscribeRound(pos.roundId);
 }
 function pmRenderHistory() {
   const c = document.getElementById('pm-history-card');
@@ -3856,27 +3822,30 @@ function pmRenderHistory() {
   if (!_pmHistory.length) { c.style.display = 'none'; return; }
   c.style.display = 'block';
   h.innerHTML = _pmHistory.map(x => `<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b1);font-size:12px">
-    <span>${x.asset} · ${x.dir === 'up' ? '▲ Up' : '▼ Down'} · ${fmt(x.stake)}</span>
+    <span>${x.asset} · ${x.dir === 'up' ? '▲ Up' : '▼ Down'} · ${x.tf ? (x.tf === 60 ? '1h' : x.tf + 'm') : ''} · ${fmt(x.stake)}</span>
     <strong style="color:${x.won === null ? 'var(--sil)' : x.won ? 'var(--ok)' : 'var(--err)'}">${x.won === null ? 'Push' : x.won ? 'Won' : 'Lost'}</strong>
   </div>`).join('');
 }
-// Live price display while browsing Predictions with no active round. Checks
-// every second so the round subscription stays fresh across bucket rollovers,
-// but the price number itself only changes — and only flashes — when real
-// data actually arrives (~every 8s, see pmFetchPrice).
-setInterval(async () => {
+
+// Single master loop drives idle price polling, the preview chip prices, and
+// every open position's live P&L + countdown + auto-settlement — regardless
+// of which Earn sub-tab is currently visible, so positions keep resolving
+// correctly even if the user briefly navigates elsewhere.
+function pmInitMasterLoop() {
+  if (_pmMasterTimer) return;
+  _pmMasterTimer = setInterval(pmMasterTick, 1000);
+  pmMasterTick();
+}
+async function pmMasterTick() {
   const pg = document.getElementById('p-earn');
   const sec = document.getElementById('earn-pred');
-  if (!(pg && pg.classList.contains('active') && sec && sec.classList.contains('active') && !_pm.active)) return;
-  const real = await pmFetchPrice();
-  const el = document.getElementById('pm-price');
-  if (el && real != null) {
-    el.textContent = '$' + real.toLocaleString('en-US', { maximumFractionDigits: 2 });
-    if (real !== _pm._lastIdlePrice) { el.classList.remove('pm-flash'); void el.offsetWidth; el.classList.add('pm-flash'); }
-    _pm._lastIdlePrice = real;
+  const isPredVisible = !!(pg && pg.classList.contains('active') && sec && sec.classList.contains('active'));
+  if (isPredVisible) {
+    const price = await pmGetPrice(_pm.asset, false);
+    if (price != null) { pmRenderIdlePrice(price, true); pmRenderPreviewPrices(); }
   }
-  pmEnsureRoundSubscribed(); // re-subscribes automatically once the 5-minute bucket rolls over
-}, 1000);
+  if (_pm.positions.length) await pmTickPositions();
+}
 
 // ── AVIATOR ─────────────────────────
 // ══════════════════════════════════
