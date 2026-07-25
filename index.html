@@ -337,6 +337,15 @@ body::after{display:none}
 .pnl-fig-val{font-family:var(--d);font-size:14px;font-weight:700;color:var(--plat)}
 .pnl-fig-val.pos{color:var(--ok)}.pnl-fig-val.neg{color:var(--err)}
 .ea-item{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.hist-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.hist-stat-tile{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 11px}
+.hist-stat-k{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sil);margin-bottom:4px}
+.hist-stat-v{font-family:var(--d);font-size:13px;font-weight:700;color:var(--plat)}
+.hist-filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hist-filter-row::-webkit-scrollbar{display:none}
+.hist-filter-pill{flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid var(--b1);background:var(--s2);font-size:11px;font-weight:600;color:var(--sil);cursor:pointer;white-space:nowrap;transition:all .15s}
+.hist-filter-pill.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.hist-empty{text-align:center;padding:30px 10px;color:var(--sil);font-size:12px}
 .la-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:4px 14px;margin-bottom:14px;max-height:180px;overflow-y:auto}
 .la-item{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--b1)}
 .la-item:last-child{border-bottom:none}
@@ -1670,9 +1679,11 @@ body.dark #splash{background:var(--void)}
 <div class="hist-modal" id="hist-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="hist-sheet">
     <div class="m-handle"></div>
-    <div class="m-title" id="hist-name">Trade History</div>
+    <div class="m-title" id="hist-name">User Activity</div>
     <div class="m-sub" id="hist-meta"></div>
-    <div id="hist-body" style="margin-top:14px"></div>
+    <div class="hist-stat-row" id="hist-stats"></div>
+    <div class="hist-filter-row" id="hist-filters"></div>
+    <div id="hist-body" style="margin-top:2px"></div>
     <button onclick="document.getElementById('hist-modal').classList.remove('open')" style="width:100%;padding:12px;background:none;border:none;color:var(--sil);font-family:var(--b);font-size:12px;cursor:pointer;margin-top:8px">Close</button>
   </div>
 </div>
@@ -5070,7 +5081,7 @@ function renderAdmUsers(users) {
         <div class="au-expand-row"><span>Referral Code</span><strong>${u.refCode||'—'}</strong></div>
         <div class="au-expand-row"><span>Status</span><strong style="color:${u.banned?'var(--err)':'var(--ok)'}">${u.banned?'Banned':'Active'}</strong></div>
         <div class="au-expand-acts">
-          <button onclick="event.stopPropagation();showUserHistory('${u.id}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--gd);color:var(--gold);border:1px solid var(--gb);cursor:pointer">History</button>
+          <button onclick="event.stopPropagation();showUserHistory('${u.id}')" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--gd);color:var(--gold);border:1px solid var(--gb);cursor:pointer">Activity</button>
           ${u.banned
             ? `<button onclick="event.stopPropagation();unbanUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')\" style=\"flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--okd);color:var(--ok);border:1px solid var(--okb);cursor:pointer\">Unban</button>`
             : `<button onclick="event.stopPropagation();fraudAction('ban','${u.id}','${(u.name||'').replace(/'/g,"\\'")}',0)" style="flex:1;font-size:10px;font-weight:600;font-family:var(--b);padding:7px;border-radius:7px;background:var(--errd);color:var(--err);border:1px solid var(--errb);cursor:pointer">Ban</button>`
@@ -6015,29 +6026,109 @@ function exportCSV() {
 // ══════════════════════════════════
 // ADMIN — USER HISTORY MODAL
 // ══════════════════════════════════
-function showUserHistory(userId) {
+let _histActivityAll = [];
+let _histActivityFilter = 'all';
+const HIST_META = {
+  deposit:    { label:'Deposit',        ico:'<path d="M12 19V5M5 12l7 7 7-7"/>', bg:'var(--okd)', fg:'var(--ok)' },
+  withdrawal: { label:'Withdrawal',     ico:'<path d="M12 5v14M5 12l7-7 7 7"/>', bg:'var(--errd)', fg:'var(--err)' },
+  yield:      { label:'Yield Position', ico:'<path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/>', bg:'var(--gd)', fg:'var(--gold)' },
+  predict:    { label:'Predict',        ico:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>', bg:'var(--gd)', fg:'var(--gold)' },
+  aviator:    { label:'Aviator',        ico:'<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>', bg:'var(--gd)', fg:'var(--gold)' },
+  coinflip:   { label:'Coin Flip',      ico:'<circle cx="12" cy="12" r="9"/><path d="M7 12h10"/>', bg:'var(--gd)', fg:'var(--gold)' },
+  referral:   { label:'Referral',       ico:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>', bg:'var(--okd)', fg:'var(--ok)' }
+};
+// Full activity view for one user — every deposit, withdrawal, yield position,
+// Predict/Aviator/Coin Flip result, and referral event, unified into one
+// filterable, chronological feed. Deposits/withdrawals are fetched fresh for
+// this specific user rather than reused from the admin's global 60-item
+// cache, so this stays complete even for a very active account.
+async function showUserHistory(userId) {
   const u = _admAllUsers.find(u=>u.id===userId);
   if (!u) return;
   const modal = document.getElementById('hist-modal');
-  const invs  = u.investments||[];
-  document.getElementById('hist-name').textContent = u.name;
+  document.getElementById('hist-name').textContent = (u.name||'Unnamed User') + ' — Activity';
   document.getElementById('hist-meta').textContent =
-    `Balance: ${fmt(u.balance||0)} · In Trades: ${fmt(invs.reduce((s,i)=>s+i.invest,0))} · Earned: ${fmt(u.totalEarned||0)}`;
-  document.getElementById('hist-body').innerHTML = invs.length ? [...invs].reverse().map(inv => {
-    const t = TC[inv.tier]||TC.Starter;
-    const done = inv.status==='completed';
-    const pct  = Math.round(((inv.claimed||[]).length/60)*100);
-    return `<div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:9px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div style="font-size:12px;font-weight:600;color:var(--plat)">${inv.name}</div>
-        <div style="font-size:9px;font-weight:600;padding:3px 8px;border-radius:10px;background:${done?'var(--okd)':'var(--gd)'};color:${done?'var(--ok)':'var(--gold)'}">${done?'Completed':'Active'}</div>
-      </div>
-      <div style="font-size:10px;color:var(--sil);margin-bottom:6px">Invested: <strong style="color:var(--plat)">${fmt(inv.invest)}</strong> · Daily: ${fmt(inv.daily)} · Return: <strong style="color:${t.r}">${fmt(inv.total)}</strong></div>
-      <div style="font-size:10px;color:var(--sil);margin-bottom:7px">Claimed: ${(inv.claimed||[]).length}/60 days · Earned so far: ${fmt(inv.totalClaimed||0)} · Missed: ${missedDays(inv)} days</div>
-      <div style="height:4px;background:var(--b1);border-radius:2px"><div style="height:100%;width:${pct}%;background:${t.r};border-radius:2px"></div></div>
-    </div>`;
-  }).join('') : `<div style="text-align:center;padding:20px;color:var(--sil);font-size:12px">No investments yet</div>`;
+    `Joined ${u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}) : '—'} · Balance ${fmt(u.balance||0)}${u.banned?' · Banned':''}`;
+  document.getElementById('hist-stats').innerHTML = '';
+  document.getElementById('hist-filters').innerHTML = '';
+  document.getElementById('hist-body').innerHTML = '<div class="hist-empty">Loading activity…</div>';
   modal.classList.add('open');
+
+  let deps = [], wits = [];
+  try {
+    const [depSnap, witSnap] = await Promise.all([
+      db.collection('deposits').where('userId','==',userId).get(),
+      db.collection('withdrawals').where('userId','==',userId).get()
+    ]);
+    deps = depSnap.docs.map(d => ({ id:d.id, ...d.data() }));
+    wits = witSnap.docs.map(d => ({ id:d.id, ...d.data() }));
+  } catch (e) { console.error('showUserHistory fetch error', e); }
+
+  const invs = u.investments || [];
+  const ledger = u.earnLedger || [];
+
+  const items = [];
+  deps.forEach(d => items.push({ cat:'deposit', ts:d.date, amount:d.amount, raw:d }));
+  wits.forEach(w => items.push({ cat:'withdrawal', ts:w.date, amount:w.amount, raw:w }));
+  invs.forEach(inv => items.push({ cat:'yield', ts:inv.startDate, amount:inv.invest, raw:inv }));
+  ledger.forEach(e => items.push({ cat:e.type, ts:e.ts, amount:e.stake||e.payout||0, pnl:e.pnl, raw:e }));
+  items.sort((a,b) => String(b.ts||'').localeCompare(String(a.ts||'')));
+  _histActivityAll = items;
+  _histActivityFilter = 'all';
+
+  const totalDep = deps.filter(d=>d.status==='approved').reduce((s,d)=>s+(d.amount||0),0);
+  const totalWit = wits.filter(w=>w.status==='approved').reduce((s,w)=>s+(w.amount||0),0);
+  const totalYieldIn = invs.reduce((s,i)=>s+(i.invest||0),0);
+  const totalYieldEarned = invs.reduce((s,i)=>s+(i.totalClaimed||0),0);
+  const gamesNet = ledger.filter(e=>['predict','aviator','coinflip'].includes(e.type)).reduce((s,e)=>s+(e.pnl||0),0);
+  const refEarned = ledger.filter(e=>e.type==='referral').reduce((s,e)=>s+(e.pnl||0),0);
+
+  document.getElementById('hist-stats').innerHTML = `
+    <div class="hist-stat-tile"><div class="hist-stat-k">Deposited</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(totalDep)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Withdrawn</div><div class="hist-stat-v" style="color:var(--err)">${fmt(totalWit)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">In Yield Markets</div><div class="hist-stat-v">${fmt(totalYieldIn)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Yield Earned</div><div class="hist-stat-v" style="color:var(--gold)">${fmt(totalYieldEarned)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Games Net</div><div class="hist-stat-v" style="color:${gamesNet>=0?'var(--ok)':'var(--err)'}">${gamesNet>=0?'+':''}${fmt(gamesNet)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Referral Earned</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(refEarned)}</div></div>
+  `;
+
+  const filters = [
+    {k:'all',l:'All'},{k:'deposit',l:'Deposits'},{k:'withdrawal',l:'Withdrawals'},
+    {k:'yield',l:'Yield'},{k:'predict',l:'Predict'},{k:'aviator',l:'Aviator'},
+    {k:'coinflip',l:'Coin Flip'},{k:'referral',l:'Referrals'}
+  ];
+  document.getElementById('hist-filters').innerHTML = filters.map(f =>
+    `<div class="hist-filter-pill ${f.k==='all'?'active':''}" data-k="${f.k}" onclick="filterHistActivity('${f.k}')">${f.l}</div>`
+  ).join('');
+
+  renderHistActivity();
+}
+function filterHistActivity(k) {
+  _histActivityFilter = k;
+  document.querySelectorAll('.hist-filter-pill').forEach(el => el.classList.toggle('active', el.dataset.k===k));
+  renderHistActivity();
+}
+function renderHistActivity() {
+  const c = document.getElementById('hist-body');
+  if (!c) return;
+  const items = _histActivityFilter==='all' ? _histActivityAll : _histActivityAll.filter(i=>i.cat===_histActivityFilter);
+  if (!items.length) { c.innerHTML = '<div class="hist-empty">No activity in this category yet.</div>'; return; }
+  c.innerHTML = items.map(it => {
+    const m = HIST_META[it.cat] || HIST_META.yield;
+    let sub = '', amtTxt = fmt(it.amount||0), amtColor = 'var(--plat)';
+    if (it.cat==='deposit') { sub = (it.raw.status||'pending'); amtTxt = '+'+fmt(it.amount); amtColor='var(--ok)'; }
+    else if (it.cat==='withdrawal') { sub = (it.raw.status||'pending'); amtTxt = '-'+fmt(it.amount); amtColor='var(--err)'; }
+    else if (it.cat==='yield') { sub = `${it.raw.status||'active'} · Earned ${fmt(it.raw.totalClaimed||0)}`; }
+    else if (it.cat==='predict') { sub = `${it.raw.meta?.asset||''} ${(it.raw.meta?.dir||'').toUpperCase()} · ${it.raw.meta?.result||''}`; amtTxt = (it.pnl>0?'+':'')+fmt(it.pnl||0); amtColor = it.pnl>0?'var(--ok)':it.pnl<0?'var(--err)':'var(--sil)'; }
+    else if (it.cat==='aviator') { sub = it.raw.meta?.result==='win' ? `Cashed out at ${(it.raw.meta?.cashedOutAt||0).toFixed(2)}×` : `Crashed at ${(it.raw.meta?.crashPoint||0).toFixed(2)}×`; amtTxt = (it.pnl>0?'+':'')+fmt(it.pnl||0); amtColor = it.pnl>0?'var(--ok)':'var(--err)'; }
+    else if (it.cat==='coinflip') { sub = `Called ${it.raw.meta?.choice||''} · Landed ${it.raw.meta?.result||''}`; amtTxt = (it.pnl>0?'+':'')+fmt(it.pnl||0); amtColor = it.pnl>0?'var(--ok)':'var(--err)'; }
+    else if (it.cat==='referral') { sub = it.raw.meta?.role==='referrer' ? `${it.raw.meta?.name||'A friend'} joined with their code` : 'Welcome bonus'; amtTxt = '+'+fmt(it.amount); amtColor='var(--ok)'; }
+    return `<div class="ea-item">
+      <div class="ea-ico" style="background:${m.bg};color:${m.fg}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${m.ico}</svg></div>
+      <div class="ea-mid"><div class="ea-t">${m.label}</div><div class="ea-s">${sub} · ${it.ts?dateStr(it.ts):'—'}</div></div>
+      <div class="ea-pnl" style="color:${amtColor}">${amtTxt}</div>
+    </div>`;
+  }).join('');
 }
 
 // ══════════════════════════════════
