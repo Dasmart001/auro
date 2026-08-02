@@ -1280,46 +1280,16 @@ body.dark #splash{background:var(--void)}
       </div>
       <div class="dep-sec">
 
-        <!-- GENERATING VIRTUAL ACCOUNT SCREEN -->
+        <!-- GENERATING ANIMATION SCREEN -->
         <div class="dep-generating" id="dep-generating">
           <div class="dep-gen-ring"></div>
-          <div class="dep-gen-title">Generating Virtual Account</div>
-          <div class="dep-gen-sub">Please wait while we create a secure virtual account for this transaction. This may take a few seconds.</div>
+          <div class="dep-gen-title">Generating your payment details</div>
+          <div class="dep-gen-sub">We are preparing a secure transfer reference for your transaction. This takes just a moment.</div>
           <div class="dep-gen-steps">
             <div class="dep-gen-step" id="dep-gs-1"><div class="dep-gen-step-dot"></div>Verifying transaction amount</div>
-            <div class="dep-gen-step" id="dep-gs-2"><div class="dep-gen-step-dot"></div>Generating virtual account number</div>
-            <div class="dep-gen-step" id="dep-gs-3"><div class="dep-gen-step-dot"></div>Linking account to your wallet</div>
+            <div class="dep-gen-step" id="dep-gs-2"><div class="dep-gen-step-dot"></div>Allocating secure payment channel</div>
+            <div class="dep-gen-step" id="dep-gs-3"><div class="dep-gen-step-dot"></div>Preparing recipient account details</div>
           </div>
-        </div>
-
-        <!-- VIRTUAL ACCOUNT FAILED SCREEN -->
-        <div id="dep-failed" style="display:none;text-align:center;padding:32px 18px 24px">
-          <div style="width:64px;height:64px;border-radius:50%;background:var(--errd);border:1.5px solid var(--errb);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--err)">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--plat);margin-bottom:8px">Virtual Account Generation Failed</div>
-          <div style="font-size:12.5px;color:var(--sil);line-height:1.6;margin-bottom:20px;max-width:280px;margin-left:auto;margin-right:auto">
-            We couldn't generate a virtual account for this transaction at the moment. This is usually due to high demand or a temporary bank network issue. Please try again in a few minutes.
-          </div>
-          <div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px 14px;text-align:left;margin-bottom:20px">
-            <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sil);margin-bottom:8px">What you can do</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;gap:8px;font-size:11px;color:var(--sil);line-height:1.5"><span style="color:var(--gold)">•</span> Wait a few minutes and tap Try Again</div>
-              <div style="display:flex;gap:8px;font-size:11px;color:var(--sil);line-height:1.5"><span style="color:var(--gold)">•</span> Ensure your network connection is stable</div>
-              <div style="display:flex;gap:8px;font-size:11px;color:var(--sil);line-height:1.5"><span style="color:var(--gold)">•</span> If it persists, contact support with your amount</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:10px">
-            <button class="bb" style="flex:1;background:var(--s1);color:var(--plat);border:1.5px solid var(--b1)" onclick="goDepStep1()">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              Back
-            </button>
-            <button class="bb" style="flex:1" onclick="retryVirtualAccount()">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-              Try Again
-            </button>
-          </div>
-          <div style="margin-top:14px;font-size:11px;color:var(--dim)">Error code: VA_GEN_503 • <span id="dep-failed-amt" style="color:var(--sil)"></span></div>
         </div>
 
         <!-- ACTUAL PAYMENT DETAILS (shown after animation) -->
@@ -1334,7 +1304,36 @@ body.dark #splash{background:var(--void)}
           This amount is locked for your security
         </div>
 
-        
+        <!-- OPAY ACCOUNT CARD -->
+        <div class="dep-card" style="text-align:center;padding:22px 18px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sil);margin-bottom:14px">Recipient Account Details</div>
+
+          <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,174,107,.08);border:1px solid rgba(15,174,107,.22);border-radius:20px;padding:5px 14px;margin-bottom:16px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></div>
+            <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
+          </div>
+
+          <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
+
+          <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy Account Number
+          </button>
+
+          <div style="margin:0 auto 10px;width:160px;height:160px;border-radius:14px;overflow:hidden;border:3px solid var(--b1);background:#fff;padding:8px">
+            <img id="dep-qr" src="" alt="OPay QR Code" style="width:100%;height:100%;object-fit:contain;border-radius:8px"/>
+          </div>
+          <div style="font-size:10px;color:var(--sil);margin-bottom:18px">Scan with OPay or any mobile banking app</div>
+
+          <div style="background:rgba(67,56,236,.05);border:1px solid var(--gb);border-radius:10px;padding:14px;text-align:left">
+            <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Next Steps</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">1</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Open your bank app and transfer the exact amount shown above to the account number provided.</div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">2</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Once your transfer is complete, tap <strong style="color:var(--plat)">I Have Made This Payment</strong> below to notify us.</div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:18px;height:18px;border-radius:50%;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--gold);flex-shrink:0">3</div><div style="font-size:11px;color:var(--sil);line-height:1.55">Your wallet will be credited within <strong style="color:var(--plat)">1–3 hours</strong> once our team confirms receipt.</div></div>
+            </div>
+          </div>
+        </div>
 
         <div class="sbox">
           <div class="sr"><span>Amount to be credited</span><strong id="dep-sa-2">₦0.00</strong></div>
@@ -2210,7 +2209,11 @@ function go(pid, nid) {
   window.scrollTo(0,0); rAll();
   // Load QR code when deposit page opens directly to step 1
   if (pid === 'p-deposit') {
-    // OPay account removed - no QR needed
+    const qr = document.getElementById('dep-qr');
+    if (qr && !qr.getAttribute('data-loaded')) {
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.setAttribute('data-loaded', '1');
+    }
   }
   if (pid === 'p-earn' && typeof initEarnPage === 'function') initEarnPage();
 }
@@ -2609,7 +2612,11 @@ function goDepStep2() {
     document.getElementById('dep-generating').style.display     = 'none';
     document.getElementById('dep-payment-details').style.display = 'block';
     // Load QR code once
-    // OPay account removed - no QR needed
+    const qr = document.getElementById('dep-qr');
+    if (qr && !qr.getAttribute('data-loaded')) {
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.setAttribute('data-loaded', '1');
+    }
     window.scrollTo(0, 0);
   }, 3200);
 }
@@ -2617,46 +2624,9 @@ function goDepStep2() {
 function goDepStep1() {
   document.getElementById('dep-step-2').style.display  = 'none';
   document.getElementById('dep-generating').style.display     = 'flex';
-  const payEl = document.getElementById('dep-payment-details');
-  const failEl = document.getElementById('dep-failed');
-  if (payEl) payEl.style.display = 'none';
-  if (failEl) failEl.style.display = 'none';
+  document.getElementById('dep-payment-details').style.display = 'none';
   document.getElementById('dep-step-1').style.display  = 'block';
   window.scrollTo(0, 0);
-}
-
-function retryVirtualAccount() {
-  // Re-run the generating animation then fail again
-  const failEl = document.getElementById('dep-failed');
-  const genEl = document.getElementById('dep-generating');
-  if (failEl) failEl.style.display = 'none';
-  if (genEl) genEl.style.display = 'flex';
-  // Reset steps
-  ['dep-gs-1','dep-gs-2','dep-gs-3'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.classList.remove('done','active'); }
-  });
-  const v = _depAmt;
-  const steps = ['dep-gs-1','dep-gs-2','dep-gs-3'];
-  const delays = [400, 1100, 1900];
-  const dones  = [1000, 1700, 2600];
-  steps.forEach((id, i) => {
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) { el.classList.remove('done'); el.classList.add('active'); }
-    }, delays[i]);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) { el.classList.remove('active'); el.classList.add('done'); }
-    }, dones[i]);
-  });
-  setTimeout(() => {
-    if (genEl) genEl.style.display = 'none';
-    if (failEl) {
-      failEl.style.display = 'block';
-      failEl.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], {duration:300, easing:'ease-in-out'});
-    }
-  }, 3400);
 }
 
 async function doDeposit() {
@@ -2672,7 +2642,7 @@ async function doDeposit() {
       amount: v,
       date: nowISO(),
       status: 'pending',
-      method: 'bank_transfer'
+      method: 'opay_transfer'
     }));
     // Reset both steps after success
     _depAmt = 0;
