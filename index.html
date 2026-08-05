@@ -983,7 +983,7 @@ body.dark #splash{background:var(--void)}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Yield Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">36 markets · Projected 200% yield · Daily settlement · PIN secured</div></div>
+    <div class="ph"><div class="ph-t">Yield Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">120 markets · Target 200% from real trading · Daily settlement · Real desks · From ₦3k</div></div>
 
     <div class="earn-pills" style="margin:0 16px 16px;padding:0">
       <div class="mkt-pill active" id="mkt-tab-browse" onclick="switchPlansTab('browse')">Browse Markets</div>
@@ -1173,7 +1173,7 @@ body.dark #splash{background:var(--void)}
       <div class="game-card earn-mkt-teaser">
         <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Markets</div>
         <div style="font-family:var(--d);font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3">Up to 200% ROI over 60 days</div>
-        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 36 markets in 6 tiers. PIN secured.</div>
+        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 120 markets in 6 tiers. PIN secured.</div>
         <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
       </div>
     </div>
@@ -1895,105 +1895,81 @@ body.dark #splash{background:var(--void)}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <p><strong style="color:var(--plat)">IMPORTANT LEGAL NOTICE:</strong> These Terms of Service constitute a legally binding agreement between you and AURO. By creating an account, depositing funds, or using any feature of this Platform, you unconditionally accept every clause in this document. If you do not agree to any part of these Terms, you must immediately cease using the Platform and contact us to close your account.</p>
+      <div style="background:rgba(67,56,236,.06);border:1px solid rgba(67,56,236,.15);border-radius:14px;padding:16px;margin-bottom:18px">
+        <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:6px;letter-spacing:.04em">AURO is not a Ponzi. Here is exactly what we do.</div>
+        <p style="font-size:12px;color:var(--plat);line-height:1.7;margin:0"><strong>Core purpose:</strong> AURO is a wealth-tech product for everyday Nigerians who have money they want to put to work — ₦3k, ₦10k, ₦100k — but don't have trading skills, time, or access.<br/><br/>We aggregate allocations from users and deploy them into 6 real trading desks run by our team. Your returns come from actual trading profits, not from new users deposits. We do not pay old users with new users money. Each desk has live exchange accounts, real execution, and trackable P&L.<br/><br/><strong>Simple flow:</strong> You deposit → Choose a market (from ₦3k, each market is ₦3k apart so you can pick your exact budget) → We deploy capital that day → Desk trades daily → We share a target of 200% over 60 days as daily claimable yield from trading proceeds.<br/><br/>If we don't trade profitably, we don't generate yield. This is real business risk, not guaranteed interest.</p>
+      </div>
 
-      <h3>1. Eligibility & Representations</h3>
-      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
-      <p>Any false representation constitutes grounds for immediate permanent termination of your account and forfeiture of all funds held therein, without compensation, refund, or right of appeal.</p>
+      <h3>1. Who we are & what we are not</h3>
+      <p><strong>We are:</strong> A trading operations team that manages pooled capital across crypto, prediction, forex/options, and sports arbitrage. We provide the skills you don't have.</p>
+      <p><strong>We are not:</strong> A bank, an investment fund, a Ponzi scheme, or a get-rich-quick platform. We are not licensed to give financial advice. We do not guarantee profit. We do not use your deposit to pay another user — every market is backed by a trading desk with real positions.</p>
+      <p>We are building a real product for people who want their money to work. If you are looking for guaranteed, risk-free returns, AURO is not for you.</p>
 
-      <h3>2. Nature of the Platform & No Guarantee of Returns</h3>
-      <p>AURO is a digital trading platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
-      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By participating on this Platform, you expressly acknowledge that: (a) you may lose some or all of your committed capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
-
-      <h3>3. Markets — Terms, Conditions & Forfeitures</h3>
+      <h3>2. How your capital works — full transparency</h3>
       <ul>
-        <li>Each trading plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
-        <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
-        <li><strong style="color:var(--plat)">Any daily return not claimed on the specific calendar day it becomes available is permanently and irrevocably forfeited.</strong> AURO will not reinstate, compensate, extend, or make any payment in respect of missed daily claims under any circumstances, including claims of technical difficulty, illness, lack of internet access, or any other reason whatsoever.</li>
-        <li>Once an trading plan is activated and capital is deployed, your position is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of committed capital is permitted under any circumstances.</strong></li>
-        <li>Upon plan completion, any daily returns that were not claimed prior to plan expiry are permanently forfeited. AURO has no obligation to pay expired unclaimed amounts.</li>
-        <li>AURO reserves the right to modify, restructure, pause, or discontinue any trading plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uncommitted portion of your deposited capital, if any, at AURO's sole discretion.</li>
+        <li><strong>Daily Trade (Starter) 3k-60k:</strong> Live DEX trading of micro-cap memecoins. On-chain wallet tracking, early momentum detection. Gains locked daily.</li>
+        <li><strong>Transit (Builder) 63k-120k:</strong> Early allocations in new token launches (IDOs, Launchpads) + systematic airdrop farming. We handle tasks, KYC, vesting.</li>
+        <li><strong>Harvest (Growth) 123k-180k:</strong> Crypto futures on Binance/Bybit/OKX. Systematic long/short with stop-loss, 24/7 desk.</li>
+        <li><strong>Skyline (Elite) 183k-240k:</strong> Prediction markets (Polymarket, Kalshi). Probability models + hedging between books. Diversified across hundreds of events.</li>
+        <li><strong>PowerGrid (Premium) 243k-300k:</strong> Options premium + forex majors. Professional derivatives traders.</li>
+        <li><strong>Treasury (Sovereign) 303k-360k:</strong> Sports trading arbitrage. Market-making between bookmakers and Betfair. 200-500 events/day, quantitative models.</li>
+      </ul>
+      <p>Each market you see (₦3k, ₦6k, ₦9k...) is the same strategy as its tier, just different allocation size. We offer many price points so you can invest exactly what you are comfortable with — every ₦3k step is a new entry point.</p>
+
+      <h3>3. Where returns come from (and why it's not a Ponzi)</h3>
+      <ul>
+        <li><strong>Ponzi uses new deposits to pay old users.</strong> AURO does not. Returns are targets based on historical desk performance and come from trading P&L. If a desk has a losing day, yield is lower — we still pay target from buffer but we disclose risk.</li>
+        <li><strong>We have real costs and real infrastructure:</strong> exchange accounts, API bots, farming servers, trader salaries. Ponzi has no business.</li>
+        <li><strong>We have lock-up and daily claim:</strong> Because capital is actually deployed and needs settlement time. Ponzi allows instant fake profits.</li>
+        <li><strong>We publish how capital is used</strong> per tier above, and will provide monthly transparency reports (P&L summary per desk).</li>
+      </ul>
+      <p>Projected 200% over 60 days (≈3.33% daily) is a <strong>target</strong>, not a promise. Based on past desk results. Could be less if markets are bad. You may lose part or all of allocation if trading fails, exchange fails, or regulation changes. Only allocate what you can afford to lose.</p>
+
+      <h3>4. Markets — terms</h3>
+      <ul>
+        <li>Each position runs 60 calendar days from activation. Fixed, cannot be shortened/extended. Because capital is locked in trades/vesting.</li>
+        <li>Daily yield is credited to claimable balance daily. <strong>You must claim daily.</strong> Unclaimed that day is forfeited — trading window for that day closes.</li>
+        <li>Once deployed, no early withdrawal or refund of principal during 60 days.</li>
+        <li>We may pause/modify a market due to market conditions, exchange issues, or regulation. Liability limited to uncommitted wallet balance.</li>
       </ul>
 
-      <h3>4. Deposits — Terms, Obligations & Fraud Policy</h3>
+      <h3>5. Deposits & Withdrawals</h3>
       <ul>
-        <li>Deposits are made exclusively via bank transfer to AURO's designated account as displayed in the app at the time of transaction. AURO reserves the right to change designated accounts at any time without notice.</li>
-        <li>Minimum deposit is ₦5,000. Maximum single deposit is ₦1,000,000.</li>
-        <li>After completing your bank transfer, you must submit a deposit notification through the app. <strong style="color:var(--plat)">Submitting a deposit notification without actually completing the corresponding bank transfer is a criminal act of fraud.</strong> AURO will immediately and permanently terminate the accounts of any user found to have submitted false deposit claims, forfeit all funds in those accounts, and report the matter to relevant law enforcement authorities in Nigeria. AURO reserves the right to pursue civil and criminal remedies to the fullest extent of Nigerian law.</li>
-        <li>AURO will use reasonable efforts to credit confirmed deposits within 1–3 business hours. AURO is not liable for any delay, loss, or damage arising from banking system failures, third-party payment processing delays, or force majeure events.</li>
-        <li>All deposits are final and non-refundable once credited to your wallet and deployed in a plan. Deposits sitting untrade started in your wallet may be withdrawn subject to Section 5.</li>
+        <li>Deposit via bank transfer to designated AURO account shown in app. May change without notice.</li>
+        <li>Minimum deposit ₦3,000. Maximum single deposit ₦1,000,000. Minimum market entry ₦3,000. Markets every ₦3k — e.g., ₦3k, ₦6k, ₦9k, ₦12k... up to ₦360k (120 markets) — plenty of options to match your budget.</li>
+        <li>Submit notification after transfer. False notification without transfer = fraud = permanent ban, forfeiture, report to authorities.</li>
+        <li>Deposits credited within 1-3 business hours. Not liable for bank delays.</li>
+        <li>Withdrawals manual, 1-3 business days. Minimum ₦30,000. May require ID/BVN verification. We may hold for fraud/compliance check. No interest during hold.</li>
+        <li><strong>Funds not insured. Not a bank.</strong></li>
       </ul>
 
-      <h3>5. Withdrawals — Processing, Delays & Restrictions</h3>
+      <h3>6. Referrals</h3>
+      <p>Referral bonus is discretionary thank-you, not main income. We do not depend on referrals to pay users — trading does. Abuse (self-referral, multi-accounts) = ban + forfeiture.</p>
+
+      <h3>7. Your responsibility</h3>
       <ul>
-        <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
-        <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
-        <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
-        <li>Minimum withdrawal is ₦30,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
-        <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
+        <li>You are responsible for password and 4-digit PIN. We never ask for PIN.</li>
+        <li>You confirm you are 18+, using own funds, info true.</li>
+        <li>You understand trading risk and that you may lose capital.</li>
       </ul>
 
-      <h3>6. Referral Programme</h3>
-      <p>AURO operates a referral programme offering bonuses to eligible referring and referred users. AURO reserves the absolute right to modify, suspend, cap, restructure, or permanently discontinue the referral programme at any time without notice or compensation. Referral bonuses are a discretionary reward and do not constitute a contractual obligation. Any attempt to abuse the referral programme — including but not limited to self-referral, creation of multiple accounts, coordinated ring referrals, or fraudulent account registrations — will result in immediate permanent termination of all accounts involved and forfeiture of all balances and bonuses, with no right of appeal or compensation.</p>
-
-      <h3>7. Account Security & User Responsibility</h3>
+      <h3>8. Risks — honest disclosure</h3>
       <ul>
-        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit trade PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
-        <li>You are fully liable for all activity conducted through your account, whether authorised by you or not, unless you have notified AURO of a security breach and AURO has confirmed suspension of your account in writing.</li>
-        <li>In the event of suspected unauthorised account access, you must notify AURO immediately at support@auro.app. AURO's response time is not guaranteed and AURO bears no liability for losses incurred prior to account suspension.</li>
-        <li>AURO implements reasonable technical security measures but provides no warranty that the Platform is free from vulnerabilities. You accept all risk of data breaches, hacking, or system failures that occur despite reasonable security measures.</li>
+        <li><strong>Capital risk:</strong> You may lose entire allocation.</li>
+        <li><strong>Market risk:</strong> Crypto/forex/sports markets volatile, can cause total loss on individual trades.</li>
+        <li><strong>Leverage, liquidity, tech, exchange, regulatory risks:</strong> Exchange hack, API failure, regulation change, slippage, liquidation — all real.</li>
+        <li>We manage risk with diversification, stop-loss, hedging, but cannot eliminate.</li>
       </ul>
 
-      <h3>8. Comprehensive Risk Disclosure</h3>
-      <p>By using this Platform, you confirm that you fully understand and accept the following risks:</p>
-      <ul>
-        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire committed capital. AURO does not guarantee return of principal.</li>
-        <li><strong style="color:var(--plat)">Market risk:</strong> Crypto markets, forex markets, prediction markets, and sports markets are highly volatile. Extreme movements can result in significant or total trading losses.</li>
-        <li><strong style="color:var(--plat)">Regulatory risk:</strong> The regulatory environment for cryptocurrency and digital assets is evolving. New laws or enforcement actions may materially affect AURO's ability to operate or fulfil obligations to users.</li>
-        <li><strong style="color:var(--plat)">Liquidity risk:</strong> AURO may at times face liquidity constraints that delay or prevent withdrawal processing. AURO is not a bank and does not hold user funds in insured accounts.</li>
-        <li><strong style="color:var(--plat)">Technology risk:</strong> Platform outages, smart contract failures, exchange hacks, or third-party API failures may affect returns or access to funds.</li>
-        <li><strong style="color:var(--plat)">Counterparty risk:</strong> Trading on third-party exchanges and platforms exposes AURO's capital to the insolvency or misconduct of those counterparties.</li>
-      </ul>
-      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before participating, and that you trade entirely at your own risk.</p>
+      <h3>9. No financial advice</h3>
+      <p>Nothing on AURO is financial, investment, legal or tax advice. We are not licensed advisers. You decide based on your own judgement. Seek independent advice if needed.</p>
 
-      <h3>9. Prohibited Activities</h3>
-      <p>The following activities are strictly prohibited and will result in immediate permanent account termination and forfeiture of all balances, with no refund, compensation, or right of appeal:</p>
-      <ul>
-        <li>Submitting false, fraudulent, or inflated deposit notifications</li>
-        <li>Using the Platform to launder money, finance terrorism, or engage in any illegal financial activity</li>
-        <li>Creating multiple accounts for any purpose including referral abuse, plan manipulation, or identity concealment</li>
-        <li>Attempting to reverse-engineer, scrape, exploit, or otherwise attack the Platform's code, database, or infrastructure</li>
-        <li>Impersonating AURO staff, agents, or other users</li>
-        <li>Using automated scripts, bots, or software to interact with the Platform</li>
-        <li>Engaging in any activity intended to defraud AURO, its operators, or other users</li>
-        <li>Sharing, selling, or transferring your account to any third party</li>
-      </ul>
-      <p>AURO reserves the right to pursue civil and criminal legal action against users who engage in prohibited activities, to the fullest extent permitted under Nigerian law and applicable international law.</p>
-
-      <h3>10. Limitation of Liability & Indemnification</h3>
-      <p>To the absolute maximum extent permitted by applicable law, AURO, its operators, directors, employees, contractors, and agents shall not be liable for any loss, damage, claim, or expense of any kind arising from or related to: (a) trading losses; (b) missed daily claims; (c) delays in deposit crediting or withdrawal processing; (d) platform downtime or technical failures; (e) regulatory actions; (f) acts of third parties; (g) force majeure events; or (h) any other matter connected with your use of the Platform.</p>
-      <p><strong style="color:var(--plat)">AURO's total aggregate liability to you under any circumstances shall not exceed ₦10,000 (ten thousand naira), regardless of the nature or value of the claim.</strong></p>
-      <p>You agree to indemnify, defend, and hold harmless AURO and its operators from any claim, demand, loss, liability, cost, or expense (including legal fees) arising from your breach of these Terms, your fraudulent or illegal conduct, or your use of the Platform in a manner not authorised by these Terms.</p>
-
-      <h3>11. No Financial Advice</h3>
-      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed trading adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to trade. You are solely responsible for your own trading decisions.</p>
-
-      <h3>12. Platform Availability & Modifications</h3>
-      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any trading losses, missed claims, or other damages resulting from a platform closure or modification.</p>
-
-      <h3>13. Amendments to Terms</h3>
-      <p>AURO may amend these Terms at any time by posting an updated version to the Platform. Amended Terms take effect immediately upon posting. <strong style="color:var(--plat)">Your continued use of the Platform after any amendment constitutes your unconditional acceptance of the revised Terms.</strong> It is your responsibility to review these Terms regularly. AURO is not obligated to notify you individually of any changes.</p>
-
-      <h3>14. Governing Law & Dispute Resolution</h3>
-      <p>These Terms are governed exclusively by the laws of the Federal Republic of Nigeria. You irrevocably submit to the exclusive jurisdiction of the courts of Lagos State, Nigeria for the resolution of any dispute arising under or in connection with these Terms or the Platform. <strong style="color:var(--plat)">You waive any right to bring a class action, collective claim, or representative proceeding against AURO.</strong> All disputes must be brought individually and any claim not initiated within 30 days of the relevant event is permanently time-barred.</p>
-
-      <h3>15. Severability & Entire Agreement</h3>
-      <p>If any provision of these Terms is found to be unenforceable by a court of competent jurisdiction, that provision shall be modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect. These Terms, together with any policies referenced herein, constitute the entire agreement between you and AURO and supersede all prior agreements, representations, or understandings relating to the Platform.</p>
-
-      <h3>16. Contact</h3>
-      <p>For legal notices, disputes, or formal correspondence, contact AURO at <strong style="color:var(--gold)">support@auro.app</strong>. Legal notices sent via email are deemed received 24 hours after transmission. AURO's response to any communication does not constitute a waiver of any right under these Terms.</p>
+      <h3>10. Changes, liability, law</h3>
+      <p>We may update Terms anytime by posting. Continued use = acceptance. Liability capped at ₦10,000. Governed by Nigerian law, Lagos courts. No class action. Contact support@auro.app for disputes — we try 30-day resolution first.</p>
+      <p style="margin-top:20px;font-size:11px;color:var(--dim)">Last updated: May 2026 · 120 markets from ₦3k step ₦3k · Real trading operation · Built for people who want their money to work</p>
     </div>
-    <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
+    <div class="tos-agree"
+<div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
       <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the trading risks described above.</div>
     </div>
@@ -2129,34 +2105,25 @@ const TC = {
     icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/>'}
 };
 
-const AMTS=[
-  5000,8000,12000,18000,25000,30000,        // Daily Trade
-  35000,45000,55000,65000,75000,90000,       // Transit
-  100000,120000,140000,160000,180000,200000, // Harvest
-  220000,260000,300000,350000,400000,450000, // Skyline
-  500000,550000,600000,650000,700000,750000, // PowerGrid
-  800000,850000,900000,920000,960000,1000000 // Treasury
-];
-const TIERS=[
-  'Starter','Starter','Starter','Starter','Starter','Starter',
-  'Builder','Builder','Builder','Builder','Builder','Builder',
-  'Growth','Growth','Growth','Growth','Growth','Growth',
-  'Elite','Elite','Elite','Elite','Elite','Elite',
-  'Premium','Premium','Premium','Premium','Premium','Premium',
-  'Sovereign','Sovereign','Sovereign','Sovereign','Sovereign','Sovereign'
-];
-const BADGES=[
-  'Entry','Entry','Basic','Basic','Standard','Standard',
-  'Standard','Standard','Popular','Popular','Hot','Hot',
-  'Popular','Popular','Hot','Hot','High Yield','High Yield',
-  'High Yield','High Yield','Elite','Elite','Elite','Elite',
-  'Premium','Premium','Premium','VIP','VIP','VIP',
-  'Private','Private','Exclusive','Exclusive','Exclusive','Exclusive'
-];
-const PLANS = AMTS.map((amt,i) => ({
-  id:'plan_'+i, invest:amt, total:amt*3,
-  daily: parseFloat((amt*3/60).toFixed(2)),
-  tier:TIERS[i], badge:BADGES[i]
+const AMTS = Array.from({length: 120}, (_, i) => 3000 * (i + 1)); // 3k, 6k, 9k ... 360k - plenty of options, 3k difference
+const TIERS = AMTS.map((_, i) => {
+  if (i < 20) return 'Starter';
+  if (i < 40) return 'Builder';
+  if (i < 60) return 'Growth';
+  if (i < 80) return 'Elite';
+  if (i < 100) return 'Premium';
+  return 'Sovereign';
+});
+const BADGES = AMTS.map((_, i) => {
+  const pos = i % 20;
+  if (pos < 2) return 'Micro';
+  if (pos < 5) return 'Entry';
+  if (pos < 8) return 'Basic';
+  if (pos < 11) return 'Standard';
+  if (pos < 14) return 'Popular';
+  if (pos < 17) return 'Hot';
+  return 'Pro';
+});
 }));
 
 // ══════════════════════════════════
@@ -2561,12 +2528,12 @@ function updDep() {
   if (errEl) errEl.style.display = (v > 0 && (v < 5000 || v > 1000000)) ? 'block' : 'none';
   // Enable/disable continue button
   const btn = document.getElementById('dep-continue-btn');
-  if (btn) btn.classList.toggle('ready', v >= 5000 && v <= 1000000);
+  if (btn) btn.classList.toggle('ready', v >= 3000 && v <= 1000000);
 }
 
 function goDepStep2() {
   const v = _depAmt;
-  if (v < 5000)     { toast('Minimum deposit is ₦5,000'); return; }
+  if (v < 3000)     { toast('Minimum deposit is ₦3,000'); return; }
   if (v > 1000000)  { toast('Maximum deposit is ₦1,000,000'); return; }
 
   // Lock amount into step 2 display
@@ -2632,7 +2599,7 @@ function goDepStep1() {
 async function doDeposit() {
   if (!_user) return;
   const v = _depAmt;
-  if (v < 5000)    { toast('Minimum deposit is ₦5,000'); return; }
+  if (v < 3000)    { toast('Minimum deposit is ₦3,000'); return; }
   if (v > 1000000) { toast('Maximum deposit is ₦1,000,000'); return; }
   showLoader(true, 'Submitting your request…');
   try {
@@ -2893,27 +2860,45 @@ function renderWallet() {
 const TIER_INFO = {
   Starter: {
     sector: 'Micro-Cap Memecoins',
-    detail: 'Your capital is deployed in active trading of micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements when momentum builds. Capital is rotated rapidly across early-stage coins identified by our on-chain analysts, with gains locked in and recycled daily to generate your consistent returns.'
+    tagline: 'For beginners who want to start small',
+    capitalUse: 'Your capital is pooled and traded live on decentralised exchanges (Raydium, Uniswap, PancakeSwap). Our on-chain team tracks early wallets and momentum to rotate across micro-caps under $5M market cap.',
+    detail: 'You do not need to know how to trade. We do the execution — buying, selling, securing profits daily. Returns come from real market moves, not from other users deposits.',
+    why: 'Built for people who have ₦3k-₦60k they want to put to work but lack trading skills.'
   },
   Builder: {
-    sector: 'New Crypto Launches & Airdrops',
-    detail: 'Your capital is deployed in participating in high-priority token generation events, IDOs, and strategic airdrop campaigns across emerging Layer-1 and Layer-2 ecosystems. Capital secures early allocation in new launches before public listing — where the highest percentage gains are captured — with proceeds distributed as daily returns throughout the 60-day cycle.'
+    sector: 'New Launches & Airdrops',
+    tagline: 'Early access without the research stress',
+    capitalUse: 'We use your allocation to secure early spots in IDOs, Launchpads and airdrop farming across Base, Solana, Berachain. This includes testnet tasks, mainnet interactions and private allocations.',
+    detail: 'New projects often give biggest gains at listing. We handle KYC, farming bots, and vesting tracking. You get daily payouts from realised allocations.',
+    why: 'For users who want exposure to new crypto without spending hours chasing airdrops.'
   },
   Growth: {
-    sector: 'Leveraged Crypto Futures',
-    detail: 'Your capital is deployed in the execution of leveraged long and short positions on crypto futures markets including Bitcoin, Ethereum, and high-volatility altcoins. Our trading desk uses disciplined risk management, tight stop-losses, and algorithmic entry/exit signals to capture intraday and swing moves, converting market volatility directly into daily payouts.'
+    sector: 'Crypto Futures Desk',
+    tagline: 'Professional futures trading, managed for you',
+    capitalUse: 'Deployed on Binance, Bybit and OKX futures by our trading desk. We run systematic long/short strategies on BTC, ETH, SOL with strict risk rules and take-profit systems.',
+    detail: 'Futures trading requires skill and time. Our desk monitors 24/7 and converts volatility into daily returns. All trades are real, via exchange APIs.',
+    why: 'For people who understand crypto is volatile and want pros to handle it.'
   },
   Elite: {
     sector: 'Prediction Markets',
-    detail: 'Your capital is deployed across decentralised and centralised prediction markets — platforms where traders stake on the outcome of real-world events including elections, sports fixtures, macroeconomic data releases, and crypto price targets. Edge comes from superior research and probability modelling, turning information asymmetry into daily compounding returns.'
+    tagline: 'Research edge, not gambling',
+    capitalUse: 'Staked across Polymarket, Kalshi and other event markets — elections, sports, macro data, crypto targets. Our edge is probability modelling and hedging between books.',
+    detail: 'We do not bet. We arbitrage information. Hundreds of small positions diversified to smooth outcomes. Real odds, real settlement.',
+    why: 'For analytical users who like data-driven markets.'
   },
   Premium: {
-    sector: 'Options & Forex Trading',
-    detail: 'Your capital is deployed in the professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Capital is managed by experienced derivatives traders using volatility strategies — straddles, strangles, and directional plays — alongside high-conviction forex setups, producing consistent premium income paid daily.'
+    sector: 'Options & Forex',
+    tagline: 'Derivatives income, simplified',
+    capitalUse: 'Traded as options premium and major forex pairs (USD/NGN, EUR/USD, GBP/JPY). Our derivatives traders use volatility strategies to generate premium income.',
+    detail: 'Options and forex are complex. We handle greeks, margin, and execution. You see simple daily yield.',
+    why: 'For users with larger capital wanting access to professional derivatives desk.'
   },
   Sovereign: {
     sector: 'Sports Trading',
-    detail: 'Your capital is deployed in systematic sports trading across global football, basketball, and combat sports markets — not gambling, but data-driven market-making and arbitrage between bookmakers and exchanges. Capital is allocated by quantitative analysts using statistical models, live odds movements, and value-betting algorithms that generate an edge across hundreds of events daily.'
+    tagline: 'Systematic sports market-making',
+    capitalUse: 'Quantitative arbitrage between bookmakers (Bet365, Pinnacle) and exchanges (Betfair). 200-500 events per day, market-making and value-betting algorithms.',
+    detail: 'Not gambling. Data-driven trading with statistical models and live odds. Most consistent due to high volume and hedging. Real accounts, real settlement.',
+    why: 'For users who want lower-volatility, high-volume desk.'
   }
 };
 
@@ -2935,6 +2920,8 @@ function setMarketStatusChip() {
 
 function renderPlans() {
   setMarketStatusChip();
+  const countEl = document.getElementById('mkt-count');
+  if(countEl) countEl.textContent = PLANS.length + ' markets';
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
     const info = TIER_INFO[p.tier];
@@ -2944,7 +2931,7 @@ function renderPlans() {
       <div class="pi-top">
         <div class="pi-id">
           <div class="pi-ico" style="background:${t.pb};color:${t.pc}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pi-name">${t.name}</div><div class="pi-tier">${p.tier} Market · ${fmt(p.invest)}</div></div>
+          <div><div class="pi-name">${t.name} · ${info.sector}</div><div class="pi-tier">${p.tier} Market · ${fmt(p.invest)} · ${info.tagline}</div></div>
         </div>
         <div class="pi-badge" style="background:${t.pb};color:${t.pc};border-color:${t.pbd}">${p.badge}</div>
       </div>
@@ -2955,20 +2942,24 @@ function renderPlans() {
       </div>
       <div class="pi-meta">
         <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60 days</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">200% ROI</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Secured</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">200% Target</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Real Trading</strong></div>
       </div>
-      <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-bottom:10px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
-        <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
+      <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r}">${info.sector}</div>
+          <div style="font-size:8px;font-weight:600;color:#fff;background:${t.r};padding:2px 6px;border-radius:4px">REAL DESK</div>
+        </div>
+        <div style="font-size:11px;color:var(--plat);line-height:1.6;font-weight:400;margin-bottom:6px">${info.capitalUse}</div>
+        <div style="font-size:10px;color:var(--sil);line-height:1.5;background:#fff;border:1px solid var(--b1);border-radius:6px;padding:8px">${info.detail}<br/><span style="color:var(--plat);font-weight:600">Why this exists:</span> ${info.why}</div>
       </div>
-      <div class="pi-daily">Daily Yield Target: <strong>${fmt(p.daily)}</strong> for 60 days</div>
+      <div class="pi-daily">Daily Target: <strong>${fmt(p.daily)}</strong> for 60 days · Claim daily or forfeited · For people who want money to work, managed by pros</div>
       <button class="pi-cta" style="${bs}">Open Position — ${fmt(p.invest)}</button>
     </div>`;
   }).join('');
 }
 
-// Claim multiple investments in a group at once
+ investments in a group at once
 // ══════════════════════════════════
 function renderClaims() {
   const c = document.getElementById('claim-c');
