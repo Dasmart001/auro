@@ -971,7 +971,7 @@ body.dark #splash{background:var(--void)}
 
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
-      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Yield</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
+      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Accrual</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
       <button onclick="openMyPositions()" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
     </div>
 
@@ -983,7 +983,7 @@ body.dark #splash{background:var(--void)}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Trading Vaults <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">200 Vaults · Target 200% from real trading · Daily settlement · PIN secured</div></div>
+    <div class="ph"><div class="ph-t">Fixed-Term Vaults <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">200 Vaults · Target 200% Net Return · 60-Day Mandate · Daily settlement · PIN secured</div></div>
 
     <div class="earn-pills" style="margin:0 16px 16px;padding:0">
       <div class="mkt-pill active" id="mkt-tab-browse" onclick="switchPlansTab('browse')">Browse Markets</div>
@@ -996,7 +996,7 @@ body.dark #splash{background:var(--void)}
 
     <div id="mkt-sec-positions" style="display:none">
       <div style="padding:0 20px 16px">
-        <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
+        <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Accrual</div>
         <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
         <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
       </div>
@@ -1022,7 +1022,7 @@ body.dark #splash{background:var(--void)}
       <div class="earn-pill active" data-tab="pred" onclick="switchEarnTab('pred')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Predictions</div>
       <div class="earn-pill" data-tab="aviator" onclick="switchEarnTab('aviator')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Aviator</div>
       <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/></svg> Coin Flip</div>
-      <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> Fixed-Term Vaults</div>
+      <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> Structured Growth Vaults</div>
       <div class="earn-pill" data-tab="refer" onclick="switchEarnTab('refer')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Refer &amp; Earn</div>
     </div>
 
@@ -1168,10 +1168,10 @@ body.dark #splash{background:var(--void)}
       <div id="cf-bet-history"></div>
     </div>
 
-    <!-- 200% MARKETS TEASER -->
+    <!-- STRUCTURED GROWTH VAULTS TEASER -->
     <div class="earn-sec" id="earn-markets">
       <div class="game-card earn-mkt-teaser">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Markets</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Vaults</div>
         <div style="font-family:var(--d);font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3">Up to 200% ROI over 60 days</div>
         <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 200 Vaults in 6 tiers. PIN secured.</div>
         <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
@@ -1413,7 +1413,7 @@ body.dark #splash{background:var(--void)}
       <div class="pnl-lbl">Total Profit &amp; Loss</div>
       <div class="pnl-val" id="pnl-val">₦0</div>
       <div class="pnl-figs">
-        <div><div class="pnl-fig-lbl">Yield Realised</div><div class="pnl-fig-val g" id="pnl-yield">₦0</div></div>
+        <div><div class="pnl-fig-lbl">Realised Return</div><div class="pnl-fig-val g" id="pnl-yield">₦0</div></div>
         <div><div class="pnl-fig-lbl">Games Net</div><div class="pnl-fig-val" id="pnl-games">₦0</div></div>
         <div><div class="pnl-fig-lbl">Referrals</div><div class="pnl-fig-val g" id="pnl-ref">₦0</div></div>
       </div>
@@ -1435,7 +1435,7 @@ body.dark #splash{background:var(--void)}
       </div>
     </div>
 
-    <div class="sh"><h2>Yield Positions</h2></div>
+    <div class="sh"><h2>Active Vault Positions</h2></div>
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-earn')">Browse Markets</button></div></div>
 
     <div class="sh"><h2>Earn Activity</h2><div class="sh-a" onclick="go('p-earn','n-earn')">Go to Earn</div></div>
@@ -1790,7 +1790,7 @@ body.dark #splash{background:var(--void)}
     </div>
 
     <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:2px 12px;margin-bottom:12px">
-      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily Accrual Target</span><strong class="g" id="m-daily">—</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Duration</span><strong>60 days · daily</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>Projected ROI</span><strong class="g">200%</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Your balance</span><strong id="m-bal">—</strong></div>
@@ -1895,54 +1895,73 @@ body.dark #splash{background:var(--void)}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <div style="background:rgba(67,56,236,.06);border:1px solid rgba(67,56,236,.15);border-radius:14px;padding:16px;margin-bottom:18px">
-        <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:6px;letter-spacing:.04em">AURO is not a Ponzi. Here is exactly what we do.</div>
-        <p style="font-size:12px;color:var(--plat);line-height:1.7;margin:0"><strong>Core purpose:</strong> AURO is a wealth-tech product for everyday Nigerians who have money they want to put to work — ₦3k, ₦10k, ₦100k — but don't have trading skills, time, or access.<br/><br/>We aggregate allocations from users and deploy them into 6 real trading desks run by our team. Your returns come from actual trading profits, not from new users deposits. We do not pay old users with new users money. Each desk has live exchange accounts, real execution, and trackable P&L.<br/><br/><strong>Simple flow:</strong> You deposit → Choose a market (from ₦3k, each market is ₦3k apart so you can pick your exact budget) → We deploy capital that day → Desk trades daily → We share a target of 200% over 60 days as daily claimable yield from trading proceeds.<br/><br/>If we don't trade profitably, we don't generate yield. This is real business risk, not guaranteed interest.</p>
-      </div>
+      <p><strong style="color:var(--plat)">AURO – Terms of Service</strong> – Effective: January 1, 2025 · Last Updated: May 12, 2026</p>
+      <p>These Terms govern your use of AURO, a technology platform enabling eligible users to allocate capital to professionally managed trading mandates (“Structured Growth Vaults”). By creating an account or allocating capital, you agree to these Terms. For independent context, you may search terms such as “managed account”, “structured note”, “event arbitrage”, “market making” or “systematic futures”.</p>
 
-      <h3>1. Who we are & what we are not</h3>
-      <p><strong>We are:</strong> A trading operations team that manages pooled capital across crypto, prediction, forex/options, and sports arbitrage. We provide the skills you don't have.</p>
-      <p><strong>We are not:</strong> A bank, an investment fund, a Ponzi scheme, or a get-rich-quick platform. We are not licensed to give financial advice. We do not guarantee profit. We do not use your deposit to pay another user — every market is backed by a trading desk with real positions.</p>
-
-      <h3>2. How your capital works</h3>
+      <h3>1. Definitions</h3>
       <ul>
-        <li><strong>Daily Trade (Starter) 3k-60k:</strong> Live DEX trading of micro-cap memecoins.</li>
-        <li><strong>Transit (Builder) 63k-120k:</strong> Early allocations in new token launches + airdrop farming.</li>
-        <li><strong>Harvest (Growth) 123k-180k:</strong> Crypto futures on Binance/Bybit/OKX.</li>
-        <li><strong>Skyline (Elite) 183k-240k:</strong> Prediction markets (Polymarket, Kalshi).</li>
-        <li><strong>PowerGrid (Premium) 243k-300k:</strong> Options premium + forex majors.</li>
-        <li><strong>Treasury (Sovereign) 303k-360k:</strong> Sports trading arbitrage 200-500 events/day.</li>
-      </ul>
-      <p>Each market you see (₦3k, ₦6k, ₦9k...) is the same strategy as its tier, just different allocation size. Every ₦3k step is a new entry point.</p>
-
-      <h3>3. Where returns come from</h3>
-      <p>Returns are targets based on historical desk performance and come from trading P&L. We have real costs: exchange accounts, API bots, farming servers, trader salaries. Ponzi has no business. We have lock-up and daily claim because capital is deployed. We will provide monthly transparency reports.</p>
-      <p>Projected 200% over 60 days (≈3.33% daily) is a <strong>target</strong>, not a promise. You may lose part or all of allocation. Only allocate what you can afford to lose.</p>
-
-      <h3>4. Markets — terms</h3>
-      <ul>
-        <li>Each position runs 60 days from activation. Fixed.</li>
-        <li>Daily yield credited daily. <strong>You must claim daily.</strong> Unclaimed forfeited.</li>
-        <li>Once deployed, no early withdrawal during 60 days.</li>
+        <li><strong>Platform:</strong> AURO web and mobile application operated by AURO Technologies.</li>
+        <li><strong>Allocator:</strong> A natural person aged 18+ who completes KYC and allocates capital via the Platform.</li>
+        <li><strong>Mandate / Vault:</strong> A defined trading strategy (e.g., Short-Term Momentum Mandate) with fixed 60-day term, target return and deployment rules.</li>
+        <li><strong>Allocation:</strong> Naira amount committed to a specific Vault.</li>
+        <li><strong>Target Return:</strong> Projected gross return over term: principal + 200% (3x gross). Target based on historical desk performance, not a guarantee.</li>
+        <li><strong>Daily Accrual:</strong> Daily portion of Target Return (Target/60) credited for claiming.</li>
       </ul>
 
-      <h3>5. Deposits & Withdrawals</h3>
+      <h3>2. Nature of Services</h3>
+      <p>AURO is a wealth-technology platform aggregating allocations and deploying them into six actively managed desks:</p>
       <ul>
-        <li>Minimum deposit ₦3,000. Maximum ₦1,000,000. Minimum market entry ₦3,000. Markets every ₦3k up to ₦360k (200 Vaults).</li>
-        <li>False notification = fraud = ban + forfeiture.</li>
-        <li>Withdrawals 1-3 business days. Minimum ₦30,000.</li>
-        <li><strong>Funds not insured. Not a bank.</strong></li>
+        <li>Daily Trade – Digital Assets Micro Cap – Short-Term Momentum Mandate</li>
+        <li>Transit – Venture Token Launches – Early-Stage Allocation Mandate</li>
+        <li>Harvest – Derivatives Crypto Futures – Systematic Futures Mandate</li>
+        <li>Skyline – Event-Driven Prediction Markets – Event Arbitrage Mandate</li>
+        <li>PowerGrid – Derivatives Options & FX – Volatility & FX Mandate</li>
+        <li>Treasury – Quantitative Sports Market Making – Market-Making Mandate</li>
+      </ul>
+      <p>AURO provides execution, risk management and settlement. Users do not trade directly. AURO is not a bank, collective investment scheme, or licensed investment adviser. Nothing herein constitutes financial, investment, legal or tax advice.</p>
+
+      <h3>3. Structured Growth Vaults – Fixed-Term Trading Vaults</h3>
+      <p>All products are designated as <strong>Structured Growth Vaults</strong> (also referred to as Fixed-Term Trading Vaults) – a professional term for fixed-term participation notes linked to trading strategy performance. This replaces prior informal naming such as “Structured Growth Vaults”.</p>
+      <ul>
+        <li><strong>Term:</strong> 60 calendar days from confirmation. Non-extendable, non-redeemable during term as capital is committed to live positions and vesting.</li>
+        <li><strong>Minimum Allocation:</strong> ₦3,000. Vaults issued every ₦3,000 from ₦3k to ₦600k (200 Vaults) for precise capital matching.</li>
+        <li><strong>Return Structure:</strong> Target 200% net profit (3x gross). Example: ₦30,000 allocation targets ₦90,000 maturity (₦60k profit) over 60 days via daily accruals of ₦1,500.</li>
+        <li><strong>Daily Accrual & Claim:</strong> Credited daily to Accrual Balance. Must be claimed daily; unclaimed accruals forfeit at 00:00 WAT as trading window closes.</li>
+        <li><strong>Settlement:</strong> Derived from desk P&L, fees and incentives. AURO maintains a performance buffer but does not guarantee accruals.</li>
       </ul>
 
-      <h3>6. Risks</h3>
+      <h3>4. Source of Returns – Transparency</h3>
+      <p>Returns are generated from verifiable trading activities: spot and derivatives execution on CEX/DEX, primary allocations and secondary sales, airdrop incentive realisation, prediction market settlement, options premium, FX movement and sports market-making spreads. Infrastructure includes institutional exchange accounts, API execution, farming servers and employed traders. Monthly transparency summaries (aggregated P&L by Mandate) are published in-app.</p>
+
+      <h3>5. Deposits and Withdrawals</h3>
       <ul>
-        <li>Capital risk: You may lose entire allocation.</li>
-        <li>Market, leverage, liquidity, tech, exchange, regulatory risks are real.</li>
+        <li>Deposits via bank transfer to designated collection account. Minimum ₦3,000, maximum ₦1,000,000. Submit notification after transfer. False notification without bank credit constitutes fraud – termination, forfeiture and reporting.</li>
+        <li>Credit timeline 1-3 business hours, subject to banking delays.</li>
+        <li>Withdrawals manual review, 1-3 business days. Minimum ₦30,000. KYC (ID, BVN) may be required. AURO may delay/hold/decline for fraud, compliance or risk management. No interest during hold.</li>
+        <li>Wallet balances are uninvested and not insured. Not a licensed deposit-taking institution.</li>
       </ul>
 
-      <h3>7. No financial advice, changes, law</h3>
-      <p>We may update Terms anytime. Liability capped at ₦10,000. Governed by Nigerian law, Lagos courts. Contact support@auro.app.</p>
-      <p style="margin-top:20px;font-size:11px;color:var(--dim)">Last updated: May 2026 · 200 Vaults from ₦3k step ₦3k · Real trading operation</p>
+      <h3>6. Risk Disclosure</h3>
+      <p>All Mandates involve significant risk of loss:</p>
+      <ul>
+        <li>Capital Risk – You may lose entire Allocation.</li>
+        <li>Market Risk – Volatile digital assets, derivatives, FX and event markets may cause total loss of individual positions.</li>
+        <li>Leverage & Derivatives Risk – Adverse moves can cause loss exceeding margin for that trade.</li>
+        <li>Liquidity, Technology & Counterparty Risk – Outages, smart contract failures, API failures, exchange insolvency or misconduct may affect returns.</li>
+        <li>Regulatory Risk – Evolving regulation may impact operations.</li>
+      </ul>
+      <p>Target returns based on historical performance, not indicative of future results. Only allocate capital you can afford to lose.</p>
+
+      <h3>7. User Obligations & Prohibited Conduct</h3>
+      <ul>
+        <li>Maintain confidentiality of password and 4-digit trading PIN. AURO will never request PIN.</li>
+        <li>Provide accurate information, act in own capacity.</li>
+        <li>Prohibited: false deposit claims, money laundering, multi-accounting, referral abuse, scraping, reverse-engineering, bots, impersonation, account transfer. Violation = permanent termination and forfeiture.</li>
+      </ul>
+
+      <h3>8. Referral Programme, Liability, Amendments & Law</h3>
+      <p>Referral rewards are discretionary, non-contractual and may be modified or discontinued. Aggregate liability capped at ₦10,000. Indemnity for breach, fraud or unauthorised use. Terms may be amended by posting updated version; continued use constitutes acceptance. Platform may be modified, suspended or discontinued. Governed by laws of Federal Republic of Nigeria, exclusive jurisdiction of Lagos State courts. No class actions. Contact support@auro.app for disputes – 30-day good-faith resolution attempt before litigation.</p>
+      <p style="margin-top:20px;font-size:11px;color:var(--dim)">Educational note: Search “structured growth vault”, “fixed-term trading vault”, “managed trading mandate”, “event arbitrage”, “market making” and “systematic futures” for general context. AURO Structured Growth Vaults are proprietary products. Last updated: May 12, 2026. 200 Vaults from ₦3k step ₦3k.</p>
     </div>
     <div class="tos-agree"
 <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
@@ -2081,6 +2100,77 @@ const TC = {
     icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/>'}
 };
 
+const TRADING_VERTICALS = [
+  { id:'stock', name:'Stock Trading', sector:'Equities', mandate:'Equity Growth Mandate', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>', color:'#0D9488',
+    capitalUse:'Capital allocated to Stock Trading is deployed via our Equities desk into NYSE, NASDAQ and NGX listed large-cap and growth stocks. Execution through institutional brokerage with real-time order book, earnings momentum and sector rotation models. Positions hedged via index options where appropriate.' },
+  { id:'forex', name:'Forex Trading', sector:'FX', mandate:'FX Majors Mandate', icon:'<path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="8"/>', color:'#E8722A',
+    capitalUse:'Capital is deployed into spot forex majors and minors (EUR/USD, GBP/USD, USD/JPY, USD/NGN) via Tier-1 liquidity providers. Systematic breakout and carry strategies with strict stop-loss and leverage controls executed 24/5.' },
+  { id:'crypto', name:'Cryptocurrency Trading', sector:'Digital Assets', mandate:'Spot Crypto Mandate', icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>', color:'#168F58',
+    capitalUse:'Capital is allocated to spot trading of BTC, ETH, SOL and high-liquidity altcoins on Binance, Bybit and OKX. Desk uses trend-following, mean-reversion and funding rate arbitrage with cold wallet custody for uninvested balances.' },
+  { id:'memecoin', name:'Memecoin Trading', sector:'Digital Assets – Micro Cap', mandate:'Meme Momentum Mandate', icon:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8z"/><path d="M12 12c0-5 4-8 8-8 0 5-3 8-8 8z"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed into micro-cap memecoins (<$5M) on decentralized exchanges Raydium, Uniswap, PancakeSwap. On-chain analytics, wallet tracking and early liquidity detection for intraday momentum capture. Diversified across multiple tokens to manage volatility.' },
+  { id:'nft', name:'NFT Trading', sector:'Digital Collectibles', mandate:'NFT Flip Mandate', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-3.5-3.5L3 21"/>', color:'#C98A00',
+    capitalUse:'Capital is used for floor sweeping, whitelist minting and flip trading of verified NFT collections on OpenSea, Blur and Tensor. Rarity scoring, wash-trading filters and liquidity analysis drive entry/exit.' },
+  { id:'etf', name:'ETF Trading', sector:'Funds', mandate:'ETF Rotation Mandate', icon:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>', color:'#4338EC',
+    capitalUse:'Capital is allocated to sector ETFs (SPY, QQQ, IWM, NGX ETFs) via brokerage for sector rotation and tactical asset allocation. Rebalancing based on macro data and institutional flow.' },
+  { id:'index', name:'Index Trading', sector:'Indices', mandate:'Index Momentum Mandate', icon:'<path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/>', color:'#0D9488',
+    capitalUse:'Capital is deployed into major indices S&P500, NASDAQ100, Dow Jones, FTSE and NGX30 via futures and CFDs. Systematic trend and breakout strategies with volatility targeting.' },
+  { id:'bond', name:'Bond Trading', sector:'Fixed Income', mandate:'Fixed Income Mandate', icon:'<path d="M4 12h16M12 4v16"/>', color:'#E8722A',
+    capitalUse:'Capital is allocated to sovereign and corporate bonds (US Treasuries, Nigerian FGN bonds) and bond futures. Yield curve positioning and carry strategies managed by fixed income desk.' },
+  { id:'commodity', name:'Commodity Trading', sector:'Commodities', mandate:'Commodity Trend Mandate', icon:'<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>', color:'#168F58',
+    capitalUse:'Capital is traded in gold, silver, crude oil and agricultural commodities via futures. Macro-driven positioning and contango/backwardation arbitrage.' },
+  { id:'futures', name:'Futures Trading', sector:'Derivatives – Futures', mandate:'Systematic Futures Mandate', icon:'<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed through institutional accounts on Binance, Bybit, OKX executing systematic long/short futures on BTC, ETH, SOL, S&P and commodities with defined risk parameters and stop-loss discipline.' },
+  { id:'options', name:'Options Trading', sector:'Derivatives – Options', mandate:'Options Premium Mandate', icon:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', color:'#C98A00',
+    capitalUse:'Capital is used to sell and buy options premium (straddles, strangles, iron condors) on stocks, indices and crypto. Volatility harvesting and delta-hedging by experienced derivatives traders.' },
+  { id:'perpetual', name:'Perpetual Trading', sector:'Derivatives – Perps', mandate:'Perp Funding Mandate', icon:'<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12h6"/>', color:'#4338EC',
+    capitalUse:'Capital trades perpetual swaps with funding rate arbitrage between exchanges. Captures funding fees while delta-hedged to remain market neutral.' },
+  { id:'margin', name:'Margin Trading', sector:'Leveraged Spot', mandate:'Leveraged Spot Mandate', icon:'<path d="M12 3l7 4v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/>', color:'#0D9488',
+    capitalUse:'Capital is used in margin accounts with controlled leverage (2-3x) for directional spot trades. Cross-margin risk management and liquidation protection protocols.' },
+  { id:'cfd', name:'CFD Trading', sector:'CFDs', mandate:'CFD Momentum Mandate', icon:'<rect x="2" y="7" width="20" height="10" rx="2"/><path d="M7 7V5M17 7V5M7 17v2M17 17v2"/>', color:'#E8722A',
+    capitalUse:'Capital is traded via CFDs on stocks, indices, forex and commodities through regulated brokers. Provides leveraged exposure with tight spreads and fast execution.' },
+  { id:'binary', name:'Binary Options Trading', sector:'Digital Options', mandate:'Binary Event Mandate', icon:'<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>', color:'#168F58',
+    capitalUse:'Capital is allocated to short-term binary contracts on forex and crypto price direction. Quantitative probability models and strict risk per trade (1-2% of vault).' },
+  { id:'prediction', name:'Prediction Market Trading', sector:'Event-Driven', mandate:'Event Arbitrage Mandate', icon:'<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>', color:'#7C3AED',
+    capitalUse:'Capital is staked across regulated prediction venues Polymarket, Kalshi covering elections, macro releases, sports outcomes and crypto benchmarks, hedged across venues for arbitrage.' },
+  { id:'carbon', name:'Carbon Credit Trading', sector:'ESG', mandate:'Carbon Credit Mandate', icon:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8z"/><path d="M12 12c0-5 4-8 8-8 0 5-3 8-8 8z"/>', color:'#C98A00',
+    capitalUse:'Capital is deployed into carbon credit futures and spot via Verra and Gold Standard registries. ESG-driven demand and compliance market arbitrage.' },
+  { id:'domain', name:'Domain Trading', sector:'Digital Real Estate', mandate:'Domain Flip Mandate', icon:'<path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M2 12h20"/>', color:'#4338EC',
+    capitalUse:'Capital is used to acquire premium domains at auction and flip via Afternic, Sedo, Dan. Valuation based on search volume, brandability and TLD strength.' },
+  { id:'website', name:'Website Trading', sector:'Digital Assets', mandate:'Website Flip Mandate', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21l8-10"/>', color:'#0D9488',
+    capitalUse:'Capital acquires cash-flowing content sites and Shopify stores via Flippa and Empire Flippers, optimizes SEO/monetization and exits at 30-40x monthly profit multiples.' },
+  { id:'app', name:'App Trading', sector:'Digital Assets', mandate:'App Portfolio Mandate', icon:'<rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/>', color:'#E8722A',
+    capitalUse:'Capital is invested in mobile app portfolios (iOS/Android) with in-app purchases and ad revenue. ASO optimization and user acquisition arbitrage.' },
+  { id:'collectible', name:'Digital Collectible Trading', sector:'Collectibles', mandate:'Collectible Vault Mandate', icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>', color:'#168F58',
+    capitalUse:'Capital trades authenticated digital collectibles and trading cards via Rally, Dibbs and eBay Vault. Fractional ownership and rarity arbitrage.' },
+  { id:'gaming', name:'Gaming Item Trading', sector:'Gaming', mandate:'Gaming Asset Mandate', icon:'<path d="M6 12h12M12 6v12"/><circle cx="12" cy="12" r="10"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed into in-game items and skins (CS:GO, Dota 2, Axie) via Steam Marketplace and OpenSea Gaming. Market-making between low and high liquidity servers.' },
+  { id:'virtual_land', name:'Virtual Land Trading', sector:'Metaverse', mandate:'Metaverse Land Mandate', icon:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>', color:'#C98A00',
+    capitalUse:'Capital acquires virtual land parcels in Decentraland, Sandbox and Otherside, leasing to brands and flipping based on development activity and foot traffic data.' },
+  { id:'software_license', name:'Software License Trading', sector:'B2B SaaS', mandate:'License Arbitrage Mandate', icon:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>', color:'#4338EC',
+    capitalUse:'Capital trades enterprise software licenses and SaaS seats via secondary markets. Bulk discount acquisition and resale to SMBs.' },
+  { id:'p2p', name:'P2P Trading', sector:'Peer-to-Peer', mandate:'P2P Spread Mandate', icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>', color:'#0D9488',
+    capitalUse:'Capital provides liquidity on P2P exchanges Binance P2P, Paxful. Spread capture between buy/sell offers with escrow protection and KYC screening.' },
+  { id:'otc', name:'OTC Trading', sector:'OTC Desk', mandate:'OTC Block Mandate', icon:'<path d="M12 1v22M5 6h14M5 18h14"/>', color:'#E8722A',
+    capitalUse:'Capital facilitates OTC block trades for HNWIs and institutions, earning spread on large BTC/USDT and USD/NGN transactions via private order book.' },
+  { id:'copy', name:'Copy Trading', sector:'Social Trading', mandate:'Copy Leader Mandate', icon:'<path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11v2"/>', color:'#168F58',
+    capitalUse:'Capital mirrors top-ranked traders on eToro, Bybit Copy and Binance Copy via API. Performance filtering and drawdown-based allocation.' },
+  { id:'social', name:'Social Trading', sector:'Social Sentiment', mandate:'Social Sentiment Mandate', icon:'<path d="M21 11.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/>', color:'#7C3AED',
+    capitalUse:'Capital trades based on social sentiment aggregation from Twitter, Reddit and Telegram using NLP models to front-run retail momentum.' },
+  { id:'algo', name:'Algorithmic Trading', sector:'Systematic', mandate:'Algo Execution Mandate', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/>', color:'#C98A00',
+    capitalUse:'Capital is deployed via proprietary algorithms (TWAP, VWAP, iceberg) for optimal execution across CEX/DEX, minimizing slippage and market impact.' },
+  { id:'quant', name:'Quantitative Trading', sector:'Quant', mandate:'Quant Model Mandate', icon:'<path d="M3 3v18h18"/><path d="M7 16l3-3 3 3 5-8"/>', color:'#4338EC',
+    capitalUse:'Capital is managed by quantitative models using statistical arbitrage, factor investing and machine learning signals backtested over 5+ years.' },
+  { id:'hft', name:'High-Frequency Trading', sector:'HFT', mandate:'HFT Market Making Mandate', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', color:'#0D9488',
+    capitalUse:'Capital co-located near exchange matching engines for sub-millisecond market-making, capturing bid-ask spreads at high volume.' },
+  { id:'arbitrage', name:'Arbitrage Trading', sector:'Arbitrage', mandate:'Cross-Exchange Arb Mandate', icon:'<path d="M7 16V4M7 8l3-3 3 3M17 8v12M17 16l-3 3-3-3"/>', color:'#E8722A',
+    capitalUse:'Capital exploits price differences for same asset across Binance, Bybit, OKX, Bet365 vs Betfair. Automated bots lock risk-free spreads.' },
+  { id:'grid', name:'Grid Trading', sector:'Systematic', mandate:'Grid Range Mandate', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>', color:'#168F58',
+    capitalUse:'Capital runs grid bots that buy low/sell high within defined ranges on BTC, ETH, SOL, capturing volatility in sideways markets 24/7.' },
+  { id:'ai', name:'AI-Assisted Trading', sector:'AI', mandate:'AI Alpha Mandate', icon:'<path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M9 9h6M9 15h6"/>', color:'#7C3AED',
+    capitalUse:'Capital is managed by AI models trained on order book, on-chain and sentiment data for predictive trade signals, continuously retrained with reinforcement learning.' }
+];
+
 const AMTS = Array.from({length: 200}, (_, i) => 3000 * (i + 1));
 const TIERS = AMTS.map((_, i) => {
   if (i < 35) return 'Starter';
@@ -2099,11 +2189,15 @@ const BADGES = AMTS.map((_, i) => {
   if (pos < 28) return 'Prime';
   return 'Institutional';
 });
-const PLANS = AMTS.map((amt,i) => ({
-  id:'plan_'+i, invest:amt, total:amt*3,
-  daily: parseFloat((amt*3/60).toFixed(2)),
-  tier:TIERS[i], badge:BADGES[i]
-}));
+const PLANS = AMTS.map((amt,i) => {
+  const vertical = TRADING_VERTICALS[i % TRADING_VERTICALS.length];
+  return {
+    id:'plan_'+i, invest:amt, total:amt*3,
+    daily: parseFloat((amt*3/60).toFixed(2)),
+    tier:TIERS[i], badge:BADGES[i],
+    vertical: vertical
+  };
+});;;
 
 // ══════════════════════════════════
 // HELPERS
@@ -2413,8 +2507,8 @@ function openInvModal(planId) {
   _planId = planId;
   const g = id => document.getElementById(id);
   const info = TIER_INFO[plan.tier];
-  g('m-t').textContent = (TC[plan.tier]?TC[plan.tier].name+' · ':'')+plan.tier+' Plan';
-  g('m-s').textContent = 'Invest '+fmt(plan.invest)+' · Target '+fmt(plan.total)+' over 60 days · '+ (info?info.tagline:'Real trading');
+  g('m-t').textContent = (TC[plan.tier]?TC[plan.tier].name+' · ':'')+plan.tier+' Vault · '+ (info?info.mandate:'Structured Growth Vault');
+  g('m-s').textContent = 'Allocation '+fmt(plan.invest)+' · Maturity '+fmt(plan.total)+' over 60 days · '+ (info?info.sector:'Managed Mandate');
   g('m-inv').textContent = fmt(plan.invest);
   g('m-ret').textContent = fmt(plan.total);
   g('m-daily').textContent = fmt(plan.daily)+' / day';
@@ -2842,35 +2936,35 @@ const TIER_INFO = {
     sector: 'Digital Assets – Micro Cap',
     mandate: 'Short-Term Momentum Mandate',
     capitalUse: 'Capital allocated to this mandate is deployed via our Digital Assets desk into micro-capitalization tokens (<$5M) on decentralised exchanges (Raydium, Uniswap, PancakeSwap) using on-chain analytics and wallet flow tracking.',
-    detail: 'Institutional execution with systematic rotation and intraday profit capture.',
-    strategy: 'Systematic rotation, intraday profit capture, diversified.'
+    detail: 'Designed for first-time allocators seeking exposure to high-velocity digital asset markets with professional execution and daily settlement.',
+    strategy: 'Systematic rotation, intraday profit capture, diversified across multiple tokens.'
   },
   Builder: {
     sector: 'Venture – Token Launches',
     mandate: 'Early-Stage Allocation Mandate',
     capitalUse: 'Capital is deployed into private allocations, IDOs, Launchpad subscriptions and structured airdrop farming across Base, Solana and emerging L1/L2 ecosystems, including vesting management and testnet/mainnet operations.',
-    detail: 'Primary market access with institutional syndication.',
+    detail: 'Provides access to pre-public pricing and incentive programs typically restricted to institutional participants.',
     strategy: 'Primary market access, allocation syndication, farming infrastructure.'
   },
   Growth: {
     sector: 'Derivatives – Crypto Futures',
     mandate: 'Systematic Futures Mandate',
-    capitalUse: 'Deployed through institutional accounts on Binance, Bybit and OKX. The desk executes systematic long/short futures strategies on BTC, ETH and SOL with defined risk parameters and 24/7 monitoring.',
-    detail: 'Algorithmic entry/exit, stop-loss discipline and funding rate arbitrage.',
+    capitalUse: 'Deployed through institutional accounts on Binance, Bybit and OKX. The desk executes systematic long/short futures strategies on BTC, ETH and SOL with defined risk parameters.',
+    detail: '24/7 trading desk utilizing algorithmic entry/exit, stop-loss discipline and funding rate arbitrage.',
     strategy: 'Trend-following, mean-reversion, funding arbitrage.'
   },
   Elite: {
     sector: 'Event-Driven – Prediction Markets',
     mandate: 'Event Arbitrage Mandate',
-    capitalUse: 'Capital is staked across regulated prediction venues (Polymarket, Kalshi) covering elections, macroeconomic releases, sports outcomes and crypto price benchmarks, hedged cross-venue.',
-    detail: 'Information arbitrage and probability modelling across hundreds of contracts.',
+    capitalUse: 'Capital is staked across regulated prediction venues (Polymarket, Kalshi) covering elections, macroeconomic releases, sports outcomes and crypto price benchmarks, hedged across venues.',
+    detail: 'Information arbitrage and probability modelling across hundreds of concurrent event contracts.',
     strategy: 'Quantitative modelling, cross-venue hedging, diversified event book.'
   },
   Premium: {
     sector: 'Derivatives – Options & FX',
     mandate: 'Volatility & FX Mandate',
     capitalUse: 'Managed by our Derivatives desk trading options premium (straddles, strangles) and spot FX majors (USD/NGN, EUR/USD, GBP/JPY) with institutional brokerage.',
-    detail: 'Volatility harvesting and directional FX strategies.',
+    detail: 'Volatility harvesting and directional FX strategies executed by experienced derivatives traders.',
     strategy: 'Premium collection, implied volatility expansion, high-conviction FX.'
   },
   Sovereign: {
@@ -2902,36 +2996,36 @@ function renderPlans() {
   setMarketStatusChip();
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
-    const info = TIER_INFO[p.tier];
-    const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${t.r};border-color:${t.pbd}`;
-    return `<div class="plan-item" style="--pi-l:${t.l};--pi-glow:${t.glow}" onclick="openInvModal('${p.id}')">
+    const v = p.vertical;
+    const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${v.color};border-color:${v.color}33`;
+    return `<div class="plan-item" style="--pi-l:${v.color}55;--pi-glow:${v.color}18" onclick="openInvModal('${p.id}')">
       <div class="pi-atm"></div>
       <div class="pi-top">
         <div class="pi-id">
-          <div class="pi-ico" style="background:${t.pb};color:${t.pc}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pi-name">${t.name} · ${info.sector}</div><div class="pi-tier">${info.mandate} · ${fmt(p.invest)}</div></div>
+          <div class="pi-ico" style="background:${v.color}18;color:${v.color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${v.icon}</svg></div>
+          <div><div class="pi-name">${v.name}</div><div class="pi-tier">${v.sector} · ${v.mandate} · ${fmt(p.invest)}</div></div>
         </div>
-        <div class="pi-badge" style="background:${t.pb};color:${t.pc};border-color:${t.pbd}">${p.badge}</div>
+        <div class="pi-badge" style="background:${v.color}18;color:${v.color};border-color:${v.color}33">${p.badge}</div>
       </div>
       <div class="pi-figs">
         <div class="pi-invest"><div class="pi-lbl">Allocation</div><div class="pi-val">${fmt(p.invest)}</div></div>
         <div class="pi-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-        <div class="pi-return"><div class="pi-lbl">Maturity Value</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
+        <div class="pi-return"><div class="pi-lbl">Maturity Value</div><div class="pi-ret-v" style="color:${v.color}">${fmt(p.total)}</div></div>
       </div>
       <div class="pi-meta">
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60-Day Term</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">Target 200% Net</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Managed</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60-Day Term</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">Target 200% Net</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">${v.sector}</strong></div>
       </div>
       <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:10px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r}">CAPITAL DEPLOYMENT</div>
-          <div style="font-size:8px;font-weight:600;color:#fff;background:${t.r};padding:2px 6px;border-radius:4px">INSTITUTIONAL DESK</div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${v.color}">CAPITAL DEPLOYMENT</div>
+          <div style="font-size:8px;font-weight:600;color:#fff;background:${v.color};padding:2px 6px;border-radius:4px">${v.sector.toUpperCase()}</div>
         </div>
-        <div style="font-size:11px;color:var(--plat);line-height:1.65;font-weight:400">${info.capitalUse}</div>
+        <div style="font-size:11px;color:var(--plat);line-height:1.65;font-weight:400">${v.capitalUse}</div>
       </div>
-      <div class="pi-daily">Daily Accrual Target: <strong>${fmt(p.daily)}</strong> for 60 days · ${info.mandate}</div>
-      <button class="pi-cta" style="${bs}">Allocate ${fmt(p.invest)} to Vault</button>
+      <div class="pi-daily">Daily Accrual Target: <strong>${fmt(p.daily)}</strong> for 60 days · ${v.name}</div>
+      <button class="pi-cta" style="${bs}">Allocate ${fmt(p.invest)} to ${v.name}</button>
     </div>`;
   }).join('');
 }
@@ -3045,7 +3139,7 @@ function switchPlansTab(tab) {
   document.getElementById('mkt-sec-browse').style.display = tab==='browse' ? '' : 'none';
   document.getElementById('mkt-sec-positions').style.display = tab==='positions' ? '' : 'none';
 }
-// Jumps straight into Trading Vaults with the Positions tab pre-selected —
+// Jumps straight into Fixed-Term Vaults with the Positions tab pre-selected —
 // used by the home page claim banner and position preview cards.
 function openMyPositions() {
   go('p-plans','n-earn');
@@ -6054,8 +6148,8 @@ async function showUserHistory(userId) {
   document.getElementById('hist-stats').innerHTML = `
     <div class="hist-stat-tile"><div class="hist-stat-k">Deposited</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(totalDep)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Withdrawn</div><div class="hist-stat-v" style="color:var(--err)">${fmt(totalWit)}</div></div>
-    <div class="hist-stat-tile"><div class="hist-stat-k">In Trading Vaults</div><div class="hist-stat-v">${fmt(totalYieldIn)}</div></div>
-    <div class="hist-stat-tile"><div class="hist-stat-k">Yield Earned</div><div class="hist-stat-v" style="color:var(--gold)">${fmt(totalYieldEarned)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">In Fixed-Term Vaults</div><div class="hist-stat-v">${fmt(totalYieldIn)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Return Earned</div><div class="hist-stat-v" style="color:var(--gold)">${fmt(totalYieldEarned)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Games Net</div><div class="hist-stat-v" style="color:${gamesNet>=0?'var(--ok)':'var(--err)'}">${gamesNet>=0?'+':''}${fmt(gamesNet)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Referral Earned</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(refEarned)}</div></div>
   `;
