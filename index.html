@@ -1173,7 +1173,7 @@ body.dark #splash{background:var(--void)}
       <div class="game-card earn-mkt-teaser">
         <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Vaults</div>
         <div style="font-family:var(--d);font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3">Up to 200% ROI over 60 days</div>
-        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 200 Vaults in 6 tiers. PIN secured.</div>
+        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦3,000 and realise daily returns for 60 days across 200 Vaults in 6 tiers. PIN secured.</div>
         <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
       </div>
     </div>
@@ -1233,7 +1233,7 @@ body.dark #splash{background:var(--void)}
 
         <div class="dep-min-banner">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <div class="dep-min-txt">Minimum deposit is <strong>₦5,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
+          <div class="dep-min-txt">Minimum deposit is <strong>₦3,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
         </div>
 
         <label class="fl">Select Amount</label>
@@ -1250,7 +1250,7 @@ body.dark #splash{background:var(--void)}
 
         <label class="fl">Custom Amount (₦)</label>
         <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
-        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦5,000 and maximum is ₦1,000,000.</div>
+        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦3,000 and maximum is ₦1,000,000.</div>
 
         <div class="sbox" style="margin-top:18px">
           <div class="sr"><span>You will deposit</span><strong id="dep-sa">₦0.00</strong></div>
@@ -1895,73 +1895,153 @@ body.dark #splash{background:var(--void)}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <p><strong style="color:var(--plat)">AURO – Terms of Service</strong> – Effective: January 1, 2025 · Last Updated: May 12, 2026</p>
-      <p>These Terms govern your use of AURO, a technology platform enabling eligible users to allocate capital to professionally managed trading mandates (“Structured Growth Vaults”). By creating an account or allocating capital, you agree to these Terms. For independent context, you may search terms such as “managed account”, “structured note”, “event arbitrage”, “market making” or “systematic futures”.</p>
+      <p><strong style="color:var(--plat)">AURO – Terms of Service</strong></p>
+      <p style="margin-bottom:18px">Effective Date: 1 January 2025 &nbsp;|&nbsp; Last Updated: 6 August 2026</p>
 
-      <h3>1. Definitions</h3>
+      <p><strong>PLEASE READ THESE TERMS OF SERVICE CAREFULLY BEFORE USING THE AURO PLATFORM.</strong> BY CREATING AN ACCOUNT, ACCESSING THE PLATFORM, OR ALLOCATING CAPITAL THROUGH AURO, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND IRREVOCABLY AGREE TO BE BOUND BY THESE TERMS IN THEIR ENTIRETY. IF YOU DO NOT AGREE, YOU MUST IMMEDIATELY DISCONTINUE USE OF THE PLATFORM AND CLOSE YOUR ACCOUNT.</p>
+
+      <h3>1. Definitions &amp; Interpretation</h3>
+      <p>In these Terms, unless the context otherwise requires:</p>
       <ul>
-        <li><strong>Platform:</strong> AURO web and mobile application operated by AURO Technologies.</li>
-        <li><strong>Allocator:</strong> A natural person aged 18+ who completes KYC and allocates capital via the Platform.</li>
-        <li><strong>Mandate / Vault:</strong> A defined trading strategy (e.g., Short-Term Momentum Mandate) with fixed 60-day term, target return and deployment rules.</li>
-        <li><strong>Allocation:</strong> Naira amount committed to a specific Vault.</li>
-        <li><strong>Target Return:</strong> Projected gross return over term: principal + 200% (3x gross). Target based on historical desk performance, not a guarantee.</li>
-        <li><strong>Daily Accrual:</strong> Daily portion of Target Return (Target/60) credited for claiming.</li>
+        <li><strong>"Platform"</strong> means the AURO web application, mobile interface, APIs, and all related technology infrastructure operated by AURO Technologies.</li>
+        <li><strong>"User" / "You" / "Allocator"</strong> means any natural person aged 18 (eighteen) years or above who registers an account, completes identity verification, and utilises the Platform.</li>
+        <li><strong>"Structured Growth Vault"</strong> (also referred to as a "Fixed-Term Trading Vault" or "Mandate") means a defined, non-redeemable, 60-calendar-day capital allocation product linked to the performance of one of six professionally managed trading desks.</li>
+        <li><strong>"Allocation"</strong> means the Naira-denominated amount committed by a User to a specific Vault.</li>
+        <li><strong>"Target Return"</strong> means the projected gross return of principal plus 200% net profit (3× gross) over the 60-day term, derived from historical desk performance. It is an illustrative projection, not a guarantee, promise, or contractual entitlement.</li>
+        <li><strong>"Daily Accrual"</strong> means the daily portion of the Target Return (Target ÷ 60) credited to a User's Accrual Balance, subject to successful desk performance and User compliance with daily claim requirements.</li>
+        <li><strong>"Instant Games"</strong> means the short-duration prediction, chance, and skill-based modules offered within the "Earn" section, including but not limited to Crypto Flash Prediction, Aviator, and Coin Flip.</li>
+        <li><strong>"Wallet"</strong> means the internal NGN-denominated ledger maintained for each User to track uninvested balances, pending transactions, and available withdrawal amounts.</li>
+        <li><strong>"Trade PIN"</strong> means the 4-digit numeric code set by the User during registration, used to authenticate position openings, withdrawals, and high-value actions.</li>
+        <li><strong>"We" / "Us" / "AURO" / "Operator"</strong> means AURO Technologies, the entity operating the Platform.</li>
       </ul>
 
-      <h3>2. Nature of Services</h3>
-      <p>AURO is a wealth-technology platform aggregating allocations and deploying them into six actively managed desks:</p>
+      <h3>2. Platform Nature &amp; Scope of Services</h3>
+      <p><strong>2.1 Technology Platform Only.</strong> AURO is a financial-technology platform that aggregates User allocations and deploys them into six (6) actively managed trading desks. AURO is <strong>not</strong> a bank, deposit-taking institution, collective investment scheme, licensed broker-dealer, investment adviser, or fund manager. We do not hold a banking licence, an asset management licence, or any regulatory authorisation that would classify us as a traditional financial institution under Nigerian or foreign law.</p>
+      <p><strong>2.2 No Fiduciary Relationship.</strong> Nothing in these Terms creates a fiduciary relationship, agency, partnership, joint venture, or trust between AURO and any User. We owe no fiduciary duty to you. All trading decisions, risk management, and capital deployment are made at AURO's sole discretion based on the mandate parameters of each Vault.</p>
+      <p><strong>2.3 No Investment Advice.</strong> All information published on the Platform—including projected returns, desk descriptions, historical performance summaries, and market commentary—is for informational and educational purposes only. It does not constitute financial, investment, legal, tax, or professional advice. You should consult an independent financial adviser before allocating capital.</p>
+      <p><strong>2.4 Trading Desks.</strong> Allocations are directed to one of the following desks, each operating under a distinct mandate:</p>
       <ul>
-        <li>Daily Trade – Digital Assets Micro Cap – Short-Term Momentum Mandate</li>
-        <li>Transit – Venture Token Launches – Early-Stage Allocation Mandate</li>
-        <li>Harvest – Derivatives Crypto Futures – Systematic Futures Mandate</li>
-        <li>Skyline – Event-Driven Prediction Markets – Event Arbitrage Mandate</li>
-        <li>PowerGrid – Derivatives Options & FX – Volatility & FX Mandate</li>
-        <li>Treasury – Quantitative Sports Market Making – Market-Making Mandate</li>
+        <li><strong>Daily Trade</strong> – Digital Assets Micro Cap (Short-Term Momentum Mandate)</li>
+        <li><strong>Transit</strong> – Venture Token Launches (Early-Stage Allocation Mandate)</li>
+        <li><strong>Harvest</strong> – Derivatives Crypto Futures (Systematic Futures Mandate)</li>
+        <li><strong>Skyline</strong> – Event-Driven Prediction Markets (Event Arbitrage Mandate)</li>
+        <li><strong>PowerGrid</strong> – Derivatives Options &amp; FX (Volatility &amp; FX Mandate)</li>
+        <li><strong>Treasury</strong> – Quantitative Sports Market Making (Market-Making Mandate)</li>
       </ul>
-      <p>AURO provides execution, risk management and settlement. Users do not trade directly. AURO is not a bank, collective investment scheme, or licensed investment adviser. Nothing herein constitutes financial, investment, legal or tax advice.</p>
+      <p>Each desk utilises proprietary strategies, algorithmic execution, and institutional-grade infrastructure. Desk-level P&amp;L is reported in aggregate; individual position-level transparency is not provided.</p>
 
-      <h3>3. Structured Growth Vaults – Fixed-Term Trading Vaults</h3>
-      <p>All products are designated as <strong>Structured Growth Vaults</strong> (also referred to as Fixed-Term Trading Vaults) – a professional term for fixed-term participation notes linked to trading strategy performance. This replaces prior informal naming such as “Structured Growth Vaults”.</p>
+      <h3>3. Eligibility, Registration &amp; KYC</h3>
+      <p><strong>3.1 Age &amp; Capacity.</strong> You must be at least 18 years old and legally capable of entering into binding contracts under the laws of the Federal Republic of Nigeria. By registering, you represent and warrant that you meet these requirements.</p>
+      <p><strong>3.2 Accurate Information.</strong> You agree to provide true, accurate, current, and complete information during registration and to promptly update such information if it changes. AURO reserves the right to suspend or terminate accounts with false, misleading, or incomplete data.</p>
+      <p><strong>3.3 Know-Your-Customer (KYC).</strong> For deposits or withdrawals exceeding thresholds set by AURO's risk team, or at any time for compliance purposes, you must provide government-issued identification, proof of address, Bank Verification Number (BVN), and/or such other documentation as may be required. Failure to complete KYC within 72 hours of a request may result in account suspension and forfeiture of pending accruals.</p>
+      <p><strong>3.4 One Account Per Person.</strong> You may maintain only one (1) active account. Multi-accounting, identity obfuscation, or the use of proxy identities is strictly prohibited and constitutes a material breach of these Terms.</p>
+
+      <h3>4. Account Security &amp; Credentials</h3>
+      <p><strong>4.1 Confidentiality.</strong> You are solely responsible for maintaining the confidentiality of your password, Trade PIN, and any two-factor authentication credentials. AURO will <strong>never</strong> request your Trade PIN via email, SMS, telephone, or social media. Any such request should be reported immediately.</p>
+      <p><strong>4.2 Account Responsibility.</strong> You are liable for all activities that occur under your account, whether authorised by you or not, until you notify us of unauthorised access. You agree to notify AURO within 24 hours of any suspected breach.</p>
+      <p><strong>4.3 Security Measures.</strong> While AURO implements industry-standard encryption, firewalls, and access controls, we cannot guarantee absolute security. You acknowledge that electronic transmission over the internet is inherently exposed to interception, malware, and other risks.</p>
+
+      <h3>5. Deposits, Withdrawals &amp; Wallet Terms</h3>
+      <p><strong>5.1 Deposits.</strong> Deposits are accepted via bank transfer to a designated collection account operated by our payment partner. The minimum deposit is <strong>₦3,000</strong>; the maximum per deposit is <strong>₦1,000,000</strong>. You must tap "I Have Made This Payment" after transferring. Deposits are typically credited within 1–3 business hours but may be delayed by inter-bank settlement cycles, public holidays, or compliance reviews.</p>
+      <p><strong>5.2 False Deposit Claims.</strong> Submitting a deposit notification without a corresponding bank credit constitutes fraud. AURO reserves the right to permanently terminate accounts, forfeit balances, and report fraudulent activity to law enforcement and credit bureaus.</p>
+      <p><strong>5.3 Withdrawals.</strong> Withdrawals are subject to manual administrative review and typically processed within 1–3 business days. The minimum withdrawal is <strong>₦30,000</strong>. AURO may delay, hold, or decline a withdrawal request for fraud prevention, regulatory compliance, sanctions screening, or risk-management purposes. Wallet balances are uninvested and do not earn interest; they are not insured by the Nigeria Deposit Insurance Corporation (NDIC) or any comparable scheme.</p>
+      <p><strong>5.4 Fees.</strong> AURO does not currently charge deposit or withdrawal fees. However, your bank or payment processor may levy charges. We reserve the right to introduce fees with 14 days' advance notice.</p>
+      <p><strong>5.5 Third-Party Failures.</strong> AURO is not liable for delays, losses, or errors caused by banks, payment processors, card networks, mobile-money operators, or blockchain networks.</p>
+
+      <h3>6. Structured Growth Vaults — Fixed-Term Trading Mandates</h3>
+      <p><strong>6.1 Product Structure.</strong> The Platform offers 200 Vaults in 6 tiers, issued in increments of ₦3,000 from ₦3,000 to ₦600,000. Each Vault represents a 60-calendar-day, non-redeemable participation in a specific trading mandate.</p>
+      <p><strong>6.2 Target Return.</strong> The Target Return is 200% net profit (3× gross) over 60 days, achieved through daily accruals. For example, an allocation of ₦30,000 targets a maturity value of ₦90,000 (₦60,000 profit), distributed as daily accruals of ₦1,000. <strong>This is a target based on historical desk performance, not a guarantee.</strong></p>
+      <p><strong>6.3 Non-Redeemable Term.</strong> Once allocated, capital is committed to live trading positions and cannot be withdrawn, transferred, or redeemed during the 60-day term. Early termination is not permitted under any circumstances.</p>
+      <p><strong>6.4 Daily Accrual &amp; Claim Obligation.</strong> Accruals are credited daily to your Accrual Balance at 00:00 WAT. You must manually claim each day's accrual before the next daily reset. <strong>Unclaimed accruals are permanently forfeited</strong> and cannot be recovered, back-claimed, or credited retroactively.</p>
+      <p><strong>6.5 Settlement Source.</strong> Daily accruals are derived from realised desk P&amp;L, trading fees, incentive income, and performance buffers. AURO maintains a treasury reserve to smooth accruals, but we do not guarantee that every day's target accrual will be fully met.</p>
+      <p><strong>6.6 Performance Buffer.</strong> While AURO operates a performance buffer to mitigate volatility, there is no capital guarantee. In extreme market conditions, desk losses may reduce or eliminate daily accruals for affected Vaults.</p>
+      <p><strong>6.7 Maturity.</strong> Upon completion of the 60-day term, the Vault status changes to "Completed." Any unclaimed accruals from prior days remain forfeited. The principal is not returned separately; it is included in the total Target Return structure.</p>
+      <p><strong>6.8 Transparency Reports.</strong> AURO publishes monthly aggregated P&amp;L summaries by mandate. These reports are illustrative and may be delayed for audit reconciliation.</p>
+
+      <h3>7. Instant Games, Predictions &amp; Provably Fair Mechanics</h3>
+      <p><strong>7.1 Nature of Games.</strong> The "Earn" section includes Crypto Flash Prediction, Aviator, and Coin Flip. These are high-risk, short-duration activities involving chance, market volatility, and skill. They are not investments and carry a high probability of loss.</p>
+      <p><strong>7.2 Provably Fair.</strong> Certain games utilise cryptographic commit-reveal schemes (SHA-256 / HMAC-SHA-256) to demonstrate that outcomes are predetermined before User interaction. While this ensures outcome integrity against post-hoc manipulation, it does not alter the probabilistic nature of the games or the house edge.</p>
+      <p><strong>7.3 No Recourse for Game Losses.</strong> Losses incurred in Instant Games are final and non-refundable. AURO does not compensate Users for adverse game outcomes, technical delays, or connectivity issues experienced during gameplay.</p>
+      <p><strong>7.4 Responsible Participation.</strong> You agree to participate responsibly. If you feel you are losing control of your gaming activity, you must cease immediately and contact support. AURO reserves the right to impose deposit, loss, or session limits on any account.</p>
+
+      <h3>8. Referral Programme</h3>
+      <p><strong>8.1 Discretionary Programme.</strong> The Referral Programme is a discretionary promotional feature, not a contractual entitlement. AURO may modify, suspend, or terminate the programme at any time without prior notice.</p>
+      <p><strong>8.2 Eligibility.</strong> A referral bonus of ₦2,000 is credited to both parties when a referred User completes their first verified deposit. Self-referral, circular referral (User A refers User B who refers User A), or the use of synthetic identities to generate referral rewards constitutes fraud.</p>
+      <p><strong>8.3 No Guarantee of Rewards.</strong> AURO reserves the right to withhold referral bonuses pending fraud review, KYC completion, or if the referred deposit is subsequently reversed or flagged.</p>
+
+      <h3>9. Comprehensive Risk Disclosure &amp; Assumption of Risk</h3>
+      <p><strong>YOU EXPRESSLY ACKNOWLEDGE AND ASSUME THE FOLLOWING RISKS:</strong></p>
       <ul>
-        <li><strong>Term:</strong> 60 calendar days from confirmation. Non-extendable, non-redeemable during term as capital is committed to live positions and vesting.</li>
-        <li><strong>Minimum Allocation:</strong> ₦3,000. Vaults issued every ₦3,000 from ₦3k to ₦600k (200 Vaults) for precise capital matching.</li>
-        <li><strong>Return Structure:</strong> Target 200% net profit (3x gross). Example: ₦30,000 allocation targets ₦90,000 maturity (₦60k profit) over 60 days via daily accruals of ₦1,500.</li>
-        <li><strong>Daily Accrual & Claim:</strong> Credited daily to Accrual Balance. Must be claimed daily; unclaimed accruals forfeit at 00:00 WAT as trading window closes.</li>
-        <li><strong>Settlement:</strong> Derived from desk P&L, fees and incentives. AURO maintains a performance buffer but does not guarantee accruals.</li>
+        <li><strong>Capital Risk.</strong> You may lose the entirety of your Allocation. Structured Growth Vaults are not capital-protected, insured, or guaranteed.</li>
+        <li><strong>Market Risk.</strong> Digital assets, derivatives, foreign exchange, and event markets are highly volatile. Adverse price movements, exchange failures, or protocol exploits may cause total loss of deployed capital.</li>
+        <li><strong>Leverage &amp; Derivatives Risk.</strong> Certain desks employ leveraged instruments. Adverse market moves can result in losses exceeding the margin allocated to a specific trade, potentially impacting overall desk performance.</li>
+        <li><strong>Liquidity Risk.</strong> Positions in micro-cap tokens, prediction markets, or NFT collections may become illiquid. AURO may be unable to exit positions at desired prices.</li>
+        <li><strong>Technology Risk.</strong> Smart contract bugs, API failures, exchange outages, wallet compromises, or blockchain reorganisations may result in loss of funds or missed trading opportunities.</li>
+        <li><strong>Counterparty Risk.</strong> AURO utilises third-party exchanges, custodians, and liquidity providers. Insolvency, misconduct, or regulatory action against these counterparties may affect User returns.</li>
+        <li><strong>Regulatory Risk.</strong> Cryptocurrency, derivatives, and prediction-market regulations are evolving. Changes in Nigerian or international law may restrict operations, force mandate modifications, or result in asset freezes.</li>
+        <li><strong>Operational Risk.</strong> System maintenance, cyber-attacks, or force majeure events may interrupt Platform availability, delay settlements, or prevent claims.</li>
+        <li><strong>Tax Risk.</strong> You are solely responsible for determining your tax obligations arising from Platform use. AURO does not provide tax advice and will not withhold taxes unless legally compelled.</li>
       </ul>
+      <p><strong>YOU CONFIRM THAT YOU HAVE THE FINANCIAL CAPACITY TO BEAR THE COMPLETE LOSS OF ANY CAPITAL ALLOCATED THROUGH THE PLATFORM AND THAT YOU WILL NOT ALLOCATE FUNDS REQUIRED FOR ESSENTIAL LIVING EXPENSES, DEBT SERVICING, OR EMERGENCY RESERVES.</strong></p>
 
-      <h3>4. Source of Returns – Transparency</h3>
-      <p>Returns are generated from verifiable trading activities: spot and derivatives execution on CEX/DEX, primary allocations and secondary sales, airdrop incentive realisation, prediction market settlement, options premium, FX movement and sports market-making spreads. Infrastructure includes institutional exchange accounts, API execution, farming servers and employed traders. Monthly transparency summaries (aggregated P&L by Mandate) are published in-app.</p>
-
-      <h3>5. Deposits and Withdrawals</h3>
+      <h3>10. Prohibited Conduct</h3>
+      <p>You agree not to, and not to permit any third party to:</p>
       <ul>
-        <li>Deposits via bank transfer to designated collection account. Minimum ₦3,000, maximum ₦1,000,000. Submit notification after transfer. False notification without bank credit constitutes fraud – termination, forfeiture and reporting.</li>
-        <li>Credit timeline 1-3 business hours, subject to banking delays.</li>
-        <li>Withdrawals manual review, 1-3 business days. Minimum ₦30,000. KYC (ID, BVN) may be required. AURO may delay/hold/decline for fraud, compliance or risk management. No interest during hold.</li>
-        <li>Wallet balances are uninvested and not insured. Not a licensed deposit-taking institution.</li>
+        <li>Submit false deposit notifications, forged transfer receipts, or engage in chargeback fraud;</li>
+        <li>Maintain multiple accounts, use VPNs or proxies to obscure identity, or sell, transfer, or lease accounts;</li>
+        <li>Use bots, scripts, scrapers, or automated tools to interact with the Platform;</li>
+        <li>Reverse-engineer, decompile, or attempt to derive source code from the Platform;</li>
+        <li>Engage in money laundering, terrorist financing, sanctions evasion, or other unlawful financial activity;</li>
+        <li>Manipulate game outcomes, exploit bugs, or collude with other Users;</li>
+        <li>Abuse the referral programme through self-referral, circular schemes, or synthetic identities;</li>
+        <li>Impersonate AURO staff, distribute malware, or phish for credentials;</li>
+        <li>Publish defamatory, obscene, or infringing content through any Platform channel.</li>
       </ul>
+      <p>Violation of this section constitutes a material breach and may result in immediate account termination, balance forfeiture, and referral to law enforcement.</p>
 
-      <h3>6. Risk Disclosure</h3>
-      <p>All Mandates involve significant risk of loss:</p>
+      <h3>11. Intellectual Property</h3>
+      <p>All trademarks, logos, software, algorithms, trade secrets, and content on the Platform are the exclusive property of AURO Technologies or its licensors. You are granted a limited, non-exclusive, non-transferable, revocable licence to use the Platform for personal, non-commercial purposes. You may not copy, modify, distribute, or create derivative works without prior written consent.</p>
+
+      <h3>12. Privacy &amp; Data Processing</h3>
+      <p>By using the Platform, you consent to the collection, processing, storage, and transfer of your personal data as described in our Privacy Policy (incorporated by reference). We may share data with regulatory authorities, law enforcement, and service providers as required by law or for fraud prevention.</p>
+
+      <h3>13. Limitation of Liability</h3>
+      <p><strong>13.1 Exclusion of Consequential Damages.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, AURO, ITS DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR INABILITY TO USE THE PLATFORM.</p>
+      <p><strong>13.2 Liability Cap.</strong> AURO'S TOTAL CUMULATIVE LIABILITY TO YOU FOR ANY CLAIM ARISING OUT OF OR RELATING TO THESE TERMS OR THE PLATFORM SHALL NOT EXCEED THE GREATER OF (A) ₦10,000 (TEN THOUSAND NAIRA) OR (B) THE TOTAL AMOUNT OF FEES PAID BY YOU TO AURO IN THE SIX (6) MONTHS PRECEDING THE EVENT GIVING RISE TO LIABILITY.</p>
+      <p><strong>13.3 No Warranty.</strong> THE PLATFORM IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR COURSE OF DEALING.</p>
+      <p><strong>13.4 No Guarantee of Returns.</strong> AURO DOES NOT GUARANTEE ANY SPECIFIC RATE OF RETURN, PROFIT, OR CAPITAL PRESERVATION. HISTORICAL PERFORMANCE IS NOT INDICATIVE OF FUTURE RESULTS.</p>
+
+      <h3>14. Indemnification</h3>
+      <p>You agree to indemnify, defend, and hold harmless AURO and its affiliates from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising out of or relating to: (a) your use of the Platform; (b) your breach of these Terms; (c) your violation of any law or regulation; or (d) your infringement of any third-party right.</p>
+
+      <h3>15. Termination &amp; Account Suspension</h3>
+      <p>AURO may suspend, restrict, or terminate your account and access to the Platform at any time, with or without notice, for breach of these Terms, suspected fraud, regulatory compliance, or operational necessity. Upon termination, any uninvested wallet balance may be withdrawn subject to KYC and minimum thresholds; allocated Vault positions continue to maturity unless terminated for cause, in which case accrued but unclaimed returns may be forfeited.</p>
+
+      <h3>16. Force Majeure</h3>
+      <p>AURO shall not be liable for any failure or delay in performance due to causes beyond its reasonable control, including but not limited to acts of God, war, terrorism, riots, embargoes, acts of civil or military authorities, fire, floods, pandemics, accidents, strikes, shortages of transportation, facilities, fuel, energy, labour, or materials, or failures of telecommunications, internet, or blockchain networks.</p>
+
+      <h3>17. Governing Law, Jurisdiction &amp; Dispute Resolution</h3>
+      <p><strong>17.1 Governing Law.</strong> These Terms shall be governed by and construed in accordance with the laws of the Federal Republic of Nigeria, without regard to conflict-of-law principles.</p>
+      <p><strong>17.2 Exclusive Jurisdiction.</strong> Any dispute arising out of or relating to these Terms shall be subject to the exclusive jurisdiction of the courts of Lagos State, Nigeria.</p>
+      <p><strong>17.3 Waiver of Class Actions.</strong> YOU AGREE TO RESOLVE DISPUTES WITH AURO ON AN INDIVIDUAL BASIS AND WAIVE ANY RIGHT TO PARTICIPATE IN CLASS ACTIONS, CLASS ARBITRATIONS, PRIVATE ATTORNEY GENERAL ACTIONS, OR REPRESENTATIVE PROCEEDINGS OF ANY KIND.</p>
+      <p><strong>17.4 Pre-Litigation Negotiation.</strong> Before initiating litigation, you must contact AURO support at <strong>support@auro.app</strong> and provide 30 days for good-faith resolution. Failure to do so may result in dismissal of your claim for failure to exhaust administrative remedies.</p>
+
+      <h3>18. Amendments &amp; Updates</h3>
+      <p>AURO reserves the right to amend these Terms at any time. Material changes will be notified via in-app banner, email, or push notification at least 7 days before taking effect. Continued use of the Platform after the effective date of amendments constitutes irrevocable acceptance. If you do not agree to the amended Terms, you must close your account and cease all use.</p>
+
+      <h3>19. Miscellaneous</h3>
       <ul>
-        <li>Capital Risk – You may lose entire Allocation.</li>
-        <li>Market Risk – Volatile digital assets, derivatives, FX and event markets may cause total loss of individual positions.</li>
-        <li>Leverage & Derivatives Risk – Adverse moves can cause loss exceeding margin for that trade.</li>
-        <li>Liquidity, Technology & Counterparty Risk – Outages, smart contract failures, API failures, exchange insolvency or misconduct may affect returns.</li>
-        <li>Regulatory Risk – Evolving regulation may impact operations.</li>
-      </ul>
-      <p>Target returns based on historical performance, not indicative of future results. Only allocate capital you can afford to lose.</p>
-
-      <h3>7. User Obligations & Prohibited Conduct</h3>
-      <ul>
-        <li>Maintain confidentiality of password and 4-digit trading PIN. AURO will never request PIN.</li>
-        <li>Provide accurate information, act in own capacity.</li>
-        <li>Prohibited: false deposit claims, money laundering, multi-accounting, referral abuse, scraping, reverse-engineering, bots, impersonation, account transfer. Violation = permanent termination and forfeiture.</li>
+        <li><strong>Severability.</strong> If any provision of these Terms is held invalid or unenforceable, the remaining provisions shall continue in full force and effect.</li>
+        <li><strong>Assignment.</strong> You may not assign or transfer these Terms without AURO's prior written consent. AURO may assign these Terms without restriction.</li>
+        <li><strong>Waiver.</strong> No waiver of any provision shall be effective unless in writing signed by the waiving party. Failure to enforce any right shall not constitute a waiver.</li>
+        <li><strong>Entire Agreement.</strong> These Terms, together with the Privacy Policy and any supplemental policies, constitute the entire agreement between you and AURO concerning the Platform and supersede all prior agreements.</li>
+        <li><strong>Language.</strong> These Terms are executed in English. In the event of translation, the English version shall prevail.</li>
       </ul>
 
-      <h3>8. Referral Programme, Liability, Amendments & Law</h3>
-      <p>Referral rewards are discretionary, non-contractual and may be modified or discontinued. Aggregate liability capped at ₦10,000. Indemnity for breach, fraud or unauthorised use. Terms may be amended by posting updated version; continued use constitutes acceptance. Platform may be modified, suspended or discontinued. Governed by laws of Federal Republic of Nigeria, exclusive jurisdiction of Lagos State courts. No class actions. Contact support@auro.app for disputes – 30-day good-faith resolution attempt before litigation.</p>
-      <p style="margin-top:20px;font-size:11px;color:var(--dim)">Educational note: Search “structured growth vault”, “fixed-term trading vault”, “managed trading mandate”, “event arbitrage”, “market making” and “systematic futures” for general context. AURO Structured Growth Vaults are proprietary products. Last updated: May 12, 2026. 200 Vaults from ₦3k step ₦3k.</p>
+      <h3>20. Contact, Complaints &amp; Regulatory Cooperation</h3>
+      <p>For support, complaints, or regulatory inquiries, contact us at <strong>support@auro.app</strong>. AURO cooperates fully with the Securities and Exchange Commission (SEC) Nigeria, the Economic and Financial Crimes Commission (EFCC), the Central Bank of Nigeria (CBN), and other relevant authorities. Users are required to cooperate with any lawful investigation.</p>
+
+      <p style="margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7"><strong>Educational Context:</strong> Terms such as "structured growth vault", "fixed-term trading vault", "managed trading mandate", "event arbitrage", "market making", and "systematic futures" are used herein for descriptive purposes to contextualise the nature of the services offered. AURO Structured Growth Vaults are proprietary products developed by AURO Technologies and are not registered with any securities regulator. Last updated: 6 August 2026.</p>
     </div>
     <div class="tos-agree"
 <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
