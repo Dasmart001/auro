@@ -896,7 +896,7 @@ body.dark #splash{background:var(--void)}
       <div id="su-tos-check" style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--gb);background:var(--s1);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s">
         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0" id="su-tos-tick"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <div style="font-size:11px;color:var(--sil);line-height:1.55">I have read and agree to the <strong style="color:var(--gold);cursor:pointer" onclick="event.stopPropagation();openTos()">Terms of Service</strong>. I understand the risks involved in trading activities.</div>
+      <div style="font-size:11px;color:var(--sil);line-height:1.55">I have read, understood, and irrevocably agree to the <strong style="color:var(--gold);cursor:pointer" onclick="event.stopPropagation();openTos()">Terms of Service</strong>. I acknowledge that AURO is not a bank or regulated financial institution; that my capital will be deployed at AURO's sole discretion for trading activities; that returns are not guaranteed; and that I may lose my entire allocation. I waive any right to hold AURO liable for trading losses except as expressly provided herein.</div>
     </div>
     <div class="a-err" id="su-err"></div>
     <button class="a-btn" id="su-btn" onclick="doSignup()">Create Account</button>
@@ -971,7 +971,7 @@ body.dark #splash{background:var(--void)}
 
     <!-- CLAIMABLE BANNER -->
     <div id="claim-banner" style="display:none;margin:0 16px 12px;background:linear-gradient(135deg,var(--okd),rgba(15,174,107,.04));border:1px solid var(--okb);border-radius:12px;padding:12px 14px;align-items:center;justify-content:space-between">
-      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Yield</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
+      <div><div style="font-size:10px;font-weight:600;color:var(--ok);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px">Unrealised Accrual</div><div style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--ok)" id="h-claimable">₦0</div></div>
       <button onclick="openMyPositions()" style="background:var(--ok);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:var(--b);font-size:11px;font-weight:700;cursor:pointer">Realise Returns</button>
     </div>
 
@@ -983,7 +983,7 @@ body.dark #splash{background:var(--void)}
   <!-- PLANS -->
   <div class="page" id="p-plans">
     <div class="tb"><div class="logo">AURO<sup>®</sup></div><div class="tb-r"><div class="ib" onclick="go('p-earn','n-earn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div></div></div>
-    <div class="ph"><div class="ph-t">Yield Markets <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">36 markets · Projected 200% yield · Daily settlement · PIN secured</div></div>
+    <div class="ph"><div class="ph-t">Fixed-Term Vaults <span id="mkt-status-chip" style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:8px;vertical-align:middle;margin-left:6px"></span></div><div class="ph-s">200 Vaults · Target 200% Net Return · 60-Day Mandate · Daily settlement · PIN secured</div></div>
 
     <div class="earn-pills" style="margin:0 16px 16px;padding:0">
       <div class="mkt-pill active" id="mkt-tab-browse" onclick="switchPlansTab('browse')">Browse Markets</div>
@@ -996,7 +996,7 @@ body.dark #splash{background:var(--void)}
 
     <div id="mkt-sec-positions" style="display:none">
       <div style="padding:0 20px 16px">
-        <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Yield</div>
+        <div style="font-size:10px;color:var(--sil);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Unrealised Accrual</div>
         <div style="font-family:var(--d);font-size:28px;font-weight:800;color:var(--plat);letter-spacing:-.03em" id="claim-total-val">₦0</div>
         <div style="font-size:11px;color:var(--sil);margin-top:3px" id="claim-total-sub">Across all open positions</div>
       </div>
@@ -1022,7 +1022,7 @@ body.dark #splash{background:var(--void)}
       <div class="earn-pill active" data-tab="pred" onclick="switchEarnTab('pred')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Predictions</div>
       <div class="earn-pill" data-tab="aviator" onclick="switchEarnTab('aviator')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Aviator</div>
       <div class="earn-pill" data-tab="coinflip" onclick="switchEarnTab('coinflip')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10"/><path d="M4.2 7.5a9 9 0 0113.6-2"/><path d="M19.8 16.5a9 9 0 01-13.6 2"/></svg> Coin Flip</div>
-      <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> 200% Markets</div>
+      <div class="earn-pill" data-tab="markets" onclick="switchEarnTab('markets')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg> Structured Growth Vaults</div>
       <div class="earn-pill" data-tab="refer" onclick="switchEarnTab('refer')"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Refer &amp; Earn</div>
     </div>
 
@@ -1168,12 +1168,12 @@ body.dark #splash{background:var(--void)}
       <div id="cf-bet-history"></div>
     </div>
 
-    <!-- 200% MARKETS TEASER -->
+    <!-- STRUCTURED GROWTH VAULTS TEASER -->
     <div class="earn-sec" id="earn-markets">
       <div class="game-card earn-mkt-teaser">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Markets</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px">Fixed-Term Vaults</div>
         <div style="font-family:var(--d);font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3">Up to 200% ROI over 60 days</div>
-        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦5,000 and realise daily returns for 60 days across 36 markets in 6 tiers. PIN secured.</div>
+        <div style="font-size:12px;opacity:.9;line-height:1.65;margin-bottom:16px">Open a position from ₦3,000 and realise daily returns for 60 days across 200 Vaults in 6 tiers. PIN secured.</div>
         <button style="width:100%;padding:13px;border:none;border-radius:11px;background:#fff;color:var(--gold);font-family:var(--d);font-size:14px;font-weight:800;cursor:pointer" onclick="go('p-plans','n-earn')">Explore Markets →</button>
       </div>
     </div>
@@ -1233,11 +1233,12 @@ body.dark #splash{background:var(--void)}
 
         <div class="dep-min-banner">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <div class="dep-min-txt">Minimum deposit is <strong>₦5,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
+          <div class="dep-min-txt">Minimum deposit is <strong>₦3,000</strong>. Maximum is <strong>₦1,000,000</strong>. Select a preset or enter a custom amount.</div>
         </div>
 
         <label class="fl">Select Amount</label>
         <div class="dep-amt-grid">
+          <div class="dep-amt-opt" data-amt="3000" onclick="pickDep(3000)"><div class="dep-amt-val">₦3,000</div><div class="dep-amt-lbl">Minimum</div></div>
           <div class="dep-amt-opt" data-amt="5000" onclick="pickDep(5000)"><div class="dep-amt-val">₦5,000</div><div class="dep-amt-lbl">Starter</div></div>
           <div class="dep-amt-opt" data-amt="10000" onclick="pickDep(10000)"><div class="dep-amt-val">₦10,000</div><div class="dep-amt-lbl">Popular</div></div>
           <div class="dep-amt-opt" data-amt="25000" onclick="pickDep(25000)"><div class="dep-amt-val">₦25,000</div><div class="dep-amt-lbl">Standard</div></div>
@@ -1250,7 +1251,7 @@ body.dark #splash{background:var(--void)}
 
         <label class="fl">Custom Amount (₦)</label>
         <div class="f-wrap"><span class="f-pre">₦</span><input class="f-inp" type="number" id="dep-a" placeholder="0.00" oninput="updDep()"/></div>
-        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦5,000 and maximum is ₦1,000,000.</div>
+        <div id="dep-min-err" style="font-size:11px;color:var(--err);font-weight:500;margin-top:7px;display:none">Minimum deposit is ₦3,000 and maximum is ₦1,000,000.</div>
 
         <div class="sbox" style="margin-top:18px">
           <div class="sr"><span>You will deposit</span><strong id="dep-sa">₦0.00</strong></div>
@@ -1313,9 +1314,9 @@ body.dark #splash{background:var(--void)}
             <span style="font-size:11px;font-weight:600;color:var(--ok)">OPay</span>
           </div>
 
-          <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px">6558614972</div>
+          <div style="font-family:var(--d);font-size:36px;font-weight:700;letter-spacing:.08em;color:var(--plat);margin-bottom:6px" id="dep-display-acct">6558614972</div>
 
-          <button onclick="cpy('6558614972')" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
+          <button onclick="cpy(document.getElementById('dep-display-acct').textContent)" style="display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid var(--gb);border-radius:8px;padding:7px 18px;font-family:var(--b);font-size:11px;font-weight:600;color:var(--gold);cursor:pointer;margin-bottom:22px">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
             Copy Account Number
           </button>
@@ -1413,7 +1414,7 @@ body.dark #splash{background:var(--void)}
       <div class="pnl-lbl">Total Profit &amp; Loss</div>
       <div class="pnl-val" id="pnl-val">₦0</div>
       <div class="pnl-figs">
-        <div><div class="pnl-fig-lbl">Yield Realised</div><div class="pnl-fig-val g" id="pnl-yield">₦0</div></div>
+        <div><div class="pnl-fig-lbl">Realised Return</div><div class="pnl-fig-val g" id="pnl-yield">₦0</div></div>
         <div><div class="pnl-fig-lbl">Games Net</div><div class="pnl-fig-val" id="pnl-games">₦0</div></div>
         <div><div class="pnl-fig-lbl">Referrals</div><div class="pnl-fig-val g" id="pnl-ref">₦0</div></div>
       </div>
@@ -1435,7 +1436,7 @@ body.dark #splash{background:var(--void)}
       </div>
     </div>
 
-    <div class="sh"><h2>Yield Positions</h2></div>
+    <div class="sh"><h2>Active Vault Positions</h2></div>
     <div class="pcards" id="port-c"><div class="empty"><div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="empty-t">Portfolio Empty</div><div class="empty-d">No trades yet.</div><button class="empty-btn" onclick="go('p-plans','n-earn')">Browse Markets</button></div></div>
 
     <div class="sh"><h2>Earn Activity</h2><div class="sh-a" onclick="go('p-earn','n-earn')">Go to Earn</div></div>
@@ -1553,6 +1554,21 @@ body.dark #splash{background:var(--void)}
         <div class="tr-card"><div class="tr-lbl">Total Paid Out</div><div class="tr-val ok" id="tr-paid">—</div><div class="tr-sub">Withdrawals sent to users</div></div>
         <div class="tr-card"><div class="tr-lbl">Pending Payouts</div><div class="tr-val warn" id="tr-pendwit">—</div><div class="tr-sub">Awaiting processing</div></div>
       </div>
+      <div class="adm-divider"></div>
+      <div class="adm-panel-title">Deposit Collection Account</div>
+      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:6px">
+        <div style="flex:1;min-width:140px">
+          <div class="adm-input-lbl">OPay Account Number</div>
+          <input class="f-plain adm-input" id="adm-dep-acct" type="text" placeholder="e.g. 6558614972" maxlength="16" style="width:100%"/>
+        </div>
+        <div style="flex:1;min-width:140px">
+          <div class="adm-input-lbl">Account Label (optional)</div>
+          <input class="f-plain adm-input" id="adm-dep-label" type="text" placeholder="e.g. AURO Collections" style="width:100%"/>
+        </div>
+        <button class="rc-ap" style="padding:9px 16px;font-size:11px" onclick="saveDepositSettings()">Save Account</button>
+      </div>
+      <div id="adm-dep-status" style="font-size:10px;color:var(--sil);min-height:14px;margin-bottom:4px"></div>
+      <div style="font-size:10px;color:var(--sil);line-height:1.6">Users will see this account number when they initiate a deposit. The QR code updates automatically.</div>
       <div class="adm-divider"></div>
       <div class="adm-panel-title">Balance Adjustment</div>
       <div id="adj-section">
@@ -1790,7 +1806,7 @@ body.dark #splash{background:var(--void)}
     </div>
 
     <div style="background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:2px 12px;margin-bottom:12px">
-      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily yield target</span><strong class="g" id="m-daily">—</strong></div>
+      <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Daily Accrual Target</span><strong class="g" id="m-daily">—</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Duration</span><strong>60 days · daily</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>Projected ROI</span><strong class="g">200%</strong></div>
       <div class="md-row"><span style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--sil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>Your balance</span><strong id="m-bal">—</strong></div>
@@ -1895,105 +1911,161 @@ body.dark #splash{background:var(--void)}
     <div class="tos-head">Terms of Service</div>
     <div class="tos-date">Effective Date: January 1, 2025 · Last Updated: June 2025</div>
     <div class="tos-body">
-      <p><strong style="color:var(--plat)">IMPORTANT LEGAL NOTICE:</strong> These Terms of Service constitute a legally binding agreement between you and AURO. By creating an account, depositing funds, or using any feature of this Platform, you unconditionally accept every clause in this document. If you do not agree to any part of these Terms, you must immediately cease using the Platform and contact us to close your account.</p>
+      <p><strong style="color:var(--plat)">AURO – TERMS OF SERVICE</strong></p>
+      <p style="margin-bottom:18px">Effective Date: 1 January 2025 &nbsp;|&nbsp; Last Updated: 6 August 2026</p>
 
-      <h3>1. Eligibility & Representations</h3>
-      <p>You must be at least 18 years of age to use this Platform. By registering, you irrevocably represent, warrant, and confirm that: (a) you are at least 18 years old; (b) you have full legal capacity to enter into binding agreements; (c) all information you provide is truthful, accurate, and complete; (d) you are not prohibited by any applicable law from participating in trading or financial activities of this nature; (e) you are acting on your own behalf and not as an agent of any third party unless expressly authorised in writing by AURO.</p>
-      <p>Any false representation constitutes grounds for immediate permanent termination of your account and forfeiture of all funds held therein, without compensation, refund, or right of appeal.</p>
+      <p><strong>PLEASE READ THESE TERMS OF SERVICE CAREFULLY BEFORE USING THE AURO PLATFORM. BY CREATING AN ACCOUNT, ACCESSING THE PLATFORM, OR ALLOCATING CAPITAL THROUGH AURO, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND IRREVOCABLY AGREE TO BE BOUND BY THESE TERMS IN THEIR ENTIRETY. IF YOU DO NOT AGREE, YOU MUST IMMEDIATELY DISCONTINUE USE OF THE PLATFORM AND CLOSE YOUR ACCOUNT.</strong></p>
 
-      <h3>2. Nature of the Platform & No Guarantee of Returns</h3>
-      <p>AURO is a digital trading platform. Capital pooled from registered users is deployed across high-risk trading activities including but not limited to: micro-cap memecoin trading, cryptocurrency token launches and airdrop farming, leveraged crypto futures trading, prediction market positions, options and foreign exchange trading, and systematic sports market arbitrage.</p>
-      <p><strong style="color:var(--plat)">ALL TRADING ACTIVITIES INVOLVE SIGNIFICANT RISK OF LOSS.</strong> AURO does not and cannot guarantee any specific return, profit, or preservation of capital. Projected ROI figures are estimates based on historical trading performance and are not promises, representations, or warranties of future results. By participating on this Platform, you expressly acknowledge that: (a) you may lose some or all of your committed capital; (b) past performance is not indicative of future results; (c) market conditions, regulatory changes, volatility events, and other factors outside AURO's control may adversely affect returns; (d) AURO bears no liability whatsoever for any trading loss, underperformance, or failure to achieve projected returns.</p>
-
-      <h3>3. Markets — Terms, Conditions & Forfeitures</h3>
+      <h3>1. Definitions &amp; Interpretation</h3>
+      <p>In these Terms, unless the context otherwise requires:</p>
       <ul>
-        <li>Each trading plan runs for a fixed duration of 60 calendar days from the date of activation. This duration is non-negotiable and cannot be shortened, extended, or modified under any circumstances.</li>
-        <li>Daily returns are credited to your claimable balance each day throughout the plan duration. <strong style="color:var(--plat)">You are solely responsible for logging in and claiming your daily return.</strong> AURO bears no obligation to claim on your behalf.</li>
-        <li><strong style="color:var(--plat)">Any daily return not claimed on the specific calendar day it becomes available is permanently and irrevocably forfeited.</strong> AURO will not reinstate, compensate, extend, or make any payment in respect of missed daily claims under any circumstances, including claims of technical difficulty, illness, lack of internet access, or any other reason whatsoever.</li>
-        <li>Once an trading plan is activated and capital is deployed, your position is locked in full for the entire 60-day duration. <strong style="color:var(--plat)">No early withdrawal, cancellation, or refund of committed capital is permitted under any circumstances.</strong></li>
-        <li>Upon plan completion, any daily returns that were not claimed prior to plan expiry are permanently forfeited. AURO has no obligation to pay expired unclaimed amounts.</li>
-        <li>AURO reserves the right to modify, restructure, pause, or discontinue any trading plan at any time, with or without notice, in response to market conditions, regulatory requirements, or operational decisions. In such circumstances, AURO's liability is limited solely to returning the uncommitted portion of your deposited capital, if any, at AURO's sole discretion.</li>
+        <li><strong>"Platform"</strong> means the AURO web application, mobile interface, APIs, and all related technology infrastructure operated by AURO Technologies.</li>
+        <li><strong>"User" / "You" / "Allocator"</strong> means any natural person aged 18 (eighteen) years or above who registers an account, completes identity verification, and utilises the Platform.</li>
+        <li><strong>"Structured Growth Vault"</strong> (also referred to as a "Fixed-Term Trading Vault" or "Mandate") means a defined, non-redeemable, 60-calendar-day capital allocation product linked to the performance of one of six professionally managed trading desks.</li>
+        <li><strong>"Allocation"</strong> means the Naira-denominated amount committed by a User to a specific Vault.</li>
+        <li><strong>"Target Return"</strong> means the projected gross return of principal plus 200% net profit (3× gross) over the 60-day term, derived from historical desk performance. It is an illustrative projection, not a guarantee, promise, or contractual entitlement.</li>
+        <li><strong>"Daily Accrual"</strong> means the daily portion of the Target Return (Target ÷ 60) credited to a User's Accrual Balance, subject to successful desk performance and User compliance with daily claim requirements.</li>
+        <li><strong>"Instant Games"</strong> means the short-duration prediction, chance, and skill-based modules offered within the "Earn" section, including but not limited to Crypto Flash Prediction, Aviator, and Coin Flip.</li>
+        <li><strong>"Wallet"</strong> means the internal NGN-denominated ledger maintained for each User to track uninvested balances, pending transactions, and available withdrawal amounts.</li>
+        <li><strong>"Trade PIN"</strong> means the 4-digit numeric code set by the User during registration, used to authenticate position openings, withdrawals, and high-value actions.</li>
+        <li><strong>"We" / "Us" / "AURO" / "Operator"</strong> means AURO Technologies, the entity operating the Platform.</li>
       </ul>
 
-      <h3>4. Deposits — Terms, Obligations & Fraud Policy</h3>
+      <h3>2. Platform Nature, Regulatory Status &amp; Scope of Services</h3>
+      <p><strong>2.1 Affiliate Structure.</strong> AURO Technologies is an affiliate entity of a Chinese-licensed financial technology group. AURO operates in the Federal Republic of Nigeria strictly as an affiliate marketing and technology service provider. Our primary licensing, corporate registration, and regulatory oversight are maintained in the People's Republic of China. AURO does not hold a Nigerian banking licence, securities licence, asset management licence, or any other authorisation from the Central Bank of Nigeria (CBN), the Securities and Exchange Commission (SEC) Nigeria, or any other Nigerian regulatory body.</p>
+      <p><strong>2.2 Not a Bank or Financial Institution.</strong> AURO is <strong>not</strong> a bank, deposit-taking institution, collective investment scheme, licensed broker-dealer, investment adviser, fund manager, or any other category of regulated financial intermediary under Nigerian or foreign law. Wallet balances are not deposits, are not insured by the Nigeria Deposit Insurance Corporation (NDIC) or any comparable scheme, and do not earn interest.</p>
+      <p><strong>2.3 Technology Platform Only.</strong> AURO is a financial-technology platform that aggregates User allocations and deploys them into six (6) actively managed trading desks. We provide execution infrastructure, reporting dashboards, and settlement mechanics. We do not provide investment advice, portfolio management, or discretionary advisory services.</p>
+      <p><strong>2.4 No Fiduciary Relationship.</strong> Nothing in these Terms creates a fiduciary relationship, agency, partnership, joint venture, or trust between AURO and any User. We owe no fiduciary duty to you. All trading decisions, risk management, and capital deployment are made at AURO's sole discretion based on the mandate parameters of each Vault.</p>
+      <p><strong>2.5 No Investment Advice.</strong> All information published on the Platform—including projected returns, desk descriptions, historical performance summaries, and market commentary—is for informational and educational purposes only. It does not constitute financial, investment, legal, tax, or professional advice. You should consult an independent financial adviser before allocating capital.</p>
+      <p><strong>2.6 Trading Desks.</strong> Allocations are directed to one of the following desks, each operating under a distinct mandate:</p>
       <ul>
-        <li>Deposits are made exclusively via bank transfer to AURO's designated account as displayed in the app at the time of transaction. AURO reserves the right to change designated accounts at any time without notice.</li>
-        <li>Minimum deposit is ₦5,000. Maximum single deposit is ₦1,000,000.</li>
-        <li>After completing your bank transfer, you must submit a deposit notification through the app. <strong style="color:var(--plat)">Submitting a deposit notification without actually completing the corresponding bank transfer is a criminal act of fraud.</strong> AURO will immediately and permanently terminate the accounts of any user found to have submitted false deposit claims, forfeit all funds in those accounts, and report the matter to relevant law enforcement authorities in Nigeria. AURO reserves the right to pursue civil and criminal remedies to the fullest extent of Nigerian law.</li>
-        <li>AURO will use reasonable efforts to credit confirmed deposits within 1–3 business hours. AURO is not liable for any delay, loss, or damage arising from banking system failures, third-party payment processing delays, or force majeure events.</li>
-        <li>All deposits are final and non-refundable once credited to your wallet and deployed in a plan. Deposits sitting untrade started in your wallet may be withdrawn subject to Section 5.</li>
+        <li><strong>Daily Trade</strong> – Digital Assets Micro Cap (Short-Term Momentum Mandate)</li>
+        <li><strong>Transit</strong> – Venture Token Launches (Early-Stage Allocation Mandate)</li>
+        <li><strong>Harvest</strong> – Derivatives Crypto Futures (Systematic Futures Mandate)</li>
+        <li><strong>Skyline</strong> – Event-Driven Prediction Markets (Event Arbitrage Mandate)</li>
+        <li><strong>PowerGrid</strong> – Derivatives Options &amp; FX (Volatility &amp; FX Mandate)</li>
+        <li><strong>Treasury</strong> – Quantitative Sports Market Making (Market-Making Mandate)</li>
+      </ul>
+      <p>Each desk utilises proprietary strategies, algorithmic execution, and institutional-grade infrastructure. Desk-level P&amp;L is reported in aggregate; individual position-level transparency is not provided.</p>
+
+      <h3>3. Eligibility, Registration &amp; KYC</h3>
+      <p><strong>3.1 Age &amp; Capacity.</strong> You must be at least 18 years old and legally capable of entering into binding contracts under the laws of the Federal Republic of Nigeria. By registering, you represent and warrant that you meet these requirements.</p>
+      <p><strong>3.2 Accurate Information.</strong> You agree to provide true, accurate, current, and complete information during registration and to promptly update such information if it changes. AURO reserves the right to suspend or terminate accounts with false, misleading, or incomplete data.</p>
+      <p><strong>3.3 Know-Your-Customer (KYC).</strong> For deposits or withdrawals exceeding thresholds set by AURO's risk team, or at any time for compliance purposes, you must provide government-issued identification, proof of address, Bank Verification Number (BVN), and/or such other documentation as may be required. Failure to complete KYC within 72 hours of a request may result in account suspension and forfeiture of pending accruals.</p>
+      <p><strong>3.4 One Account Per Person.</strong> You may maintain only one (1) active account. Multi-accounting, identity obfuscation, or the use of proxy identities is strictly prohibited and constitutes a material breach of these Terms.</p>
+
+      <h3>4. Account Security &amp; Credentials</h3>
+      <p><strong>4.1 Confidentiality.</strong> You are solely responsible for maintaining the confidentiality of your password, Trade PIN, and any two-factor authentication credentials. AURO will <strong>never</strong> request your Trade PIN via email, SMS, telephone, or social media. Any such request should be reported immediately.</p>
+      <p><strong>4.2 Account Responsibility.</strong> You are liable for all activities that occur under your account, whether authorised by you or not, until you notify us of unauthorised access. You agree to notify AURO within 24 hours of any suspected breach.</p>
+      <p><strong>4.3 Security Measures.</strong> While AURO implements industry-standard encryption, firewalls, and access controls, we cannot guarantee absolute security. You acknowledge that electronic transmission over the internet is inherently exposed to interception, malware, and other risks.</p>
+
+      <h3>5. Deposits, Withdrawals &amp; Wallet Terms</h3>
+      <p><strong>5.1 Deposits.</strong> Deposits are accepted via bank transfer to a designated collection account operated by our payment partner. The minimum deposit is <strong>₦3,000</strong>; the maximum per deposit is <strong>₦1,000,000</strong>. You must tap "I Have Made This Payment" after transferring. Deposits are typically credited within 1–3 business hours but may be delayed by inter-bank settlement cycles, public holidays, or compliance reviews.</p>
+      <p><strong>5.2 False Deposit Claims.</strong> Submitting a deposit notification without a corresponding bank credit constitutes fraud. AURO reserves the right to permanently terminate accounts, forfeit balances, and report fraudulent activity to law enforcement and credit bureaus.</p>
+      <p><strong>5.3 Withdrawals.</strong> Withdrawals are subject to manual administrative review and typically processed within 1–3 business days. The minimum withdrawal is <strong>₦30,000</strong>. AURO may delay, hold, or decline a withdrawal request for fraud prevention, regulatory compliance, sanctions screening, or risk-management purposes.</p>
+      <p><strong>5.4 Fees.</strong> AURO does not currently charge deposit or withdrawal fees. However, your bank or payment processor may levy charges. We reserve the right to introduce fees with 14 days' advance notice.</p>
+      <p><strong>5.5 Third-Party Failures.</strong> AURO is not liable for delays, losses, or errors caused by banks, payment processors, card networks, mobile-money operators, or blockchain networks.</p>
+
+      <h3>6. Structured Growth Vaults — Fixed-Term Trading Mandates</h3>
+      <p><strong>6.1 Product Structure.</strong> The Platform offers 200 Vaults in 6 tiers, issued in increments of ₦3,000 from ₦3,000 to ₦600,000. Each Vault represents a 60-calendar-day, non-redeemable participation in a specific trading mandate.</p>
+      <p><strong>6.2 Capital Deployment Authorization.</strong> By opening a Vault position, you <strong>irrevocably authorise AURO</strong> to deploy your Allocation across proprietary and third-party trading desks, liquidity venues, exchanges, and counterparties as AURO deems appropriate in its sole discretion. You acknowledge that your capital will be actively traded, may be commingled with operational funds during deployment, and is exposed to market, credit, and operational risks. You waive any claim that AURO acted outside the scope of this authorisation provided the deployment aligns with the disclosed mandate parameters.</p>
+      <p><strong>6.3 Target Return.</strong> The Target Return is 200% net profit (3× gross) over 60 days, achieved through daily accruals. For example, an allocation of ₦30,000 targets a maturity value of ₦90,000 (₦60,000 profit), distributed as daily accruals of ₦1,000. <strong>This is a target based on historical desk performance, not a guarantee, promise, or contractual entitlement of any kind.</strong></p>
+      <p><strong>6.4 Non-Redeemable Term.</strong> Once allocated, capital is committed to live trading positions and cannot be withdrawn, transferred, or redeemed during the 60-day term. Early termination is not permitted under any circumstances, including financial hardship, change of mind, or dissatisfaction with performance.</p>
+      <p><strong>6.5 Daily Accrual &amp; Claim Obligation.</strong> Accruals are credited daily to your Accrual Balance at 00:00 WAT. You must manually claim each day's accrual before the next daily reset. <strong>Unclaimed accruals are permanently forfeited</strong> and cannot be recovered, back-claimed, or credited retroactively.</p>
+      <p><strong>6.6 Settlement Source.</strong> Daily accruals are derived from realised desk P&amp;L, trading fees, incentive income, and performance buffers. AURO maintains a treasury reserve to smooth accruals, but we do not guarantee that every day's target accrual will be fully met.</p>
+      <p><strong>6.7 Performance Buffer.</strong> While AURO operates a performance buffer to mitigate volatility, there is no capital guarantee. In extreme market conditions, desk losses may reduce or eliminate daily accruals for affected Vaults.</p>
+      <p><strong>6.8 Maturity.</strong> Upon completion of the 60-day term, the Vault status changes to "Completed." Any unclaimed accruals from prior days remain forfeited. The principal is not returned separately; it is included in the total Target Return structure.</p>
+      <p><strong>6.9 Transparency Reports.</strong> AURO publishes monthly aggregated P&amp;L summaries by mandate. These reports are illustrative and may be delayed for audit reconciliation.</p>
+
+      <h3>7. Instant Games, Predictions &amp; Provably Fair Mechanics</h3>
+      <p><strong>7.1 Nature of Games.</strong> The "Earn" section includes Crypto Flash Prediction, Aviator, and Coin Flip. These are high-risk, short-duration activities involving chance, market volatility, and skill. They are not investments and carry a high probability of loss.</p>
+      <p><strong>7.2 Provably Fair.</strong> Certain games utilise cryptographic commit-reveal schemes (SHA-256 / HMAC-SHA-256) to demonstrate that outcomes are predetermined before User interaction. While this ensures outcome integrity against post-hoc manipulation, it does not alter the probabilistic nature of the games or the house edge.</p>
+      <p><strong>7.3 No Recourse for Game Losses.</strong> Losses incurred in Instant Games are final and non-refundable. AURO does not compensate Users for adverse game outcomes, technical delays, or connectivity issues experienced during gameplay.</p>
+      <p><strong>7.4 Responsible Participation.</strong> You agree to participate responsibly. If you feel you are losing control of your gaming activity, you must cease immediately and contact support. AURO reserves the right to impose deposit, loss, or session limits on any account.</p>
+
+      <h3>8. Referral Programme</h3>
+      <p><strong>8.1 Discretionary Programme.</strong> The Referral Programme is a discretionary promotional feature, not a contractual entitlement. AURO may modify, suspend, or terminate the programme at any time without prior notice.</p>
+      <p><strong>8.2 Eligibility.</strong> A referral bonus of ₦2,000 is credited to both parties when a referred User completes their first verified deposit. Self-referral, circular referral (User A refers User B who refers User A), or the use of synthetic identities to generate referral rewards constitutes fraud.</p>
+      <p><strong>8.3 No Guarantee of Rewards.</strong> AURO reserves the right to withhold referral bonuses pending fraud review, KYC completion, or if the referred deposit is subsequently reversed or flagged.</p>
+
+      <h3>9. Comprehensive Risk Disclosure &amp; Assumption of Risk</h3>
+      <p><strong>YOU EXPRESSLY ACKNOWLEDGE AND ASSUME THE FOLLOWING RISKS:</strong></p>
+      <ul>
+        <li><strong>Capital Risk.</strong> You may lose the entirety of your Allocation. Structured Growth Vaults are not capital-protected, insured, or guaranteed.</li>
+        <li><strong>Market Risk.</strong> Digital assets, derivatives, foreign exchange, and event markets are highly volatile. Adverse price movements, exchange failures, or protocol exploits may cause total loss of deployed capital.</li>
+        <li><strong>Leverage &amp; Derivatives Risk.</strong> Certain desks employ leveraged instruments. Adverse market moves can result in losses exceeding the margin allocated to a specific trade, potentially impacting overall desk performance.</li>
+        <li><strong>Liquidity Risk.</strong> Positions in micro-cap tokens, prediction markets, or NFT collections may become illiquid. AURO may be unable to exit positions at desired prices.</li>
+        <li><strong>Technology Risk.</strong> Smart contract bugs, API failures, exchange outages, wallet compromises, or blockchain reorganisations may result in loss of funds or missed trading opportunities.</li>
+        <li><strong>Counterparty Risk.</strong> AURO utilises third-party exchanges, custodians, and liquidity providers. Insolvency, misconduct, or regulatory action against these counterparties may affect User returns.</li>
+        <li><strong>Regulatory Risk.</strong> Cryptocurrency, derivatives, and prediction-market regulations are evolving. Changes in Nigerian or international law may restrict operations, force mandate modifications, or result in asset freezes.</li>
+        <li><strong>Operational Risk.</strong> System maintenance, cyber-attacks, or force majeure events may interrupt Platform availability, delay settlements, or prevent claims.</li>
+        <li><strong>Tax Risk.</strong> You are solely responsible for determining your tax obligations arising from Platform use. AURO does not provide tax advice and will not withhold taxes unless legally compelled.</li>
+      </ul>
+      <p><strong>YOU CONFIRM THAT YOU HAVE THE FINANCIAL CAPACITY TO BEAR THE COMPLETE LOSS OF ANY CAPITAL ALLOCATED THROUGH THE PLATFORM AND THAT YOU WILL NOT ALLOCATE FUNDS REQUIRED FOR ESSENTIAL LIVING EXPENSES, DEBT SERVICING, OR EMERGENCY RESERVES.</strong></p>
+
+      <h3>10. Prohibited Conduct</h3>
+      <p>You agree not to, and not to permit any third party to:</p>
+      <ul>
+        <li>Submit false deposit notifications, forged transfer receipts, or engage in chargeback fraud;</li>
+        <li>Maintain multiple accounts, use VPNs or proxies to obscure identity, or sell, transfer, or lease accounts;</li>
+        <li>Use bots, scripts, scrapers, or automated tools to interact with the Platform;</li>
+        <li>Reverse-engineer, decompile, or attempt to derive source code from the Platform;</li>
+        <li>Engage in money laundering, terrorist financing, sanctions evasion, or other unlawful financial activity;</li>
+        <li>Manipulate game outcomes, exploit bugs, or collude with other Users;</li>
+        <li>Abuse the referral programme through self-referral, circular schemes, or synthetic identities;</li>
+        <li>Impersonate AURO staff, distribute malware, or phish for credentials;</li>
+        <li>Publish defamatory, obscene, or infringing content through any Platform channel.</li>
+      </ul>
+      <p>Violation of this section constitutes a material breach and may result in immediate account termination, balance forfeiture, and referral to law enforcement.</p>
+
+      <h3>11. Intellectual Property</h3>
+      <p>All trademarks, logos, software, algorithms, trade secrets, and content on the Platform are the exclusive property of AURO Technologies or its licensors. You are granted a limited, non-exclusive, non-transferable, revocable licence to use the Platform for personal, non-commercial purposes. You may not copy, modify, distribute, or create derivative works without prior written consent.</p>
+
+      <h3>12. Privacy &amp; Data Processing</h3>
+      <p>By using the Platform, you consent to the collection, processing, storage, and transfer of your personal data as described in our Privacy Policy (incorporated by reference). We may share data with regulatory authorities, law enforcement, and service providers as required by law or for fraud prevention.</p>
+
+      <h3>13. Limitation of Liability</h3>
+      <p><strong>13.1 Exclusion of Consequential Damages.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, AURO, ITS DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR INABILITY TO USE THE PLATFORM.</p>
+      <p><strong>13.2 Liability Cap.</strong> AURO'S TOTAL CUMULATIVE LIABILITY TO YOU FOR ANY CLAIM ARISING OUT OF OR RELATING TO THESE TERMS OR THE PLATFORM SHALL NOT EXCEED THE GREATER OF (A) ₦10,000 (TEN THOUSAND NAIRA) OR (B) THE TOTAL AMOUNT OF FEES PAID BY YOU TO AURO IN THE SIX (6) MONTHS PRECEDING THE EVENT GIVING RISE TO LIABILITY.</p>
+      <p><strong>13.3 No Warranty.</strong> THE PLATFORM IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR COURSE OF DEALING.</p>
+      <p><strong>13.4 No Guarantee of Returns.</strong> AURO DOES NOT GUARANTEE ANY SPECIFIC RATE OF RETURN, PROFIT, OR CAPITAL PRESERVATION. HISTORICAL PERFORMANCE IS NOT INDICATIVE OF FUTURE RESULTS. YOU EXPRESSLY WAIVE ANY CLAIM BASED ON ALLEGED FAILURE TO ACHIEVE PROJECTED OR TARGETED RETURNS.</p>
+      <p><strong>13.5 Defence of Trading Decisions.</strong> You acknowledge that AURO exercises sole and absolute discretion over the deployment, management, and liquidation of all allocated capital. You agree that AURO's trading decisions—including but not limited to strategy selection, timing, leverage, counterparty choice, and exit decisions—are made in AURO's sole judgment and cannot form the basis of any claim, action, or proceeding against AURO, its affiliates, officers, or agents, provided such decisions were made in good faith and in accordance with the disclosed mandate parameters.</p>
+
+      <h3>14. Indemnification</h3>
+      <p>You agree to indemnify, defend, and hold harmless AURO, its parent company, affiliates, directors, officers, employees, and agents from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising out of or relating to: (a) your use of the Platform; (b) your breach of these Terms; (c) your violation of any law or regulation; (d) your infringement of any third-party right; or (e) any trading loss, market fluctuation, or counterparty failure affecting your Allocation.</p>
+
+      <h3>15. Termination &amp; Account Suspension</h3>
+      <p>AURO may suspend, restrict, or terminate your account and access to the Platform at any time, with or without notice, for breach of these Terms, suspected fraud, regulatory compliance, or operational necessity. Upon termination, any uninvested wallet balance may be withdrawn subject to KYC and minimum thresholds; allocated Vault positions continue to maturity unless terminated for cause, in which case accrued but unclaimed returns may be forfeited.</p>
+
+      <h3>16. Force Majeure</h3>
+      <p>AURO shall not be liable for any failure or delay in performance due to causes beyond its reasonable control, including but not limited to acts of God, war, terrorism, riots, embargoes, acts of civil or military authorities, fire, floods, pandemics, accidents, strikes, shortages of transportation, facilities, fuel, energy, labour, or materials, or failures of telecommunications, internet, or blockchain networks.</p>
+
+      <h3>17. Governing Law, Jurisdiction &amp; Dispute Resolution</h3>
+      <p><strong>17.1 Governing Law.</strong> These Terms shall be governed by and construed in accordance with the laws of the Federal Republic of Nigeria, without regard to conflict-of-law principles. The corporate structure, licensing, and ultimate beneficial ownership of AURO Technologies are subject to the laws of the People's Republic of China.</p>
+      <p><strong>17.2 Exclusive Jurisdiction.</strong> Any dispute arising out of or relating to these Terms shall be subject to the exclusive jurisdiction of the courts of Lagos State, Nigeria. You irrevocably submit to the jurisdiction of such courts and waive any objection to venue or forum non conveniens.</p>
+      <p><strong>17.3 Waiver of Class Actions.</strong> YOU AGREE TO RESOLVE DISPUTES WITH AURO ON AN INDIVIDUAL BASIS AND WAIVE ANY RIGHT TO PARTICIPATE IN CLASS ACTIONS, CLASS ARBITRATIONS, PRIVATE ATTORNEY GENERAL ACTIONS, OR REPRESENTATIVE PROCEEDINGS OF ANY KIND.</p>
+      <p><strong>17.4 Pre-Litigation Negotiation.</strong> Before initiating litigation, arbitration, or any formal proceeding, you must contact AURO support at <strong>support@auro.app</strong> and provide 30 days for good-faith resolution. Failure to do so may result in dismissal of your claim for failure to exhaust administrative remedies. You acknowledge that this pre-litigation requirement is a material condition precedent to any claim against AURO.</p>
+      <p><strong>17.5 No Recourse Against Affiliates.</strong> You agree that any claim arising from your use of the Platform may only be brought against AURO Technologies in its capacity as the Nigerian operating entity. You waive any right to pursue claims directly against AURO's parent company, Chinese-licensed affiliates, or individual officers for acts or omissions occurring within the ordinary course of Platform operations.</p>
+
+      <h3>18. Amendments &amp; Updates</h3>
+      <p>AURO reserves the right to amend these Terms at any time. Material changes will be notified via in-app banner, email, or push notification at least 7 days before taking effect. Continued use of the Platform after the effective date of amendments constitutes irrevocable acceptance. If you do not agree to the amended Terms, you must close your account and cease all use.</p>
+
+      <h3>19. Miscellaneous</h3>
+      <ul>
+        <li><strong>Severability.</strong> If any provision of these Terms is held invalid or unenforceable, the remaining provisions shall continue in full force and effect.</li>
+        <li><strong>Assignment.</strong> You may not assign or transfer these Terms without AURO's prior written consent. AURO may assign these Terms without restriction.</li>
+        <li><strong>Waiver.</strong> No waiver of any provision shall be effective unless in writing signed by the waiving party. Failure to enforce any right shall not constitute a waiver.</li>
+        <li><strong>Entire Agreement.</strong> These Terms, together with the Privacy Policy and any supplemental policies, constitute the entire agreement between you and AURO concerning the Platform and supersede all prior agreements.</li>
+        <li><strong>Language.</strong> These Terms are executed in English. In the event of translation, the English version shall prevail.</li>
       </ul>
 
-      <h3>5. Withdrawals — Processing, Delays & Restrictions</h3>
-      <ul>
-        <li>Withdrawals are processed manually by the AURO team. Processing time is 1–3 business days from the date a withdrawal request is submitted. AURO does not guarantee same-day processing under any circumstances.</li>
-        <li>AURO reserves the right to delay, hold, or refuse any withdrawal request at its sole discretion, including for purposes of fraud investigation, identity verification, compliance review, or risk management. No interest or compensation is payable during any such hold period.</li>
-        <li>AURO reserves the right to require identity verification (government-issued ID, BVN confirmation, or such other documentation as AURO deems necessary) before processing any withdrawal. Failure to provide requested documentation within 7 days will result in the withdrawal request being cancelled.</li>
-        <li>Minimum withdrawal is ₦30,000. AURO reserves the right to impose maximum withdrawal limits at any time without notice.</li>
-        <li><strong style="color:var(--plat)">AURO is not a licensed bank or financial institution and does not provide deposit insurance.</strong> Funds held in your wallet are not guaranteed by any government scheme or regulatory body.</li>
-      </ul>
+      <h3>20. Contact, Complaints &amp; Regulatory Cooperation</h3>
+      <p>For support, complaints, or regulatory inquiries, contact us at <strong>support@auro.app</strong>. AURO cooperates fully with the Securities and Exchange Commission (SEC) Nigeria, the Economic and Financial Crimes Commission (EFCC), the Central Bank of Nigeria (CBN), and other relevant authorities. Users are required to cooperate with any lawful investigation.</p>
 
-      <h3>6. Referral Programme</h3>
-      <p>AURO operates a referral programme offering bonuses to eligible referring and referred users. AURO reserves the absolute right to modify, suspend, cap, restructure, or permanently discontinue the referral programme at any time without notice or compensation. Referral bonuses are a discretionary reward and do not constitute a contractual obligation. Any attempt to abuse the referral programme — including but not limited to self-referral, creation of multiple accounts, coordinated ring referrals, or fraudulent account registrations — will result in immediate permanent termination of all accounts involved and forfeiture of all balances and bonuses, with no right of appeal or compensation.</p>
-
-      <h3>7. Account Security & User Responsibility</h3>
-      <ul>
-        <li>You are solely and entirely responsible for maintaining the confidentiality and security of your account credentials, including your password and 4-digit trade PIN. AURO will never contact you to request your PIN, password, or any payment information through any channel.</li>
-        <li>You are fully liable for all activity conducted through your account, whether authorised by you or not, unless you have notified AURO of a security breach and AURO has confirmed suspension of your account in writing.</li>
-        <li>In the event of suspected unauthorised account access, you must notify AURO immediately at support@auro.app. AURO's response time is not guaranteed and AURO bears no liability for losses incurred prior to account suspension.</li>
-        <li>AURO implements reasonable technical security measures but provides no warranty that the Platform is free from vulnerabilities. You accept all risk of data breaches, hacking, or system failures that occur despite reasonable security measures.</li>
-      </ul>
-
-      <h3>8. Comprehensive Risk Disclosure</h3>
-      <p>By using this Platform, you confirm that you fully understand and accept the following risks:</p>
-      <ul>
-        <li><strong style="color:var(--plat)">Capital risk:</strong> You may lose your entire committed capital. AURO does not guarantee return of principal.</li>
-        <li><strong style="color:var(--plat)">Market risk:</strong> Crypto markets, forex markets, prediction markets, and sports markets are highly volatile. Extreme movements can result in significant or total trading losses.</li>
-        <li><strong style="color:var(--plat)">Regulatory risk:</strong> The regulatory environment for cryptocurrency and digital assets is evolving. New laws or enforcement actions may materially affect AURO's ability to operate or fulfil obligations to users.</li>
-        <li><strong style="color:var(--plat)">Liquidity risk:</strong> AURO may at times face liquidity constraints that delay or prevent withdrawal processing. AURO is not a bank and does not hold user funds in insured accounts.</li>
-        <li><strong style="color:var(--plat)">Technology risk:</strong> Platform outages, smart contract failures, exchange hacks, or third-party API failures may affect returns or access to funds.</li>
-        <li><strong style="color:var(--plat)">Counterparty risk:</strong> Trading on third-party exchanges and platforms exposes AURO's capital to the insolvency or misconduct of those counterparties.</li>
-      </ul>
-      <p>You confirm that you have sought or chosen not to seek independent financial or legal advice before participating, and that you trade entirely at your own risk.</p>
-
-      <h3>9. Prohibited Activities</h3>
-      <p>The following activities are strictly prohibited and will result in immediate permanent account termination and forfeiture of all balances, with no refund, compensation, or right of appeal:</p>
-      <ul>
-        <li>Submitting false, fraudulent, or inflated deposit notifications</li>
-        <li>Using the Platform to launder money, finance terrorism, or engage in any illegal financial activity</li>
-        <li>Creating multiple accounts for any purpose including referral abuse, plan manipulation, or identity concealment</li>
-        <li>Attempting to reverse-engineer, scrape, exploit, or otherwise attack the Platform's code, database, or infrastructure</li>
-        <li>Impersonating AURO staff, agents, or other users</li>
-        <li>Using automated scripts, bots, or software to interact with the Platform</li>
-        <li>Engaging in any activity intended to defraud AURO, its operators, or other users</li>
-        <li>Sharing, selling, or transferring your account to any third party</li>
-      </ul>
-      <p>AURO reserves the right to pursue civil and criminal legal action against users who engage in prohibited activities, to the fullest extent permitted under Nigerian law and applicable international law.</p>
-
-      <h3>10. Limitation of Liability & Indemnification</h3>
-      <p>To the absolute maximum extent permitted by applicable law, AURO, its operators, directors, employees, contractors, and agents shall not be liable for any loss, damage, claim, or expense of any kind arising from or related to: (a) trading losses; (b) missed daily claims; (c) delays in deposit crediting or withdrawal processing; (d) platform downtime or technical failures; (e) regulatory actions; (f) acts of third parties; (g) force majeure events; or (h) any other matter connected with your use of the Platform.</p>
-      <p><strong style="color:var(--plat)">AURO's total aggregate liability to you under any circumstances shall not exceed ₦10,000 (ten thousand naira), regardless of the nature or value of the claim.</strong></p>
-      <p>You agree to indemnify, defend, and hold harmless AURO and its operators from any claim, demand, loss, liability, cost, or expense (including legal fees) arising from your breach of these Terms, your fraudulent or illegal conduct, or your use of the Platform in a manner not authorised by these Terms.</p>
-
-      <h3>11. No Financial Advice</h3>
-      <p>Nothing on this Platform constitutes financial, investment, legal, or tax advice. AURO is not a licensed trading adviser, portfolio manager, or financial institution. All content, plan descriptions, and projected returns are for informational purposes only and must not be construed as a recommendation to trade. You are solely responsible for your own trading decisions.</p>
-
-      <h3>12. Platform Availability & Modifications</h3>
-      <p>AURO reserves the right to modify, suspend, restructure, or permanently shut down the Platform or any feature thereof at any time, with or without notice. In the event of a permanent platform closure, AURO's sole obligation is to make reasonable efforts to process outstanding withdrawal requests for available cleared wallet balances. AURO bears no liability for any trading losses, missed claims, or other damages resulting from a platform closure or modification.</p>
-
-      <h3>13. Amendments to Terms</h3>
-      <p>AURO may amend these Terms at any time by posting an updated version to the Platform. Amended Terms take effect immediately upon posting. <strong style="color:var(--plat)">Your continued use of the Platform after any amendment constitutes your unconditional acceptance of the revised Terms.</strong> It is your responsibility to review these Terms regularly. AURO is not obligated to notify you individually of any changes.</p>
-
-      <h3>14. Governing Law & Dispute Resolution</h3>
-      <p>These Terms are governed exclusively by the laws of the Federal Republic of Nigeria. You irrevocably submit to the exclusive jurisdiction of the courts of Lagos State, Nigeria for the resolution of any dispute arising under or in connection with these Terms or the Platform. <strong style="color:var(--plat)">You waive any right to bring a class action, collective claim, or representative proceeding against AURO.</strong> All disputes must be brought individually and any claim not initiated within 30 days of the relevant event is permanently time-barred.</p>
-
-      <h3>15. Severability & Entire Agreement</h3>
-      <p>If any provision of these Terms is found to be unenforceable by a court of competent jurisdiction, that provision shall be modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect. These Terms, together with any policies referenced herein, constitute the entire agreement between you and AURO and supersede all prior agreements, representations, or understandings relating to the Platform.</p>
-
-      <h3>16. Contact</h3>
-      <p>For legal notices, disputes, or formal correspondence, contact AURO at <strong style="color:var(--gold)">support@auro.app</strong>. Legal notices sent via email are deemed received 24 hours after transmission. AURO's response to any communication does not constitute a waiver of any right under these Terms.</p>
+      <p style="margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7"><strong>Educational Context:</strong> Terms such as "structured growth vault", "fixed-term trading vault", "managed trading mandate", "event arbitrage", "market making", and "systematic futures" are used herein for descriptive purposes to contextualise the nature of the services offered. AURO Structured Growth Vaults are proprietary products developed by AURO Technologies and are not registered with any securities regulator. Last updated: 6 August 2026.</p>
     </div>
-    <div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
+    <div class="tos-agree"
+<div class="tos-agree" id="tos-agree-row" onclick="toggleTosCheck()">
       <div class="tos-check" id="tos-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="tos-agree-txt">I have read and understood the Terms of Service in full. I accept all terms and conditions and acknowledge the trading risks described above.</div>
     </div>
@@ -2129,35 +2201,104 @@ const TC = {
     icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/>'}
 };
 
-const AMTS=[
-  5000,8000,12000,18000,25000,30000,        // Daily Trade
-  35000,45000,55000,65000,75000,90000,       // Transit
-  100000,120000,140000,160000,180000,200000, // Harvest
-  220000,260000,300000,350000,400000,450000, // Skyline
-  500000,550000,600000,650000,700000,750000, // PowerGrid
-  800000,850000,900000,920000,960000,1000000 // Treasury
+const TRADING_VERTICALS = [
+  { id:'stock', name:'Stock Trading', sector:'Equities', mandate:'Equity Growth Mandate', icon:'<path d="M3 17l4-4 4 3 5-7 4 3"/><path d="M3 21h18"/>', color:'#0D9488',
+    capitalUse:'Capital allocated to Stock Trading is deployed via our Equities desk into NYSE, NASDAQ and NGX listed large-cap and growth stocks. Execution through institutional brokerage with real-time order book, earnings momentum and sector rotation models. Positions hedged via index options where appropriate.' },
+  { id:'forex', name:'Forex Trading', sector:'FX', mandate:'FX Majors Mandate', icon:'<path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="8"/>', color:'#E8722A',
+    capitalUse:'Capital is deployed into spot forex majors and minors (EUR/USD, GBP/USD, USD/JPY, USD/NGN) via Tier-1 liquidity providers. Systematic breakout and carry strategies with strict stop-loss and leverage controls executed 24/5.' },
+  { id:'crypto', name:'Cryptocurrency Trading', sector:'Digital Assets', mandate:'Spot Crypto Mandate', icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>', color:'#168F58',
+    capitalUse:'Capital is allocated to spot trading of BTC, ETH, SOL and high-liquidity altcoins on Binance, Bybit and OKX. Desk uses trend-following, mean-reversion and funding rate arbitrage with cold wallet custody for uninvested balances.' },
+  { id:'memecoin', name:'Memecoin Trading', sector:'Digital Assets – Micro Cap', mandate:'Meme Momentum Mandate', icon:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8z"/><path d="M12 12c0-5 4-8 8-8 0 5-3 8-8 8z"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed into micro-cap memecoins (<$5M) on decentralized exchanges Raydium, Uniswap, PancakeSwap. On-chain analytics, wallet tracking and early liquidity detection for intraday momentum capture. Diversified across multiple tokens to manage volatility.' },
+  { id:'nft', name:'NFT Trading', sector:'Digital Collectibles', mandate:'NFT Flip Mandate', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-3.5-3.5L3 21"/>', color:'#C98A00',
+    capitalUse:'Capital is used for floor sweeping, whitelist minting and flip trading of verified NFT collections on OpenSea, Blur and Tensor. Rarity scoring, wash-trading filters and liquidity analysis drive entry/exit.' },
+  { id:'etf', name:'ETF Trading', sector:'Funds', mandate:'ETF Rotation Mandate', icon:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>', color:'#4338EC',
+    capitalUse:'Capital is allocated to sector ETFs (SPY, QQQ, IWM, NGX ETFs) via brokerage for sector rotation and tactical asset allocation. Rebalancing based on macro data and institutional flow.' },
+  { id:'index', name:'Index Trading', sector:'Indices', mandate:'Index Momentum Mandate', icon:'<path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/>', color:'#0D9488',
+    capitalUse:'Capital is deployed into major indices S&P500, NASDAQ100, Dow Jones, FTSE and NGX30 via futures and CFDs. Systematic trend and breakout strategies with volatility targeting.' },
+  { id:'bond', name:'Bond Trading', sector:'Fixed Income', mandate:'Fixed Income Mandate', icon:'<path d="M4 12h16M12 4v16"/>', color:'#E8722A',
+    capitalUse:'Capital is allocated to sovereign and corporate bonds (US Treasuries, Nigerian FGN bonds) and bond futures. Yield curve positioning and carry strategies managed by fixed income desk.' },
+  { id:'commodity', name:'Commodity Trading', sector:'Commodities', mandate:'Commodity Trend Mandate', icon:'<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>', color:'#168F58',
+    capitalUse:'Capital is traded in gold, silver, crude oil and agricultural commodities via futures. Macro-driven positioning and contango/backwardation arbitrage.' },
+  { id:'futures', name:'Futures Trading', sector:'Derivatives – Futures', mandate:'Systematic Futures Mandate', icon:'<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed through institutional accounts on Binance, Bybit, OKX executing systematic long/short futures on BTC, ETH, SOL, S&P and commodities with defined risk parameters and stop-loss discipline.' },
+  { id:'options', name:'Options Trading', sector:'Derivatives – Options', mandate:'Options Premium Mandate', icon:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', color:'#C98A00',
+    capitalUse:'Capital is used to sell and buy options premium (straddles, strangles, iron condors) on stocks, indices and crypto. Volatility harvesting and delta-hedging by experienced derivatives traders.' },
+  { id:'perpetual', name:'Perpetual Trading', sector:'Derivatives – Perps', mandate:'Perp Funding Mandate', icon:'<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12h6"/>', color:'#4338EC',
+    capitalUse:'Capital trades perpetual swaps with funding rate arbitrage between exchanges. Captures funding fees while delta-hedged to remain market neutral.' },
+  { id:'margin', name:'Margin Trading', sector:'Leveraged Spot', mandate:'Leveraged Spot Mandate', icon:'<path d="M12 3l7 4v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/>', color:'#0D9488',
+    capitalUse:'Capital is used in margin accounts with controlled leverage (2-3x) for directional spot trades. Cross-margin risk management and liquidation protection protocols.' },
+  { id:'cfd', name:'CFD Trading', sector:'CFDs', mandate:'CFD Momentum Mandate', icon:'<rect x="2" y="7" width="20" height="10" rx="2"/><path d="M7 7V5M17 7V5M7 17v2M17 17v2"/>', color:'#E8722A',
+    capitalUse:'Capital is traded via CFDs on stocks, indices, forex and commodities through regulated brokers. Provides leveraged exposure with tight spreads and fast execution.' },
+  { id:'binary', name:'Binary Options Trading', sector:'Digital Options', mandate:'Binary Event Mandate', icon:'<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>', color:'#168F58',
+    capitalUse:'Capital is allocated to short-term binary contracts on forex and crypto price direction. Quantitative probability models and strict risk per trade (1-2% of vault).' },
+  { id:'prediction', name:'Prediction Market Trading', sector:'Event-Driven', mandate:'Event Arbitrage Mandate', icon:'<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>', color:'#7C3AED',
+    capitalUse:'Capital is staked across regulated prediction venues Polymarket, Kalshi covering elections, macro releases, sports outcomes and crypto benchmarks, hedged across venues for arbitrage.' },
+  { id:'carbon', name:'Carbon Credit Trading', sector:'ESG', mandate:'Carbon Credit Mandate', icon:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 4 4c0 5 3 8 8 8z"/><path d="M12 12c0-5 4-8 8-8 0 5-3 8-8 8z"/>', color:'#C98A00',
+    capitalUse:'Capital is deployed into carbon credit futures and spot via Verra and Gold Standard registries. ESG-driven demand and compliance market arbitrage.' },
+  { id:'domain', name:'Domain Trading', sector:'Digital Real Estate', mandate:'Domain Flip Mandate', icon:'<path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M2 12h20"/>', color:'#4338EC',
+    capitalUse:'Capital is used to acquire premium domains at auction and flip via Afternic, Sedo, Dan. Valuation based on search volume, brandability and TLD strength.' },
+  { id:'website', name:'Website Trading', sector:'Digital Assets', mandate:'Website Flip Mandate', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21l8-10"/>', color:'#0D9488',
+    capitalUse:'Capital acquires cash-flowing content sites and Shopify stores via Flippa and Empire Flippers, optimizes SEO/monetization and exits at 30-40x monthly profit multiples.' },
+  { id:'app', name:'App Trading', sector:'Digital Assets', mandate:'App Portfolio Mandate', icon:'<rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/>', color:'#E8722A',
+    capitalUse:'Capital is invested in mobile app portfolios (iOS/Android) with in-app purchases and ad revenue. ASO optimization and user acquisition arbitrage.' },
+  { id:'collectible', name:'Digital Collectible Trading', sector:'Collectibles', mandate:'Collectible Vault Mandate', icon:'<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>', color:'#168F58',
+    capitalUse:'Capital trades authenticated digital collectibles and trading cards via Rally, Dibbs and eBay Vault. Fractional ownership and rarity arbitrage.' },
+  { id:'gaming', name:'Gaming Item Trading', sector:'Gaming', mandate:'Gaming Asset Mandate', icon:'<path d="M6 12h12M12 6v12"/><circle cx="12" cy="12" r="10"/>', color:'#7C3AED',
+    capitalUse:'Capital is deployed into in-game items and skins (CS:GO, Dota 2, Axie) via Steam Marketplace and OpenSea Gaming. Market-making between low and high liquidity servers.' },
+  { id:'virtual_land', name:'Virtual Land Trading', sector:'Metaverse', mandate:'Metaverse Land Mandate', icon:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>', color:'#C98A00',
+    capitalUse:'Capital acquires virtual land parcels in Decentraland, Sandbox and Otherside, leasing to brands and flipping based on development activity and foot traffic data.' },
+  { id:'software_license', name:'Software License Trading', sector:'B2B SaaS', mandate:'License Arbitrage Mandate', icon:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>', color:'#4338EC',
+    capitalUse:'Capital trades enterprise software licenses and SaaS seats via secondary markets. Bulk discount acquisition and resale to SMBs.' },
+  { id:'p2p', name:'P2P Trading', sector:'Peer-to-Peer', mandate:'P2P Spread Mandate', icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>', color:'#0D9488',
+    capitalUse:'Capital provides liquidity on P2P exchanges Binance P2P, Paxful. Spread capture between buy/sell offers with escrow protection and KYC screening.' },
+  { id:'otc', name:'OTC Trading', sector:'OTC Desk', mandate:'OTC Block Mandate', icon:'<path d="M12 1v22M5 6h14M5 18h14"/>', color:'#E8722A',
+    capitalUse:'Capital facilitates OTC block trades for HNWIs and institutions, earning spread on large BTC/USDT and USD/NGN transactions via private order book.' },
+  { id:'copy', name:'Copy Trading', sector:'Social Trading', mandate:'Copy Leader Mandate', icon:'<path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11v2"/>', color:'#168F58',
+    capitalUse:'Capital mirrors top-ranked traders on eToro, Bybit Copy and Binance Copy via API. Performance filtering and drawdown-based allocation.' },
+  { id:'social', name:'Social Trading', sector:'Social Sentiment', mandate:'Social Sentiment Mandate', icon:'<path d="M21 11.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/>', color:'#7C3AED',
+    capitalUse:'Capital trades based on social sentiment aggregation from Twitter, Reddit and Telegram using NLP models to front-run retail momentum.' },
+  { id:'algo', name:'Algorithmic Trading', sector:'Systematic', mandate:'Algo Execution Mandate', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/>', color:'#C98A00',
+    capitalUse:'Capital is deployed via proprietary algorithms (TWAP, VWAP, iceberg) for optimal execution across CEX/DEX, minimizing slippage and market impact.' },
+  { id:'quant', name:'Quantitative Trading', sector:'Quant', mandate:'Quant Model Mandate', icon:'<path d="M3 3v18h18"/><path d="M7 16l3-3 3 3 5-8"/>', color:'#4338EC',
+    capitalUse:'Capital is managed by quantitative models using statistical arbitrage, factor investing and machine learning signals backtested over 5+ years.' },
+  { id:'hft', name:'High-Frequency Trading', sector:'HFT', mandate:'HFT Market Making Mandate', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', color:'#0D9488',
+    capitalUse:'Capital co-located near exchange matching engines for sub-millisecond market-making, capturing bid-ask spreads at high volume.' },
+  { id:'arbitrage', name:'Arbitrage Trading', sector:'Arbitrage', mandate:'Cross-Exchange Arb Mandate', icon:'<path d="M7 16V4M7 8l3-3 3 3M17 8v12M17 16l-3 3-3-3"/>', color:'#E8722A',
+    capitalUse:'Capital exploits price differences for same asset across Binance, Bybit, OKX, Bet365 vs Betfair. Automated bots lock risk-free spreads.' },
+  { id:'grid', name:'Grid Trading', sector:'Systematic', mandate:'Grid Range Mandate', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>', color:'#168F58',
+    capitalUse:'Capital runs grid bots that buy low/sell high within defined ranges on BTC, ETH, SOL, capturing volatility in sideways markets 24/7.' },
+  { id:'ai', name:'AI-Assisted Trading', sector:'AI', mandate:'AI Alpha Mandate', icon:'<path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M9 9h6M9 15h6"/>', color:'#7C3AED',
+    capitalUse:'Capital is managed by AI models trained on order book, on-chain and sentiment data for predictive trade signals, continuously retrained with reinforcement learning.' }
 ];
-const TIERS=[
-  'Starter','Starter','Starter','Starter','Starter','Starter',
-  'Builder','Builder','Builder','Builder','Builder','Builder',
-  'Growth','Growth','Growth','Growth','Growth','Growth',
-  'Elite','Elite','Elite','Elite','Elite','Elite',
-  'Premium','Premium','Premium','Premium','Premium','Premium',
-  'Sovereign','Sovereign','Sovereign','Sovereign','Sovereign','Sovereign'
-];
-const BADGES=[
-  'Entry','Entry','Basic','Basic','Standard','Standard',
-  'Standard','Standard','Popular','Popular','Hot','Hot',
-  'Popular','Popular','Hot','Hot','High Yield','High Yield',
-  'High Yield','High Yield','Elite','Elite','Elite','Elite',
-  'Premium','Premium','Premium','VIP','VIP','VIP',
-  'Private','Private','Exclusive','Exclusive','Exclusive','Exclusive'
-];
-const PLANS = AMTS.map((amt,i) => ({
-  id:'plan_'+i, invest:amt, total:amt*3,
-  daily: parseFloat((amt*3/60).toFixed(2)),
-  tier:TIERS[i], badge:BADGES[i]
-}));
+
+const AMTS = Array.from({length: 200}, (_, i) => 3000 * (i + 1));
+const TIERS = AMTS.map((_, i) => {
+  if (i < 35) return 'Starter';
+  if (i < 70) return 'Builder';
+  if (i < 105) return 'Growth';
+  if (i < 140) return 'Elite';
+  if (i < 170) return 'Premium';
+  return 'Sovereign';
+});
+const BADGES = AMTS.map((_, i) => {
+  const pos = i % 35;
+  if (pos < 3) return 'Series-A';
+  if (pos < 8) return 'Series-B';
+  if (pos < 14) return 'Core';
+  if (pos < 21) return 'Plus';
+  if (pos < 28) return 'Prime';
+  return 'Institutional';
+});
+const PLANS = AMTS.map((amt,i) => {
+  const vertical = TRADING_VERTICALS[i % TRADING_VERTICALS.length];
+  return {
+    id:'plan_'+i, invest:amt, total:amt*3,
+    daily: parseFloat((amt*3/60).toFixed(2)),
+    tier:TIERS[i], badge:BADGES[i],
+    vertical: vertical
+  };
+});;;
 
 // ══════════════════════════════════
 // HELPERS
@@ -2181,6 +2322,8 @@ let _myDeps = [], _myWits = [], _myActivity = [];
 let _unsubAdmDep = null, _unsubAdmWit = null, _unsubAdmUsr = null, _unsubAdmTrades = null, _unsubAdmPaidWit = null;
 let _unsubAdmHistDep = null, _unsubAdmHistWit = null;
 let _histDeps = [], _histWits = [], _histFilter = 'all';
+let _depositSettings = { accountNumber: '6558614972', label: 'AURO Collections' };
+let _unsubDepositSettings = null;
 
 // ══════════════════════════════════
 // UI HELPERS
@@ -2211,7 +2354,7 @@ function go(pid, nid) {
   if (pid === 'p-deposit') {
     const qr = document.getElementById('dep-qr');
     if (qr && !qr.getAttribute('data-loaded')) {
-      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=' + encodeURIComponent(_depositSettings.accountNumber || '6558614972') + '&bgcolor=ffffff&color=000000&margin=4';
       qr.setAttribute('data-loaded', '1');
     }
   }
@@ -2259,6 +2402,7 @@ function showApp() {
   go('p-home','n-home');
   initTicker();
   runStopgapCleanup();
+  loadDepositSettings();
 }
 
 // ══════════════════════════════════
@@ -2466,8 +2610,9 @@ function openInvModal(planId) {
   const plan = PLANS.find(p => p.id===planId); if (!plan) return;
   _planId = planId;
   const g = id => document.getElementById(id);
-  g('m-t').textContent = (TC[plan.tier]?TC[plan.tier].name+' · ':'')+plan.tier+' Plan';
-  g('m-s').textContent = 'Invest '+fmt(plan.invest)+' · Earn '+fmt(plan.total)+' over 60 days';
+  const info = TIER_INFO[plan.tier];
+  g('m-t').textContent = (TC[plan.tier]?TC[plan.tier].name+' · ':'')+plan.tier+' Vault · '+ (info?info.mandate:'Structured Growth Vault');
+  g('m-s').textContent = 'Allocation '+fmt(plan.invest)+' · Maturity '+fmt(plan.total)+' over 60 days · '+ (info?info.sector:'Managed Mandate');
   g('m-inv').textContent = fmt(plan.invest);
   g('m-ret').textContent = fmt(plan.total);
   g('m-daily').textContent = fmt(plan.daily)+' / day';
@@ -2561,13 +2706,16 @@ function updDep() {
   if (errEl) errEl.style.display = (v > 0 && (v < 5000 || v > 1000000)) ? 'block' : 'none';
   // Enable/disable continue button
   const btn = document.getElementById('dep-continue-btn');
-  if (btn) btn.classList.toggle('ready', v >= 5000 && v <= 1000000);
+  if (btn) btn.classList.toggle('ready', v >= 3000 && v <= 1000000);
 }
 
 function goDepStep2() {
   const v = _depAmt;
-  if (v < 5000)     { toast('Minimum deposit is ₦5,000'); return; }
+  if (v < 3000)     { toast('Minimum deposit is ₦3,000'); return; }
   if (v > 1000000)  { toast('Maximum deposit is ₦1,000,000'); return; }
+  // Sync latest account number into the deposit UI
+  const acctDisplay = document.getElementById('dep-display-acct');
+  if (acctDisplay) acctDisplay.textContent = _depositSettings.accountNumber || '6558614972';
 
   // Lock amount into step 2 display
   const lockedEl = document.getElementById('dep-locked-val');
@@ -2614,7 +2762,7 @@ function goDepStep2() {
     // Load QR code once
     const qr = document.getElementById('dep-qr');
     if (qr && !qr.getAttribute('data-loaded')) {
-      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=6558614972&bgcolor=ffffff&color=000000&margin=4';
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=144x144&data=' + encodeURIComponent(_depositSettings.accountNumber || '6558614972') + '&bgcolor=ffffff&color=000000&margin=4';
       qr.setAttribute('data-loaded', '1');
     }
     window.scrollTo(0, 0);
@@ -2632,7 +2780,7 @@ function goDepStep1() {
 async function doDeposit() {
   if (!_user) return;
   const v = _depAmt;
-  if (v < 5000)    { toast('Minimum deposit is ₦5,000'); return; }
+  if (v < 3000)    { toast('Minimum deposit is ₦3,000'); return; }
   if (v > 1000000) { toast('Maximum deposit is ₦1,000,000'); return; }
   showLoader(true, 'Submitting your request…');
   try {
@@ -2892,28 +3040,46 @@ function renderWallet() {
 // ══════════════════════════════════
 const TIER_INFO = {
   Starter: {
-    sector: 'Micro-Cap Memecoins',
-    detail: 'Your capital is deployed in active trading of micro-cap memecoins on decentralised exchanges — tokens with low market caps that produce explosive short-term price movements when momentum builds. Capital is rotated rapidly across early-stage coins identified by our on-chain analysts, with gains locked in and recycled daily to generate your consistent returns.'
+    sector: 'Digital Assets – Micro Cap',
+    mandate: 'Short-Term Momentum Mandate',
+    capitalUse: 'Capital allocated to this mandate is deployed via our Digital Assets desk into micro-capitalization tokens (<$5M) on decentralised exchanges (Raydium, Uniswap, PancakeSwap) using on-chain analytics and wallet flow tracking.',
+    detail: 'Designed for first-time allocators seeking exposure to high-velocity digital asset markets with professional execution and daily settlement.',
+    strategy: 'Systematic rotation, intraday profit capture, diversified across multiple tokens.'
   },
   Builder: {
-    sector: 'New Crypto Launches & Airdrops',
-    detail: 'Your capital is deployed in participating in high-priority token generation events, IDOs, and strategic airdrop campaigns across emerging Layer-1 and Layer-2 ecosystems. Capital secures early allocation in new launches before public listing — where the highest percentage gains are captured — with proceeds distributed as daily returns throughout the 60-day cycle.'
+    sector: 'Venture – Token Launches',
+    mandate: 'Early-Stage Allocation Mandate',
+    capitalUse: 'Capital is deployed into private allocations, IDOs, Launchpad subscriptions and structured airdrop farming across Base, Solana and emerging L1/L2 ecosystems, including vesting management and testnet/mainnet operations.',
+    detail: 'Provides access to pre-public pricing and incentive programs typically restricted to institutional participants.',
+    strategy: 'Primary market access, allocation syndication, farming infrastructure.'
   },
   Growth: {
-    sector: 'Leveraged Crypto Futures',
-    detail: 'Your capital is deployed in the execution of leveraged long and short positions on crypto futures markets including Bitcoin, Ethereum, and high-volatility altcoins. Our trading desk uses disciplined risk management, tight stop-losses, and algorithmic entry/exit signals to capture intraday and swing moves, converting market volatility directly into daily payouts.'
+    sector: 'Derivatives – Crypto Futures',
+    mandate: 'Systematic Futures Mandate',
+    capitalUse: 'Deployed through institutional accounts on Binance, Bybit and OKX. The desk executes systematic long/short futures strategies on BTC, ETH and SOL with defined risk parameters.',
+    detail: '24/7 trading desk utilizing algorithmic entry/exit, stop-loss discipline and funding rate arbitrage.',
+    strategy: 'Trend-following, mean-reversion, funding arbitrage.'
   },
   Elite: {
-    sector: 'Prediction Markets',
-    detail: 'Your capital is deployed across decentralised and centralised prediction markets — platforms where traders stake on the outcome of real-world events including elections, sports fixtures, macroeconomic data releases, and crypto price targets. Edge comes from superior research and probability modelling, turning information asymmetry into daily compounding returns.'
+    sector: 'Event-Driven – Prediction Markets',
+    mandate: 'Event Arbitrage Mandate',
+    capitalUse: 'Capital is staked across regulated prediction venues (Polymarket, Kalshi) covering elections, macroeconomic releases, sports outcomes and crypto price benchmarks, hedged across venues.',
+    detail: 'Information arbitrage and probability modelling across hundreds of concurrent event contracts.',
+    strategy: 'Quantitative modelling, cross-venue hedging, diversified event book.'
   },
   Premium: {
-    sector: 'Options & Forex Trading',
-    detail: 'Your capital is deployed in the professional trading of options contracts and major forex pairs including USD/NGN, EUR/USD, and GBP/JPY. Capital is managed by experienced derivatives traders using volatility strategies — straddles, strangles, and directional plays — alongside high-conviction forex setups, producing consistent premium income paid daily.'
+    sector: 'Derivatives – Options & FX',
+    mandate: 'Volatility & FX Mandate',
+    capitalUse: 'Managed by our Derivatives desk trading options premium (straddles, strangles) and spot FX majors (USD/NGN, EUR/USD, GBP/JPY) with institutional brokerage.',
+    detail: 'Volatility harvesting and directional FX strategies executed by experienced derivatives traders.',
+    strategy: 'Premium collection, implied volatility expansion, high-conviction FX.'
   },
   Sovereign: {
-    sector: 'Sports Trading',
-    detail: 'Your capital is deployed in systematic sports trading across global football, basketball, and combat sports markets — not gambling, but data-driven market-making and arbitrage between bookmakers and exchanges. Capital is allocated by quantitative analysts using statistical models, live odds movements, and value-betting algorithms that generate an edge across hundreds of events daily.'
+    sector: 'Quantitative – Sports Market Making',
+    mandate: 'Market-Making Mandate',
+    capitalUse: 'Systematic market-making between retail bookmakers (Bet365, Pinnacle) and betting exchanges (Betfair) across football, basketball and combat sports – 200-500 events per day.',
+    detail: 'Quantitative, data-driven approach with statistical pricing models and live odds infrastructure.',
+    strategy: 'Market-making, value detection, arbitrage.'
   }
 };
 
@@ -2937,33 +3103,36 @@ function renderPlans() {
   setMarketStatusChip();
   document.getElementById('plans-c').innerHTML = PLANS.map(p => {
     const t = TC[p.tier];
-    const info = TIER_INFO[p.tier];
-    const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${t.r};border-color:${t.pbd}`;
-    return `<div class="plan-item" style="--pi-l:${t.l};--pi-glow:${t.glow}" onclick="openInvModal('${p.id}')">
+    const v = p.vertical;
+    const bs = t.solid ? `background:${t.bg};color:${t.fc};border-color:transparent` : `color:${v.color};border-color:${v.color}33`;
+    return `<div class="plan-item" style="--pi-l:${v.color}55;--pi-glow:${v.color}18" onclick="openInvModal('${p.id}')">
       <div class="pi-atm"></div>
       <div class="pi-top">
         <div class="pi-id">
-          <div class="pi-ico" style="background:${t.pb};color:${t.pc}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${t.icon}</svg></div>
-          <div><div class="pi-name">${t.name}</div><div class="pi-tier">${p.tier} Market · ${fmt(p.invest)}</div></div>
+          <div class="pi-ico" style="background:${v.color}18;color:${v.color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${v.icon}</svg></div>
+          <div><div class="pi-name">${v.name}</div><div class="pi-tier">${v.sector} · ${v.mandate} · ${fmt(p.invest)}</div></div>
         </div>
-        <div class="pi-badge" style="background:${t.pb};color:${t.pc};border-color:${t.pbd}">${p.badge}</div>
+        <div class="pi-badge" style="background:${v.color}18;color:${v.color};border-color:${v.color}33">${p.badge}</div>
       </div>
       <div class="pi-figs">
-        <div class="pi-invest"><div class="pi-lbl">You Allocate</div><div class="pi-val">${fmt(p.invest)}</div></div>
+        <div class="pi-invest"><div class="pi-lbl">Allocation</div><div class="pi-val">${fmt(p.invest)}</div></div>
         <div class="pi-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-        <div class="pi-return"><div class="pi-lbl">You Receive</div><div class="pi-ret-v" style="color:${t.r}">${fmt(p.total)}</div></div>
+        <div class="pi-return"><div class="pi-lbl">Maturity Value</div><div class="pi-ret-v" style="color:${v.color}">${fmt(p.total)}</div></div>
       </div>
       <div class="pi-meta">
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60 days</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">200% ROI</strong></div>
-        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${t.r}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">Secured</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong style="color:var(--plat)">60-Day Term</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V12M9 20V8M13 20V4M17 20V10"/></svg><strong style="color:var(--plat)">Target 200% Net</strong></div>
+        <div class="pi-chip"><svg viewBox="0 0 24 24" fill="none" stroke="${v.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><strong style="color:var(--plat)">${v.sector}</strong></div>
       </div>
-      <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-bottom:10px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${t.r};margin-bottom:4px">${info.sector}</div>
-        <div style="font-size:10px;color:var(--sil);line-height:1.65;font-weight:300">${info.detail}</div>
+      <div style="background:rgba(17,20,43,.03);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${v.color}">CAPITAL DEPLOYMENT</div>
+          <div style="font-size:8px;font-weight:600;color:#fff;background:${v.color};padding:2px 6px;border-radius:4px">${v.sector.toUpperCase()}</div>
+        </div>
+        <div style="font-size:11px;color:var(--plat);line-height:1.65;font-weight:400">${v.capitalUse}</div>
       </div>
-      <div class="pi-daily">Daily Yield Target: <strong>${fmt(p.daily)}</strong> for 60 days</div>
-      <button class="pi-cta" style="${bs}">Open Position — ${fmt(p.invest)}</button>
+      <div class="pi-daily">Daily Accrual Target: <strong>${fmt(p.daily)}</strong> for 60 days · ${v.name}</div>
+      <button class="pi-cta" style="${bs}">Allocate ${fmt(p.invest)} to ${v.name}</button>
     </div>`;
   }).join('');
 }
@@ -3077,7 +3246,7 @@ function switchPlansTab(tab) {
   document.getElementById('mkt-sec-browse').style.display = tab==='browse' ? '' : 'none';
   document.getElementById('mkt-sec-positions').style.display = tab==='positions' ? '' : 'none';
 }
-// Jumps straight into Yield Markets with the Positions tab pre-selected —
+// Jumps straight into Fixed-Term Vaults with the Positions tab pre-selected —
 // used by the home page claim banner and position preview cards.
 function openMyPositions() {
   go('p-plans','n-earn');
@@ -6054,18 +6223,21 @@ async function showUserHistory(userId) {
   document.getElementById('hist-body').innerHTML = '<div class="hist-empty">Loading activity…</div>';
   modal.classList.add('open');
 
-  let deps = [], wits = [];
+  let deps = [], wits = [], activityDocs = [];
   try {
-    const [depSnap, witSnap] = await Promise.all([
+    const [depSnap, witSnap, actSnap] = await Promise.all([
       db.collection('deposits').where('userId','==',userId).get(),
-      db.collection('withdrawals').where('userId','==',userId).get()
+      db.collection('withdrawals').where('userId','==',userId).get(),
+      db.collection('users').doc(userId).collection('activity').orderBy('ts','desc').limit(200).get()
     ]);
     deps = depSnap.docs.map(d => ({ id:d.id, ...d.data() }));
     wits = witSnap.docs.map(d => ({ id:d.id, ...d.data() }));
+    activityDocs = actSnap.docs.map(d => ({ id:d.id, ...d.data() }));
   } catch (e) { console.error('showUserHistory fetch error', e); }
 
   const invs = u.investments || [];
-  const ledger = u.earnLedger || [];
+  // New users store earn activity in subcollection, not earnLedger array
+  const ledger = activityDocs.length ? activityDocs : (u.earnLedger || []);
 
   const items = [];
   deps.forEach(d => items.push({ cat:'deposit', ts:d.date, amount:d.amount, raw:d }));
@@ -6086,8 +6258,8 @@ async function showUserHistory(userId) {
   document.getElementById('hist-stats').innerHTML = `
     <div class="hist-stat-tile"><div class="hist-stat-k">Deposited</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(totalDep)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Withdrawn</div><div class="hist-stat-v" style="color:var(--err)">${fmt(totalWit)}</div></div>
-    <div class="hist-stat-tile"><div class="hist-stat-k">In Yield Markets</div><div class="hist-stat-v">${fmt(totalYieldIn)}</div></div>
-    <div class="hist-stat-tile"><div class="hist-stat-k">Yield Earned</div><div class="hist-stat-v" style="color:var(--gold)">${fmt(totalYieldEarned)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">In Fixed-Term Vaults</div><div class="hist-stat-v">${fmt(totalYieldIn)}</div></div>
+    <div class="hist-stat-tile"><div class="hist-stat-k">Return Earned</div><div class="hist-stat-v" style="color:var(--gold)">${fmt(totalYieldEarned)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Games Net</div><div class="hist-stat-v" style="color:${gamesNet>=0?'var(--ok)':'var(--err)'}">${gamesNet>=0?'+':''}${fmt(gamesNet)}</div></div>
     <div class="hist-stat-tile"><div class="hist-stat-k">Referral Earned</div><div class="hist-stat-v" style="color:var(--ok)">${fmt(refEarned)}</div></div>
   `;
@@ -6129,6 +6301,42 @@ function renderHistActivity() {
       <div class="ea-pnl" style="color:${amtColor}">${amtTxt}</div>
     </div>`;
   }).join('');
+}
+
+// ══════════════════════════════════
+// ADMIN — DEPOSIT SETTINGS
+// ══════════════════════════════════
+function loadDepositSettings() {
+  if (_unsubDepositSettings) _unsubDepositSettings();
+  _unsubDepositSettings = db.collection('_meta').doc('depositSettings').onSnapshot(snap => {
+    if (snap.exists) {
+      const d = snap.data();
+      _depositSettings.accountNumber = d.accountNumber || _depositSettings.accountNumber;
+      _depositSettings.label = d.label || _depositSettings.label;
+    }
+    const acctInput = document.getElementById('adm-dep-acct');
+    const lblInput = document.getElementById('adm-dep-label');
+    if (acctInput && !acctInput.matches(':focus')) acctInput.value = _depositSettings.accountNumber;
+    if (lblInput && !lblInput.matches(':focus')) lblInput.value = _depositSettings.label;
+  }, e => console.error('depositSettings error:', e));
+}
+async function saveDepositSettings() {
+  const acct = (document.getElementById('adm-dep-acct').value || '').trim();
+  const lbl = (document.getElementById('adm-dep-label').value || '').trim();
+  if (!acct || acct.length < 10) { toast('Enter a valid account number (min 10 digits)'); return; }
+  const status = document.getElementById('adm-dep-status');
+  if (status) status.textContent = 'Saving…';
+  try {
+    await db.collection('_meta').doc('depositSettings').set({ accountNumber: acct, label: lbl || 'AURO Collections', updatedAt: nowISO() }, { merge: true });
+    _depositSettings.accountNumber = acct;
+    _depositSettings.label = lbl || 'AURO Collections';
+    if (status) { status.textContent = 'Saved ✓'; status.style.color = 'var(--ok)'; setTimeout(() => { status.textContent = ''; status.style.color = ''; }, 2000); }
+    toast('Deposit account updated');
+  } catch (e) {
+    console.error(e);
+    if (status) { status.textContent = 'Failed — check connection'; status.style.color = 'var(--err)'; }
+    toast('Could not save account settings');
+  }
 }
 
 // ══════════════════════════════════
